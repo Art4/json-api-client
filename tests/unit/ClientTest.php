@@ -1,8 +1,8 @@
 <?php
 
-namespace Youthweb\JsonApiClient\Tests;
+namespace Art4\JsonApiClient\Tests;
 
-use Youthweb\JsonApiClient\Client;
+use Art4\JsonApiClient\Client;
 use InvalidArgumentException;
 
 class ClientTest extends \PHPUnit_Framework_TestCase
@@ -14,7 +14,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	{
 		$jsonapi = '{"meta":{}}';
 
-		$this->assertInstanceOf('Youthweb\JsonApiClient\Document', Client::parse($jsonapi));
+		$this->assertInstanceOf('Art4\JsonApiClient\Document', Client::parse($jsonapi));
 	}
 
 	/**

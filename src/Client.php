@@ -1,11 +1,11 @@
 <?php
 
-namespace Youthweb\JsonApiClient;
+namespace Art4\JsonApiClient;
 
 /**
  * PHP JSON API client
  *
- * Website: http://github.com/youthweb/json-api-client
+ * Website: http://github.com/Art4/json-api-client
  */
 class Client
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Youthweb\JsonApiClient\Tests;
+namespace Art4\JsonApiClient\Tests;
 
-use Youthweb\JsonApiClient\Document;
+use Art4\JsonApiClient\Document;
 use InvalidArgumentException;
 
 class DocumentTest extends \PHPUnit_Framework_TestCase
@@ -17,7 +17,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 
 		$document = new Document;
 
-		$this->assertInstanceOf('Youthweb\JsonApiClient\Document', $document->parse($object));
+		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document->parse($object));
 	}
 
 	/**

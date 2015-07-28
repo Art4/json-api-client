@@ -1,14 +1,14 @@
 {
-    "name": "youthweb/json-api-client",
+    "name": "art4/json-api-client",
     "type": "library",
     "description": "JSON API client",
-    "homepage": "https://github.com/youthweb/json-api-client",
+    "homepage": "https://github.com/Art4/json-api-client",
     "keywords": ["json", "api", "json-api", "client", "reader"],
     "license": "GPL2",
     "authors": [
         {
             "name": "Artur Weigandt",
-            "email": "art4@youthweb.net",
+            "email": "art4@wlabs.net",
             "homepage": "http://wlabs.de"
         }
     ],
@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Youthweb\\JsonApiClient\\": "src"
+            "Art4\\JsonApiClient\\": "src"
         }
     }
 }

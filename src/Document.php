@@ -1,11 +1,11 @@
 <?php
 
-namespace Youthweb\JsonApiClient;
+namespace Art4\JsonApiClient;
 
 /**
- * PHP JSON API client
+ * Document Top Level Object
  *
- * Website: http://github.com/youthweb/json-api-client
+ * @see http://jsonapi.org/format/#document-top-level
  */
 class Document
 {
