@@ -1,6 +1,6 @@
 <?php
 
-include_once(__DIR__.'/../src/autoload.php');
+//include_once(__DIR__.'/../src/autoload.php');
 
 if ( ! @include_once __DIR__.'/../vendor/autoload.php')
 {
