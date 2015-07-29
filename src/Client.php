@@ -44,8 +44,6 @@ class Client
 			throw new \InvalidArgumentException('Unable to parse JSON data: ' . $error);
 		}
 
-		$document = new Document;
-
-		return $document->parse($data);
+		return new Document($data);
 	}
 }

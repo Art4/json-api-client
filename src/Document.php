@@ -28,7 +28,7 @@ class Document
 	 *
 	 * @throws \InvalidArgumentException
 	 */
-	public function parse($object)
+	public function __construct($object)
 	{
 		if ( ! is_object($object) )
 		{

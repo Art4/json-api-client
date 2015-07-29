@@ -8,16 +8,14 @@ use InvalidArgumentException;
 class DocumentTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @test parse() with object returns self
+	 * @test create with object returns self
 	 */
-	public function testParseWithObjectReturnsSelf()
+	public function testCreateWithObjectReturnsSelf()
 	{
 		$object = new \stdClass();
 		$object->meta = new \stdClass();
 
-		$document = new Document;
-
-		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document->parse($object));
+		$this->assertInstanceOf('Art4\JsonApiClient\Document', new Document($object));
 	}
 
 	/**
@@ -25,13 +23,11 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * A JSON object MUST be at the root of every JSON API request and response containing data.
 	 */
-	public function testParseWithoutObjectThrowsException()
+	public function testCreateWithoutObjectThrowsException()
 	{
 		$string = '';
 
-		$document = new Document;
-
-		$document->parse($string);
+		$document = new Document($string);
 	}
 
 	/**
@@ -39,13 +35,11 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * A document MUST contain at least one of the following top-level members: data, errors, meta
 	 */
-	public function testParseWithoutAnyToplevelMemberThrowsException()
+	public function testCreateWithoutAnyToplevelMemberThrowsException()
 	{
 		$object = new \stdClass();
 
-		$document = new Document;
-
-		$document->parse($object);
+		$document = new Document($object);
 	}
 
 	/**
@@ -53,15 +47,13 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * The members `data` and `errors` MUST NOT coexist in the same document.
 	 */
-	public function testParseWithDataAndErrorsThrowsException()
+	public function testCreateWithDataAndErrorsThrowsException()
 	{
 		$object = new \stdClass();
 		$object->data = new \stdClass();
 		$object->errors = array();
 
-		$document = new Document;
-
-		$document->parse($object);
+		$document = new Document($object);
 	}
 
 	/**
@@ -69,14 +61,12 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * If a document does not contain a top-level `data` key, the `included` member MUST NOT be present either.
 	 */
-	public function testParseIncludedWithoutDataThrowsException()
+	public function testCreateIncludedWithoutDataThrowsException()
 	{
 		$object = new \stdClass();
 		$object->included = new \stdClass();
 		$object->meta = new \stdClass();
 
-		$document = new Document;
-
-		$document->parse($object);
+		$document = new Document($object);
 	}
 }
