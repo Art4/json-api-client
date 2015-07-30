@@ -169,17 +169,6 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
-	 */
-	public function testCreateWithDataStringThrowsException()
-	{
-		$object = new \stdClass();
-		$object->data = 'string';
-
-		$document = new Document($object);
-	}
-
-	/**
 	 * @test create with an error array
 	 */
 	public function testCreateWithErrorsArray()

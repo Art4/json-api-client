@@ -78,17 +78,25 @@ class Document
 				throw new \InvalidArgumentException('If $object does not contain a `data` property, the `included` property MUST NOT be present either.');
 			}
 
-			$this->included = $object->included;
+			if ( ! is_array($object->included) )
+			{
+				throw new \InvalidArgumentException('included member has to be an array, "' . gettype($object->included) . '" given.');
+			}
+
+			foreach ($object->included as $resource_obj)
+			{
+				$this->addInclude(new Resource($resource_obj));
+			}
 		}
 
 		if ( property_exists($object, 'jsonapi') )
 		{
-			$this->jsonapi = $object->jsonapi;
+			$this->jsonapi = new Jsonapi($object->jsonapi);
 		}
 
 		if ( property_exists($object, 'links') )
 		{
-			$this->links = $object->links;
+			$this->links = new Link($object->links);
 		}
 
 		return $this;
@@ -166,6 +174,33 @@ class Document
 		}
 
 		return $this->meta;
+	}
+
+	/**
+	 * Check if jsonapi exists in this document
+	 *
+	 * @return bool true if jsonapi exists, false if not
+	 */
+	public function hasJsonapi()
+	{
+		return $this->jsonapi !== null;
+	}
+
+	/**
+	 * Get the jsonapi object of this document
+	 *
+	 * @throws \RuntimeException If jsonapi wasn't set, you can't get it
+	 *
+	 * @return Jsonapi The jsonapi object
+	 */
+	public function getJsonapi()
+	{
+		if ( ! $this->hasJsonapi() )
+		{
+			throw new \RuntimeException('You can\'t get "jsonapi", because it wasn\'t set.');
+		}
+
+		return $this->jsonapi;
 	}
 
 	/**
@@ -257,6 +292,19 @@ class Document
 	}
 
 	/**
+	 * Add an Resource object to the included property
+	 *
+	 * @param Resource $resource The Resource
+	 * @return self
+	 */
+	protected function addInclude(Resource $resource)
+	{
+		$this->included[] = $resource;
+
+		return $this;
+	}
+
+	/**
 	 * Set the meta for this document
 	 *
 	 * @throws \InvalidArgumentException If $meta isn't an object
@@ -266,11 +314,6 @@ class Document
 	 */
 	protected function setMeta($meta)
 	{
-		if ( ! is_object($meta) )
-		{
-			throw new \InvalidArgumentException('Meta value has to be an object, "' . gettype($meta) . '" given.');
-		}
-
 		$this->meta = new Meta($meta);
 	}
 }
