@@ -199,8 +199,6 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreateWithMetaObject()
 	{
-		$this->markTestIncomplete('This test has not been implemented yet.');
-
 		$object = new \stdClass();
 		$object->meta = new \stdClass();
 
@@ -217,12 +215,49 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * A document MUST contain at least one of the following top-level members: meta: a meta object
 	 */
-	public function testCreateWithoutMetaObjectThrowsException()
+	public function testCreateWithMetaArrayThrowsException()
 	{
-		$this->markTestIncomplete('This test has not been implemented yet.');
-
 		$object = new \stdClass();
 		$object->meta = array();
+
+		$document = new Document($object);
+	}
+
+	/**
+	 * @expectedException InvalidArgumentException
+	 *
+	 * A document MUST contain at least one of the following top-level members: meta: a meta object
+	 */
+	public function testCreateWithMetaNullThrowsException()
+	{
+		$object = new \stdClass();
+		$object->meta = null;
+
+		$document = new Document($object);
+	}
+
+	/**
+	 * @expectedException InvalidArgumentException
+	 *
+	 * A document MUST contain at least one of the following top-level members: meta: a meta object
+	 */
+	public function testCreateWithMetaIntegerThrowsException()
+	{
+		$object = new \stdClass();
+		$object->meta = 'string';
+
+		$document = new Document($object);
+	}
+
+	/**
+	 * @expectedException InvalidArgumentException
+	 *
+	 * A document MUST contain at least one of the following top-level members: meta: a meta object
+	 */
+	public function testCreateWithMetaBooleanThrowsException()
+	{
+		$object = new \stdClass();
+		$object->meta = false;
 
 		$document = new Document($object);
 	}

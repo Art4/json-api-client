@@ -3,9 +3,9 @@
 namespace Art4\JsonApiClient;
 
 /**
- * Document Top Level Object
+ * Error Object
  *
- * @see http://jsonapi.org/format/#document-top-level
+ * @see http://jsonapi.org/format/#error-objects
  */
 class Error
 {

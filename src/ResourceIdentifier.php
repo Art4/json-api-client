@@ -3,9 +3,9 @@
 namespace Art4\JsonApiClient;
 
 /**
- * Document Top Level Object
+ * Resource Identifier Object
  *
- * @see http://jsonapi.org/format/#document-top-level
+ * @see http://jsonapi.org/format/#document-resource-identifier-objects
  */
 class ResourceIdentifier
 {

@@ -55,7 +55,7 @@ class Document
 
 		if ( property_exists($object, 'meta') )
 		{
-			$this->meta = $object->meta;
+			$this->setMeta($object->meta);
 		}
 
 		if ( property_exists($object, 'errors') )
@@ -105,17 +105,17 @@ class Document
 	}
 
 	/**
-	 * Get the errors of this document
+	 * Get the data of this document
 	 *
 	 * @throws \RuntimeException If data wasn't set, you can't get it
 	 *
-	 * @return Data The errors or an empty array
+	 * @return null|ResourceIdentifier|Resource The data
 	 */
 	public function getData()
 	{
 		if ( ! $this->hasData() )
 		{
-			throw new \RuntimeException('You can\'t get "data", because it wasn\'t set yet.');
+			throw new \RuntimeException('You can\'t get "data", because it wasn\'t set.');
 		}
 
 		return $this->data;
@@ -139,6 +139,33 @@ class Document
 	public function getErrors()
 	{
 		return $this->errors;
+	}
+
+	/**
+	 * Check if meta exists in this document
+	 *
+	 * @return bool true if meta exists, false if not
+	 */
+	public function hasMeta()
+	{
+		return $this->meta !== null;
+	}
+
+	/**
+	 * Get the meta of this document
+	 *
+	 * @throws \RuntimeException If meta wasn't set, you can't get it
+	 *
+	 * @return Meta The meta object
+	 */
+	public function getMeta()
+	{
+		if ( ! $this->hasMeta() )
+		{
+			throw new \RuntimeException('You can\'t get "meta", because it wasn\'t set.');
+		}
+
+		return $this->meta;
 	}
 
 	/**
@@ -227,5 +254,23 @@ class Document
 		$this->errors[] = $error;
 
 		return $this;
+	}
+
+	/**
+	 * Set the meta for this document
+	 *
+	 * @throws \InvalidArgumentException If $meta isn't an object
+	 *
+	 * @param null|ResourceIdentifier $data The Data
+	 * @return self
+	 */
+	protected function setMeta($meta)
+	{
+		if ( ! is_object($meta) )
+		{
+			throw new \InvalidArgumentException('Meta value has to be an object, "' . gettype($meta) . '" given.');
+		}
+
+		$this->meta = new Meta($meta);
 	}
 }
