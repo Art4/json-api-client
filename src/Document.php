@@ -67,6 +67,11 @@ class Document
 				throw new \InvalidArgumentException('Errors have to be in an array, "' . gettype($object->errors) . '" given.');
 			}
 
+			if ( count($object->errors) === 0 )
+			{
+				throw new \InvalidArgumentException('Errors array cannot be empty and MUST have at least one object');
+			}
+
 			foreach ($object->errors as $error_obj)
 			{
 				$this->addError(new Error($error_obj));
@@ -98,7 +103,7 @@ class Document
 
 		if ( property_exists($object, 'links') )
 		{
-			$this->links = new Link($object->links);
+			$this->links = new DocumentLink($object->links);
 		}
 
 		return $this;
@@ -179,11 +184,65 @@ class Document
 	}
 
 	/**
+	 * Check if links exists in this document
+	 *
+	 * @return bool true if links exists, false if not
+	 */
+	public function hasLinks()
+	{
+		return $this->links !== null;
+	}
+
+	/**
+	 * Get the links object of this document
+	 *
+	 * @throws \RuntimeException If links wasn't set, you can't get it
+	 *
+	 * @return DocumentLink The link object
+	 */
+	public function getLinks()
+	{
+		if ( ! $this->hasLinks() )
+		{
+			throw new \RuntimeException('You can\'t get "links", because it wasn\'t set.');
+		}
+
+		return $this->links;
+	}
+
+	/**
+	 * Check if included exists in this document
+	 *
+	 * @return bool true if included exists, false if not
+	 */
+	public function hasIncluded()
+	{
+		return $this->included !== null;
+	}
+
+	/**
+	 * Get the included objects array of this document
+	 *
+	 * @throws \RuntimeException If included wasn't set, you can't get it
+	 *
+	 * @return Resource[] The included objects as array
+	 */
+	public function getIncluded()
+	{
+		if ( ! $this->hasIncluded() )
+		{
+			throw new \RuntimeException('You can\'t get "included", because it wasn\'t set.');
+		}
+
+		return $this->included;
+	}
+
+	/**
 	 * Set the data for this document
 	 *
 	 * @throws \InvalidArgumentException If $data isn't null or ResourceIdentifier
 	 *
-	 * @param null|ResourceIdentifier $data The Data
+	 * @param null|object $data The Data
 	 * @return self
 	 */
 	protected function setData($data)

@@ -19,53 +19,20 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @dataProvider jsonValuesProvider
 	 *
 	 * A JSON object MUST be at the root of every JSON API request and response containing data.
 	 */
-	public function testCreateWithStringThrowsException()
+	public function testCreateWithDataproviderThrowsException($input)
 	{
-		$document = new Document('');
-	}
+		// Skip if $input is an object
+		if ( gettype($input) === 'object' )
+		{
+			return;
+		}
 
-	/**
-	 * @expectedException InvalidArgumentException
-	 *
-	 * A JSON object MUST be at the root of every JSON API request and response containing data.
-	 */
-	public function testCreateWithArrayThrowsException()
-	{
-		$document = new Document(array());
-	}
-
-	/**
-	 * @expectedException InvalidArgumentException
-	 *
-	 * A JSON object MUST be at the root of every JSON API request and response containing data.
-	 */
-	public function testCreateWithIntegerThrowsException()
-	{
-		$document = new Document(123);
-	}
-
-	/**
-	 * @expectedException InvalidArgumentException
-	 *
-	 * A JSON object MUST be at the root of every JSON API request and response containing data.
-	 */
-	public function testCreateWithBooleanThrowsException()
-	{
-		$document = new Document(true);
-	}
-
-	/**
-	 * @expectedException InvalidArgumentException
-	 *
-	 * A JSON object MUST be at the root of every JSON API request and response containing data.
-	 */
-	public function testCreateWithNullThrowsException()
-	{
-		$document = new Document(null);
+		$this->setExpectedException('InvalidArgumentException');
+		$document = new Document($input);
 	}
 
 	/**
@@ -160,14 +127,14 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertTrue($document->hasData());
 
-		$datas = $document->getData();
+		$resources = $document->getData();
 
-		$this->assertTrue(is_array($datas));
-		$this->assertTrue( count($datas) === 1);
+		$this->assertTrue(is_array($resources));
+		$this->assertTrue( count($resources) === 1);
 
-		foreach ($datas as $data)
+		foreach ($resources as $resource)
 		{
-			$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $data);
+			$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $resource);
 		}
 	}
 
@@ -190,14 +157,14 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertTrue($document->hasData());
 
-		$datas = $document->getData();
+		$resources = $document->getData();
 
-		$this->assertTrue(is_array($datas));
-		$this->assertTrue( count($datas) === 1);
+		$this->assertTrue(is_array($resources));
+		$this->assertTrue( count($resources) === 1);
 
-		foreach ($datas as $data)
+		foreach ($resources as $resource)
 		{
-			$this->assertInstanceOf('Art4\JsonApiClient\Resource', $data);
+			$this->assertInstanceOf('Art4\JsonApiClient\Resource', $resource);
 		}
 	}
 
@@ -214,14 +181,14 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertTrue($document->hasData());
 
-		$datas = $document->getData();
+		$resources = $document->getData();
 
-		$this->assertTrue(is_array($datas));
-		$this->assertTrue( count($datas) === 0);
+		$this->assertTrue(is_array($resources));
+		$this->assertTrue( count($resources) === 0);
 	}
 
 	/**
-	 * @test create with an error array
+	 * @test create with an errors array
 	 */
 	public function testCreateWithErrorsArray()
 	{
@@ -248,79 +215,17 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @dataProvider jsonValuesProvider
 	 *
 	 * A document MUST contain at least one of the following top-level members: errors: an array of error objects
+	 * Error objects MUST be returned as an array keyed by errors
 	 */
-	public function testCreateWithObjectInErrorsThrowsException()
+	public function testCreateWithDataproviderInErrorsThrowsException($input)
 	{
+		$this->setExpectedException('InvalidArgumentException');
+
 		$object = new \stdClass();
-		$object->errors = new \stdClass();
-
-		$document = new Document($object);
-	}
-
-	/**
-	 * @expectedException InvalidArgumentException
-	 *
-	 * A document MUST contain at least one of the following top-level members: errors: an array of error objects
-	 */
-	public function testCreateWithStringInErrorsThrowsException()
-	{
-		$object = new \stdClass();
-		$object->errors = 'errors';
-
-		$document = new Document($object);
-	}
-
-	/**
-	 * @expectedException InvalidArgumentException
-	 *
-	 * A document MUST contain at least one of the following top-level members: errors: an array of error objects
-	 */
-	public function testCreateWithIntegerInErrorsThrowsException()
-	{
-		$object = new \stdClass();
-		$object->errors = 45;
-
-		$document = new Document($object);
-	}
-
-	/**
-	 * @expectedException InvalidArgumentException
-	 *
-	 * A document MUST contain at least one of the following top-level members: errors: an array of error objects
-	 */
-	public function testCreateWithTrueInErrorsThrowsException()
-	{
-		$object = new \stdClass();
-		$object->errors = true;
-
-		$document = new Document($object);
-	}
-
-	/**
-	 * @expectedException InvalidArgumentException
-	 *
-	 * A document MUST contain at least one of the following top-level members: errors: an array of error objects
-	 */
-	public function testCreateWithFalseInErrorsThrowsException()
-	{
-		$object = new \stdClass();
-		$object->errors = false;
-
-		$document = new Document($object);
-	}
-
-	/**
-	 * @expectedException InvalidArgumentException
-	 *
-	 * A document MUST contain at least one of the following top-level members: errors: an array of error objects
-	 */
-	public function testCreateWithNullInErrorsThrowsException()
-	{
-		$object = new \stdClass();
-		$object->errors = null;
+		$object->errors = $input;
 
 		$document = new Document($object);
 	}
@@ -340,19 +245,70 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @test create with meta object
+	 * @test create with Jsonapi object
 	 */
-	public function testCreateWithMetaObject()
+	public function testCreateWithJsonapiObject()
 	{
 		$object = new \stdClass();
+
 		$object->meta = new \stdClass();
+		$object->jsonapi = new \stdClass();
 
 		$document = new Document($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
-		$this->assertTrue($document->hasMeta());
+		$this->assertTrue($document->hasJsonapi());
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Meta', $document->getMeta());
+		$this->assertInstanceOf('Art4\JsonApiClient\Jsonapi', $document->getJsonapi());
+	}
+
+	/**
+	 * @test create with link object
+	 */
+	public function testCreateWithLinkObject()
+	{
+		$object = new \stdClass();
+
+		$object->meta = new \stdClass();
+		$object->links = new \stdClass();
+
+		$document = new Document($object);
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
+		$this->assertTrue($document->hasLinks());
+
+		$this->assertInstanceOf('Art4\JsonApiClient\DocumentLink', $document->getLinks());
+	}
+
+	/**
+	 * @test create with included objects
+	 */
+	public function testCreateWithIncludedObjects()
+	{
+		$data = new \stdClass();
+		$data->type = 'posts';
+		$data->id = 5;
+
+		$object = new \stdClass();
+		$object->data = $data;
+		$object->included = array(
+			$data,
+		);
+
+		$document = new Document($object);
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
+		$this->assertTrue($document->hasIncluded());
+
+		$resources = $document->getIncluded();
+
+		$this->assertTrue(is_array($resources));
+		$this->assertTrue( count($resources) === 1);
+
+		foreach ($resources as $resource)
+		{
+			$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $resource);
+		}
 	}
 
 	/**
@@ -367,5 +323,23 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$object->meta = new \stdClass();
 
 		$document = new Document($object);
+	}
+
+	/**
+	 * Json Values Provider
+	 *
+	 * @see http://json.org/
+	 */
+	public function jsonValuesProvider()
+	{
+		return array(
+			array(new \stdClass()),
+			array(array()),
+			array('string'),
+			array(456),
+			array(true),
+			array(false),
+			array(null),
+		);
 	}
 }
