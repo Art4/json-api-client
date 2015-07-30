@@ -23,11 +23,49 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * A JSON object MUST be at the root of every JSON API request and response containing data.
 	 */
-	public function testCreateWithoutObjectThrowsException()
+	public function testCreateWithStringThrowsException()
 	{
-		$string = '';
+		$document = new Document('');
+	}
 
-		$document = new Document($string);
+	/**
+	 * @expectedException InvalidArgumentException
+	 *
+	 * A JSON object MUST be at the root of every JSON API request and response containing data.
+	 */
+	public function testCreateWithArrayThrowsException()
+	{
+		$document = new Document(array());
+	}
+
+	/**
+	 * @expectedException InvalidArgumentException
+	 *
+	 * A JSON object MUST be at the root of every JSON API request and response containing data.
+	 */
+	public function testCreateWithIntegerThrowsException()
+	{
+		$document = new Document(123);
+	}
+
+	/**
+	 * @expectedException InvalidArgumentException
+	 *
+	 * A JSON object MUST be at the root of every JSON API request and response containing data.
+	 */
+	public function testCreateWithBooleanThrowsException()
+	{
+		$document = new Document(true);
+	}
+
+	/**
+	 * @expectedException InvalidArgumentException
+	 *
+	 * A JSON object MUST be at the root of every JSON API request and response containing data.
+	 */
+	public function testCreateWithNullThrowsException()
+	{
+		$document = new Document(null);
 	}
 
 	/**
@@ -208,58 +246,6 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue($document->hasMeta());
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Meta', $document->getMeta());
-	}
-
-	/**
-	 * @expectedException InvalidArgumentException
-	 *
-	 * A document MUST contain at least one of the following top-level members: meta: a meta object
-	 */
-	public function testCreateWithMetaArrayThrowsException()
-	{
-		$object = new \stdClass();
-		$object->meta = array();
-
-		$document = new Document($object);
-	}
-
-	/**
-	 * @expectedException InvalidArgumentException
-	 *
-	 * A document MUST contain at least one of the following top-level members: meta: a meta object
-	 */
-	public function testCreateWithMetaNullThrowsException()
-	{
-		$object = new \stdClass();
-		$object->meta = null;
-
-		$document = new Document($object);
-	}
-
-	/**
-	 * @expectedException InvalidArgumentException
-	 *
-	 * A document MUST contain at least one of the following top-level members: meta: a meta object
-	 */
-	public function testCreateWithMetaIntegerThrowsException()
-	{
-		$object = new \stdClass();
-		$object->meta = 'string';
-
-		$document = new Document($object);
-	}
-
-	/**
-	 * @expectedException InvalidArgumentException
-	 *
-	 * A document MUST contain at least one of the following top-level members: meta: a meta object
-	 */
-	public function testCreateWithMetaBooleanThrowsException()
-	{
-		$object = new \stdClass();
-		$object->meta = false;
-
-		$document = new Document($object);
 	}
 
 	/**
