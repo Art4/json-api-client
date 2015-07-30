@@ -88,7 +88,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 	 * - a single resource object, a single resource identifier object, or null, for requests that target single resources
 	 * - an array of resource objects, an array of resource identifier objects, or an empty array ([]), for requests that target resource collections
 	 */
-	public function testCreateDataWithObject()
+	public function testCreateWithDataObject()
 	{
 		$data = new \stdClass();
 		$data->type = 'posts';
@@ -106,9 +106,31 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * @test create with data object advanced
+	 */
+	public function testCreateWithDataObjectAdvanced()
+	{
+		$data = new \stdClass();
+		$data->type = 'posts';
+		$data->id = 5;
+		$data->attributes = new \stdClass();
+		$data->attributes->title = 'The post title';
+
+		$object = new \stdClass();
+		$object->data = $data;
+
+		$document = new Document($object);
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
+		$this->assertTrue($document->hasData());
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource', $document->getData());
+	}
+
+	/**
 	 * @test create with data null
 	 */
-	public function testCreateDataWithNull()
+	public function testCreateWithDataNull()
 	{
 		$object = new \stdClass();
 		$object->data = null;
@@ -124,7 +146,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @test create with data object array
 	 */
-	public function testCreateDataWithObjectArray()
+	public function testCreateWithDataObjectArray()
 	{
 		$data_obj = new \stdClass();
 		$data_obj->type = 'types';
@@ -150,9 +172,39 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * @test create with data object array advanced
+	 */
+	public function testCreateWithDataObjectArrayAdvanced()
+	{
+		$data_obj = new \stdClass();
+		$data_obj->type = 'types';
+		$data_obj->id = 5;
+		$data_obj->attributes = new \stdClass();
+		$data_obj->attributes->title = 'The title';
+
+		$object = new \stdClass();
+		$object->data = array($data_obj);
+
+		$document = new Document($object);
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
+		$this->assertTrue($document->hasData());
+
+		$datas = $document->getData();
+
+		$this->assertTrue(is_array($datas));
+		$this->assertTrue( count($datas) === 1);
+
+		foreach ($datas as $data)
+		{
+			$this->assertInstanceOf('Art4\JsonApiClient\Resource', $data);
+		}
+	}
+
+	/**
 	 * @test create with data empty array
 	 */
-	public function testCreateDataWithEmptyArray()
+	public function testCreateWithDataEmptyArray()
 	{
 		$object = new \stdClass();
 		$object->data = array();
@@ -176,6 +228,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->errors = array(
 			new \stdClass(),
+			new \stdClass(),
 		);
 
 		$document = new Document($object);
@@ -186,7 +239,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$errors = $document->getErrors();
 
 		$this->assertTrue(is_array($errors));
-		$this->assertTrue( count($errors) > 0);
+		$this->assertTrue(count($errors) === 2);
 
 		foreach ($errors as $error)
 		{
@@ -199,10 +252,75 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * A document MUST contain at least one of the following top-level members: errors: an array of error objects
 	 */
-	public function testCreateWithoutArrayInErrorsThrowsException()
+	public function testCreateWithObjectInErrorsThrowsException()
 	{
 		$object = new \stdClass();
 		$object->errors = new \stdClass();
+
+		$document = new Document($object);
+	}
+
+	/**
+	 * @expectedException InvalidArgumentException
+	 *
+	 * A document MUST contain at least one of the following top-level members: errors: an array of error objects
+	 */
+	public function testCreateWithStringInErrorsThrowsException()
+	{
+		$object = new \stdClass();
+		$object->errors = 'errors';
+
+		$document = new Document($object);
+	}
+
+	/**
+	 * @expectedException InvalidArgumentException
+	 *
+	 * A document MUST contain at least one of the following top-level members: errors: an array of error objects
+	 */
+	public function testCreateWithIntegerInErrorsThrowsException()
+	{
+		$object = new \stdClass();
+		$object->errors = 45;
+
+		$document = new Document($object);
+	}
+
+	/**
+	 * @expectedException InvalidArgumentException
+	 *
+	 * A document MUST contain at least one of the following top-level members: errors: an array of error objects
+	 */
+	public function testCreateWithTrueInErrorsThrowsException()
+	{
+		$object = new \stdClass();
+		$object->errors = true;
+
+		$document = new Document($object);
+	}
+
+	/**
+	 * @expectedException InvalidArgumentException
+	 *
+	 * A document MUST contain at least one of the following top-level members: errors: an array of error objects
+	 */
+	public function testCreateWithFalseInErrorsThrowsException()
+	{
+		$object = new \stdClass();
+		$object->errors = false;
+
+		$document = new Document($object);
+	}
+
+	/**
+	 * @expectedException InvalidArgumentException
+	 *
+	 * A document MUST contain at least one of the following top-level members: errors: an array of error objects
+	 */
+	public function testCreateWithNullInErrorsThrowsException()
+	{
+		$object = new \stdClass();
+		$object->errors = null;
 
 		$document = new Document($object);
 	}
