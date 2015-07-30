@@ -2,6 +2,8 @@
 
 namespace Art4\JsonApiClient;
 
+use Art4\JsonApiClient\Utils\MetaTrait;
+
 /**
  * JSON API Object
  *
@@ -9,9 +11,9 @@ namespace Art4\JsonApiClient;
  */
 class Jsonapi
 {
-	protected $version = null;
+	use MetaTrait;
 
-	protected $meta = null;
+	protected $version = null;
 
 	/**
 	 * @param object $object The error object
@@ -34,7 +36,7 @@ class Jsonapi
 
 		if ( property_exists($object, 'meta') )
 		{
-			$this->meta = new Meta($object->meta);
+			$this->setMeta($object->meta);
 		}
 
 		return $this;

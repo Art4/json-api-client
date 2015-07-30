@@ -2,6 +2,8 @@
 
 namespace Art4\JsonApiClient;
 
+use Art4\JsonApiClient\Utils\MetaTrait;
+
 /**
  * Resource Identifier Object
  *
@@ -9,11 +11,11 @@ namespace Art4\JsonApiClient;
  */
 class ResourceIdentifier
 {
+	use MetaTrait;
+
 	protected $type = null;
 
 	protected $id = null;
-
-	protected $meta = null;
 
 	/**
 	 * @param object $object The error object
@@ -44,7 +46,7 @@ class ResourceIdentifier
 
 		if ( property_exists($object, 'meta') )
 		{
-			$this->meta = $object->meta;
+			$this->setMeta($object->meta);
 		}
 
 		return $this;

@@ -2,6 +2,8 @@
 
 namespace Art4\JsonApiClient;
 
+use Art4\JsonApiClient\Utils\MetaTrait;
+
 /**
  * Document Top Level Object
  *
@@ -9,12 +11,12 @@ namespace Art4\JsonApiClient;
  */
 class Document
 {
+	use MetaTrait;
+
 	/**
 	 * @var null|ResourceIdentifier
 	 */
 	protected $data = false; // Cannot be null, because null is a valid value too
-
-	protected $meta = null;
 
 	protected $errors = array();
 
@@ -150,33 +152,6 @@ class Document
 	}
 
 	/**
-	 * Check if meta exists in this document
-	 *
-	 * @return bool true if meta exists, false if not
-	 */
-	public function hasMeta()
-	{
-		return $this->meta !== null;
-	}
-
-	/**
-	 * Get the meta of this document
-	 *
-	 * @throws \RuntimeException If meta wasn't set, you can't get it
-	 *
-	 * @return Meta The meta object
-	 */
-	public function getMeta()
-	{
-		if ( ! $this->hasMeta() )
-		{
-			throw new \RuntimeException('You can\'t get "meta", because it wasn\'t set.');
-		}
-
-		return $this->meta;
-	}
-
-	/**
 	 * Check if jsonapi exists in this document
 	 *
 	 * @return bool true if jsonapi exists, false if not
@@ -302,18 +277,5 @@ class Document
 		$this->included[] = $resource;
 
 		return $this;
-	}
-
-	/**
-	 * Set the meta for this document
-	 *
-	 * @throws \InvalidArgumentException If $meta isn't an object
-	 *
-	 * @param null|ResourceIdentifier $data The Data
-	 * @return self
-	 */
-	protected function setMeta($meta)
-	{
-		$this->meta = new Meta($meta);
 	}
 }

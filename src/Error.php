@@ -2,6 +2,8 @@
 
 namespace Art4\JsonApiClient;
 
+use Art4\JsonApiClient\Utils\MetaTrait;
+
 /**
  * Error Object
  *
@@ -9,6 +11,8 @@ namespace Art4\JsonApiClient;
  */
 class Error
 {
+	use MetaTrait;
+
 	protected $id = null;
 
 	protected $links = null;
@@ -22,8 +26,6 @@ class Error
 	protected $detail = null;
 
 	protected $source = null;
-
-	protected $meta = null;
 
 	/**
 	 * @param object $object The error object
@@ -76,7 +78,7 @@ class Error
 
 		if ( property_exists($object, 'meta') )
 		{
-			$this->meta = $object->meta;
+			$this->setMeta($object->meta);
 		}
 
 		return $this;

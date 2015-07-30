@@ -2,6 +2,8 @@
 
 namespace Art4\JsonApiClient;
 
+use Art4\JsonApiClient\Utils\MetaTrait;
+
 /**
  * Link Object
  *
@@ -9,6 +11,8 @@ namespace Art4\JsonApiClient;
  */
 class Link
 {
+	use MetaTrait;
+
 	protected $_links = array();
 
 	/**
@@ -49,6 +53,11 @@ class Link
 	 */
 	public function __isset($name)
 	{
+		if ( $name === 'meta' )
+		{
+			return $this->hasMeta();
+		}
+
 		return array_key_exists($name, $this->_links);
 	}
 
@@ -61,6 +70,11 @@ class Link
 	 */
 	public function get($name)
 	{
+		if ( $name === 'meta' )
+		{
+			return $this->getMeta();
+		}
+
 		if ( ! $this->__isset($name) )
 		{
 			throw new \RuntimeException('You can\'t get "' . $name . '", because it wasn\'t set.');
@@ -79,6 +93,11 @@ class Link
 	 */
 	protected function set($name, $link)
 	{
+		if ( $name === 'meta' )
+		{
+			$this->setMeta($link);
+		}
+
 		// from spec: an object ("link object") which can contain the following members:
 		// - href: a string containing the link's URL.
 		if ( $name === 'href' or ! is_object($link) )
