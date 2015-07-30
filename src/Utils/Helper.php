@@ -1,13 +1,15 @@
 <?php
 
-namespace Art4\JsonApiClient;
+namespace Art4\JsonApiClient\Utils;
+
+use Art4\JsonApiClient\Document;
 
 /**
- * PHP JSON API client
+ * PHP JSON API client helper
  *
  * Website: http://github.com/Art4/json-api-client
  */
-class Client
+class Helper
 {
 	const JSONAPI_VERSION = '1.0';
 

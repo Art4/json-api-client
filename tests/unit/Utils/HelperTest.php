@@ -1,11 +1,11 @@
 <?php
 
-namespace Art4\JsonApiClient\Tests;
+namespace Art4\JsonApiClient\Utils\Tests;
 
-use Art4\JsonApiClient\Client;
+use Art4\JsonApiClient\Utils\Helper;
 use InvalidArgumentException;
 
-class ClientTest extends \PHPUnit_Framework_TestCase
+class HelperTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @test parse() with valid JSON API returns Document Object
@@ -14,7 +14,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	{
 		$jsonapi = '{"meta":{}}';
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Document', Client::parse($jsonapi));
+		$this->assertInstanceOf('Art4\JsonApiClient\Document', Helper::parse($jsonapi));
 	}
 
 	/**
@@ -26,7 +26,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	{
 		$invalid_jsonapi = '["This is valid JSON", "but invalid JSON API"]';
 
-		$output = Client::parse($invalid_jsonapi);
+		$output = Helper::parse($invalid_jsonapi);
 	}
 
 	/**
@@ -38,6 +38,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	{
 		$invalid_json = 'invalid_json_string';
 
-		$output = Client::parse($invalid_json);
+		$output = Helper::parse($invalid_json);
 	}
 }
