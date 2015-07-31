@@ -41,8 +41,18 @@ class ResourceIdentifier
 			throw new \InvalidArgumentException('A resource object MUST contain an id');
 		}
 
-		$this->type = (string) $object->type;
-		$this->id = (string) $object->id;
+		if ( is_object($object->type) or is_array($object->type)  )
+		{
+			throw new \InvalidArgumentException('Resource type cannot be an array or object');
+		}
+
+		if ( is_object($object->id) or is_array($object->id)  )
+		{
+			throw new \InvalidArgumentException('Resource Id cannot be an array or object');
+		}
+
+		$this->type = strval($object->type);
+		$this->id = strval($object->id);
 
 		if ( property_exists($object, 'meta') )
 		{

@@ -48,6 +48,48 @@ class ResourceIdentifierTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @dataProvider jsonValuesProvider
 	 *
+	 * The values of the id and type members MUST be strings.
+	 */
+	public function testTypeCannotBeAnObjectOrArray($input)
+	{
+		$object = new \stdClass();
+		$object->type = $input;
+		$object->id = '753';
+
+		if ( gettype($input) === 'object' or gettype($input) === 'array' )
+		{
+			$this->setExpectedException('InvalidArgumentException');
+		}
+
+		$identifier = new ResourceIdentifier($object);
+
+		$this->assertTrue(is_string($identifier->getType()));
+	}
+
+	/**
+	 * @dataProvider jsonValuesProvider
+	 *
+	 * The values of the id and type members MUST be strings.
+	 */
+	public function testIdCannotBeAnObjectOrArray($input)
+	{
+		$object = new \stdClass();
+		$object->type = 'posts';
+		$object->id = $input;
+
+		if ( gettype($input) === 'object' or gettype($input) === 'array' )
+		{
+			$this->setExpectedException('InvalidArgumentException');
+		}
+
+		$identifier = new ResourceIdentifier($object);
+
+		$this->assertTrue(is_string($identifier->getId()));
+	}
+
+	/**
+	 * @dataProvider jsonValuesProvider
+	 *
 	 * A "resource identifier object" is an object that identifies an individual resource.
 	 * A "resource identifier object" MUST contain type and id members.
 	 */

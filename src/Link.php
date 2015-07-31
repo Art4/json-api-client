@@ -102,7 +102,12 @@ class Link
 		// - href: a string containing the link's URL.
 		if ( $name === 'href' or ! is_object($link) )
 		{
-			$this->_links[$name] = (string) $link;
+			if ( ! is_string($link) )
+			{
+				throw new \InvalidArgumentException('$link has to be an object or string, "' . gettype($link) . '" given.');
+			}
+
+			$this->_links[$name] = strval($link);
 
 			return $this;
 		}
