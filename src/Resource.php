@@ -2,6 +2,8 @@
 
 namespace Art4\JsonApiClient;
 
+use Art4\JsonApiClient\Utils\LinksTrait;
+
 /**
  * Resource Object
  *
@@ -9,11 +11,11 @@ namespace Art4\JsonApiClient;
  */
 class Resource extends ResourceIdentifier
 {
+	use LinksTrait;
+
 	protected $attributes = null;
 
 	protected $relationships = null;
-
-	protected $meta = null;
 
 	/**
 	 * @param object $object The error object
@@ -39,7 +41,7 @@ class Resource extends ResourceIdentifier
 
 		if ( property_exists($object, 'links') )
 		{
-			$this->links = $object->links;
+			$this->setLinks(new Link($object->links));
 		}
 
 		return $this;

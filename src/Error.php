@@ -3,6 +3,7 @@
 namespace Art4\JsonApiClient;
 
 use Art4\JsonApiClient\Utils\MetaTrait;
+use Art4\JsonApiClient\Utils\LinksTrait;
 
 /**
  * Error Object
@@ -13,9 +14,9 @@ class Error
 {
 	use MetaTrait;
 
-	protected $id = null;
+	use LinksTrait;
 
-	protected $links = null;
+	protected $id = null;
 
 	protected $status = null;
 
@@ -48,7 +49,7 @@ class Error
 
 		if ( property_exists($object, 'links') )
 		{
-			$this->links = $object->links;
+			$this->setLinks(new ErrorLink($object->links));
 		}
 
 		if ( property_exists($object, 'status') )

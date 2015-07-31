@@ -3,6 +3,7 @@
 namespace Art4\JsonApiClient;
 
 use Art4\JsonApiClient\Utils\MetaTrait;
+use Art4\JsonApiClient\Utils\LinksTrait;
 
 /**
  * Document Top Level Object
@@ -13,6 +14,8 @@ class Document
 {
 	use MetaTrait;
 
+	use LinksTrait;
+
 	/**
 	 * @var null|ResourceIdentifier
 	 */
@@ -21,8 +24,6 @@ class Document
 	protected $errors = array();
 
 	protected $jsonapi = null;
-
-	protected $links = null;
 
 	protected $included = null;
 
@@ -103,7 +104,7 @@ class Document
 
 		if ( property_exists($object, 'links') )
 		{
-			$this->links = new DocumentLink($object->links);
+			$this->setLinks(new DocumentLink($object->links));
 		}
 
 		return $this;
@@ -181,33 +182,6 @@ class Document
 		}
 
 		return $this->jsonapi;
-	}
-
-	/**
-	 * Check if links exists in this document
-	 *
-	 * @return bool true if links exists, false if not
-	 */
-	public function hasLinks()
-	{
-		return $this->links !== null;
-	}
-
-	/**
-	 * Get the links object of this document
-	 *
-	 * @throws \RuntimeException If links wasn't set, you can't get it
-	 *
-	 * @return DocumentLink The link object
-	 */
-	public function getLinks()
-	{
-		if ( ! $this->hasLinks() )
-		{
-			throw new \RuntimeException('You can\'t get "links", because it wasn\'t set.');
-		}
-
-		return $this->links;
 	}
 
 	/**
