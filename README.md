@@ -4,11 +4,11 @@ JSON API Client is a PHP Library to handle the response body from a [JSON API](h
 
 Format: [JSON API](http://jsonapi.org/format) 1.0
 
-## Work in Progress ![Progress](http://progressed.io/bar/36)
+## Work in Progress ![Progress](http://progressed.io/bar/39)
 
 Object structure: https://gist.github.com/Art4/a77052f1e8700bdde498
 
-Object | Implementation<br />![Progress](http://progressed.io/bar/45) | Tests<br />![Progress](http://progressed.io/bar/27)
+Object | Implementation<br />![Progress](http://progressed.io/bar/45) | Tests<br />![Progress](http://progressed.io/bar/33)
 ------------------------|:------------------------------------------|:-----------------------------------------
 Document                | ![Progress](http://progressed.io/bar/100) | ![Progress](http://progressed.io/bar/100)
 Resource Identifier     | ![Progress](http://progressed.io/bar/100) | ![Progress](http://progressed.io/bar/100)
@@ -21,7 +21,7 @@ Error Source            | ![Progress](http://progressed.io/bar/0)   | ![Progress
 Link                    | ![Progress](http://progressed.io/bar/100) | ![Progress](http://progressed.io/bar/100)
 Document Link           | ![Progress](http://progressed.io/bar/50)  | ![Progress](http://progressed.io/bar/0)
 Relationship Link       | ![Progress](http://progressed.io/bar/0)   | ![Progress](http://progressed.io/bar/0)
-Error Link              | ![Progress](http://progressed.io/bar/100) | ![Progress](http://progressed.io/bar/0)
+Error Link              | ![Progress](http://progressed.io/bar/100) | ![Progress](http://progressed.io/bar/100)
 Pagination Link         | ![Progress](http://progressed.io/bar/0)   | ![Progress](http://progressed.io/bar/0)
 Jsonapi                 | ![Progress](http://progressed.io/bar/50)  | ![Progress](http://progressed.io/bar/0)
 Meta                    | ![Progress](http://progressed.io/bar/100) | ![Progress](http://progressed.io/bar/100)
