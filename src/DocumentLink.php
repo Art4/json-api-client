@@ -2,6 +2,8 @@
 
 namespace Art4\JsonApiClient;
 
+use Art4\JsonApiClient\PaginationLink;
+
 /**
  * Document Link Object
  *
@@ -23,7 +25,56 @@ class DocumentLink extends Link
 	 */
 	public function __construct($object)
 	{
-		// #TODO: In DocumentLink allowes only theses properties: self, related and pagination
-		return parent::__construct($object);
+		if ( ! is_object($object) )
+		{
+			throw new \InvalidArgumentException('$object has to be an object, "' . gettype($object) . '" given.');
+		}
+
+		if ( property_exists($object, 'self') )
+		{
+			if ( ! is_string($object->self) )
+			{
+				throw new \InvalidArgumentException('property "self" has to be a string, "' . gettype($object->self) . '" given.');
+			}
+
+			$this->set('self', $object->self);
+		}
+
+		if ( property_exists($object, 'related') )
+		{
+			if ( ! is_string($object->related) )
+			{
+				throw new \InvalidArgumentException('property "related" has to be a string, "' . gettype($object->related) . '" given.');
+			}
+
+			$this->set('related', $object->related);
+		}
+
+		if ( property_exists($object, 'pagination') )
+		{
+			$this->set('pagination', new PaginationLink($object->pagination));
+		}
+	}
+
+	/**
+	 * Check if pagination exists in this document
+	 *
+	 * @return bool true if pagination exists, false if not
+	 */
+	public function hasPagination()
+	{
+		return $this->__isset('pagination');
+	}
+
+	/**
+	 * Get the pagination of this document
+	 *
+	 * @throws \RuntimeException If pagination wasn't set, you can't get it
+	 *
+	 * @return PaginationLink The pagination
+	 */
+	public function getPagination()
+	{
+		return $this->get('pagination');
 	}
 }

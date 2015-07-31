@@ -113,7 +113,13 @@ class Link
 		}
 
 		// Now $link can only be an object
-		$this->_links[$name] = new Link($link);
+		// Create Link object if needed
+		if ( ! ($link instanceof Link) )
+		{
+			$link = new Link($link);
+		}
+
+		$this->_links[$name] = $link;
 
 		return $this;
 	}
