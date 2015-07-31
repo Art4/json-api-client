@@ -22,16 +22,40 @@ class ResourceIdentifierTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertSame($identifier->getType(), 'type');
 		$this->assertSame($identifier->getId(), '789');
+		$this->assertFalse($identifier->hasMeta());
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
-	*
+	 * @test create with object and meta
+	 */
+	public function testCreateWithObjectAndMeta()
+	{
+		$object = new \stdClass();
+		$object->type = 'types';
+		$object->id = 159;
+		$object->meta = new \stdClass();
+
+		$identifier = new ResourceIdentifier($object);
+
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $identifier);
+
+		$this->assertSame($identifier->getType(), 'types');
+		$this->assertSame($identifier->getId(), '159');
+		$this->assertTrue($identifier->hasMeta());
+		$this->assertInstanceOf('Art4\JsonApiClient\Meta', $identifier->getMeta());
+	}
+
+	/**
+	 * @dataProvider jsonValuesProvider
+	 *
+	 * A "resource identifier object" is an object that identifies an individual resource.
 	 * A "resource identifier object" MUST contain type and id members.
 	 */
-	public function testCreateWithEmptyObjectThrowsException()
+	public function testCreateWithDataproviderThrowsException($input)
 	{
-		$identifier = new ResourceIdentifier(new \stdClass());
+		$this->setExpectedException('InvalidArgumentException');
+
+		$identifier = new ResourceIdentifier($input);
 	}
 
 	/**
@@ -61,62 +85,20 @@ class ResourceIdentifierTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * Json Values Provider
 	 *
-	 * A "resource identifier object" is an object that identifies an individual resource.
+	 * @see http://json.org/
 	 */
-	public function testCreateWithArrayThrowsException()
+	public function jsonValuesProvider()
 	{
-		$identifier = new ResourceIdentifier(array());
-	}
-
-	/**
-	 * @expectedException InvalidArgumentException
-	 *
-	 * A "resource identifier object" is an object that identifies an individual resource.
-	 */
-	public function testCreateWithStringThrowsException()
-	{
-		$identifier = new ResourceIdentifier('');
-	}
-
-	/**
-	 * @expectedException InvalidArgumentException
-	 *
-	 * A "resource identifier object" is an object that identifies an individual resource.
-	 */
-	public function testCreateWithIntegerThrowsException()
-	{
-		$identifier = new ResourceIdentifier(123);
-	}
-
-	/**
-	 * @expectedException InvalidArgumentException
-	 *
-	 * A "resource identifier object" is an object that identifies an individual resource.
-	 */
-	public function testCreateWithTrueThrowsException()
-	{
-		$identifier = new ResourceIdentifier(true);
-	}
-
-	/**
-	 * @expectedException InvalidArgumentException
-	 *
-	 * A "resource identifier object" is an object that identifies an individual resource.
-	 */
-	public function testCreateWithFalseThrowsException()
-	{
-		$identifier = new ResourceIdentifier(false);
-	}
-
-	/**
-	 * @expectedException InvalidArgumentException
-	 *
-	 * A "resource identifier object" is an object that identifies an individual resource.
-	 */
-	public function testCreateWithNullThrowsException()
-	{
-		$identifier = new ResourceIdentifier(null);
+		return array(
+		array(new \stdClass()),
+		array(array()),
+		array('string'),
+		array(456),
+		array(true),
+		array(false),
+		array(null),
+		);
 	}
 }
