@@ -27,7 +27,7 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 	public function testCreateWithoutObjectThrowsException()
 	{
 		$this->markTestIncomplete('This test has not been implemented yet.');
-		
+
 		$string = '';
 
 		$document = new Document($string);
@@ -41,7 +41,7 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 	public function testCreateWithoutAnyToplevelMemberThrowsException()
 	{
 		$this->markTestIncomplete('This test has not been implemented yet.');
-		
+
 		$object = new \stdClass();
 
 		$document = new Document($object);
@@ -55,7 +55,7 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 	public function testCreateWithDataAndErrorsThrowsException()
 	{
 		$this->markTestIncomplete('This test has not been implemented yet.');
-		
+
 		$object = new \stdClass();
 		$object->data = new \stdClass();
 		$object->errors = array();
@@ -71,7 +71,7 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 	public function testCreateIncludedWithoutDataThrowsException()
 	{
 		$this->markTestIncomplete('This test has not been implemented yet.');
-		
+
 		$object = new \stdClass();
 		$object->included = new \stdClass();
 		$object->meta = new \stdClass();
