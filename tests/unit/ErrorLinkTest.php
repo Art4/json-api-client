@@ -3,10 +3,13 @@
 namespace Art4\JsonApiClient\Tests;
 
 use Art4\JsonApiClient\ErrorLink;
+use Art4\JsonApiClient\Tests\Fixtures\JsonValueTrait;
 use InvalidArgumentException;
 
 class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 {
+	use JsonValueTrait;
+
 	/**
 	 * @test only 'aboout' property' can exist
 	 *

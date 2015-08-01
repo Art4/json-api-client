@@ -3,10 +3,13 @@
 namespace Art4\JsonApiClient\Tests;
 
 use Art4\JsonApiClient\Jsonapi;
+use Art4\JsonApiClient\Tests\Fixtures\JsonValueTrait;
 use InvalidArgumentException;
 
 class JsonapiTest extends \PHPUnit_Framework_TestCase
 {
+	use JsonValueTrait;
+
 	/**
 	 * @test create with object
 	 */
@@ -73,23 +76,5 @@ class JsonapiTest extends \PHPUnit_Framework_TestCase
 		// other input must be transformed to string
 		$this->assertTrue($jsonapi->hasVersion());
 		$this->assertTrue(is_string($jsonapi->getVersion()));
-	}
-
-	/**
-	 * Json Values Provider
-	 *
-	 * @see http://json.org/
-	 */
-	public function jsonValuesProvider()
-	{
-		return array(
-		array(new \stdClass()),
-		array(array()),
-		array('string'),
-		array(456),
-		array(true),
-		array(false),
-		array(null),
-		);
 	}
 }

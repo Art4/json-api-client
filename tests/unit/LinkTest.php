@@ -3,10 +3,13 @@
 namespace Art4\JsonApiClient\Tests;
 
 use Art4\JsonApiClient\Link;
+use Art4\JsonApiClient\Tests\Fixtures\JsonValueTrait;
 use InvalidArgumentException;
 
 class LinkTest extends \PHPUnit_Framework_TestCase
 {
+	use JsonValueTrait;
+
 	/**
 	 * @test create with object
 	 */
@@ -74,23 +77,5 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 		$this->setExpectedException('InvalidArgumentException');
 
 		$link = new Link($input);
-	}
-
-	/**
-	 * Json Values Provider
-	 *
-	 * @see http://json.org/
-	 */
-	public function jsonValuesProvider()
-	{
-		return array(
-		array(new \stdClass()),
-		array(array()),
-		array('string'),
-		array(456),
-		array(true),
-		array(false),
-		array(null),
-		);
 	}
 }

@@ -3,10 +3,13 @@
 namespace Art4\JsonApiClient\Tests;
 
 use Art4\JsonApiClient\ResourceIdentifier;
+use Art4\JsonApiClient\Tests\Fixtures\JsonValueTrait;
 use InvalidArgumentException;
 
 class ResourceIdentifierTest extends \PHPUnit_Framework_TestCase
 {
+	use JsonValueTrait;
+
 	/**
 	 * @test create with object
 	 */
@@ -124,23 +127,5 @@ class ResourceIdentifierTest extends \PHPUnit_Framework_TestCase
 		$object->type = 'type';
 
 		$identifier = new ResourceIdentifier($object);
-	}
-
-	/**
-	 * Json Values Provider
-	 *
-	 * @see http://json.org/
-	 */
-	public function jsonValuesProvider()
-	{
-		return array(
-		array(new \stdClass()),
-		array(array()),
-		array('string'),
-		array(456),
-		array(true),
-		array(false),
-		array(null),
-		);
 	}
 }
