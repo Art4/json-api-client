@@ -36,15 +36,26 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @dataProvider jsonValuesProvider
 	 *
 	 * - an object ("link object") which can contain the following members:
 	 *   - href: a string containing the link's URL.
 	 */
-	public function testHrefHasToBeAString()
+	public function testHrefHasToBeAString($input)
 	{
 		$object = new \stdClass();
-		$object->href = new \stdClass();
+		$object->href = $input;
+
+		if ( gettype($input) === 'string' )
+		{
+			$link = new Link($object);
+
+			$this->assertTrue(is_string($link->get('href')));
+
+			return;
+		}
+
+		$this->setExpectedException('InvalidArgumentException');
 
 		$link = new Link($object);
 	}

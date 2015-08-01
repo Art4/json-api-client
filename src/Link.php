@@ -2,6 +2,8 @@
 
 namespace Art4\JsonApiClient;
 
+
+use Art4\JsonApiClient\PaginationLink;
 use Art4\JsonApiClient\Utils\MetaTrait;
 
 /**
@@ -102,6 +104,12 @@ class Link
 		// - href: a string containing the link's URL.
 		if ( $name === 'href' or ! is_object($link) )
 		{
+			// Pagination: Keys MUST either be omitted or have a null value to indicate that a particular link is unavailable.
+			if ( is_null($link) and ($this instanceof PaginationLink) )
+			{
+				return $this;
+			}
+
 			if ( ! is_string($link) )
 			{
 				throw new \InvalidArgumentException('$link has to be an object or string, "' . gettype($link) . '" given.');
