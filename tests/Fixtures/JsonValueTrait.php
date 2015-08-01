@@ -21,6 +21,7 @@ trait JsonValueTrait
 		array(array()),
 		array('string'),
 		array(456),
+		array(159.654),
 		array(true),
 		array(false),
 		array(null),
