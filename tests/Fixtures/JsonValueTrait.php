@@ -17,15 +17,15 @@ trait JsonValueTrait
 	public function jsonValuesProvider()
 	{
 		return array(
-		array(new \stdClass()),
-		array(array()),
-		array('string'),
-		array(456),
-		array(159.654),
-		array(-15E-3),
-		array(true),
-		array(false),
-		array(null),
+			array(new \stdClass()),
+			array(array()),
+			array('string'),
+			array(456),
+			array(159.654),
+			array(-15E-3),
+			array(true),
+			array(false),
+			array(null),
 		);
 	}
 }
