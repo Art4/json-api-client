@@ -3,10 +3,13 @@
 namespace Art4\JsonApiClient\Tests;
 
 use Art4\JsonApiClient\Meta;
+use Art4\JsonApiClient\Tests\Fixtures\JsonValueTrait;
 use InvalidArgumentException;
 
 class MetaTest extends \PHPUnit_Framework_TestCase
 {
+	use JsonValueTrait;
+
 	/**
 	 * @test create with object
 	 */
@@ -44,72 +47,22 @@ class MetaTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @test create with empty object
-	 */
-	public function testCreateWithEmptyObject()
-	{
-		$meta = new \stdClass();
-
-		$this->assertInstanceOf('Art4\JsonApiClient\Meta', new Meta($meta));
-	}
-
-	/**
-	 * @expectedException InvalidArgumentException
+	 * @dataProvider jsonValuesProvider
 	 *
-	 * meta: a meta object that contains non-standard meta-information.
+	 * The value of each meta member MUST be an object (a "meta object").
 	 */
-	public function testCreateWithArrayThrowsException()
+	public function testSelfMustBeAString($input)
 	{
-		$meta = new Meta(array());
-	}
+		// Input must be an object
+		if ( gettype($input) === 'object' )
+		{
+			$this->assertInstanceOf('Art4\JsonApiClient\Meta', new Meta($input));
 
-	/**
-	 * @expectedException InvalidArgumentException
-	 *
-	 * meta: a meta object that contains non-standard meta-information.
-	 */
-	public function testCreateWithStringThrowsException()
-	{
-		$meta = new Meta('');
-	}
+			return;
+		}
 
-	/**
-	 * @expectedException InvalidArgumentException
-	 *
-	 * meta: a meta object that contains non-standard meta-information.
-	 */
-	public function testCreateWithIntegerThrowsException()
-	{
-		$meta = new Meta(123);
-	}
+		$this->setExpectedException('InvalidArgumentException');
 
-	/**
-	 * @expectedException InvalidArgumentException
-	 *
-	 * meta: a meta object that contains non-standard meta-information.
-	 */
-	public function testCreateWithTrueThrowsException()
-	{
-		$meta = new Meta(true);
-	}
-
-	/**
-	 * @expectedException InvalidArgumentException
-	 *
-	 * meta: a meta object that contains non-standard meta-information.
-	 */
-	public function testCreateWithFalseThrowsException()
-	{
-		$meta = new Meta(false);
-	}
-
-	/**
-	 * @expectedException InvalidArgumentException
-	 *
-	 * meta: a meta object that contains non-standard meta-information.
-	 */
-	public function testCreateWithNullThrowsException()
-	{
-		$meta = new Meta(null);
+		$meta = new Meta($input);
 	}
 }
