@@ -11,7 +11,7 @@ class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 	use JsonValueTrait;
 
 	/**
-	 * @test only 'aboout' property' can exist
+	 * @test only 'about' property' can exist
 	 *
 	 * An error object MAY have the following members:
 	 * - links: a links object containing the following members:
