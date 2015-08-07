@@ -248,6 +248,22 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * @test create with meta object
+	 */
+	public function testCreateWithMetaObject()
+	{
+		$object = new \stdClass();
+		$object->meta = new \stdClass();
+
+		$document = new Document($object);
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
+		$this->assertTrue($document->hasMeta());
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Meta', $document->getMeta());
+	}
+
+	/**
 	 * @test create with Jsonapi object
 	 */
 	public function testCreateWithJsonapiObject()
