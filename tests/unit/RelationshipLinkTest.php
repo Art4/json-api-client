@@ -2,21 +2,25 @@
 
 namespace Art4\JsonApiClient\Tests;
 
-use Art4\JsonApiClient\DocumentLink;
+use Art4\JsonApiClient\RelationshipLink;
 use Art4\JsonApiClient\Tests\Fixtures\JsonValueTrait;
 use InvalidArgumentException;
 
-class DocumentLinkTest extends \PHPUnit_Framework_TestCase
+class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 {
 	use JsonValueTrait;
 
 	/**
-	 * @test only 'about' property' can exist
+	 * @test only self, related and pagination property can exist
 	 *
-	 * The top-level links object MAY contain the following members:
-	 * - self: the link that generated the current response document.
-	 * - related: a related resource link when the primary data represents a resource relationship.
-	 * - pagination links for the primary data.
+	 * links: a links object containing at least one of the following:
+	 * - self: a link for the relationship itself (a "relationship link"). This link allows
+	 *   the client to directly manipulate the relationship. For example, it would allow a
+	 *   client to remove an author from an article without deleting the people resource itself.
+	 * - related: a related resource link
+	 *
+	 * A relationship object that represents a to-many relationship MAY also contain pagination
+	 * links under the links member, as described below.
 	 */
 	public function testOnlySelfRelatedPaginationPropertiesExists()
 	{
@@ -26,9 +30,9 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 		$object->pagination = new \stdClass();
 		$object->ignore = 'http://example.org/should-be-ignored';
 
-		$link = new DocumentLink($object);
+		$link = new RelationshipLink($object);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\DocumentLink', $link);
+		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipLink', $link);
 
 		$this->assertFalse($link->__isset('ignore'));
 		$this->assertTrue($link->__isset('self'));
@@ -40,9 +44,22 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * @test object contains at least one of the following: self, related
+	 */
+	public function testCreateWithoutSelfAndRelatedPropertiesThrowsException()
+	{
+		$this->setExpectedException('InvalidArgumentException');
+
+		$object = new \stdClass();
+		$object->pagination = new \stdClass();
+
+		$link = new RelationshipLink($object);
+	}
+
+	/**
 	 * @dataProvider jsonValuesProvider
 	 *
-	 * self: the link that generated the current response document.
+	 * self: a link for the relationship itself (a "relationship link").
 	 */
 	public function testSelfMustBeAString($input)
 	{
@@ -57,7 +74,7 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 
 		$this->setExpectedException('InvalidArgumentException');
 
-		$link = new DocumentLink($object);
+		$link = new RelationshipLink($object);
 	}
 
 	/**
@@ -79,13 +96,11 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 
 		$this->setExpectedException('InvalidArgumentException');
 
-		$link = new DocumentLink($object);
+		$link = new RelationshipLink($object);
 	}
 
 	/**
 	 * @dataProvider jsonValuesProvider
-	 *
-	 * pagination links for the primary data.
 	 */
 	public function testPaginationMustBeAnObject($input)
 	{
@@ -100,6 +115,6 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 
 		$this->setExpectedException('InvalidArgumentException');
 
-		$link = new DocumentLink($object);
+		$link = new RelationshipLink($object);
 	}
 }
