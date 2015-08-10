@@ -8,11 +8,11 @@ JSON API Client is a PHP Library to handle the response body from a [JSON API](h
 
 Format: [JSON API](http://jsonapi.org/format) 1.0
 
-## Work in Progress ![Progress](http://progressed.io/bar/87)
+## Work in Progress ![Progress](http://progressed.io/bar/94)
 
 Object structure: https://gist.github.com/Art4/a77052f1e8700bdde498
 
-Object | Implementation<br />![Progress](http://progressed.io/bar/90) | Tests<br />![Progress](http://progressed.io/bar/83)
+Object | Implementation<br />![Progress](http://progressed.io/bar/97) | Tests<br />![Progress](http://progressed.io/bar/90)
 ------------------------|:------------------------------------------|:-----------------------------------------
 Document                | ![Progress](http://progressed.io/bar/100) | ![Progress](http://progressed.io/bar/100)
 Resource Identifier     | ![Progress](http://progressed.io/bar/100) | ![Progress](http://progressed.io/bar/100)
@@ -21,7 +21,7 @@ Attributes              | ![Progress](http://progressed.io/bar/100) | ![Progress
 Relationship Collection | ![Progress](http://progressed.io/bar/100) | ![Progress](http://progressed.io/bar/100)
 Relationship            | ![Progress](http://progressed.io/bar/100) | ![Progress](http://progressed.io/bar/100)
 Error                   | ![Progress](http://progressed.io/bar/50)  | ![Progress](http://progressed.io/bar/0)
-Error Source            | ![Progress](http://progressed.io/bar/0)   | ![Progress](http://progressed.io/bar/0)
+Error Source            | ![Progress](http://progressed.io/bar/100) | ![Progress](http://progressed.io/bar/100)
 Link                    | ![Progress](http://progressed.io/bar/100) | ![Progress](http://progressed.io/bar/100)
 Document Link           | ![Progress](http://progressed.io/bar/100) | ![Progress](http://progressed.io/bar/100)
 Relationship Link       | ![Progress](http://progressed.io/bar/100) | ![Progress](http://progressed.io/bar/100)
