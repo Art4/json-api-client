@@ -74,7 +74,7 @@ class Error
 
 		if ( property_exists($object, 'source') )
 		{
-			$this->source = $object->source;
+			$this->source = new ErrorSource($object->source);
 		}
 
 		if ( property_exists($object, 'meta') )
