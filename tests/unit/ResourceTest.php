@@ -18,6 +18,30 @@ class ResourceTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->type = 'type';
 		$object->id = 789;
+		$object->meta = new \stdClass();
+
+		$resource = new Resource($object);
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource', $resource);
+
+		$this->assertSame($resource->getType(), 'type');
+		$this->assertSame($resource->getId(), '789');
+		$this->assertTrue($resource->hasMeta());
+		$this->assertFalse($resource->hasAttributes());
+		$this->assertFalse($resource->hasRelationships());
+		$this->assertFalse($resource->hasLinks());
+	}
+
+	/**
+	 * @test create with full object
+	 */
+	public function testCreateWithFullObject()
+	{
+		$object = new \stdClass();
+		$object->type = 'type';
+		$object->id = 789;
+		$object->attributes = new \stdClass();
+		$object->relationships = new \stdClass();
 		$object->links = new \stdClass();
 
 		$resource = new Resource($object);
@@ -26,47 +50,12 @@ class ResourceTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertSame($resource->getType(), 'type');
 		$this->assertSame($resource->getId(), '789');
-		$this->assertTrue($resource->hasLinks());
 		$this->assertFalse($resource->hasMeta());
-	}
-
-	/**
-	 * @test create with object and attributes
-	 */
-	public function testCreateWithObjectAndAttributes()
-	{
-		$object = new \stdClass();
-		$object->type = 'types';
-		$object->id = 159;
-		$object->attributes = new \stdClass();
-
-		$resource = new Resource($object);
-
-		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $resource);
-
-		$this->assertSame($resource->getType(), 'types');
-		$this->assertSame($resource->getId(), '159');
 		$this->assertTrue($resource->hasAttributes());
 		$this->assertInstanceOf('Art4\JsonApiClient\Attributes', $resource->getAttributes());
-	}
-
-	/**
-	 * @test create with object and relationships
-	 */
-	public function testCreateWithObjectAndRelationships()
-	{
-		$object = new \stdClass();
-		$object->type = 'types';
-		$object->id = 159;
-		$object->relationships = new \stdClass();
-
-		$resource = new Resource($object);
-
-		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $resource);
-
-		$this->assertSame($resource->getType(), 'types');
-		$this->assertSame($resource->getId(), '159');
 		$this->assertTrue($resource->hasRelationships());
 		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipCollection', $resource->getRelationships());
+		$this->assertTrue($resource->hasLinks());
+		$this->assertInstanceOf('Art4\JsonApiClient\Link', $resource->getLinks());
 	}
 }
