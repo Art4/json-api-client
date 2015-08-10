@@ -36,7 +36,7 @@ class Resource extends ResourceIdentifier
 
 		if ( property_exists($object, 'relationships') )
 		{
-			$this->relationships = $object->relationships;
+			$this->relationships = new RelationshipCollection($object->relationships, $this);
 		}
 
 		if ( property_exists($object, 'links') )
@@ -72,5 +72,32 @@ class Resource extends ResourceIdentifier
 		}
 
 		return $this->attributes;
+	}
+
+	/**
+	 * Check if relationships exists in this resource
+	 *
+	 * @return bool true if data exists, false if not
+	 */
+	public function hasRelationships()
+	{
+		return $this->relationships !== null;
+	}
+
+	/**
+	 * Get the relationships of this resource
+	 *
+	 * @throws \RuntimeException If relationships wasn't set, you can't get it
+	 *
+	 * @return RelationshipCollection The relationship collection object
+	 */
+	public function getRelationships()
+	{
+		if ( ! $this->hasRelationships() )
+		{
+			throw new \RuntimeException('You can\'t get "relationships", because it wasn\'t set.');
+		}
+
+		return $this->relationships;
 	}
 }

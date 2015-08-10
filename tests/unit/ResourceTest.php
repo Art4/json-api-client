@@ -49,4 +49,24 @@ class ResourceTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue($resource->hasAttributes());
 		$this->assertInstanceOf('Art4\JsonApiClient\Attributes', $resource->getAttributes());
 	}
+
+	/**
+	 * @test create with object and relationships
+	 */
+	public function testCreateWithObjectAndRelationships()
+	{
+		$object = new \stdClass();
+		$object->type = 'types';
+		$object->id = 159;
+		$object->relationships = new \stdClass();
+
+		$resource = new Resource($object);
+
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $resource);
+
+		$this->assertSame($resource->getType(), 'types');
+		$this->assertSame($resource->getId(), '159');
+		$this->assertTrue($resource->hasRelationships());
+		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipCollection', $resource->getRelationships());
+	}
 }
