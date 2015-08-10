@@ -3,79 +3,152 @@
 namespace Art4\JsonApiClient\Tests;
 
 use Art4\JsonApiClient\Error;
+use Art4\JsonApiClient\Tests\Fixtures\JsonValueTrait;
 
 class ErrorTest extends \PHPUnit_Framework_TestCase
 {
+	use JsonValueTrait;
+
 	/**
 	 * @test create with object returns self
 	 */
 	public function testCreateWithObjectReturnsSelf()
 	{
-		$this->markTestIncomplete('This test has not been implemented yet.');
-
 		$object = new \stdClass();
+		$object->id = 'id';
+		$object->links = new \stdClass();
+		$object->links->about = 'http://example.org/about';
+		$object->status = 'status';
+		$object->code = 'code';
+		$object->title = 'title';
+		$object->detail = 'detail';
+		$object->source = new \stdClass();
 		$object->meta = new \stdClass();
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Document', new Document($object));
+		$error = new Error($object);
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Error', $error);
+
+		$this->assertTrue($error->hasId());
+		$this->assertSame($error->getId(), 'id');
+		$this->assertTrue($error->hasLinks());
+		$this->assertInstanceOf('Art4\JsonApiClient\ErrorLink', $error->getLinks());
+		$this->assertTrue($error->hasStatus());
+		$this->assertSame($error->getStatus(), 'status');
+		$this->assertTrue($error->hasCode());
+		$this->assertSame($error->getCode(), 'code');
+		$this->assertTrue($error->hasTitle());
+		$this->assertSame($error->getTitle(), 'title');
+		$this->assertTrue($error->hasDetail());
+		$this->assertSame($error->getDetail(), 'detail');
+		$this->assertTrue($error->hasSource());
+		$this->assertInstanceOf('Art4\JsonApiClient\ErrorSource', $error->getSource());
+		$this->assertTrue($error->hasMeta());
+		$this->assertInstanceOf('Art4\JsonApiClient\Meta', $error->getMeta());
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
-	 *
-	 * A JSON object MUST be at the root of every JSON API request and response containing data.
+	 * @dataProvider jsonValuesProvider
 	 */
-	public function testCreateWithoutObjectThrowsException()
+	public function testCreateWithoutObjectThrowsException($input)
 	{
-		$this->markTestIncomplete('This test has not been implemented yet.');
+		// Input must be an object
+		if ( gettype($input) === 'object' )
+		{
+			return;
+		}
 
-		$string = '';
-
-		$document = new Document($string);
+		$this->setExpectedException('InvalidArgumentException');
+		$error = new Error($input);
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
-	 *
-	 * A document MUST contain at least one of the following top-level members: data, errors, meta
+	 * @dataProvider jsonValuesProvider
 	 */
-	public function testCreateWithoutAnyToplevelMemberThrowsException()
+	public function testCreateIdWithoutStringThrowsException($input)
 	{
-		$this->markTestIncomplete('This test has not been implemented yet.');
+		// Input must be a string
+		if ( gettype($input) === 'string' )
+		{
+			return;
+		}
 
 		$object = new \stdClass();
+		$object->id = $input;
 
-		$document = new Document($object);
+		$this->setExpectedException('InvalidArgumentException');
+		$error = new Error($object);
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
-	 *
-	 * The members `data` and `errors` MUST NOT coexist in the same document.
+	 * @dataProvider jsonValuesProvider
 	 */
-	public function testCreateWithDataAndErrorsThrowsException()
+	public function testCreateStatusWithoutStringThrowsException($input)
 	{
-		$this->markTestIncomplete('This test has not been implemented yet.');
+		// Input must be a string
+		if ( gettype($input) === 'string' )
+		{
+			return;
+		}
 
 		$object = new \stdClass();
-		$object->data = new \stdClass();
-		$object->errors = array();
+		$object->status = $input;
 
-		$document = new Document($object);
+		$this->setExpectedException('InvalidArgumentException');
+		$error = new Error($object);
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
-	 *
-	 * If a document does not contain a top-level `data` key, the `included` member MUST NOT be present either.
+	 * @dataProvider jsonValuesProvider
 	 */
-	public function testCreateIncludedWithoutDataThrowsException()
+	public function testCreateCodeWithoutStringThrowsException($input)
 	{
-		$this->markTestIncomplete('This test has not been implemented yet.');
+		// Input must be a string
+		if ( gettype($input) === 'string' )
+		{
+			return;
+		}
 
 		$object = new \stdClass();
-		$object->included = new \stdClass();
-		$object->meta = new \stdClass();
+		$object->code = $input;
 
-		$document = new Document($object);
+		$this->setExpectedException('InvalidArgumentException');
+		$error = new Error($object);
+	}
+
+	/**
+	 * @dataProvider jsonValuesProvider
+	 */
+	public function testCreateTitleWithoutStringThrowsException($input)
+	{
+		// Input must be a string
+		if ( gettype($input) === 'string' )
+		{
+			return;
+		}
+
+		$object = new \stdClass();
+		$object->title = $input;
+
+		$this->setExpectedException('InvalidArgumentException');
+		$error = new Error($object);
+	}
+
+	/**
+	 * @dataProvider jsonValuesProvider
+	 */
+	public function testCreateDetailWithoutStringThrowsException($input)
+	{
+		// Input must be a string
+		if ( gettype($input) === 'string' )
+		{
+			return;
+		}
+
+		$object = new \stdClass();
+		$object->detail = $input;
+
+		$this->setExpectedException('InvalidArgumentException');
+		$error = new Error($object);
 	}
 }

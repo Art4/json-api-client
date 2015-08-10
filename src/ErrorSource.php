@@ -57,7 +57,7 @@ class ErrorSource
 	 */
 	public function hasPointer()
 	{
-		return $this->pointer !== false;
+		return $this->pointer !== null;
 	}
 
 	/**
@@ -84,7 +84,7 @@ class ErrorSource
 	 */
 	public function hasParameter()
 	{
-		return $this->parameter !== false;
+		return $this->parameter !== null;
 	}
 
 	/**
