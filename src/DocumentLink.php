@@ -63,7 +63,7 @@ class DocumentLink extends Link
 	 */
 	public function hasPagination()
 	{
-		return $this->__isset('pagination');
+		return $this->has('pagination');
 	}
 
 	/**

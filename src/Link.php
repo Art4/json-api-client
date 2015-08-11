@@ -2,7 +2,6 @@
 
 namespace Art4\JsonApiClient;
 
-
 use Art4\JsonApiClient\PaginationLink;
 use Art4\JsonApiClient\Utils\MetaTrait;
 
@@ -49,40 +48,69 @@ class Link
 	/**
 	 * Is a link set?
 	 *
+	 * @param string $key The Key
+	 *
+	 * @return bool true if the link is set, false if not
+	 */
+	public function has($key)
+	{
+		if ( $key === 'meta' )
+		{
+			return $this->hasMeta();
+		}
+
+		return array_key_exists($key, $this->_links);
+	}
+
+	/**
+	 * Returns the keys of all setted values
+	 *
+	 * @return array Keys of all setted values
+	 */
+	public function getKeys()
+	{
+		$keys = array_keys($this->_data);
+
+		if ( $this->has('meta') )
+		{
+			$keys[] = 'meta';
+		}
+
+		return $keys;
+	}
+
+	/**
+	 * Is a link set?
+	 *
 	 * @param string $name The Name
 	 *
 	 * @return bool true if the link is set, false if not
 	 */
 	public function __isset($name)
 	{
-		if ( $name === 'meta' )
-		{
-			return $this->hasMeta();
-		}
-
-		return array_key_exists($name, $this->_links);
+		return $this->has($name);
 	}
 
 	/**
 	 * Get a link
 	 *
-	 * @param string $name The Name
+	 * @param string $key The Name
 	 *
 	 * @return string|Link The link
 	 */
-	public function get($name)
+	public function get($key)
 	{
-		if ( $name === 'meta' )
+		if ( ! $this->has($key) )
+		{
+			throw new \RuntimeException('"' . $key . '" doesn\'t exist in this object.');
+		}
+
+		if ( $key === 'meta' )
 		{
 			return $this->getMeta();
 		}
 
-		if ( ! $this->__isset($name) )
-		{
-			throw new \RuntimeException('You can\'t get "' . $name . '", because it wasn\'t set.');
-		}
-
-		return $this->_links[$name];
+		return $this->_links[$key];
 	}
 
 	/**

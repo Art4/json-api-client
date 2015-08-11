@@ -28,9 +28,9 @@ class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ErrorLink', $link);
 
-		$this->assertFalse($link->__isset('href'));
-		$this->assertFalse($link->hasMeta());
-		$this->assertTrue($link->__isset('about'));
+		$this->assertFalse($link->has('href'));
+		$this->assertFalse($link->has('meta'));
+		$this->assertTrue($link->has('about'));
 		$this->assertSame($link->get('about'), 'http://example.org/about');
 	}
 
@@ -50,7 +50,7 @@ class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ErrorLink', $link);
 
-		$this->assertTrue($link->__isset('about'));
+		$this->assertTrue($link->has('about'));
 		$this->assertInstanceOf('Art4\JsonApiClient\Link', $link->get('about'));
 	}
 
@@ -70,23 +70,5 @@ class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 		$this->setExpectedException('InvalidArgumentException');
 
 		$link = new ErrorLink($input);
-	}
-
-	/**
-	 * Json Values Provider
-	 *
-	 * @see http://json.org/
-	 */
-	public function jsonValuesProvider()
-	{
-		return array(
-		array(new \stdClass()),
-		array(array()),
-		array('string'),
-		array(456),
-		array(true),
-		array(false),
-		array(null),
-		);
 	}
 }

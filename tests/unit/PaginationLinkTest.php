@@ -33,12 +33,12 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertInstanceOf('Art4\JsonApiClient\PaginationLink', $link);
 
-		$this->assertFalse($link->__isset('about'));
-		$this->assertFalse($link->__isset('first'));
-		$this->assertTrue($link->__isset('last'));
+		$this->assertFalse($link->has('about'));
+		$this->assertFalse($link->has('first'));
+		$this->assertTrue($link->has('last'));
 		$this->assertSame($link->get('last'), 'http://example.org/last');
-		$this->assertFalse($link->__isset('prev'));
-		$this->assertTrue($link->__isset('next'));
+		$this->assertFalse($link->has('prev'));
+		$this->assertTrue($link->has('next'));
 		$this->assertSame($link->get('next'), 'http://example.org/next');
 	}
 
@@ -75,7 +75,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		{
 			$link = new PaginationLink($object);
 
-			$this->assertTrue($link->__isset('first'));
+			$this->assertTrue($link->has('first'));
 			$this->assertTrue(is_string($link->get('first')));
 
 			return;
@@ -84,7 +84,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		{
 			$link = new PaginationLink($object);
 
-			$this->assertFalse($link->__isset('first'));
+			$this->assertFalse($link->has('first'));
 
 			return;
 		}
@@ -109,7 +109,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		{
 			$link = new PaginationLink($object);
 
-			$this->assertTrue($link->__isset('last'));
+			$this->assertTrue($link->has('last'));
 			$this->assertTrue(is_string($link->get('last')));
 
 			return;
@@ -118,7 +118,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		{
 			$link = new PaginationLink($object);
 
-			$this->assertFalse($link->__isset('last'));
+			$this->assertFalse($link->has('last'));
 
 			return;
 		}
@@ -143,7 +143,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		{
 			$link = new PaginationLink($object);
 
-			$this->assertTrue($link->__isset('prev'));
+			$this->assertTrue($link->has('prev'));
 			$this->assertTrue(is_string($link->get('prev')));
 
 			return;
@@ -152,7 +152,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		{
 			$link = new PaginationLink($object);
 
-			$this->assertFalse($link->__isset('prev'));
+			$this->assertFalse($link->has('prev'));
 
 			return;
 		}
@@ -177,7 +177,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		{
 			$link = new PaginationLink($object);
 
-			$this->assertTrue($link->__isset('next'));
+			$this->assertTrue($link->has('next'));
 			$this->assertTrue(is_string($link->get('next')));
 
 			return;
@@ -186,7 +186,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		{
 			$link = new PaginationLink($object);
 
-			$this->assertFalse($link->__isset('next'));
+			$this->assertFalse($link->has('next'));
 
 			return;
 		}

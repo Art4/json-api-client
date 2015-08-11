@@ -34,13 +34,13 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipLink', $link);
 
-		$this->assertFalse($link->__isset('ignore'));
-		$this->assertTrue($link->__isset('self'));
+		$this->assertFalse($link->has('ignore'));
+		$this->assertTrue($link->has('self'));
 		$this->assertSame($link->get('self'), 'http://example.org/self');
-		$this->assertTrue($link->__isset('related'));
+		$this->assertTrue($link->has('related'));
 		$this->assertSame($link->get('related'), 'http://example.org/related');
-		$this->assertTrue($link->hasPagination());
-		$this->assertInstanceOf('Art4\JsonApiClient\PaginationLink', $link->getPagination());
+		$this->assertTrue($link->has('pagination'));
+		$this->assertInstanceOf('Art4\JsonApiClient\PaginationLink', $link->get('pagination'));
 	}
 
 	/**
