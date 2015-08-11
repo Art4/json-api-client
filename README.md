@@ -18,7 +18,12 @@ $ composer require art4/json-api-client
 
 ## Usage
 
+Todo: Documentation
+
+### Using as reader
+
 ```php
+// The Response body from a JSON API server
 $jsonapi_string = '{"meta":{"info":"Testing the JSON API Client."}}';
 
 $document = \Art4\JsonApiClient\Utils\Helper::parse($jsonapi_string);
@@ -28,7 +33,24 @@ if ($document->hasMeta() and $document->getMeta()->hasInfo())
     echo $document->getMeta()->getInfo();
 }
 
-// Testing the JSON API Client.
+// "Testing the JSON API Client."
+```
+
+### Using as validator
+
+JSON API Client can be used as a validator for JSON API contents:
+
+```php
+$wrong_jsonapi = '{"data":{},"meta":{"info":"This is wrong JSON API. `data` has to be `null` or containing at least `type` and `id`."}}';
+
+try
+{
+	$document = \Art4\JsonApiClient\Utils\Helper::parse($jsonapi_string);
+}
+catch (\InvalidArgumentException $e)
+{
+	echo $e->getMessage(); // "A resource object MUST contain a type"
+}
 ```
 
 ## Change log

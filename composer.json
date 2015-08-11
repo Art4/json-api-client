@@ -3,7 +3,7 @@
     "type": "library",
     "description": "JSON API client",
     "homepage": "https://github.com/Art4/json-api-client",
-    "keywords": ["json", "api", "json-api", "client", "reader"],
+    "keywords": ["json", "api", "json-api", "client", "reader", "validator"],
     "license": "GPL2",
     "authors": [
         {
