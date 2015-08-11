@@ -28,22 +28,23 @@ class MetaTest extends \PHPUnit_Framework_TestCase
 		$meta = new Meta($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Meta', $meta);
-		$this->assertTrue($meta->__isset('object'));
+		$this->assertTrue($meta->has('object'));
 		$this->assertTrue(is_object($meta->get('object')));
-		$this->assertTrue($meta->__isset('array'));
+		$this->assertTrue($meta->has('array'));
 		$this->assertTrue(is_array($meta->get('array')));
-		$this->assertTrue($meta->__isset('string'));
+		$this->assertTrue($meta->has('string'));
 		$this->assertTrue(is_string($meta->get('string')));
-		$this->assertTrue($meta->__isset('number_int'));
+		$this->assertTrue($meta->has('number_int'));
 		$this->assertTrue(is_int($meta->get('number_int')));
-		$this->assertTrue($meta->__isset('number_float'));
+		$this->assertTrue($meta->has('number_float'));
 		$this->assertTrue(is_float($meta->get('number_float')));
-		$this->assertTrue($meta->__isset('true'));
+		$this->assertTrue($meta->has('true'));
 		$this->assertTrue($meta->get('true'));
-		$this->assertTrue($meta->__isset('false'));
+		$this->assertTrue($meta->has('false'));
 		$this->assertFalse($meta->get('false'));
-		$this->assertTrue($meta->__isset('null'));
+		$this->assertTrue($meta->has('null'));
 		$this->assertNull($meta->get('null'));
+		$this->assertSame($meta->getKeys(), array('object', 'array', 'string', 'number_int', 'number_float', 'true', 'false', 'null'));
 	}
 
 	/**

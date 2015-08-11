@@ -43,30 +43,52 @@ class Meta
 	/**
 	 * Is a value set?
 	 *
+	 * @param string $key The Key
+	 *
+	 * @return bool true if the value is set, false if not
+	 */
+	public function has($key)
+	{
+		return array_key_exists($key, $this->_data);
+	}
+
+	/**
+	 * Returns the keys of all setted values
+	 *
+	 * @return array Keys of all setted values
+	 */
+	public function getKeys()
+	{
+		return array_keys($this->_data);
+	}
+
+	/**
+	 * Is a value set?
+	 *
 	 * @param string $name The Name
 	 *
 	 * @return bool true if the value is set, false if not
 	 */
 	public function __isset($name)
 	{
-		return array_key_exists($name, $this->_data);
+		return $this->has($name);
 	}
 
 	/**
 	 * Get a value
 	 *
-	 * @param string $name The Name
+	 * @param string $key The Key
 	 *
 	 * @return mixed The value
 	 */
-	public function get($name)
+	public function get($key)
 	{
-		if ( ! $this->__isset($name) )
+		if ( ! $this->has($key) )
 		{
-			throw new \RuntimeException('You can\'t get "' . $name . '", because it wasn\'t set.');
+			throw new \RuntimeException('"' . $key . '" doesn\'t exist in this object.');
 		}
 
-		return $this->_data[$name];
+		return $this->_data[$key];
 	}
 
 	/**

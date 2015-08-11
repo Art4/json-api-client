@@ -25,22 +25,23 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 		$attributes = new Attributes($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Attributes', $attributes);
-		$this->assertTrue($attributes->__isset('object'));
+		$this->assertTrue($attributes->has('object'));
 		$this->assertTrue(is_object($attributes->get('object')));
-		$this->assertTrue($attributes->__isset('array'));
+		$this->assertTrue($attributes->has('array'));
 		$this->assertTrue(is_array($attributes->get('array')));
-		$this->assertTrue($attributes->__isset('string'));
+		$this->assertTrue($attributes->has('string'));
 		$this->assertTrue(is_string($attributes->get('string')));
-		$this->assertTrue($attributes->__isset('number_int'));
+		$this->assertTrue($attributes->has('number_int'));
 		$this->assertTrue(is_int($attributes->get('number_int')));
-		$this->assertTrue($attributes->__isset('number_float'));
+		$this->assertTrue($attributes->has('number_float'));
 		$this->assertTrue(is_float($attributes->get('number_float')));
-		$this->assertTrue($attributes->__isset('true'));
+		$this->assertTrue($attributes->has('true'));
 		$this->assertTrue($attributes->get('true'));
-		$this->assertTrue($attributes->__isset('false'));
+		$this->assertTrue($attributes->has('false'));
 		$this->assertFalse($attributes->get('false'));
-		$this->assertTrue($attributes->__isset('null'));
+		$this->assertTrue($attributes->has('null'));
 		$this->assertNull($attributes->get('null'));
+		$this->assertSame($attributes->getKeys(), array('object', 'array', 'string', 'number_int', 'number_float', 'true', 'false', 'null'));
 	}
 
 	/**
