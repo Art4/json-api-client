@@ -111,13 +111,151 @@ class Document
 	}
 
 	/**
+	 * Returns the keys of all setted values in this document
+	 *
+	 * @return array Keys of all setted values
+	 */
+	public function getKeys()
+	{
+		$keys = array();
+
+		// data
+		if ( $this->has('data') )
+		{
+			$keys[] = 'data';
+		}
+
+		// errors
+		if ( $this->has('errors') )
+		{
+			$keys[] = 'errors';
+		}
+
+		// meta
+		if ( $this->has('meta') )
+		{
+			$keys[] = 'meta';
+		}
+
+		// jsonapi
+		if ( $this->has('jsonapi') )
+		{
+			$keys[] = 'jsonapi';
+		}
+
+		// links
+		if ( $this->has('links') )
+		{
+			$keys[] = 'links';
+		}
+
+		// included
+		if ( $this->has('included') )
+		{
+			$keys[] = 'included';
+		}
+
+		return $keys;
+	}
+
+	/**
+	 * Check if a value exists in this document
+	 *
+	 * @param string $key The key of the value
+	 * @return bool true if data exists, false if not
+	 */
+	public function has($key)
+	{
+		// data
+		if ( $key === 'data' and $this->data !== false )
+		{
+			return true;
+		}
+
+		// errors
+		if ( $key === 'errors' and count($this->errors) > 0 )
+		{
+			return true;
+		}
+
+		// meta
+		if ( $key === 'meta' and $this->hasMeta() )
+		{
+			return true;
+		}
+
+		// jsonapi
+		if ( $key === 'jsonapi' and $this->jsonapi !== null )
+		{
+			return true;
+		}
+
+		// links
+		if ( $key === 'links' and $this->links !== null )
+		{
+			return true;
+		}
+
+		// included
+		if ( $key === 'included' and $this->included !== null )
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Get a value by the key of this document
+	 *
+	 * @param string $key The key of the value
+	 * @return mixed The value
+	 */
+	public function get($key)
+	{
+		if ( ! $this->has($key) )
+		{
+			throw new \RuntimeException('"' . $key . '" doesn\'t exist in Document.');
+		}
+
+		if ( $key === 'meta' )
+		{
+			return $this->getMeta();
+		}
+
+		if ( $key === 'links' )
+		{
+			return $this->getLinks();
+		}
+
+		return $this->$key;
+	}
+
+	/**
+	 * Convert this document in an array
+	 *
+	 * @return array
+	 */
+	public function asArray()
+	{
+		$return = array();
+
+		foreach($this->getKeys() as $key)
+		{
+			$return[$key] = $this->get($key);
+		}
+
+		return $return;
+	}
+
+	/**
 	 * Check if data exists in this document
 	 *
 	 * @return bool true if data exists, false if not
 	 */
 	public function hasData()
 	{
-		return $this->data !== false;
+		return $this->has('data');
 	}
 
 	/**
@@ -129,12 +267,7 @@ class Document
 	 */
 	public function getData()
 	{
-		if ( ! $this->hasData() )
-		{
-			throw new \RuntimeException('You can\'t get "data", because it wasn\'t set.');
-		}
-
-		return $this->data;
+		return $this->get('data');
 	}
 
 	/**
@@ -144,7 +277,7 @@ class Document
 	 */
 	public function hasErrors()
 	{
-		return count($this->getErrors()) > 0;
+		return $this->has('errors');
 	}
 
 	/**
@@ -154,7 +287,7 @@ class Document
 	 */
 	public function getErrors()
 	{
-		return $this->errors;
+		return $this->get('errors');
 	}
 
 	/**
@@ -164,7 +297,7 @@ class Document
 	 */
 	public function hasJsonapi()
 	{
-		return $this->jsonapi !== null;
+		return $this->has('jsonapi');
 	}
 
 	/**
@@ -176,12 +309,7 @@ class Document
 	 */
 	public function getJsonapi()
 	{
-		if ( ! $this->hasJsonapi() )
-		{
-			throw new \RuntimeException('You can\'t get "jsonapi", because it wasn\'t set.');
-		}
-
-		return $this->jsonapi;
+		return $this->get('jsonapi');
 	}
 
 	/**
@@ -191,7 +319,7 @@ class Document
 	 */
 	public function hasIncluded()
 	{
-		return $this->included !== null;
+		return $this->has('included');
 	}
 
 	/**
@@ -203,12 +331,7 @@ class Document
 	 */
 	public function getIncluded()
 	{
-		if ( ! $this->hasIncluded() )
-		{
-			throw new \RuntimeException('You can\'t get "included", because it wasn\'t set.');
-		}
-
-		return $this->included;
+		return $this->get('included');
 	}
 
 	/**

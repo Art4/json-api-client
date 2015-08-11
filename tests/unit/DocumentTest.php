@@ -17,8 +17,17 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 	{
 		$object = new \stdClass();
 		$object->meta = new \stdClass();
+		$object->ignore = 'this property must be ignored';
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Document', new Document($object));
+		$document = new Document($object);
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
+		$this->assertSame($document->getKeys(), array('meta'));
+		$this->assertTrue($document->has('meta'));
+		$this->assertFalse($document->has('data'));
+		$this->assertFalse($document->has('errors'));
+		$this->assertFalse($document->has('jsonapi'));
+		$this->assertFalse($document->has('links'));
 	}
 
 	/**
@@ -70,9 +79,9 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$document = new Document($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
-		$this->assertTrue($document->hasData());
+		$this->assertTrue($document->has('data'));
 
-		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $document->getData());
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $document->get('data'));
 	}
 
 	/**
@@ -92,9 +101,9 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$document = new Document($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
-		$this->assertTrue($document->hasData());
+		$this->assertTrue($document->has('data'));
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource', $document->getData());
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource', $document->get('data'));
 	}
 
 	/**
@@ -108,9 +117,9 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$document = new Document($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
-		$this->assertTrue($document->hasData());
+		$this->assertTrue($document->has('data'));
 
-		$this->assertTrue(is_null($document->getData()));
+		$this->assertTrue(is_null($document->get('data')));
 	}
 
 	/**
@@ -128,9 +137,9 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$document = new Document($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
-		$this->assertTrue($document->hasData());
+		$this->assertTrue($document->has('data'));
 
-		$resources = $document->getData();
+		$resources = $document->get('data');
 
 		$this->assertTrue(is_array($resources));
 		$this->assertTrue( count($resources) === 1);
@@ -158,9 +167,9 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$document = new Document($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
-		$this->assertTrue($document->hasData());
+		$this->assertTrue($document->has('data'));
 
-		$resources = $document->getData();
+		$resources = $document->get('data');
 
 		$this->assertTrue(is_array($resources));
 		$this->assertTrue( count($resources) === 1);
@@ -182,9 +191,9 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$document = new Document($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
-		$this->assertTrue($document->hasData());
+		$this->assertTrue($document->has('data'));
 
-		$resources = $document->getData();
+		$resources = $document->get('data');
 
 		$this->assertTrue(is_array($resources));
 		$this->assertTrue( count($resources) === 0);
@@ -204,9 +213,9 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$document = new Document($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
-		$this->assertTrue($document->hasErrors());
+		$this->assertTrue($document->has('errors'));
 
-		$errors = $document->getErrors();
+		$errors = $document->get('errors');
 
 		$this->assertTrue(is_array($errors));
 		$this->assertTrue(count($errors) === 2);
@@ -258,9 +267,9 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$document = new Document($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
-		$this->assertTrue($document->hasMeta());
+		$this->assertTrue($document->has('meta'));
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Meta', $document->getMeta());
+		$this->assertInstanceOf('Art4\JsonApiClient\Meta', $document->get('meta'));
 	}
 
 	/**
@@ -276,9 +285,9 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$document = new Document($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
-		$this->assertTrue($document->hasJsonapi());
+		$this->assertTrue($document->has('jsonapi'));
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Jsonapi', $document->getJsonapi());
+		$this->assertInstanceOf('Art4\JsonApiClient\Jsonapi', $document->get('jsonapi'));
 	}
 
 	/**
@@ -294,9 +303,9 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$document = new Document($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
-		$this->assertTrue($document->hasLinks());
+		$this->assertTrue($document->has('links'));
 
-		$this->assertInstanceOf('Art4\JsonApiClient\DocumentLink', $document->getLinks());
+		$this->assertInstanceOf('Art4\JsonApiClient\DocumentLink', $document->get('links'));
 	}
 
 	/**
@@ -317,9 +326,9 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$document = new Document($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
-		$this->assertTrue($document->hasIncluded());
+		$this->assertTrue($document->has('included'));
 
-		$resources = $document->getIncluded();
+		$resources = $document->get('included');
 
 		$this->assertTrue(is_array($resources));
 		$this->assertTrue( count($resources) === 1);
