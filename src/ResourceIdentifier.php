@@ -63,13 +63,110 @@ class ResourceIdentifier
 	}
 
 	/**
+	 * Check if a value exists in this identifier
+	 *
+	 * @param string $key The key of the value
+	 * @return bool true if data exists, false if not
+	 */
+	public function has($key)
+	{
+		// meta
+		if ( $key === 'meta' and $this->hasMeta() )
+		{
+			return true;
+		}
+
+		// type always exists
+		if ( $key === 'type' and $this->type !== null )
+		{
+			return true;
+		}
+
+		// id always exists
+		if ( $key === 'id' and $this->id !== null )
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Returns the keys of all setted values in this identifier
+	 *
+	 * @return array Keys of all setted values
+	 */
+	public function getKeys()
+	{
+		$keys = array();
+
+		// type
+		if ( $this->has('type') )
+		{
+			$keys[] = 'type';
+		}
+
+		// id
+		if ( $this->has('id') )
+		{
+			$keys[] = 'id';
+		}
+
+		// meta
+		if ( $this->has('meta') )
+		{
+			$keys[] = 'meta';
+		}
+
+		return $keys;
+	}
+
+	/**
+	 * Get a value by the key of this identifier
+	 *
+	 * @param string $key The key of the value
+	 * @return mixed The value
+	 */
+	public function get($key)
+	{
+		if ( ! $this->has($key) )
+		{
+			throw new \RuntimeException('"' . $key . '" doesn\'t exist in this identifier.');
+		}
+
+		if ( $key === 'meta' )
+		{
+			return $this->getMeta();
+		}
+
+		return $this->$key;
+	}
+
+	/**
+	 * Convert this identifier in an array
+	 *
+	 * @return array
+	 */
+	public function asArray()
+	{
+		$return = array();
+
+		foreach($this->getKeys() as $key)
+		{
+			$return[$key] = $this->get($key);
+		}
+
+		return $return;
+	}
+
+	/**
 	 * Get the type
 	 *
 	 * @return string The type
 	 */
 	public function getType()
 	{
-		return $this->type;
+		return $this->get('type');
 	}
 
 	/**
@@ -79,6 +176,6 @@ class ResourceIdentifier
 	 */
 	public function getId()
 	{
-		return $this->id;
+		return $this->get('id');
 	}
 }

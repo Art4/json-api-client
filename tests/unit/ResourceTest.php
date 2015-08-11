@@ -24,12 +24,13 @@ class ResourceTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource', $resource);
 
-		$this->assertSame($resource->getType(), 'type');
-		$this->assertSame($resource->getId(), '789');
-		$this->assertTrue($resource->hasMeta());
-		$this->assertFalse($resource->hasAttributes());
-		$this->assertFalse($resource->hasRelationships());
-		$this->assertFalse($resource->hasLinks());
+		$this->assertSame($resource->get('type'), 'type');
+		$this->assertSame($resource->get('id'), '789');
+		$this->assertTrue($resource->has('meta'));
+		$this->assertFalse($resource->has('attributes'));
+		$this->assertFalse($resource->has('relationships'));
+		$this->assertFalse($resource->has('links'));
+		$this->assertSame($resource->getKeys(), array('type', 'id', 'meta'));
 	}
 
 	/**
@@ -48,14 +49,15 @@ class ResourceTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource', $resource);
 
-		$this->assertSame($resource->getType(), 'type');
-		$this->assertSame($resource->getId(), '789');
-		$this->assertFalse($resource->hasMeta());
-		$this->assertTrue($resource->hasAttributes());
-		$this->assertInstanceOf('Art4\JsonApiClient\Attributes', $resource->getAttributes());
-		$this->assertTrue($resource->hasRelationships());
-		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipCollection', $resource->getRelationships());
-		$this->assertTrue($resource->hasLinks());
-		$this->assertInstanceOf('Art4\JsonApiClient\Link', $resource->getLinks());
+		$this->assertSame($resource->get('type'), 'type');
+		$this->assertSame($resource->get('id'), '789');
+		$this->assertFalse($resource->has('meta'));
+		$this->assertTrue($resource->has('attributes'));
+		$this->assertInstanceOf('Art4\JsonApiClient\Attributes', $resource->get('attributes'));
+		$this->assertTrue($resource->has('relationships'));
+		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipCollection', $resource->get('relationships'));
+		$this->assertTrue($resource->has('links'));
+		$this->assertInstanceOf('Art4\JsonApiClient\Link', $resource->get('links'));
+		$this->assertSame($resource->getKeys(), array('type', 'id', 'attributes', 'relationships', 'links'));
 	}
 }

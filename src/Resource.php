@@ -48,13 +48,104 @@ class Resource extends ResourceIdentifier
 	}
 
 	/**
+	 * Check if a value exists in this resource
+	 *
+	 * @param string $key The key of the value
+	 * @return bool true if data exists, false if not
+	 */
+	public function has($key)
+	{
+		// meta, type, id
+		if ( parent::has($key) === true )
+		{
+			return true;
+		}
+
+		// attributes
+		if ( $key === 'attributes' and $this->attributes !== null )
+		{
+			return true;
+		}
+
+		// relationships
+		if ( $key === 'relationships' and $this->relationships !== null )
+		{
+			return true;
+		}
+
+		// links
+		if ( $key === 'links' and $this->hasLinks() )
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Returns the keys of all setted values in this resource
+	 *
+	 * @return array Keys of all setted values
+	 */
+	public function getKeys()
+	{
+		$keys = parent::getKeys();
+
+		// attributes
+		if ( $this->has('attributes') )
+		{
+			$keys[] = 'attributes';
+		}
+
+		// relationships
+		if ( $this->has('relationships') )
+		{
+			$keys[] = 'relationships';
+		}
+
+		// links
+		if ( $this->has('links') )
+		{
+			$keys[] = 'links';
+		}
+
+		return $keys;
+	}
+
+	/**
+	 * Get a value by the key of this resource
+	 *
+	 * @param string $key The key of the value
+	 * @return mixed The value
+	 */
+	public function get($key)
+	{
+		if ( ! $this->has($key) )
+		{
+			throw new \RuntimeException('"' . $key . '" doesn\'t exist in this resource.');
+		}
+
+		if ( $key === 'meta' )
+		{
+			return $this->getMeta();
+		}
+
+		if ( $key === 'links' )
+		{
+			return $this->getLinks();
+		}
+
+		return $this->$key;
+	}
+
+	/**
 	 * Check if attributes exists in this resource
 	 *
 	 * @return bool true if data exists, false if not
 	 */
 	public function hasAttributes()
 	{
-		return $this->attributes !== null;
+		return $this->has('attributes');
 	}
 
 	/**
@@ -66,12 +157,7 @@ class Resource extends ResourceIdentifier
 	 */
 	public function getAttributes()
 	{
-		if ( ! $this->hasAttributes() )
-		{
-			throw new \RuntimeException('You can\'t get "attributes", because it wasn\'t set.');
-		}
-
-		return $this->attributes;
+		return $this->get('attributes');
 	}
 
 	/**
@@ -81,7 +167,7 @@ class Resource extends ResourceIdentifier
 	 */
 	public function hasRelationships()
 	{
-		return $this->relationships !== null;
+		return $this->has('relationships');
 	}
 
 	/**
@@ -93,11 +179,6 @@ class Resource extends ResourceIdentifier
 	 */
 	public function getRelationships()
 	{
-		if ( ! $this->hasRelationships() )
-		{
-			throw new \RuntimeException('You can\'t get "relationships", because it wasn\'t set.');
-		}
-
-		return $this->relationships;
+		return $this->get('relationships');
 	}
 }

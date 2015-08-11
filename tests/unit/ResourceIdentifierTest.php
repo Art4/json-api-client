@@ -23,9 +23,10 @@ class ResourceIdentifierTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $identifier);
 
-		$this->assertSame($identifier->getType(), 'type');
-		$this->assertSame($identifier->getId(), '789');
-		$this->assertFalse($identifier->hasMeta());
+		$this->assertSame($identifier->get('type'), 'type');
+		$this->assertSame($identifier->get('id'), '789');
+		$this->assertFalse($identifier->has('meta'));
+		$this->assertSame($identifier->getKeys(), array('type', 'id'));
 	}
 
 	/**
@@ -42,10 +43,11 @@ class ResourceIdentifierTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $identifier);
 
-		$this->assertSame($identifier->getType(), 'types');
-		$this->assertSame($identifier->getId(), '159');
-		$this->assertTrue($identifier->hasMeta());
-		$this->assertInstanceOf('Art4\JsonApiClient\Meta', $identifier->getMeta());
+		$this->assertSame($identifier->get('type'), 'types');
+		$this->assertSame($identifier->get('id'), '159');
+		$this->assertTrue($identifier->has('meta'));
+		$this->assertInstanceOf('Art4\JsonApiClient\Meta', $identifier->get('meta'));
+		$this->assertSame($identifier->getKeys(), array('type', 'id', 'meta'));
 	}
 
 	/**
@@ -66,7 +68,7 @@ class ResourceIdentifierTest extends \PHPUnit_Framework_TestCase
 
 		$identifier = new ResourceIdentifier($object);
 
-		$this->assertTrue(is_string($identifier->getType()));
+		$this->assertTrue(is_string($identifier->get('type')));
 	}
 
 	/**
@@ -87,7 +89,7 @@ class ResourceIdentifierTest extends \PHPUnit_Framework_TestCase
 
 		$identifier = new ResourceIdentifier($object);
 
-		$this->assertTrue(is_string($identifier->getId()));
+		$this->assertTrue(is_string($identifier->get('id')));
 	}
 
 	/**
