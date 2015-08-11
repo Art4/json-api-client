@@ -8,7 +8,7 @@ JSON API Client is a PHP Library to handle the response body from a [JSON API](h
 
 Format: [JSON API](http://jsonapi.org/format) 1.0
 
-## Install (Todo)
+## Install
 
 Via Composer
 
@@ -45,7 +45,7 @@ $wrong_jsonapi = '{"data":{},"meta":{"info":"This is wrong JSON API. `data` has 
 
 try
 {
-	$document = \Art4\JsonApiClient\Utils\Helper::parse($jsonapi_string);
+	$document = \Art4\JsonApiClient\Utils\Helper::parse($wrong_jsonapi);
 }
 catch (\InvalidArgumentException $e)
 {
