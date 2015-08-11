@@ -18,7 +18,7 @@ $ composer require art4/json-api-client
 
 ## Usage
 
-Todo: Documentation
+See the [documentation](docs/README.md).
 
 ### Using as reader
 
