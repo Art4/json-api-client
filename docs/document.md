@@ -5,7 +5,7 @@ The `Document` object represents the [Top Level](http://jsonapi.org/format/#docu
 
 ### Check if a value exist
 
-You cat check for all possible values using the `has()` method. It return `boolean`
+You can check for all possible values using the `has()` method.
 
 ```php
 $jsonapi_string = '{"meta":{"info":"Testing the JSON API Client."}}';
@@ -33,7 +33,7 @@ false
 
 ### Get the keys of all existing values
 
-You cat get the keys of all existing values using the `getKeys()` method. Assume we have the same `$document` like in the last example.
+You can get the keys of all existing values using the `getKeys()` method. Assume we have the same `$document` like in the last example.
 
 ```php
 var_dump($document->getKeys());
@@ -58,7 +58,7 @@ foreach($document->getKeys() as $key)
 
 ### Get the containing data
 
-You cat get all (existing) data using the `get()` method.
+You can get all (existing) data using the `get()` method.
 
 ```php
 $data     = $document->get('data');
