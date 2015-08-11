@@ -111,6 +111,53 @@ class Document
 	}
 
 	/**
+	 * Check if a value exists in this document
+	 *
+	 * @param string $key The key of the value
+	 * @return bool true if data exists, false if not
+	 */
+	public function has($key)
+	{
+		// data
+		if ( $key === 'data' and $this->data !== false )
+		{
+			return true;
+		}
+
+		// errors
+		if ( $key === 'errors' and count($this->errors) > 0 )
+		{
+			return true;
+		}
+
+		// meta
+		if ( $key === 'meta' and $this->hasMeta() )
+		{
+			return true;
+		}
+
+		// jsonapi
+		if ( $key === 'jsonapi' and $this->jsonapi !== null )
+		{
+			return true;
+		}
+
+		// links
+		if ( $key === 'links' and $this->hasLinks() )
+		{
+			return true;
+		}
+
+		// included
+		if ( $key === 'included' and $this->included !== null )
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
 	 * Returns the keys of all setted values in this document
 	 *
 	 * @return array Keys of all setted values
@@ -156,53 +203,6 @@ class Document
 		}
 
 		return $keys;
-	}
-
-	/**
-	 * Check if a value exists in this document
-	 *
-	 * @param string $key The key of the value
-	 * @return bool true if data exists, false if not
-	 */
-	public function has($key)
-	{
-		// data
-		if ( $key === 'data' and $this->data !== false )
-		{
-			return true;
-		}
-
-		// errors
-		if ( $key === 'errors' and count($this->errors) > 0 )
-		{
-			return true;
-		}
-
-		// meta
-		if ( $key === 'meta' and $this->hasMeta() )
-		{
-			return true;
-		}
-
-		// jsonapi
-		if ( $key === 'jsonapi' and $this->jsonapi !== null )
-		{
-			return true;
-		}
-
-		// links
-		if ( $key === 'links' and $this->links !== null )
-		{
-			return true;
-		}
-
-		// included
-		if ( $key === 'included' and $this->included !== null )
-		{
-			return true;
-		}
-
-		return false;
 	}
 
 	/**

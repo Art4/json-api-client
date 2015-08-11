@@ -63,9 +63,10 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase
 		$relationship = new Relationship($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Relationship', $relationship);
-		$this->assertTrue($relationship->hasLinks());
+		$this->assertSame($relationship->getKeys(), array('links'));
+		$this->assertTrue($relationship->has('links'));
 
-		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipLink', $relationship->getLinks());
+		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipLink', $relationship->get('links'));
 	}
 
 	/**
@@ -85,9 +86,10 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase
 		$relationship = new Relationship($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Relationship', $relationship);
-		$this->assertTrue($relationship->hasData());
+		$this->assertSame($relationship->getKeys(), array('data'));
+		$this->assertTrue($relationship->has('data'));
 
-		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $relationship->getData());
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $relationship->get('data'));
 	}
 
 	/**
@@ -101,9 +103,10 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase
 		$relationship = new Relationship($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Relationship', $relationship);
-		$this->assertTrue($relationship->hasData());
+		$this->assertSame($relationship->getKeys(), array('data'));
+		$this->assertTrue($relationship->has('data'));
 
-		$this->assertTrue(is_null($relationship->getData()));
+		$this->assertTrue(is_null($relationship->get('data')));
 	}
 
 	/**
@@ -121,12 +124,13 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase
 		$relationship = new Relationship($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Relationship', $relationship);
-		$this->assertTrue($relationship->hasData());
+		$this->assertSame($relationship->getKeys(), array('data'));
+		$this->assertTrue($relationship->has('data'));
 
-		$resources = $relationship->getData();
+		$resources = $relationship->get('data');
 
 		$this->assertTrue(is_array($resources));
-		$this->assertTrue( count($resources) === 1);
+		$this->assertTrue(count($resources) === 1);
 
 		foreach ($resources as $resource)
 		{
@@ -145,12 +149,13 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase
 		$relationship = new Relationship($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Relationship', $relationship);
-		$this->assertTrue($relationship->hasData());
+		$this->assertSame($relationship->getKeys(), array('data'));
+		$this->assertTrue($relationship->has('data'));
 
-		$resources = $relationship->getData();
+		$resources = $relationship->get('data');
 
 		$this->assertTrue(is_array($resources));
-		$this->assertTrue( count($resources) === 0);
+		$this->assertTrue(count($resources) === 0);
 	}
 
 	/**
@@ -164,8 +169,9 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase
 		$relationship = new Relationship($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Relationship', $relationship);
-		$this->assertTrue($relationship->hasMeta());
+		$this->assertSame($relationship->getKeys(), array('meta'));
+		$this->assertTrue($relationship->has('meta'));
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Meta', $relationship->getMeta());
+		$this->assertInstanceOf('Art4\JsonApiClient\Meta', $relationship->get('meta'));
 	}
 }

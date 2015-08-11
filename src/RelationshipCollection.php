@@ -39,7 +39,7 @@ class RelationshipCollection
 
 		foreach ($object_vars as $name => $value)
 		{
-			if ( $resource->hasAttributes() and $resource->getAttributes()->__isset($name) )
+			if ( $resource->has('attributes') and $resource->get('attributes')->has($name) )
 			{
 				throw new \InvalidArgumentException('"' . $name . '" property cannot be set because it exists already in parents Resource object.');
 			}
@@ -52,14 +52,36 @@ class RelationshipCollection
 
 	/**
 	 * Is a value set?
-		*
+	 *
+	 * @param string $key The Key
+	 *
+	 * @return bool true if the value is set, false if not
+	 */
+	public function has($key)
+	{
+		return array_key_exists($key, $this->_data);
+	}
+
+	/**
+	 * Returns the keys of all setted values
+	 *
+	 * @return array Keys of all setted values
+	 */
+	public function getKeys()
+	{
+		return array_keys($this->_data);
+	}
+
+	/**
+	 * Is a value set?
+	 *
 	 * @param string $name The Name
-		*
+	 *
 	 * @return bool true if the value is set, false if not
 	 */
 	public function __isset($name)
 	{
-		return array_key_exists($name, $this->_data);
+		return $this->has($name);
 	}
 
 	/**
@@ -71,9 +93,9 @@ class RelationshipCollection
 	 */
 	public function get($name)
 	{
-		if ( ! $this->__isset($name) )
+		if ( ! $this->has($name) )
 		{
-			throw new \RuntimeException('You can\'t get "' . $name . '", because it wasn\'t set.');
+			throw new \RuntimeException('"' . $key . '" doesn\'t exist in this relationship collection.');
 		}
 
 		return $this->_data[$name];

@@ -59,13 +59,98 @@ class Relationship
 	}
 
 	/**
+	 * Check if a value exists in this relationship
+		*
+	 * @param string $key The key of the value
+	 * @return bool true if data exists, false if not
+	 */
+	public function has($key)
+	{
+		// links
+		if ( $key === 'links' and $this->hasLinks() )
+		{
+			return true;
+		}
+
+		// data
+		if ( $key === 'data' and $this->data !== false )
+		{
+			return true;
+		}
+
+		// meta
+		if ( $key === 'meta' and $this->hasMeta() )
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Returns the keys of all setted values in this relationship
+	 *
+	 * @return array Keys of all setted values
+	 */
+	public function getKeys()
+	{
+		$keys = array();
+
+		// links
+		if ( $this->has('links') )
+		{
+			$keys[] = 'links';
+		}
+
+		// data
+		if ( $this->has('data') )
+		{
+			$keys[] = 'data';
+		}
+
+		// meta
+		if ( $this->has('meta') )
+		{
+			$keys[] = 'meta';
+		}
+
+		return $keys;
+	}
+
+	/**
+	 * Get a value by the key of this relationship
+	 *
+	 * @param string $key The key of the value
+	 * @return mixed The value
+	 */
+	public function get($key)
+	{
+		if ( ! $this->has($key) )
+		{
+			throw new \RuntimeException('"' . $key . '" doesn\'t exist in Relationship.');
+		}
+
+		if ( $key === 'meta' )
+		{
+			return $this->getMeta();
+		}
+
+		if ( $key === 'links' )
+		{
+			return $this->getLinks();
+		}
+
+		return $this->$key;
+	}
+
+	/**
 	 * Check if data exists in this relationship
 	 *
 	 * @return bool true if data exists, false if not
 	 */
 	public function hasData()
 	{
-		return $this->data !== false;
+		return $this->has('data');
 	}
 
 	/**
@@ -77,12 +162,7 @@ class Relationship
 	 */
 	public function getData()
 	{
-		if ( ! $this->hasData() )
-		{
-			throw new \RuntimeException('You can\'t get "data", because it wasn\'t set.');
-		}
-
-		return $this->data;
+		return $this->get('data');
 	}
 
 	/**
@@ -139,7 +219,7 @@ class Relationship
 		{
 			throw new \InvalidArgumentException('Data value has to be null or an object, "' . gettype($data) . '" given.');
 		}
-		
+
 		return new ResourceIdentifier($data);
 	}
 }

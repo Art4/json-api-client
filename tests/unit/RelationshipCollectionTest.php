@@ -20,12 +20,14 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 			->disableOriginalConstructor()
 			->getMock();
 
-		$mock->method('hasAttributes')->willReturn(false);
+		$mock->method('has')
+			->with($this->equalTo('attributes'))
+			->willReturn(false);
 
 		$collection = new RelationshipCollection($object, $mock);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipCollection', $collection);
-		$this->assertTrue($collection->__isset('author'));
+		$this->assertTrue($collection->has('author'));
 		$this->assertInstanceOf('Art4\JsonApiClient\Relationship', $collection->get('author'));
 	}
 
@@ -38,7 +40,9 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 			->disableOriginalConstructor()
 			->getMock();
 
-		$mock->method('hasAttributes')->willReturn(false);
+		$mock->method('has')
+			->with($this->equalTo('attributes'))
+			->willReturn(false);
 
 		$object = new \stdClass();
 
@@ -56,7 +60,9 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 			->disableOriginalConstructor()
 			->getMock();
 
-		$mock->method('hasAttributes')->willReturn(false);
+		$mock->method('has')
+			->with($this->equalTo('attributes'))
+			->willReturn(false);
 
 		$object = new \stdClass();
 		$object->type = 'posts';
@@ -75,7 +81,9 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 			->disableOriginalConstructor()
 			->getMock();
 
-		$mock->method('hasAttributes')->willReturn(false);
+		$mock->method('has')
+			->with($this->equalTo('attributes'))
+			->willReturn(false);
 
 		$object = new \stdClass();
 		$object->id = '5';
@@ -94,7 +102,9 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 			->disableOriginalConstructor()
 			->getMock();
 
-		$mock->method('hasAttributes')->willReturn(false);
+		$mock->method('has')
+			->with($this->equalTo('attributes'))
+			->willReturn(false);
 
 		$object = new \stdClass();
 		$object->relationships = new \stdClass();
@@ -113,7 +123,9 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 			->disableOriginalConstructor()
 			->getMock();
 
-		$mock->method('hasAttributes')->willReturn(false);
+		$mock->method('has')
+			->with($this->equalTo('attributes'))
+			->willReturn(false);
 
 		$object = new \stdClass();
 		$object->attributes = new \stdClass();
@@ -128,20 +140,22 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreateWithAuthorInRelationshipsAndAttributesThrowsException()
 	{
-		$map = array(
-			array('relationships', false),
-		);
 		$mock_attributes = $this->getMockBuilder('Art4\JsonApiClient\Attributes')
 			->disableOriginalConstructor()
 			->getMock();
-		$mock_attributes->method('__isset')
-			->will($this->returnValueMap($map));
+		$mock_attributes->method('has')
+			->with($this->equalTo('relationships'))
+			->will($this->returnValue(false));
 
 		$mock = $this->getMockBuilder('Art4\JsonApiClient\Resource')
 			->disableOriginalConstructor()
 			->getMock();
-		$mock->method('hasAttributes')->willReturn(true);
-		$mock->method('getAttributes')->willReturn($mock_attributes);
+		$mock->method('has')
+			->with($this->equalTo('attributes'))
+			->willReturn(true);
+		$mock->method('get')
+			->with($this->equalTo('attributes'))
+			->willReturn($mock_attributes);
 
 		$object = new \stdClass();
 		$object->relationships = new \stdClass();
