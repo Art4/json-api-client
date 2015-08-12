@@ -32,6 +32,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		$link = new PaginationLink($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\PaginationLink', $link);
+		$this->assertSame($link->getKeys(), array('last', 'next'));
 
 		$this->assertFalse($link->has('about'));
 		$this->assertFalse($link->has('first'));
@@ -74,6 +75,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		if ( gettype($input) === 'string' )
 		{
 			$link = new PaginationLink($object);
+			$this->assertSame($link->getKeys(), array('first'));
 
 			$this->assertTrue($link->has('first'));
 			$this->assertTrue(is_string($link->get('first')));
@@ -83,6 +85,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		elseif ( gettype($input) === 'NULL' )
 		{
 			$link = new PaginationLink($object);
+			$this->assertSame($link->getKeys(), array());
 
 			$this->assertFalse($link->has('first'));
 
@@ -108,6 +111,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		if ( gettype($input) === 'string' )
 		{
 			$link = new PaginationLink($object);
+			$this->assertSame($link->getKeys(), array('last'));
 
 			$this->assertTrue($link->has('last'));
 			$this->assertTrue(is_string($link->get('last')));
@@ -117,6 +121,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		elseif ( gettype($input) === 'NULL' )
 		{
 			$link = new PaginationLink($object);
+			$this->assertSame($link->getKeys(), array());
 
 			$this->assertFalse($link->has('last'));
 
@@ -142,6 +147,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		if ( gettype($input) === 'string' )
 		{
 			$link = new PaginationLink($object);
+			$this->assertSame($link->getKeys(), array('prev'));
 
 			$this->assertTrue($link->has('prev'));
 			$this->assertTrue(is_string($link->get('prev')));
@@ -151,6 +157,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		elseif ( gettype($input) === 'NULL' )
 		{
 			$link = new PaginationLink($object);
+			$this->assertSame($link->getKeys(), array());
 
 			$this->assertFalse($link->has('prev'));
 
@@ -176,6 +183,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		if ( gettype($input) === 'string' )
 		{
 			$link = new PaginationLink($object);
+			$this->assertSame($link->getKeys(), array('next'));
 
 			$this->assertTrue($link->has('next'));
 			$this->assertTrue(is_string($link->get('next')));
@@ -185,6 +193,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		elseif ( gettype($input) === 'NULL' )
 		{
 			$link = new PaginationLink($object);
+			$this->assertSame($link->getKeys(), array());
 
 			$this->assertFalse($link->has('next'));
 

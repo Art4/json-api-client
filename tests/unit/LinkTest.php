@@ -24,6 +24,7 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 		$link = new Link($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Link', $link);
+		$this->assertSame($link->getKeys(), array('href', 'linkobj', 'link', 'meta'));
 
 		$this->assertTrue($link->has('href'));
 		$this->assertSame($link->get('href'), 'http://example.org/href');

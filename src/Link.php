@@ -69,7 +69,7 @@ class Link
 	 */
 	public function getKeys()
 	{
-		$keys = array_keys($this->_data);
+		$keys = array_keys($this->_links);
 
 		if ( $this->has('meta') )
 		{
@@ -126,6 +126,8 @@ class Link
 		if ( $name === 'meta' )
 		{
 			$this->setMeta($link);
+
+			return $this;
 		}
 
 		// from spec: an object ("link object") which can contain the following members:

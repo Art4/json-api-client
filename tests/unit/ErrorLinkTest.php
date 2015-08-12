@@ -27,6 +27,7 @@ class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 		$link = new ErrorLink($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ErrorLink', $link);
+		$this->assertSame($link->getKeys(), array('about'));
 
 		$this->assertFalse($link->has('href'));
 		$this->assertFalse($link->has('meta'));
@@ -49,6 +50,7 @@ class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 		$link = new ErrorLink($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ErrorLink', $link);
+		$this->assertSame($link->getKeys(), array('about'));
 
 		$this->assertTrue($link->has('about'));
 		$this->assertInstanceOf('Art4\JsonApiClient\Link', $link->get('about'));

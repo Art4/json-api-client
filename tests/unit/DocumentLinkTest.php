@@ -29,6 +29,7 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 		$link = new DocumentLink($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\DocumentLink', $link);
+		$this->assertSame($link->getKeys(), array('self', 'related', 'pagination'));
 
 		$this->assertFalse($link->has('ignore'));
 		$this->assertTrue($link->has('self'));
