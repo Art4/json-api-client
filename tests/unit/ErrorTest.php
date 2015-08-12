@@ -29,22 +29,22 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Error', $error);
 
-		$this->assertTrue($error->hasId());
-		$this->assertSame($error->getId(), 'id');
-		$this->assertTrue($error->hasLinks());
-		$this->assertInstanceOf('Art4\JsonApiClient\ErrorLink', $error->getLinks());
-		$this->assertTrue($error->hasStatus());
-		$this->assertSame($error->getStatus(), 'status');
-		$this->assertTrue($error->hasCode());
-		$this->assertSame($error->getCode(), 'code');
-		$this->assertTrue($error->hasTitle());
-		$this->assertSame($error->getTitle(), 'title');
-		$this->assertTrue($error->hasDetail());
-		$this->assertSame($error->getDetail(), 'detail');
-		$this->assertTrue($error->hasSource());
-		$this->assertInstanceOf('Art4\JsonApiClient\ErrorSource', $error->getSource());
-		$this->assertTrue($error->hasMeta());
-		$this->assertInstanceOf('Art4\JsonApiClient\Meta', $error->getMeta());
+		$this->assertTrue($error->has('id'));
+		$this->assertSame($error->get('id'), 'id');
+		$this->assertTrue($error->has('links'));
+		$this->assertInstanceOf('Art4\JsonApiClient\ErrorLink', $error->get('links'));
+		$this->assertTrue($error->has('status'));
+		$this->assertSame($error->get('status'), 'status');
+		$this->assertTrue($error->has('code'));
+		$this->assertSame($error->get('code'), 'code');
+		$this->assertTrue($error->has('title'));
+		$this->assertSame($error->get('title'), 'title');
+		$this->assertTrue($error->has('detail'));
+		$this->assertSame($error->get('detail'), 'detail');
+		$this->assertTrue($error->has('source'));
+		$this->assertInstanceOf('Art4\JsonApiClient\ErrorSource', $error->get('source'));
+		$this->assertTrue($error->has('meta'));
+		$this->assertInstanceOf('Art4\JsonApiClient\Meta', $error->get('meta'));
 	}
 
 	/**

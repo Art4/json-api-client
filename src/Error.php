@@ -111,13 +111,158 @@ class Error
 	}
 
 	/**
+	 * Check if a value exists in this object
+	 *
+	 * @param string $key The key of the value
+	 * @return bool true if data exists, false if not
+	 */
+	public function has($key)
+	{
+		// id
+		if ( $key === 'id' and $this->id !== null )
+		{
+			return true;
+		}
+
+		// links
+		if ( $key === 'links' and $this->hasLinks() )
+		{
+			return true;
+		}
+
+		// status
+		if ( $key === 'status' and $this->status !== null )
+		{
+			return true;
+		}
+
+		// code
+		if ( $key === 'code' and $this->code !== null )
+		{
+			return true;
+		}
+
+		// title
+		if ( $key === 'title' and $this->title !== null )
+		{
+			return true;
+		}
+
+		// detail
+		if ( $key === 'detail' and $this->detail !== null )
+		{
+			return true;
+		}
+
+		// source
+		if ( $key === 'source' and $this->source !== null )
+		{
+			return true;
+		}
+
+		// meta
+		if ( $key === 'meta' and $this->hasMeta() )
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Returns the keys of all setted values
+	 *
+	 * @return array Keys of all setted values
+	 */
+	public function getKeys()
+	{
+		$keys = array();
+
+		// id
+		if ( $this->has('id') )
+		{
+			$keys[] = 'id';
+		}
+
+		// links
+		if ( $this->has('links') )
+		{
+			$keys[] = 'links';
+		}
+
+		// status
+		if ( $this->has('status') )
+		{
+			$keys[] = 'status';
+		}
+
+		// code
+		if ( $this->has('code') )
+		{
+			$keys[] = 'code';
+		}
+
+		// title
+		if ( $this->has('title') )
+		{
+			$keys[] = 'title';
+		}
+
+		// detail
+		if ( $this->has('detail') )
+		{
+			$keys[] = 'detail';
+		}
+
+		// source
+		if ( $this->has('source') )
+		{
+			$keys[] = 'source';
+		}
+
+		// meta
+		if ( $this->has('meta') )
+		{
+			$keys[] = 'meta';
+		}
+
+		return $keys;
+	}
+
+	/**
+	 * Get a value by the key
+	 *
+	 * @param string $key The key of the value
+	 * @return mixed The value
+	 */
+	public function get($key)
+	{
+		if ( ! $this->has($key) )
+		{
+			throw new \RuntimeException('"' . $key . '" doesn\'t exist in this error object.');
+		}
+
+		if ( $key === 'meta' )
+		{
+			return $this->getMeta();
+		}
+
+		if ( $key === 'links' )
+		{
+			return $this->getLinks();
+		}
+
+		return $this->$key;
+	}
+
+	/**
 	 * Check if id exists
 	 *
 	 * @return bool true if id exists, false if not
 	 */
 	public function hasId()
 	{
-		return $this->id !== null;
+		return $this->has('id');
 	}
 
 	/**
@@ -129,12 +274,7 @@ class Error
 	 */
 	public function getId()
 	{
-		if ( ! $this->hasId() )
-		{
-			throw new \RuntimeException('You can\'t get "id", because it wasn\'t set.');
-		}
-
-		return $this->id;
+		return $this->get('id');
 	}
 
 	/**
@@ -144,7 +284,7 @@ class Error
 	 */
 	public function hasStatus()
 	{
-		return $this->status !== null;
+		return $this->has('status');
 	}
 
 	/**
@@ -156,12 +296,7 @@ class Error
 	 */
 	public function getStatus()
 	{
-		if ( ! $this->hasStatus() )
-		{
-			throw new \RuntimeException('You can\'t get "status", because it wasn\'t set.');
-		}
-
-		return $this->status;
+		return $this->get('status');
 	}
 
 	/**
@@ -171,7 +306,7 @@ class Error
 	 */
 	public function hasCode()
 	{
-		return $this->code !== null;
+		return $this->has('code');
 	}
 
 	/**
@@ -183,12 +318,7 @@ class Error
 	 */
 	public function getCode()
 	{
-		if ( ! $this->hasCode() )
-		{
-			throw new \RuntimeException('You can\'t get "code", because it wasn\'t set.');
-		}
-
-		return $this->code;
+		return $this->get('code');
 	}
 
 	/**
@@ -198,7 +328,7 @@ class Error
 	 */
 	public function hasTitle()
 	{
-		return $this->title !== null;
+		return $this->has('title');
 	}
 
 	/**
@@ -210,12 +340,7 @@ class Error
 	 */
 	public function getTitle()
 	{
-		if ( ! $this->hasTitle() )
-		{
-			throw new \RuntimeException('You can\'t get "title", because it wasn\'t set.');
-		}
-
-		return $this->title;
+		return $this->get('title');
 	}
 
 	/**
@@ -225,7 +350,7 @@ class Error
 	 */
 	public function hasDetail()
 	{
-		return $this->detail !== null;
+		return $this->has('detail');
 	}
 
 	/**
@@ -237,12 +362,7 @@ class Error
 	 */
 	public function getDetail()
 	{
-		if ( ! $this->hasDetail() )
-		{
-			throw new \RuntimeException('You can\'t get "detail", because it wasn\'t set.');
-		}
-
-		return $this->detail;
+		return $this->get('detail');
 	}
 
 	/**
@@ -252,7 +372,7 @@ class Error
 	 */
 	public function hasSource()
 	{
-		return $this->source !== null;
+		return $this->has('source');
 	}
 
 	/**
@@ -264,11 +384,6 @@ class Error
 	 */
 	public function getSource()
 	{
-		if ( ! $this->hasSource() )
-		{
-			throw new \RuntimeException('You can\'t get "error source", because it wasn\'t set.');
-		}
-
-		return $this->source;
+		return $this->get('source');
 	}
 }
