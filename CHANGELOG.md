@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
+## [0.2] - 2015-08-12
+
 ### Added
 
 - Documentation, see folder [docs/](docs/README.md)
@@ -22,4 +24,5 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Validator fits nearly 100% specification
 - Full test coverage
 
-[Unreleased]: https://github.com/Art4/json-api-client/compare/0.1...HEAD
+[Unreleased]: https://github.com/Art4/json-api-client/compare/0.2...HEAD
+[0.2]: https://github.com/Art4/json-api-client/compare/0.1...0.2
