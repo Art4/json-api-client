@@ -80,18 +80,6 @@ class Link
 	}
 
 	/**
-	 * Is a link set?
-	 *
-	 * @param string $name The Name
-	 *
-	 * @return bool true if the link is set, false if not
-	 */
-	public function __isset($name)
-	{
-		return $this->has($name);
-	}
-
-	/**
 	 * Get a link
 	 *
 	 * @param string $key The Name

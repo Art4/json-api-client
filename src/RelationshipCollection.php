@@ -73,18 +73,6 @@ class RelationshipCollection
 	}
 
 	/**
-	 * Is a value set?
-	 *
-	 * @param string $name The Name
-	 *
-	 * @return bool true if the value is set, false if not
-	 */
-	public function __isset($name)
-	{
-		return $this->has($name);
-	}
-
-	/**
 	 * Get a value
 	 *
 	 * @param string $name The Name

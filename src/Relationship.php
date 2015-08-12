@@ -144,28 +144,6 @@ class Relationship
 	}
 
 	/**
-	 * Check if data exists in this relationship
-	 *
-	 * @return bool true if data exists, false if not
-	 */
-	public function hasData()
-	{
-		return $this->has('data');
-	}
-
-	/**
-	 * Get the data of this relationship
-	 *
-	 * @throws \RuntimeException If data wasn't set, you can't get it
-	 *
-	 * @return null|ResourceIdentifier|Resource The data
-	 */
-	public function getData()
-	{
-		return $this->get('data');
-	}
-
-	/**
 	 * Set the data for this relationship
 	 *
 	 * @throws \InvalidArgumentException If $data isn't null or ResourceIdentifier

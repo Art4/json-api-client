@@ -158,24 +158,4 @@ class ResourceIdentifier
 
 		return $return;
 	}
-
-	/**
-	 * Get the type
-	 *
-	 * @return string The type
-	 */
-	public function getType()
-	{
-		return $this->get('type');
-	}
-
-	/**
-	 * Get the id
-	 *
-	 * @return string The id
-	 */
-	public function getId()
-	{
-		return $this->get('id');
-	}
 }

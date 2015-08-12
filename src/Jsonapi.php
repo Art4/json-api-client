@@ -115,26 +115,4 @@ class Jsonapi
 
 		return $this->$key;
 	}
-
-	/**
-	 * Check if version exists
-	 *
-	 * @return bool true if version exists, false if not
-	 */
-	public function hasVersion()
-	{
-		return $this->has('version');
-	}
-
-	/**
-	 * Get the version
-	 *
-	 * @throws \RuntimeException If pagination wasn't set, you can't get it
-	 *
-	 * @return PaginationLink The pagination
-	 */
-	public function getVersion()
-	{
-		return $this->get('version');
-	}
 }

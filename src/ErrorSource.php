@@ -112,48 +112,4 @@ class ErrorSource
 
 		return $this->$key;
 	}
-
-	/**
-	 * Check if pointer exists
-		*
-	 * @return bool true if pointer exists, false if not
-	 */
-	public function hasPointer()
-	{
-		return $this->has('pointer');
-	}
-
-	/**
-	 * Get the pointer
-	 *
-	 * @throws \RuntimeException If pointer wasn't set, you can't get it
-	 *
-	 * @return string The pointer
-	 */
-	public function getPointer()
-	{
-		return $this->get('pointer');
-	}
-
-	/**
-	 * Check if pointer exists
-	 *
-	 * @return bool true if pointer exists, false if not
-	 */
-	public function hasParameter()
-	{
-		return $this->has('parameter');
-	}
-
-	/**
-	 * Get the parameter
-	 *
-	 * @throws \RuntimeException If parameter wasn't set, you can't get it
-	 *
-	 * @return string The parameter
-	 */
-	public function getParameter()
-	{
-		return $this->get('parameter');
-	}
 }

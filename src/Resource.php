@@ -137,48 +137,4 @@ class Resource extends ResourceIdentifier
 
 		return $this->$key;
 	}
-
-	/**
-	 * Check if attributes exists in this resource
-	 *
-	 * @return bool true if data exists, false if not
-	 */
-	public function hasAttributes()
-	{
-		return $this->has('attributes');
-	}
-
-	/**
-	 * Get the attributes of this resource
-	 *
-	 * @throws \RuntimeException If attributes wasn't set, you can't get it
-	 *
-	 * @return Attributes The attributes object
-	 */
-	public function getAttributes()
-	{
-		return $this->get('attributes');
-	}
-
-	/**
-	 * Check if relationships exists in this resource
-	 *
-	 * @return bool true if data exists, false if not
-	 */
-	public function hasRelationships()
-	{
-		return $this->has('relationships');
-	}
-
-	/**
-	 * Get the relationships of this resource
-	 *
-	 * @throws \RuntimeException If relationships wasn't set, you can't get it
-	 *
-	 * @return RelationshipCollection The relationship collection object
-	 */
-	public function getRelationships()
-	{
-		return $this->get('relationships');
-	}
 }

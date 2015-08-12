@@ -101,7 +101,7 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue($attributes->has('title'));
 		$this->assertSame($attributes->get('title'), 'Rails is Omakase');
 
-		$collection = $resource->getRelationships();
+		$collection = $resource->get('relationships');
 
 		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipCollection', $collection);
 		$this->assertTrue($collection->has('author'));
@@ -194,7 +194,7 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Relationship', $comments);
 		$this->assertTrue($comments->has('links'));
-		$this->assertTrue($comments->hasData());
+		$this->assertTrue($comments->has('data'));
 
 		$links = $comments->get('links');
 

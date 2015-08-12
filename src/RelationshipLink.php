@@ -64,26 +64,4 @@ class RelationshipLink extends Link
 			$this->set('pagination', new PaginationLink($object->pagination));
 		}
 	}
-
-	/**
-	 * Check if pagination exists in this document
-	 *
-	 * @return bool true if pagination exists, false if not
-	 */
-	public function hasPagination()
-	{
-		return $this->has('pagination');
-	}
-
-	/**
-	 * Get the pagination of this document
-	 *
-	 * @throws \RuntimeException If pagination wasn't set, you can't get it
-	 *
-	 * @return PaginationLink The pagination
-	 */
-	public function getPagination()
-	{
-		return $this->get('pagination');
-	}
 }
