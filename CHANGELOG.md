@@ -7,7 +7,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
-- Documentation (see docs/ folder)
+- Documentation, see folder [docs/](docs/README.md)
 - Every object has got a `get()` and `has()` method for better value access
 - Every object can list his own keys with `keyKeys()`
 

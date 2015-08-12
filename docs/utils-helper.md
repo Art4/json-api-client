@@ -15,7 +15,7 @@ $jsonapi_string = '{"meta":{"info":"Testing the JSON API Client."}}';
 $document = \Art4\JsonApiClient\Utils\Helper::parse($jsonapi_string);
 ```
 
-This returns a [Document](document.md) object which provided all contents.
+This returns a [Document](objects-document.md) object which provided all contents.
 
 ### Validate a JSON API response body
 
