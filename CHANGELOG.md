@@ -5,6 +5,16 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
+### Added
+
+- Documentation (see docs/ folder)
+- Every object has got a `get()` and `has()` method for better value access
+- Every object can list his own keys with `keyKeys()`
+
+### Removed
+
+- All old getter like `getMeta()` or `hasId()` were removed
+
 ## 0.1 - 2015-08-11
 
 ### Added

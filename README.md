@@ -4,7 +4,7 @@
 [![Software License][ico-license]](LICENSE)
 [![Build Status][ico-travis]][link-travis]
 
-JSON API Client is a PHP Library to handle the response body from a [JSON API](http://jsonapi.org) Server.
+JSON API Client is a PHP Library to validate and handle the response body from a [JSON API](http://jsonapi.org) Server.
 
 Format: [JSON API](http://jsonapi.org/format) 1.0
 
@@ -28,12 +28,17 @@ $jsonapi_string = '{"meta":{"info":"Testing the JSON API Client."}}';
 
 $document = \Art4\JsonApiClient\Utils\Helper::parse($jsonapi_string);
 
-if ($document->hasMeta() and $document->getMeta()->hasInfo())
+if ($document->has('meta') and $document->get('meta')->has('info'))
 {
-    echo $document->getMeta()->getInfo();
+    echo $document->get('meta')->get('info'); // "Testing the JSON API Client."
 }
 
-// "Testing the JSON API Client."
+// List all keys
+var_dump($document->getKeys());
+
+// array(
+//   0 => "meta"
+// )
 ```
 
 ### Using as validator
