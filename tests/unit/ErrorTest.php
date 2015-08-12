@@ -28,6 +28,7 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 		$error = new Error($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Error', $error);
+		$this->assertSame($error->getKeys(), array('id', 'links', 'status', 'code', 'title', 'detail', 'source', 'meta'));
 
 		$this->assertTrue($error->has('id'));
 		$this->assertSame($error->get('id'), 'id');
