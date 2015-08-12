@@ -28,10 +28,13 @@ class JsonapiTest extends \PHPUnit_Framework_TestCase
 		$jsonapi = new Jsonapi($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Jsonapi', $jsonapi);
+		$this->assertSame($jsonapi->getKeys(), array('version', 'meta'));
 
-		$this->assertTrue($jsonapi->hasVersion());
-		$this->assertSame($jsonapi->getVersion(), '1.0');
-		$this->assertTrue($jsonapi->hasMeta());
+		$this->assertFalse($jsonapi->has('testobj'));
+		$this->assertFalse($jsonapi->has('teststring'));
+		$this->assertTrue($jsonapi->has('version'));
+		$this->assertSame($jsonapi->get('version'), '1.0');
+		$this->assertTrue($jsonapi->has('meta'));
 		$this->assertInstanceOf('Art4\JsonApiClient\Meta', $jsonapi->getMeta());
 	}
 
@@ -73,8 +76,11 @@ class JsonapiTest extends \PHPUnit_Framework_TestCase
 
 		$jsonapi = new Jsonapi($object);
 
+		$this->assertInstanceOf('Art4\JsonApiClient\Jsonapi', $jsonapi);
+		$this->assertSame($jsonapi->getKeys(), array('version'));
+
 		// other input must be transformed to string
-		$this->assertTrue($jsonapi->hasVersion());
-		$this->assertTrue(is_string($jsonapi->getVersion()));
+		$this->assertTrue($jsonapi->has('version'));
+		$this->assertTrue(is_string($jsonapi->get('version')));
 	}
 }

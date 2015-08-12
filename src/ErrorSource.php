@@ -51,13 +51,76 @@ class ErrorSource
 	}
 
 	/**
+	 * Check if a value exists in this error source
+	 *
+	 * @param string $key The key of the value
+	 * @return bool true if data exists, false if not
+	 */
+	public function has($key)
+	{
+		// pointer
+		if ( $key === 'pointer' and $this->pointer !== null )
+		{
+			return true;
+		}
+
+		// parameter
+		if ( $key === 'parameter' and $this->parameter !== null )
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Returns the keys of all setted values in this object
+	 *
+	 * @return array Keys of all setted values
+	 */
+	public function getKeys()
+	{
+		$keys = array();
+
+		// pointer
+		if ( $this->has('pointer') )
+		{
+			$keys[] = 'pointer';
+		}
+
+		// parameter
+		if ( $this->has('parameter') )
+		{
+			$keys[] = 'parameter';
+		}
+
+		return $keys;
+	}
+
+	/**
+	 * Get a value by the key of this object
+	 *
+	 * @param string $key The key of the value
+	 * @return mixed The value
+	 */
+	public function get($key)
+	{
+		if ( ! $this->has($key) )
+		{
+			throw new \RuntimeException('"' . $key . '" doesn\'t exist in this error source.');
+		}
+
+		return $this->$key;
+	}
+
+	/**
 	 * Check if pointer exists
 		*
 	 * @return bool true if pointer exists, false if not
 	 */
 	public function hasPointer()
 	{
-		return $this->pointer !== null;
+		return $this->has('pointer');
 	}
 
 	/**
@@ -69,12 +132,7 @@ class ErrorSource
 	 */
 	public function getPointer()
 	{
-		if ( ! $this->hasPointer() )
-		{
-			throw new \RuntimeException('You can\'t get "pointer", because it wasn\'t set.');
-		}
-
-		return $this->pointer;
+		return $this->get('pointer');
 	}
 
 	/**
@@ -84,7 +142,7 @@ class ErrorSource
 	 */
 	public function hasParameter()
 	{
-		return $this->parameter !== null;
+		return $this->has('parameter');
 	}
 
 	/**
@@ -96,11 +154,6 @@ class ErrorSource
 	 */
 	public function getParameter()
 	{
-		if ( ! $this->hasParameter() )
-		{
-			throw new \RuntimeException('You can\'t get "parameter", because it wasn\'t set.');
-		}
-
-		return $this->parameter;
+		return $this->get('parameter');
 	}
 }

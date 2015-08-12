@@ -48,13 +48,82 @@ class Jsonapi
 	}
 
 	/**
+	 * Check if a value exists in this jsonapi object
+	 *
+	 * @param string $key The key of the value
+	 * @return bool true if data exists, false if not
+	 */
+	public function has($key)
+	{
+		// version
+		if ( $key === 'version' and $this->version !== null )
+		{
+			return true;
+		}
+
+		// meta
+		if ( $key === 'meta' and $this->hasMeta() )
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Returns the keys of all setted values in this object
+	 *
+	 * @return array Keys of all setted values
+	 */
+	public function getKeys()
+	{
+		$keys = array();
+
+		// version
+		if ( $this->has('version') )
+		{
+			$keys[] = 'version';
+		}
+
+		// meta
+		if ( $this->has('meta') )
+		{
+			$keys[] = 'meta';
+		}
+
+		return $keys;
+	}
+
+	/**
+	 * Get a value by the key
+	 *
+	 * @param string $key The key of the value
+	 * @return mixed The value
+	 */
+	public function get($key)
+	{
+		if ( ! $this->has($key) )
+		{
+			throw new \RuntimeException('"' . $key . '" doesn\'t exist in this jsonapi object.');
+		}
+
+		// meta
+		if ( $key === 'meta' )
+		{
+			return $this->getMeta();
+		}
+
+		return $this->$key;
+	}
+
+	/**
 	 * Check if version exists
 	 *
 	 * @return bool true if version exists, false if not
 	 */
 	public function hasVersion()
 	{
-		return $this->version !== null;
+		return $this->has('version');
 	}
 
 	/**
@@ -66,11 +135,6 @@ class Jsonapi
 	 */
 	public function getVersion()
 	{
-		if ( ! $this->hasVersion() )
-		{
-			throw new \RuntimeException('You can\'t get "version", because it wasn\'t set.');
-		}
-
-		return $this->version;
+		return $this->get('version');
 	}
 }

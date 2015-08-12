@@ -22,15 +22,18 @@ class ErrorSourceTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->pointer = '/pointer';
 		$object->parameter = 'parameter';
+		$object->ignore = 'must be ignored';
 
 		$source = new ErrorSource($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ErrorSource', $source);
+		$this->assertSame($source->getKeys(), array('pointer', 'parameter'));
 
-		$this->assertTrue($source->hasPointer());
-		$this->assertSame($source->getPointer(), '/pointer');
-		$this->assertTrue($source->hasParameter());
-		$this->assertSame($source->getParameter(), 'parameter');
+		$this->assertFalse($source->has('ignore'));
+		$this->assertTrue($source->has('pointer'));
+		$this->assertSame($source->get('pointer'), '/pointer');
+		$this->assertTrue($source->has('parameter'));
+		$this->assertSame($source->get('parameter'), 'parameter');
 	}
 
 	/**
