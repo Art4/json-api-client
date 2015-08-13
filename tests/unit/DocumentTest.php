@@ -28,6 +28,37 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$this->assertFalse($document->has('errors'));
 		$this->assertFalse($document->has('jsonapi'));
 		$this->assertFalse($document->has('links'));
+		$this->assertFalse($document->has('included'));
+	}
+
+	/**
+	 * @test create with all possible values
+	 */
+	public function testCreateWithAllPossibleValues()
+	{
+		$object = new \stdClass();
+		$object->data = new \stdClass();
+		$object->data->type = 'types';
+		$object->data->id = 'id';
+		$object->included = array(new \stdClass());
+		$object->included[0] = new \stdClass();
+		$object->included[0]->type = 'types';
+		$object->included[0]->id = 'id';
+		$object->links = new \stdClass();
+		$object->jsonapi = new \stdClass();
+		$object->meta = new \stdClass();
+		$object->ignore = 'this property must be ignored';
+
+		$document = new Document($object);
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
+		$this->assertSame($document->getKeys(), array('data', 'meta', 'jsonapi', 'links', 'included'));
+		$this->assertTrue($document->has('data'));
+		$this->assertTrue($document->has('meta'));
+		$this->assertFalse($document->has('errors'));
+		$this->assertTrue($document->has('jsonapi'));
+		$this->assertTrue($document->has('links'));
+		$this->assertTrue($document->has('included'));
 	}
 
 	/**
@@ -213,6 +244,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$document = new Document($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
+		$this->assertSame($document->getKeys(), array('errors'));
 		$this->assertTrue($document->has('errors'));
 
 		$errors = $document->get('errors');
@@ -340,6 +372,31 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * @dataProvider jsonValuesProvider
+	 *
+	 * @test create with included is not an array
+	 */
+	public function testCreateWithIncludedIsNotAnArray($input)
+	{
+		if ( gettype($input) === 'array' )
+		{
+			return;
+		}
+
+		$data = new \stdClass();
+		$data->type = 'posts';
+		$data->id = 5;
+
+		$object = new \stdClass();
+		$object->data = $data;
+		$object->included = $input;
+
+		$this->setExpectedException('InvalidArgumentException');
+
+		$document = new Document($object);
+	}
+
+	/**
 	 * @expectedException InvalidArgumentException
 	 *
 	 * If a document does not contain a top-level `data` key, the `included` member MUST NOT be present either.
@@ -351,5 +408,18 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$object->meta = new \stdClass();
 
 		$document = new Document($object);
+	}
+
+	/**
+	 * @expectedException RuntimeException
+	 */
+	public function testGetOnANonExistingKeyThrowsException()
+	{
+		$object = new \stdClass();
+		$object->meta = new \stdClass();
+
+		$document = new Document($object);
+
+		$document->get('something');
 	}
 }
