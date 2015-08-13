@@ -3,6 +3,7 @@
 [![Latest Version][ico-version]][link-version]
 [![Software License][ico-license]](LICENSE)
 [![Build Status][ico-travis]][link-travis]
+[![Coverage Status](https://coveralls.io/repos/Art4/json-api-client/badge.svg?branch=master&service=github)](https://coveralls.io/github/Art4/json-api-client?branch=master)
 
 JSON API Client is a PHP Library to validate and handle the response body from a [JSON API](http://jsonapi.org) Server.
 
