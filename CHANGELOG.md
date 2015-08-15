@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
+### Changed
+
+- Now `\Art4\JsonApiClient\Exception\ValidationException` will be thrown instead of `InvalidArgumentException`
+
 ## [0.2] - 2015-08-12
 
 ### Added

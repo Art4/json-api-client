@@ -53,7 +53,7 @@ try
 {
 	$document = \Art4\JsonApiClient\Utils\Helper::parse($wrong_jsonapi);
 }
-catch (\InvalidArgumentException $e)
+catch (\Art4\JsonApiClient\Exception\ValidationException $e)
 {
 	echo $e->getMessage(); // "A resource object MUST contain a type"
 }
