@@ -3,6 +3,7 @@
 namespace Art4\JsonApiClient;
 
 use Art4\JsonApiClient\Utils\LinksTrait;
+use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
  * Resource Object
@@ -22,7 +23,7 @@ class Resource extends ResourceIdentifier
 	 *
 	 * @return self
 	 *
-	 * @throws \InvalidArgumentException
+	 * @throws ValidationException
 	 */
 	public function __construct($object)
 	{

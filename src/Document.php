@@ -4,6 +4,7 @@ namespace Art4\JsonApiClient;
 
 use Art4\JsonApiClient\Utils\MetaTrait;
 use Art4\JsonApiClient\Utils\LinksTrait;
+use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
  * Document Top Level Object
@@ -32,23 +33,23 @@ class Document
 	 *
 	 * @return Document
 	 *
-	 * @throws \InvalidArgumentException
+	 * @throws ValidationException
 	 */
 	public function __construct($object)
 	{
 		if ( ! is_object($object) )
 		{
-			throw new \InvalidArgumentException('$object has to be an object, "' . gettype($object) . '" given.');
+			throw new ValidationException('$object has to be an object, "' . gettype($object) . '" given.');
 		}
 
 		if ( ! property_exists($object, 'data') and ! property_exists($object, 'meta') and ! property_exists($object, 'errors') )
 		{
-			throw new \InvalidArgumentException('$object MUST contain at least one of the following properties: data, errors, meta');
+			throw new ValidationException('$object MUST contain at least one of the following properties: data, errors, meta');
 		}
 
 		if ( property_exists($object, 'data') and property_exists($object, 'errors') )
 		{
-			throw new \InvalidArgumentException('The properties `data` and `errors` MUST NOT coexist in $object.');
+			throw new ValidationException('The properties `data` and `errors` MUST NOT coexist in $object.');
 		}
 
 		if ( property_exists($object, 'data') )
@@ -65,12 +66,12 @@ class Document
 		{
 			if ( ! is_array($object->errors) )
 			{
-				throw new \InvalidArgumentException('Errors have to be in an array, "' . gettype($object->errors) . '" given.');
+				throw new ValidationException('Errors have to be in an array, "' . gettype($object->errors) . '" given.');
 			}
 
 			if ( count($object->errors) === 0 )
 			{
-				throw new \InvalidArgumentException('Errors array cannot be empty and MUST have at least one object');
+				throw new ValidationException('Errors array cannot be empty and MUST have at least one object');
 			}
 
 			foreach ($object->errors as $error_obj)
@@ -83,12 +84,12 @@ class Document
 		{
 			if ( ! property_exists($object, 'data') )
 			{
-				throw new \InvalidArgumentException('If $object does not contain a `data` property, the `included` property MUST NOT be present either.');
+				throw new ValidationException('If $object does not contain a `data` property, the `included` property MUST NOT be present either.');
 			}
 
 			if ( ! is_array($object->included) )
 			{
-				throw new \InvalidArgumentException('included member has to be an array, "' . gettype($object->included) . '" given.');
+				throw new ValidationException('included member has to be an array, "' . gettype($object->included) . '" given.');
 			}
 
 			foreach ($object->included as $resource_obj)
@@ -251,7 +252,7 @@ class Document
 	/**
 	 * Set the data for this document
 	 *
-	 * @throws \InvalidArgumentException If $data isn't null or ResourceIdentifier
+	 * @throws ValidationException If $data isn't null or ResourceIdentifier
 	 *
 	 * @param null|object $data The Data
 	 * @return self
@@ -264,7 +265,7 @@ class Document
 	/**
 	 * Parse the data value
 	 *
-	 * @throws \InvalidArgumentException If $data isn't null or an object
+	 * @throws ValidationException If $data isn't null or an object
 	 *
 	 * @param null|object $data Data value
 	 * @return null|ResourceIdentifier The parsed data
@@ -288,7 +289,7 @@ class Document
 
 					if ( ! ($resource_obj instanceof ResourceIdentifier) )
 					{
-						throw new \InvalidArgumentException('Data has to be instance of "ResourceIdentifier", "' . gettype($data) . '" given.');
+						throw new ValidationException('Data has to be instance of "ResourceIdentifier", "' . gettype($data) . '" given.');
 					}
 
 					$resource_array[] = $resource_obj;
@@ -300,7 +301,7 @@ class Document
 
 		if ( ! is_object($data) )
 		{
-			throw new \InvalidArgumentException('Data value has to be null or an object, "' . gettype($data) . '" given.');
+			throw new ValidationException('Data value has to be null or an object, "' . gettype($data) . '" given.');
 		}
 
 		$object_vars = get_object_vars($data);

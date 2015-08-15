@@ -3,7 +3,6 @@
 namespace Art4\JsonApiClient\Utils\Tests;
 
 use Art4\JsonApiClient\Utils\Helper;
-use InvalidArgumentException;
 
 class HelperTest extends \PHPUnit_Framework_TestCase
 {
@@ -18,7 +17,7 @@ class HelperTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException Art4\JsonApiClient\Exception\ValidationException
 	 *
 	 * @test parse throw Exception if input is invalid jsonapi
 	 */
@@ -30,7 +29,7 @@ class HelperTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException Art4\JsonApiClient\Exception\ValidationException
 	 *
 	 * JSON API documents are defined in JavaScript Object Notation (JSON) [RFC4627].
 	 */

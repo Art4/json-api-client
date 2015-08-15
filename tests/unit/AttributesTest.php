@@ -3,7 +3,6 @@
 namespace Art4\JsonApiClient\Tests;
 
 use Art4\JsonApiClient\Attributes;
-use InvalidArgumentException;
 
 class AttributesTest extends \PHPUnit_Framework_TestCase
 {
@@ -55,7 +54,7 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException Art4\JsonApiClient\Exception\ValidationException
 	 *
 	 * These properties are not allowed in attributes: `type`, `id`, `relationships`, `links`
 	 */
@@ -68,7 +67,7 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException Art4\JsonApiClient\Exception\ValidationException
 	 *
 	 * These properties are not allowed in attributes: `type`, `id`, `relationships`, `links`
 	 */
@@ -81,7 +80,7 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException Art4\JsonApiClient\Exception\ValidationException
 	 *
 	 * These properties are not allowed in attributes: `type`, `id`, `relationships`, `links`
 	 */
@@ -94,7 +93,7 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException Art4\JsonApiClient\Exception\ValidationException
 	 *
 	 * These properties are not allowed in attributes: `type`, `id`, `relationships`, `links`
 	 */

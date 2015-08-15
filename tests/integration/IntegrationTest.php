@@ -3,7 +3,6 @@
 namespace Art4\JsonApiClient\Integration\Tests;
 
 use Art4\JsonApiClient\Utils\Helper;
-use InvalidArgumentException;
 
 class IntegrationTest extends \PHPUnit_Framework_TestCase
 {

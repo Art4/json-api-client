@@ -3,6 +3,7 @@
 namespace Art4\JsonApiClient;
 
 use Art4\JsonApiClient\Utils\MetaTrait;
+use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
  * Resource Identifier Object
@@ -22,33 +23,33 @@ class ResourceIdentifier
 	 *
 	 * @return self
 	 *
-	 * @throws \InvalidArgumentException
+	 * @throws ValidationException
 	 */
 	public function __construct($object)
 	{
 		if ( ! is_object($object) )
 		{
-			throw new \InvalidArgumentException('$object has to be an object, "' . gettype($object) . '" given.');
+			throw new ValidationException('Resource has to be an object, "' . gettype($object) . '" given.');
 		}
 
 		if ( ! property_exists($object, 'type') )
 		{
-			throw new \InvalidArgumentException('A resource object MUST contain a type');
+			throw new ValidationException('A resource object MUST contain a type');
 		}
 
 		if ( ! property_exists($object, 'id') )
 		{
-			throw new \InvalidArgumentException('A resource object MUST contain an id');
+			throw new ValidationException('A resource object MUST contain an id');
 		}
 
 		if ( is_object($object->type) or is_array($object->type)  )
 		{
-			throw new \InvalidArgumentException('Resource type cannot be an array or object');
+			throw new ValidationException('Resource type cannot be an array or object');
 		}
 
 		if ( is_object($object->id) or is_array($object->id)  )
 		{
-			throw new \InvalidArgumentException('Resource Id cannot be an array or object');
+			throw new ValidationException('Resource Id cannot be an array or object');
 		}
 
 		$this->type = strval($object->type);

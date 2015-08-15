@@ -4,7 +4,6 @@ namespace Art4\JsonApiClient\Tests;
 
 use Art4\JsonApiClient\Document;
 use Art4\JsonApiClient\Tests\Fixtures\JsonValueTrait;
-use InvalidArgumentException;
 
 class DocumentTest extends \PHPUnit_Framework_TestCase
 {
@@ -74,12 +73,12 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
-		$this->setExpectedException('InvalidArgumentException');
+		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 		$document = new Document($input);
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException Art4\JsonApiClient\Exception\ValidationException
 	 *
 	 * A document MUST contain at least one of the following top-level members: data, errors, meta
 	 */
@@ -266,7 +265,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreateWithDataproviderInErrorsThrowsException($input)
 	{
-		$this->setExpectedException('InvalidArgumentException');
+		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
 		$object = new \stdClass();
 		$object->errors = $input;
@@ -275,7 +274,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException Art4\JsonApiClient\Exception\ValidationException
 	 *
 	 * The members `data` and `errors` MUST NOT coexist in the same document.
 	 */
@@ -391,13 +390,13 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$object->data = $data;
 		$object->included = $input;
 
-		$this->setExpectedException('InvalidArgumentException');
+		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
 		$document = new Document($object);
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException Art4\JsonApiClient\Exception\ValidationException
 	 *
 	 * If a document does not contain a top-level `data` key, the `included` member MUST NOT be present either.
 	 */

@@ -4,7 +4,6 @@ namespace Art4\JsonApiClient\Tests;
 
 use Art4\JsonApiClient\Resource;
 use Art4\JsonApiClient\Tests\Fixtures\JsonValueTrait;
-use InvalidArgumentException;
 
 class ResourceTest extends \PHPUnit_Framework_TestCase
 {

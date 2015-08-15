@@ -2,6 +2,8 @@
 
 namespace Art4\JsonApiClient;
 
+use Art4\JsonApiClient\Exception\ValidationException;
+
 /**
  * Meta Object
  *
@@ -16,13 +18,13 @@ class Meta
 	 *
 	 * @return self
 	 *
-	 * @throws \InvalidArgumentException
+	 * @throws ValidationException
 	 */
 	public function __construct($object)
 	{
 		if ( ! is_object($object) )
 		{
-			throw new \InvalidArgumentException('$object has to be an object, "' . gettype($object) . '" given.');
+			throw new ValidationException('Meta has to be an object, "' . gettype($object) . '" given.');
 		}
 
 		$object_vars = get_object_vars($object);

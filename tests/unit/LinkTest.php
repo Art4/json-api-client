@@ -4,7 +4,6 @@ namespace Art4\JsonApiClient\Tests;
 
 use Art4\JsonApiClient\Link;
 use Art4\JsonApiClient\Tests\Fixtures\JsonValueTrait;
-use InvalidArgumentException;
 
 class LinkTest extends \PHPUnit_Framework_TestCase
 {
@@ -56,13 +55,13 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
-		$this->setExpectedException('InvalidArgumentException');
+		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
 		$link = new Link($object);
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException Art4\JsonApiClient\Exception\ValidationException
 	 */
 	public function testMetaHasToBeAnObject()
 	{
@@ -86,7 +85,7 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
-		$this->setExpectedException('InvalidArgumentException');
+		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
 		$link = new Link($input);
 	}

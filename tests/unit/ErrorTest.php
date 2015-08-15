@@ -59,7 +59,7 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
-		$this->setExpectedException('InvalidArgumentException');
+		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 		$error = new Error($input);
 	}
 
@@ -77,7 +77,7 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->id = $input;
 
-		$this->setExpectedException('InvalidArgumentException');
+		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 		$error = new Error($object);
 	}
 
@@ -95,7 +95,7 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->status = $input;
 
-		$this->setExpectedException('InvalidArgumentException');
+		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 		$error = new Error($object);
 	}
 
@@ -113,7 +113,7 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->code = $input;
 
-		$this->setExpectedException('InvalidArgumentException');
+		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 		$error = new Error($object);
 	}
 
@@ -131,7 +131,7 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->title = $input;
 
-		$this->setExpectedException('InvalidArgumentException');
+		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 		$error = new Error($object);
 	}
 
@@ -149,7 +149,7 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->detail = $input;
 
-		$this->setExpectedException('InvalidArgumentException');
+		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 		$error = new Error($object);
 	}
 }

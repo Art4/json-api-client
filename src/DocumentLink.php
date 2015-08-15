@@ -3,6 +3,7 @@
 namespace Art4\JsonApiClient;
 
 use Art4\JsonApiClient\PaginationLink;
+use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
  * Document Link Object
@@ -21,20 +22,20 @@ class DocumentLink extends Link
 	 *
 	 * @return self
 	 *
-	 * @throws \InvalidArgumentException
+	 * @throws ValidationException
 	 */
 	public function __construct($object)
 	{
 		if ( ! is_object($object) )
 		{
-			throw new \InvalidArgumentException('$object has to be an object, "' . gettype($object) . '" given.');
+			throw new ValidationException('DocumentLinks has to be an object, "' . gettype($object) . '" given.');
 		}
 
 		if ( property_exists($object, 'self') )
 		{
 			if ( ! is_string($object->self) )
 			{
-				throw new \InvalidArgumentException('property "self" has to be a string, "' . gettype($object->self) . '" given.');
+				throw new ValidationException('property "self" has to be a string, "' . gettype($object->self) . '" given.');
 			}
 
 			$this->set('self', $object->self);
@@ -44,7 +45,7 @@ class DocumentLink extends Link
 		{
 			if ( ! is_string($object->related) )
 			{
-				throw new \InvalidArgumentException('property "related" has to be a string, "' . gettype($object->related) . '" given.');
+				throw new ValidationException('property "related" has to be a string, "' . gettype($object->related) . '" given.');
 			}
 
 			$this->set('related', $object->related);

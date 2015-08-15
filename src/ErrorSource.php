@@ -2,6 +2,8 @@
 
 namespace Art4\JsonApiClient;
 
+use Art4\JsonApiClient\Exception\ValidationException;
+
 /**
  * Error Source Object
  *
@@ -18,20 +20,20 @@ class ErrorSource
 	 *
 	 * @return self
 	 *
-	 * @throws \InvalidArgumentException
+	 * @throws ValidationException
 	 */
 	public function __construct($object)
 	{
 		if ( ! is_object($object) )
 		{
-			throw new \InvalidArgumentException('$object has to be an object, "' . gettype($object) . '" given.');
+			throw new ValidationException('ErrorSource has to be an object, "' . gettype($object) . '" given.');
 		}
 
 		if ( property_exists($object, 'pointer') )
 		{
 			if ( ! is_string($object->pointer) )
 			{
-				throw new \InvalidArgumentException('property "pointer" has to be a string, "' . gettype($object->pointer) . '" given.');
+				throw new ValidationException('property "pointer" has to be a string, "' . gettype($object->pointer) . '" given.');
 			}
 
 			$this->pointer = strval($object->pointer);
@@ -41,7 +43,7 @@ class ErrorSource
 		{
 			if ( ! is_string($object->parameter) )
 			{
-				throw new \InvalidArgumentException('property "parameter" has to be a string, "' . gettype($object->parameter) . '" given.');
+				throw new ValidationException('property "parameter" has to be a string, "' . gettype($object->parameter) . '" given.');
 			}
 
 			$this->parameter = strval($object->parameter);

@@ -4,7 +4,6 @@ namespace Art4\JsonApiClient\Tests;
 
 use Art4\JsonApiClient\PaginationLink;
 use Art4\JsonApiClient\Tests\Fixtures\JsonValueTrait;
-use InvalidArgumentException;
 
 class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 {
@@ -56,7 +55,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
-		$this->setExpectedException('InvalidArgumentException');
+		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
 		$link = new PaginationLink($input);
 	}
@@ -92,7 +91,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
-		$this->setExpectedException('InvalidArgumentException');
+		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
 		$link = new PaginationLink($object);
 	}
@@ -128,7 +127,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
-		$this->setExpectedException('InvalidArgumentException');
+		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
 		$link = new PaginationLink($object);
 	}
@@ -164,7 +163,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
-		$this->setExpectedException('InvalidArgumentException');
+		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
 		$link = new PaginationLink($object);
 	}
@@ -200,7 +199,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
-		$this->setExpectedException('InvalidArgumentException');
+		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
 		$link = new PaginationLink($object);
 	}

@@ -4,7 +4,6 @@ namespace Art4\JsonApiClient\Tests;
 
 use Art4\JsonApiClient\DocumentLink;
 use Art4\JsonApiClient\Tests\Fixtures\JsonValueTrait;
-use InvalidArgumentException;
 
 class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 {
@@ -56,7 +55,7 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->self = $input;
 
-		$this->setExpectedException('InvalidArgumentException');
+		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
 		$link = new DocumentLink($object);
 	}
@@ -78,7 +77,7 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->related = $input;
 
-		$this->setExpectedException('InvalidArgumentException');
+		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
 		$link = new DocumentLink($object);
 	}
@@ -99,7 +98,7 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->pagination = $input;
 
-		$this->setExpectedException('InvalidArgumentException');
+		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
 		$link = new DocumentLink($object);
 	}

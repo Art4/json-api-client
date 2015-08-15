@@ -3,7 +3,6 @@
 namespace Art4\JsonApiClient\Tests;
 
 use Art4\JsonApiClient\RelationshipCollection;
-use InvalidArgumentException;
 
 class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 {
@@ -50,7 +49,7 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException Art4\JsonApiClient\Exception\ValidationException
 	 *
 	 * Fields for a resource object MUST share a common namespace with each other and with `type` and `id`.
 	 */
@@ -71,7 +70,7 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException Art4\JsonApiClient\Exception\ValidationException
 	 *
 	 * Fields for a resource object MUST share a common namespace with each other and with `type` and `id`.
 	 */
@@ -92,7 +91,7 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException Art4\JsonApiClient\Exception\ValidationException
 	 *
 	 * These properties are not allowed in attributes: `type`, `id`, `relationships`, `attributes`
 	 */
@@ -113,7 +112,7 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException Art4\JsonApiClient\Exception\ValidationException
 	 *
 	 * These properties are not allowed in attributes: `type`, `id`, `relationships`, `attributes`
 	 */
@@ -134,7 +133,7 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException Art4\JsonApiClient\Exception\ValidationException
 	 *
 	 * In other words, a resource can not have an attribute and relationship with the same name,
 	 */

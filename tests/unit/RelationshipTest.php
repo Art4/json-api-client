@@ -4,7 +4,6 @@ namespace Art4\JsonApiClient\Tests;
 
 use Art4\JsonApiClient\Relationship;
 use Art4\JsonApiClient\Tests\Fixtures\JsonValueTrait;
-use InvalidArgumentException;
 
 class RelationshipTest extends \PHPUnit_Framework_TestCase
 {
@@ -34,12 +33,12 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
-		$this->setExpectedException('InvalidArgumentException');
+		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 		$relationship = new Relationship($input);
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException Art4\JsonApiClient\Exception\ValidationException
 	 *
 	 * A "relationship object" MUST contain at least one of the following: links, data, meta
 	 */

@@ -4,6 +4,7 @@ namespace Art4\JsonApiClient;
 
 use Art4\JsonApiClient\PaginationLink;
 use Art4\JsonApiClient\Utils\MetaTrait;
+use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
  * Link Object
@@ -21,13 +22,13 @@ class Link
 	 *
 	 * @return self
 	 *
-	 * @throws \InvalidArgumentException
+	 * @throws ValidationException
 	 */
 	public function __construct($object)
 	{
 		if ( ! is_object($object) )
 		{
-			throw new \InvalidArgumentException('$object has to be an object, "' . gettype($object) . '" given.');
+			throw new ValidationException('Link has to be an object, "' . gettype($object) . '" given.');
 		}
 
 		$object_vars = get_object_vars($object);
@@ -130,7 +131,7 @@ class Link
 
 			if ( ! is_string($link) )
 			{
-				throw new \InvalidArgumentException('$link has to be an object or string, "' . gettype($link) . '" given.');
+				throw new ValidationException('Link has to be an object or string, "' . gettype($link) . '" given.');
 			}
 
 			$this->_links[$name] = strval($link);

@@ -4,7 +4,6 @@ namespace Art4\JsonApiClient\Tests;
 
 use Art4\JsonApiClient\RelationshipLink;
 use Art4\JsonApiClient\Tests\Fixtures\JsonValueTrait;
-use InvalidArgumentException;
 
 class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 {
@@ -49,7 +48,7 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreateWithoutSelfAndRelatedPropertiesThrowsException()
 	{
-		$this->setExpectedException('InvalidArgumentException');
+		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
 		$object = new \stdClass();
 		$object->pagination = new \stdClass();
@@ -73,7 +72,7 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->self = $input;
 
-		$this->setExpectedException('InvalidArgumentException');
+		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
 		$link = new RelationshipLink($object);
 	}
@@ -95,7 +94,7 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->related = $input;
 
-		$this->setExpectedException('InvalidArgumentException');
+		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
 		$link = new RelationshipLink($object);
 	}
@@ -114,7 +113,7 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->pagination = $input;
 
-		$this->setExpectedException('InvalidArgumentException');
+		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
 		$link = new RelationshipLink($object);
 	}

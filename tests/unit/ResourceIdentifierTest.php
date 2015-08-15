@@ -4,7 +4,6 @@ namespace Art4\JsonApiClient\Tests;
 
 use Art4\JsonApiClient\ResourceIdentifier;
 use Art4\JsonApiClient\Tests\Fixtures\JsonValueTrait;
-use InvalidArgumentException;
 
 class ResourceIdentifierTest extends \PHPUnit_Framework_TestCase
 {
@@ -63,7 +62,7 @@ class ResourceIdentifierTest extends \PHPUnit_Framework_TestCase
 
 		if ( gettype($input) === 'object' or gettype($input) === 'array' )
 		{
-			$this->setExpectedException('InvalidArgumentException');
+			$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 		}
 
 		$identifier = new ResourceIdentifier($object);
@@ -84,7 +83,7 @@ class ResourceIdentifierTest extends \PHPUnit_Framework_TestCase
 
 		if ( gettype($input) === 'object' or gettype($input) === 'array' )
 		{
-			$this->setExpectedException('InvalidArgumentException');
+			$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 		}
 
 		$identifier = new ResourceIdentifier($object);
@@ -100,13 +99,13 @@ class ResourceIdentifierTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreateWithDataproviderThrowsException($input)
 	{
-		$this->setExpectedException('InvalidArgumentException');
+		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
 		$identifier = new ResourceIdentifier($input);
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException Art4\JsonApiClient\Exception\ValidationException
 	*
 	 * A "resource identifier object" MUST contain type and id members.
 	 */
@@ -119,7 +118,7 @@ class ResourceIdentifierTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException Art4\JsonApiClient\Exception\ValidationException
 	*
 	 * A "resource identifier object" MUST contain type and id members.
 	 */

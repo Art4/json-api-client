@@ -2,6 +2,8 @@
 
 namespace Art4\JsonApiClient;
 
+use Art4\JsonApiClient\Exception\ValidationException;
+
 /**
  * Pagination Link Object
  *
@@ -14,20 +16,20 @@ class PaginationLink extends Link
 	 *
 	 * @return self
 	 *
-	 * @throws \InvalidArgumentException
+	 * @throws ValidationException
 	 */
 	public function __construct($object)
 	{
 		if ( ! is_object($object) )
 		{
-			throw new \InvalidArgumentException('$object has to be an object, "' . gettype($object) . '" given.');
+			throw new ValidationException('Pagination has to be an object, "' . gettype($object) . '" given.');
 		}
 
 		if ( property_exists($object, 'first') )
 		{
 			if ( ! is_string($object->first) and ! is_null($object->first) )
 			{
-				throw new \InvalidArgumentException('property "first" has to be a string or null, "' . gettype($object->first) . '" given.');
+				throw new ValidationException('property "first" has to be a string or null, "' . gettype($object->first) . '" given.');
 			}
 
 			$this->set('first', $object->first);
@@ -37,7 +39,7 @@ class PaginationLink extends Link
 		{
 			if ( ! is_string($object->last) and ! is_null($object->last) )
 			{
-				throw new \InvalidArgumentException('property "last" has to be a string or null, "' . gettype($object->last) . '" given.');
+				throw new ValidationException('property "last" has to be a string or null, "' . gettype($object->last) . '" given.');
 			}
 
 			$this->set('last', $object->last);
@@ -47,7 +49,7 @@ class PaginationLink extends Link
 		{
 			if ( ! is_string($object->prev) and ! is_null($object->prev) )
 			{
-				throw new \InvalidArgumentException('property "prev" has to be a string or null, "' . gettype($object->prev) . '" given.');
+				throw new ValidationException('property "prev" has to be a string or null, "' . gettype($object->prev) . '" given.');
 			}
 
 			$this->set('prev', $object->prev);
@@ -57,7 +59,7 @@ class PaginationLink extends Link
 		{
 			if ( ! is_string($object->next) and ! is_null($object->next) )
 			{
-				throw new \InvalidArgumentException('property "next" has to be a string or null, "' . gettype($object->next) . '" given.');
+				throw new ValidationException('property "next" has to be a string or null, "' . gettype($object->next) . '" given.');
 			}
 
 			$this->set('next', $object->next);

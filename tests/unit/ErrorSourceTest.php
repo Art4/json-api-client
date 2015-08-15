@@ -4,7 +4,6 @@ namespace Art4\JsonApiClient\Tests;
 
 use Art4\JsonApiClient\ErrorSource;
 use Art4\JsonApiClient\Tests\Fixtures\JsonValueTrait;
-use InvalidArgumentException;
 
 class ErrorSourceTest extends \PHPUnit_Framework_TestCase
 {
@@ -52,7 +51,7 @@ class ErrorSourceTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->pointer = $input;
 
-		$this->setExpectedException('InvalidArgumentException');
+		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
 		$source = new ErrorSource($object);
 	}
@@ -73,7 +72,7 @@ class ErrorSourceTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->parameter = $input;
 
-		$this->setExpectedException('InvalidArgumentException');
+		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
 		$source = new ErrorSource($object);
 	}

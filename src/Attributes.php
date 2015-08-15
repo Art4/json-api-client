@@ -2,6 +2,8 @@
 
 namespace Art4\JsonApiClient;
 
+use Art4\JsonApiClient\Exception\ValidationException;
+
 /**
  * Attributes Object
  *
@@ -14,18 +16,18 @@ class Attributes extends Meta
 	 *
 	 * @return self
 	 *
-	 * @throws \InvalidArgumentException
+	 * @throws ValidationException
 	 */
 	public function __construct($object)
 	{
 		if ( ! is_object($object) )
 		{
-			throw new \InvalidArgumentException('$object has to be an object, "' . gettype($object) . '" given.');
+			throw new ValidationException('Attributes has to be an object, "' . gettype($object) . '" given.');
 		}
 
 		if ( property_exists($object, 'type') or property_exists($object, 'id') or property_exists($object, 'relationships') or property_exists($object, 'links') )
 		{
-			throw new \InvalidArgumentException('These properties are not allowed in attributes: `type`, `id`, `relationships`, `links`');
+			throw new ValidationException('These properties are not allowed in attributes: `type`, `id`, `relationships`, `links`');
 		}
 
 		return parent::__construct($object);

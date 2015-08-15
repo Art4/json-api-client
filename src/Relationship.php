@@ -4,6 +4,7 @@ namespace Art4\JsonApiClient;
 
 use Art4\JsonApiClient\Utils\MetaTrait;
 use Art4\JsonApiClient\Utils\LinksTrait;
+use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
  * Relationship Object
@@ -26,18 +27,18 @@ class Relationship
 	 *
 	 * @return Relationship
 	 *
-	 * @throws \InvalidArgumentException
+	 * @throws ValidationException
 	 */
 	public function __construct($object)
 	{
 		if ( ! is_object($object) )
 		{
-			throw new \InvalidArgumentException('$object has to be an object, "' . gettype($object) . '" given.');
+			throw new ValidationException('Relationship has to be an object, "' . gettype($object) . '" given.');
 		}
 
 		if ( ! property_exists($object, 'links') and ! property_exists($object, 'data') and ! property_exists($object, 'meta') )
 		{
-			throw new \InvalidArgumentException('$object MUST contain at least one of the following properties: links, data, meta');
+			throw new ValidationException('$object MUST contain at least one of the following properties: links, data, meta');
 		}
 
 		if ( property_exists($object, 'links') )
@@ -146,7 +147,7 @@ class Relationship
 	/**
 	 * Set the data for this relationship
 	 *
-	 * @throws \InvalidArgumentException If $data isn't null or ResourceIdentifier
+	 * @throws ValidationException If $data isn't null or ResourceIdentifier
 	 *
 	 * @param null|object $data The Data
 	 * @return self
@@ -159,7 +160,7 @@ class Relationship
 	/**
 	 * Parse the data value
 	 *
-	 * @throws \InvalidArgumentException If $data isn't null or an object
+	 * @throws ValidationException If $data isn't null or an object
 	 *
 	 * @param null|object $data Data value
 	 * @return null|ResourceIdentifier The parsed data
@@ -183,7 +184,7 @@ class Relationship
 
 					if ( ! ($resource_obj instanceof ResourceIdentifier) )
 					{
-						throw new \InvalidArgumentException('Data has to be instance of "ResourceIdentifier", "' . gettype($data) . '" given.');
+						throw new ValidationException('Data has to be instance of "ResourceIdentifier", "' . gettype($data) . '" given.');
 					}
 
 					$resource_array[] = $resource_obj;
@@ -195,7 +196,7 @@ class Relationship
 
 		if ( ! is_object($data) )
 		{
-			throw new \InvalidArgumentException('Data value has to be null or an object, "' . gettype($data) . '" given.');
+			throw new ValidationException('Data value has to be null or an object, "' . gettype($data) . '" given.');
 		}
 
 		return new ResourceIdentifier($data);

@@ -4,6 +4,7 @@ namespace Art4\JsonApiClient;
 
 use Art4\JsonApiClient\Utils\MetaTrait;
 use Art4\JsonApiClient\Utils\LinksTrait;
+use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
  * Error Object
@@ -33,20 +34,20 @@ class Error
 	 *
 	 * @return self
 	 *
-	 * @throws \InvalidArgumentException
+	 * @throws ValidationException
 	 */
 	public function __construct($object)
 	{
 		if ( ! is_object($object) )
 		{
-			throw new \InvalidArgumentException('$object has to be an object, "' . gettype($object) . '" given.');
+			throw new ValidationException('Error has to be an object, "' . gettype($object) . '" given.');
 		}
 
 		if ( property_exists($object, 'id') )
 		{
 			if ( ! is_string($object->id) )
 			{
-				throw new \InvalidArgumentException('property "id" has to be a string, "' . gettype($object->id) . '" given.');
+				throw new ValidationException('property "id" has to be a string, "' . gettype($object->id) . '" given.');
 			}
 
 			$this->id = (string) $object->id;
@@ -61,7 +62,7 @@ class Error
 		{
 			if ( ! is_string($object->status) )
 			{
-				throw new \InvalidArgumentException('property "status" has to be a string, "' . gettype($object->status) . '" given.');
+				throw new ValidationException('property "status" has to be a string, "' . gettype($object->status) . '" given.');
 			}
 
 			$this->status = (string) $object->status;
@@ -71,7 +72,7 @@ class Error
 		{
 			if ( ! is_string($object->code) )
 			{
-				throw new \InvalidArgumentException('property "code" has to be a string, "' . gettype($object->code) . '" given.');
+				throw new ValidationException('property "code" has to be a string, "' . gettype($object->code) . '" given.');
 			}
 
 			$this->code = (string) $object->code;
@@ -81,7 +82,7 @@ class Error
 		{
 			if ( ! is_string($object->title) )
 			{
-				throw new \InvalidArgumentException('property "title" has to be a string, "' . gettype($object->title) . '" given.');
+				throw new ValidationException('property "title" has to be a string, "' . gettype($object->title) . '" given.');
 			}
 
 			$this->title = (string) $object->title;
@@ -91,7 +92,7 @@ class Error
 		{
 			if ( ! is_string($object->detail) )
 			{
-				throw new \InvalidArgumentException('property "detail" has to be a string, "' . gettype($object->detail) . '" given.');
+				throw new ValidationException('property "detail" has to be a string, "' . gettype($object->detail) . '" given.');
 			}
 
 			$this->detail = (string) $object->detail;

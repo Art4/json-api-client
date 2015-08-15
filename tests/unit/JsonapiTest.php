@@ -4,7 +4,6 @@ namespace Art4\JsonApiClient\Tests;
 
 use Art4\JsonApiClient\Jsonapi;
 use Art4\JsonApiClient\Tests\Fixtures\JsonValueTrait;
-use InvalidArgumentException;
 
 class JsonapiTest extends \PHPUnit_Framework_TestCase
 {
@@ -52,7 +51,7 @@ class JsonapiTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
-		$this->setExpectedException('InvalidArgumentException');
+		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
 		$jsonapi = new Jsonapi($input);
 	}
@@ -69,7 +68,7 @@ class JsonapiTest extends \PHPUnit_Framework_TestCase
 
 		if ( gettype($input) === 'object' or gettype($input) === 'array' )
 		{
-			$this->setExpectedException('InvalidArgumentException');
+			$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 			$jsonapi = new Jsonapi($object);
 			return;
 		}

@@ -3,6 +3,7 @@
 namespace Art4\JsonApiClient\Utils;
 
 use Art4\JsonApiClient\Meta;
+use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
  * Trait for Meta properties
@@ -41,7 +42,7 @@ trait MetaTrait
 	/**
 	 * Set the meta for this document
 	 *
-	 * @throws \InvalidArgumentException If $meta isn't an object
+	 * @throws ValidationException If $meta isn't an object
 	 *
 	 * @param null|ResourceIdentifier $data The Data
 	 * @return self

@@ -3,6 +3,7 @@
 namespace Art4\JsonApiClient;
 
 use Art4\JsonApiClient\Utils\MetaTrait;
+use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
  * JSON API Object
@@ -20,20 +21,20 @@ class Jsonapi
 	 *
 	 * @return self
 	 *
-	 * @throws \InvalidArgumentException
+	 * @throws ValidationException
 	 */
 	public function __construct($object)
 	{
 		if ( ! is_object($object) )
 		{
-			throw new \InvalidArgumentException('$object has to be an object, "' . gettype($object) . '" given.');
+			throw new ValidationException('Jsonapi has to be an object, "' . gettype($object) . '" given.');
 		}
 
 		if ( property_exists($object, 'version') )
 		{
 			if ( is_object($object->version) or is_array($object->version) )
 			{
-				throw new \InvalidArgumentException('property "version" cannot be an object or array, "' . gettype($object->version) . '" given.');
+				throw new ValidationException('property "version" cannot be an object or array, "' . gettype($object->version) . '" given.');
 			}
 
 			$this->version = strval($object->version);

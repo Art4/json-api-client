@@ -2,6 +2,8 @@
 
 namespace Art4\JsonApiClient;
 
+use Art4\JsonApiClient\Exception\ValidationException;
+
 /**
  * Error Link Object
  *
@@ -18,18 +20,18 @@ class ErrorLink extends Link
 	 *
 	 * @return self
 	 *
-	 * @throws \InvalidArgumentException
+	 * @throws ValidationException
 	 */
 	public function __construct($object)
 	{
 		if ( ! is_object($object) )
 		{
-			throw new \InvalidArgumentException('$object has to be an object, "' . gettype($object) . '" given.');
+			throw new ValidationException('$object has to be an object, "' . gettype($object) . '" given.');
 		}
 
 		if ( ! property_exists($object, 'about') )
 		{
-			throw new \InvalidArgumentException('$object MUST contain these properties: about');
+			throw new ValidationException('$object MUST contain these properties: about');
 		}
 
 		$this->set('about', $object->about);

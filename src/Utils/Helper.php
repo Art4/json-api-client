@@ -3,6 +3,7 @@
 namespace Art4\JsonApiClient\Utils;
 
 use Art4\JsonApiClient\Document;
+use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
  * PHP JSON API client helper
@@ -18,7 +19,7 @@ class Helper
 	 *
 	 * @return Document
 	 *
-	 * @throws \InvalidArgumentException
+	 * @throws ValidationException
 	 */
 	public static function parse($json_string)
 	{
@@ -43,7 +44,7 @@ class Helper
 				$error = $jsonErrors[$last];
 			}
 
-			throw new \InvalidArgumentException('Unable to parse JSON data: ' . $error);
+			throw new ValidationException('Unable to parse JSON data: ' . $error);
 		}
 
 		return new Document($data);
