@@ -19,7 +19,7 @@ This returns a [Document](objects-document.md) object which provided all content
 
 ### Validate a JSON API response body
 
-JSON API Client can be used as a validator. It will throw an `InvalidArgumentException` if the body contains not valid JSON or JSON API.
+JSON API Client can be used as a validator. It will throw an `ValidationException` if the body contains not valid JSON or JSON API.
 
 ```php
 $wrong_jsonapi = '{"data":{},"meta":{"info":"This is wrong JSON API. `data` has to be `null` or containing at least `type` and `id`."}}';
@@ -28,8 +28,10 @@ try
 {
 	$document = \Art4\JsonApiClient\Utils\Helper::parse($wrong_jsonapi);
 }
-catch (\InvalidArgumentException $e)
+catch (\Art4\JsonApiClient\Exception\ValidationException $e)
 {
 	echo $e->getMessage(); // "A resource object MUST contain a type"
 }
 ```
+
+See more about Exceptions in the [Exception section](exception-introduction.md).
