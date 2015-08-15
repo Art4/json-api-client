@@ -13,6 +13,7 @@ before_install:
 
 install:
 - travis_retry composer install --no-interaction --prefer-source
+- composer require satooshi/php-coveralls --dev
 
 script:
 - php vendor/phpunit/phpunit/phpunit --coverage-clover build/logs/clover.xml
