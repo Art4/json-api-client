@@ -39,7 +39,7 @@ class Relationship
 
 		if ( ! property_exists($object, 'links') and ! property_exists($object, 'data') and ! property_exists($object, 'meta') )
 		{
-			throw new ValidationException('$object MUST contain at least one of the following properties: links, data, meta');
+			throw new ValidationException('A Relationship object MUST contain at least one of the following properties: links, data, meta');
 		}
 
 		if ( property_exists($object, 'links') )

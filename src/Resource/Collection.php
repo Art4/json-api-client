@@ -24,7 +24,7 @@ class Collection implements ResourceInterface
 	{
 		if ( ! is_array($resources) )
 		{
-			throw new ValidationException('Resources has to be an array, "' . gettype($resources) . '" given.');
+			throw new ValidationException('Resources for a collection has to be in an array, "' . gettype($resources) . '" given.');
 		}
 
 		if ( count($resources) > 0 )
@@ -46,26 +46,7 @@ class Collection implements ResourceInterface
 	 */
 	public function has($key)
 	{
-		// meta, type, id
-		if ( parent::has($key) === true )
-		{
-			return true;
-		}
-
-		// attributes
-		if ( $key === 'attributes' and $this->attributes !== null )
-		{
-			return true;
-		}
-
-		// relationships
-		if ( $key === 'relationships' and $this->relationships !== null )
-		{
-			return true;
-		}
-
-		// links
-		if ( $key === 'links' and $this->hasLinks() )
+		if ( $key === 'resources' )
 		{
 			return true;
 		}
@@ -80,27 +61,7 @@ class Collection implements ResourceInterface
 	 */
 	public function getKeys()
 	{
-		$keys = parent::getKeys();
-
-		// attributes
-		if ( $this->has('attributes') )
-		{
-			$keys[] = 'attributes';
-		}
-
-		// relationships
-		if ( $this->has('relationships') )
-		{
-			$keys[] = 'relationships';
-		}
-
-		// links
-		if ( $this->has('links') )
-		{
-			$keys[] = 'links';
-		}
-
-		return $keys;
+		return array('resources');
 	}
 
 	/**
@@ -111,19 +72,9 @@ class Collection implements ResourceInterface
 	 */
 	public function get($key)
 	{
-		if ( ! $this->has($key) )
+		if ( $key !== 'resources' )
 		{
 			throw new \RuntimeException('"' . $key . '" doesn\'t exist in this resource.');
-		}
-
-		if ( $key === 'meta' )
-		{
-			return $this->getMeta();
-		}
-
-		if ( $key === 'links' )
-		{
-			return $this->getLinks();
 		}
 
 		return $this->$key;
@@ -145,7 +96,7 @@ class Collection implements ResourceInterface
 	 * @param ResourceInterface $resource The resource
 	 * @return ResourceInterface[] The resources as array
 	 */
-	public function addResource(ResourceInterface $resource)
+	protected function addResource(ResourceInterface $resource)
 	{
 		return $this->resources[] = $resource;
 	}
@@ -156,11 +107,11 @@ class Collection implements ResourceInterface
 	 * @param object $data The resource data
 	 * @return ResourceInterface The resource
 	 */
-	public function parseResource($data)
+	protected function parseResource($data)
 	{
 		if ( ! is_object($data) )
 		{
-			throw new ValidationException('Data value has to be null or an object, "' . gettype($data) . '" given.');
+			throw new ValidationException('Resources inside a collection MUST be objects, "' . gettype($data) . '" given.');
 		}
 
 		$object_vars = get_object_vars($data);
