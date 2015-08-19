@@ -84,7 +84,7 @@ GPL2. Please see [License File](LICENSE) for more information.
 
 [ico-version]: https://img.shields.io/github/release/Art4/json-api-client.svg
 [ico-license]: https://img.shields.io/badge/license-GPL2-brightgreen.svg
-[ico-travis]: https://travis-ci.org/Art4/json-api-client.svg
+[ico-travis]: https://travis-ci.org/Art4/json-api-client.svg?branch=master
 [link-version]: https://github.com/Art4/json-api-client/releases
 [link-travis]: https://travis-ci.org/Art4/json-api-client
 [link-author]: https://github.com/Art4
