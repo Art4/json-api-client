@@ -159,4 +159,44 @@ class Identifier implements ResourceInterface
 
 		return $return;
 	}
+
+	/**
+	 * Is this Resource a null resource?
+	 *
+	 * @return boolean false
+	 */
+	public function isNull()
+	{
+		return false;
+	}
+
+	/**
+	 * Is this Resource an identifier?
+	 *
+	 * @return boolean true
+	 */
+	public function isIdentifier()
+	{
+		return true;
+	}
+
+	/**
+	 * Is this Resource an item?
+	 *
+	 * @return boolean false
+	 */
+	public function isItem()
+	{
+		return false;
+	}
+
+	/**
+	 * Is this Resource a collection?
+	 *
+	 * @return boolean false
+	 */
+	public function isCollection()
+	{
+		return false;
+	}
 }

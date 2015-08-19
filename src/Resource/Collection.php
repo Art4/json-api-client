@@ -130,16 +130,6 @@ class Collection implements ResourceInterface
 	}
 
 	/**
-	 * Is this Resource a collection?
-	 *
-	 * @return boolean true
-	 */
-	public function isCollection()
-	{
-		return true;
-	}
-
-	/**
 	 * Get all resources from this collection
 	 *
 	 * @return ResourceInterface[] The resources as array
@@ -191,5 +181,45 @@ class Collection implements ResourceInterface
 		}
 
 		return $resource;
+	}
+
+	/**
+	 * Is this Resource a null resource?
+	 *
+	 * @return boolean false
+	 */
+	public function isNull()
+	{
+		return false;
+	}
+
+	/**
+	 * Is this Resource an identifier?
+	 *
+	 * @return boolean false
+	 */
+	public function isIdentifier()
+	{
+		return false;
+	}
+
+	/**
+	 * Is this Resource an item?
+	 *
+	 * @return boolean false
+	 */
+	public function isItem()
+	{
+		return false;
+	}
+
+	/**
+	 * Is this Resource a collection?
+	 *
+	 * @return boolean true
+	 */
+	public function isCollection()
+	{
+		return true;
 	}
 }
