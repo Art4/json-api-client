@@ -8,7 +8,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
 use Art4\JsonApiClient\Resource\Identifier;
 use Art4\JsonApiClient\Resource\Item;
 use Art4\JsonApiClient\Resource\Collection;
-use Art4\JsonApiClient\Resource\Null;
+use Art4\JsonApiClient\Resource\NullResource;
 
 /**
  * Document Top Level Object
@@ -278,7 +278,7 @@ class Document
 	{
 		if ( $data === null )
 		{
-			return new Null();
+			return new NullResource();
 		}
 
 		if ( is_array($data) )

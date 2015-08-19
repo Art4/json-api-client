@@ -152,7 +152,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue($document->has('data'));
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $document->get('data'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Null', $document->get('data'));
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\NullResource', $document->get('data'));
 	}
 
 	/**
