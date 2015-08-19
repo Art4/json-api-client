@@ -5,6 +5,10 @@ namespace Art4\JsonApiClient;
 use Art4\JsonApiClient\Utils\MetaTrait;
 use Art4\JsonApiClient\Utils\LinksTrait;
 use Art4\JsonApiClient\Exception\ValidationException;
+use Art4\JsonApiClient\Resource\Identifier;
+use Art4\JsonApiClient\Resource\Item;
+use Art4\JsonApiClient\Resource\Collection;
+use Art4\JsonApiClient\Resource\Null;
 
 /**
  * Document Top Level Object
@@ -94,7 +98,7 @@ class Document
 
 			foreach ($object->included as $resource_obj)
 			{
-				$this->addInclude(new Resource($resource_obj));
+				$this->addInclude(new Item($resource_obj));
 			}
 		}
 
@@ -252,7 +256,7 @@ class Document
 	/**
 	 * Set the data for this document
 	 *
-	 * @throws ValidationException If $data isn't null or ResourceIdentifier
+	 * @throws ValidationException If $data isn't ResourceInterface
 	 *
 	 * @param null|object $data The Data
 	 * @return self
@@ -268,35 +272,18 @@ class Document
 	 * @throws ValidationException If $data isn't null or an object
 	 *
 	 * @param null|object $data Data value
-	 * @return null|ResourceIdentifier The parsed data
+	 * @return ResourceInterface The parsed data
 	 */
 	protected function parseData($data)
 	{
 		if ( $data === null )
 		{
-			return $data;
+			return new Null();
 		}
 
 		if ( is_array($data) )
 		{
-			$resource_array = array();
-
-			if ( count($data) > 0 )
-			{
-				foreach ($data as $data_obj)
-				{
-					$resource_obj = $this->parseData($data_obj);
-
-					if ( ! ($resource_obj instanceof ResourceIdentifier) )
-					{
-						throw new ValidationException('Data has to be instance of "ResourceIdentifier", "' . gettype($data) . '" given.');
-					}
-
-					$resource_array[] = $resource_obj;
-				}
-			}
-
-			return $resource_array;
+			return new Collection($data);
 		}
 
 		if ( ! is_object($data) )
@@ -309,16 +296,16 @@ class Document
 		// the properties must be type and id
 		if ( count($object_vars) === 2 )
 		{
-			$resource = new ResourceIdentifier($data);
+			$resource = new Identifier($data);
 		}
 		// the 3 properties must be type, id and meta
 		elseif ( count($object_vars) === 3 and property_exists($data, 'meta') )
 		{
-			$resource = new ResourceIdentifier($data);
+			$resource = new Identifier($data);
 		}
 		else
 		{
-			$resource = new Resource($data);
+			$resource = new Item($data);
 		}
 
 		return $resource;
@@ -338,12 +325,12 @@ class Document
 	}
 
 	/**
-	 * Add an Resource object to the included property
+	 * Add an Resource to the included property
 	 *
-	 * @param Resource $resource The Resource
+	 * @param Item $resource The Resource
 	 * @return self
 	 */
-	protected function addInclude(Resource $resource)
+	protected function addInclude(Item $resource)
 	{
 		$this->included[] = $resource;
 

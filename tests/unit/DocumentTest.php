@@ -380,7 +380,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 
 		foreach ($resources as $resource)
 		{
-			$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $resource);
+			$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $resource);
 		}
 	}
 

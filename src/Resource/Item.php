@@ -1,7 +1,10 @@
 <?php
 
-namespace Art4\JsonApiClient;
+namespace Art4\JsonApiClient\Resource;
 
+use Art4\JsonApiClient\Attributes;
+use Art4\JsonApiClient\RelationshipCollection;
+use Art4\JsonApiClient\Link;
 use Art4\JsonApiClient\Utils\LinksTrait;
 use Art4\JsonApiClient\Exception\ValidationException;
 
@@ -10,7 +13,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-resource-objects
  */
-class Resource extends ResourceIdentifier
+class Item extends Identifier
 {
 	use LinksTrait;
 

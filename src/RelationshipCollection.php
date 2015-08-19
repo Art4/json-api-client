@@ -2,6 +2,7 @@
 
 namespace Art4\JsonApiClient;
 
+use Art4\JsonApiClient\Resource\ResourceInterface;
 use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
@@ -20,7 +21,7 @@ class RelationshipCollection
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($object, Resource $resource)
+	public function __construct($object, ResourceInterface $resource)
 	{
 		if ( ! is_object($object) )
 		{

@@ -35,7 +35,7 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase
 
 		$resource = $document->get('data');
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource', $resource);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $resource);
 		$this->assertFalse($resource->has('meta'));
 		$this->assertSame($resource->get('type'), 'articles');
 		$this->assertSame($resource->get('id'), '1');
@@ -63,7 +63,7 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase
 
 		$resource = $document->get('data');
 
-		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $resource);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $resource);
 		$this->assertFalse($resource->has('meta'));
 		$this->assertSame($resource->get('type'), 'articles');
 		$this->assertSame($resource->get('id'), '1');
@@ -87,7 +87,7 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase
 
 		$resource = $document->get('data');
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource', $resource);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $resource);
 		$this->assertFalse($resource->has('meta'));
 		$this->assertSame($resource->get('type'), 'articles');
 		$this->assertSame($resource->get('id'), '1');
@@ -121,7 +121,7 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase
 
 		$data = $author->get('data');
 
-		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $data);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $data);
 		$this->assertSame($data->get('type'), 'people');
 		$this->assertSame($data->get('id'), '9');
 	}
@@ -144,12 +144,13 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase
 
 		$resources = $document->get('data');
 
-		$this->assertTrue(is_array($resources));
-		$this->assertTrue(count($resources) === 1);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $resources);
 
-		$resource = $resources[0];
+		$this->assertTrue($resources->isCollection());
+		$this->assertTrue(count($resources->asArray()) === 1);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource', $resource);
+		$resource = $resources->asArray()[0];
+
 		$this->assertFalse($resource->has('meta'));
 		$this->assertSame($resource->get('type'), 'articles');
 		$this->assertSame($resource->get('id'), '1');
@@ -185,7 +186,7 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase
 
 		$data = $author->get('data');
 
-		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $data);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $data);
 		$this->assertSame($data->get('type'), 'people');
 		$this->assertSame($data->get('id'), '9');
 
@@ -210,13 +211,13 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase
 
 		$identifier = $data_array[0];
 
-		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $identifier);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $identifier);
 		$this->assertSame($identifier->get('type'), 'comments');
 		$this->assertSame($identifier->get('id'), '5');
 
 		$identifier = $data_array[1];
 
-		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $identifier);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $identifier);
 		$this->assertSame($identifier->get('type'), 'comments');
 		$this->assertSame($identifier->get('id'), '12');
 
@@ -233,7 +234,7 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase
 
 		$include = $includes[0];
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource', $include);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $include);
 		$this->assertSame($include->get('type'), 'people');
 		$this->assertSame($include->get('id'), '9');
 		$this->assertTrue($include->has('attributes'));
@@ -257,7 +258,7 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase
 
 		$include = $includes[1];
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource', $include);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $include);
 		$this->assertSame($include->get('type'), 'comments');
 		$this->assertSame($include->get('id'), '5');
 		$this->assertTrue($include->has('attributes'));
@@ -277,7 +278,7 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase
 
 		$include = $includes[2];
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource', $include);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $include);
 		$this->assertSame($include->get('type'), 'comments');
 		$this->assertSame($include->get('id'), '12');
 		$this->assertTrue($include->has('attributes'));

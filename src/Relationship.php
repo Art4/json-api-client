@@ -4,6 +4,7 @@ namespace Art4\JsonApiClient;
 
 use Art4\JsonApiClient\Utils\MetaTrait;
 use Art4\JsonApiClient\Utils\LinksTrait;
+use Art4\JsonApiClient\Resource\Identifier;
 use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
@@ -182,9 +183,9 @@ class Relationship
 				{
 					$resource_obj = $this->parseData($data_obj);
 
-					if ( ! ($resource_obj instanceof ResourceIdentifier) )
+					if ( ! ($resource_obj instanceof Identifier) )
 					{
-						throw new ValidationException('Data has to be instance of "ResourceIdentifier", "' . gettype($data) . '" given.');
+						throw new ValidationException('Data has to be instance of "Resource\\Identifier", "' . gettype($data) . '" given.');
 					}
 
 					$resource_array[] = $resource_obj;
@@ -199,6 +200,6 @@ class Relationship
 			throw new ValidationException('Data value has to be null or an object, "' . gettype($data) . '" given.');
 		}
 
-		return new ResourceIdentifier($data);
+		return new Identifier($data);
 	}
 }

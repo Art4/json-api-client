@@ -1,6 +1,6 @@
 <?php
 
-namespace Art4\JsonApiClient;
+namespace Art4\JsonApiClient\Resource;
 
 use Art4\JsonApiClient\Utils\MetaTrait;
 use Art4\JsonApiClient\Exception\ValidationException;
@@ -10,7 +10,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-resource-identifier-objects
  */
-class ResourceIdentifier
+class Identifier implements ResourceInterface
 {
 	use MetaTrait;
 
