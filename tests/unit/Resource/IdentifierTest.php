@@ -1,11 +1,11 @@
 <?php
 
-namespace Art4\JsonApiClient\Tests;
+namespace Art4\JsonApiClient\Resource\Tests;
 
-use Art4\JsonApiClient\ResourceIdentifier;
+use Art4\JsonApiClient\Resource\Identifier;
 use Art4\JsonApiClient\Tests\Fixtures\JsonValueTrait;
 
-class ResourceIdentifierTest extends \PHPUnit_Framework_TestCase
+class IdentifierTest extends \PHPUnit_Framework_TestCase
 {
 	use JsonValueTrait;
 
@@ -18,9 +18,10 @@ class ResourceIdentifierTest extends \PHPUnit_Framework_TestCase
 		$object->type = 'type';
 		$object->id = 789;
 
-		$identifier = new ResourceIdentifier($object);
+		$identifier = new Identifier($object);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $identifier);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $identifier);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $identifier);
 
 		$this->assertSame($identifier->get('type'), 'type');
 		$this->assertSame($identifier->get('id'), '789');
@@ -38,9 +39,10 @@ class ResourceIdentifierTest extends \PHPUnit_Framework_TestCase
 		$object->id = 159;
 		$object->meta = new \stdClass();
 
-		$identifier = new ResourceIdentifier($object);
+		$identifier = new Identifier($object);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $identifier);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $identifier);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $identifier);
 
 		$this->assertSame($identifier->get('type'), 'types');
 		$this->assertSame($identifier->get('id'), '159');
@@ -65,7 +67,7 @@ class ResourceIdentifierTest extends \PHPUnit_Framework_TestCase
 			$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 		}
 
-		$identifier = new ResourceIdentifier($object);
+		$identifier = new Identifier($object);
 
 		$this->assertTrue(is_string($identifier->get('type')));
 	}
@@ -86,7 +88,7 @@ class ResourceIdentifierTest extends \PHPUnit_Framework_TestCase
 			$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 		}
 
-		$identifier = new ResourceIdentifier($object);
+		$identifier = new Identifier($object);
 
 		$this->assertTrue(is_string($identifier->get('id')));
 	}
@@ -101,7 +103,7 @@ class ResourceIdentifierTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
-		$identifier = new ResourceIdentifier($input);
+		$identifier = new Identifier($input);
 	}
 
 	/**
@@ -114,7 +116,7 @@ class ResourceIdentifierTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->id = 123;
 
-		$identifier = new ResourceIdentifier($object);
+		$identifier = new Identifier($object);
 	}
 
 	/**
@@ -127,6 +129,6 @@ class ResourceIdentifierTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->type = 'type';
 
-		$identifier = new ResourceIdentifier($object);
+		$identifier = new Identifier($object);
 	}
 }

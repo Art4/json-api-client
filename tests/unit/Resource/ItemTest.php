@@ -1,11 +1,11 @@
 <?php
 
-namespace Art4\JsonApiClient\Tests;
+namespace Art4\JsonApiClient\Resource\Tests;
 
-use Art4\JsonApiClient\Resource;
+use Art4\JsonApiClient\Resource\Item;
 use Art4\JsonApiClient\Tests\Fixtures\JsonValueTrait;
 
-class ResourceTest extends \PHPUnit_Framework_TestCase
+class ItemTest extends \PHPUnit_Framework_TestCase
 {
 	use JsonValueTrait;
 
@@ -19,9 +19,10 @@ class ResourceTest extends \PHPUnit_Framework_TestCase
 		$object->id = 789;
 		$object->meta = new \stdClass();
 
-		$resource = new Resource($object);
+		$resource = new Item($object);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource', $resource);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $resource);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $resource);
 
 		$this->assertSame($resource->get('type'), 'type');
 		$this->assertSame($resource->get('id'), '789');
@@ -44,9 +45,10 @@ class ResourceTest extends \PHPUnit_Framework_TestCase
 		$object->relationships = new \stdClass();
 		$object->links = new \stdClass();
 
-		$resource = new Resource($object);
+		$resource = new Item($object);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource', $resource);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $resource);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $resource);
 
 		$this->assertSame($resource->get('type'), 'type');
 		$this->assertSame($resource->get('id'), '789');
