@@ -24,12 +24,12 @@ class NullResource implements ResourceInterface
 	 */
 	public function isIdentifier()
 	{
-	return false;
+		return false;
 	}
 
 	/**
 	 * Is this Resource an item?
-		*
+	 *
 	 * @return boolean false
 	 */
 	public function isItem()
@@ -39,7 +39,7 @@ class NullResource implements ResourceInterface
 
 	/**
 	 * Is this Resource a collection?
-		*
+	 *
 	 * @return boolean true
 	 */
 	public function isCollection()

@@ -18,8 +18,13 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $collection);
 
+		$this->assertFalse($collection->isNull());
+		$this->assertFalse($collection->isIdentifier());
+		$this->assertFalse($collection->isItem());
 		$this->assertTrue($collection->isCollection());
-		$this->assertTrue( count($collection->asArray()) === 0);
+		$this->assertTrue(count($collection->asArray()) === 0);
+		$this->assertSame($collection->getKeys(), array());
+		$this->assertFalse($collection->has('resources'));
 	}
 
 	/**
@@ -38,6 +43,8 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertTrue($collection->isCollection());
 		$this->assertTrue( count($collection->asArray()) === 1);
+		$this->assertSame($collection->getKeys(), array('resources'));
+		$this->assertTrue($collection->has('resources'));
 
 		foreach ($collection->asArray() as $resource)
 		{
@@ -64,8 +71,10 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertTrue($collection->isCollection());
 		$this->assertTrue( count($collection->asArray()) === 1);
+		$this->assertSame($collection->getKeys(), array('resources'));
+		$this->assertTrue($collection->has('resources'));
 
-		foreach ($collection->asArray() as $resource)
+		foreach ($collection->get('resources') as $resource)
 		{
 			$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $resource);
 			$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $resource);
@@ -88,5 +97,37 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
 		$collection = new Collection($input);
+	}
+
+	/**
+	 * @dataProvider jsonValuesProvider
+	 */
+	public function testCreateWithoutObjectInArrayThrowsException($input)
+	{
+		// Input must be an object
+		if ( gettype($input) === 'object' )
+		{
+			return;
+		}
+
+		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+
+		$collection = new Collection(array($input));
+	}
+
+	/**
+	 * @test get('resources') on an empty collection throws an exception
+	 */
+	public function testGetResourcesWithEmptyCollectionThrowsException()
+	{
+		$collection = new Collection(array());
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $collection);
+
+		$this->assertFalse($collection->has('resources'));
+
+		$this->setExpectedException('RuntimeException');
+
+		$collection->get('resources');
 	}
 }

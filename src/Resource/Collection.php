@@ -46,7 +46,7 @@ class Collection implements ResourceInterface
 	 */
 	public function has($key)
 	{
-		if ( $key === 'resources' )
+		if ( $key === 'resources' and count($this->resources) > 0 )
 		{
 			return true;
 		}
@@ -61,7 +61,12 @@ class Collection implements ResourceInterface
 	 */
 	public function getKeys()
 	{
-		return array('resources');
+		if ( $this->has('resources') )
+		{
+			return array('resources');
+		}
+
+		return array();
 	}
 
 	/**
@@ -72,7 +77,7 @@ class Collection implements ResourceInterface
 	 */
 	public function get($key)
 	{
-		if ( $key !== 'resources' )
+		if ( $key !== 'resources' or ! $this->has('resources') )
 		{
 			throw new \RuntimeException('"' . $key . '" doesn\'t exist in this resource.');
 		}

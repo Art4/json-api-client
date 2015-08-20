@@ -31,6 +31,10 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 		$this->assertFalse($resource->has('relationships'));
 		$this->assertFalse($resource->has('links'));
 		$this->assertSame($resource->getKeys(), array('type', 'id', 'meta'));
+		$this->assertFalse($resource->isNull());
+		$this->assertFalse($resource->isIdentifier());
+		$this->assertTrue($resource->isItem());
+		$this->assertFalse($resource->isCollection());
 	}
 
 	/**

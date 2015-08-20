@@ -27,6 +27,10 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($identifier->get('id'), '789');
 		$this->assertFalse($identifier->has('meta'));
 		$this->assertSame($identifier->getKeys(), array('type', 'id'));
+		$this->assertFalse($identifier->isNull());
+		$this->assertTrue($identifier->isIdentifier());
+		$this->assertFalse($identifier->isItem());
+		$this->assertFalse($identifier->isCollection());
 	}
 
 	/**

@@ -18,5 +18,10 @@ class NullTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $resource);
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\NullResource', $resource);
+
+		$this->assertTrue($resource->isNull());
+		$this->assertFalse($resource->isIdentifier());
+		$this->assertFalse($resource->isItem());
+		$this->assertFalse($resource->isCollection());
 	}
 }
