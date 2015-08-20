@@ -1,7 +1,26 @@
-## Document
+# Document
 [Back to Navigation](README.md)
 
+## Description
+
 The `Document` object represents the [Top Level](http://jsonapi.org/format/#document-top-level) of a JSON API response. You can create it using [Utils\Helper](utils-helper.md).
+
+- extends:
+- extended by:
+- property of:
+
+### Properties
+
+    | Name | Value | Note
+--- | ---- | ----- | ----
+1 | data | - [Resource NullResource object](objects-resource-nullresource.md)<br />- [Resource Identifier object](objects-resource-identifier.md)<br />- [Resource Item object](objects-resource-item.md)<br />- [Resource Collection object](objects-resource-collection.md) | not allowed, if 'errors' exists
+1 | errors | array([Error object](objects-error.md)) | not allowed, if 'data' exists
+1 | meta | [Meta object](objects-meta.md) |
+- | jsonapi | [Jsonapi object](objects-jsonapi.md) |
+- | links | [Document Link object](objects-document-link.md) |
+- | included | array([Resource Item object](objects-resource-item.md)) | not allowed, if 'data' doesn't exist
+
+## Usage
 
 ### Check if a value exist
 
