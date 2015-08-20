@@ -1,4 +1,4 @@
-## Utils\Helper
+# Utils\Helper
 [Back to Navigation](README.md)
 
 The `Utils\Helper` provides some useful methods to deal with JSON.

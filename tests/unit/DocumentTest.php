@@ -90,14 +90,14 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @test create with data object
+	 * @test create with data resource identifier
 	 *
 	 * A document MUST contain at least one of the following top-level members: data: the document's "primary data"
 	 * Primary data MUST be either:
 	 * - a single resource object, a single resource identifier object, or null, for requests that target single resources
 	 * - an array of resource objects, an array of resource identifier objects, or an empty array ([]), for requests that target resource collections
 	 */
-	public function testCreateWithDataObject()
+	public function testCreateDataWithResourceIdentifier()
 	{
 		$data = new \stdClass();
 		$data->type = 'posts';
@@ -111,13 +111,14 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertTrue($document->has('data'));
 
-		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $document->get('data'));
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $document->get('data'));
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $document->get('data'));
 	}
 
 	/**
-	 * @test create with data object advanced
+	 * @test create with data resource item
 	 */
-	public function testCreateWithDataObjectAdvanced()
+	public function testCreateDataWithResourceItem()
 	{
 		$data = new \stdClass();
 		$data->type = 'posts';
@@ -133,13 +134,14 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertTrue($document->has('data'));
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource', $document->get('data'));
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $document->get('data'));
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $document->get('data'));
 	}
 
 	/**
 	 * @test create with data null
 	 */
-	public function testCreateWithDataNull()
+	public function testCreateDataWithResourceNull()
 	{
 		$object = new \stdClass();
 		$object->data = null;
@@ -149,13 +151,14 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertTrue($document->has('data'));
 
-		$this->assertTrue(is_null($document->get('data')));
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $document->get('data'));
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\NullResource', $document->get('data'));
 	}
 
 	/**
 	 * @test create with data object array
 	 */
-	public function testCreateWithDataObjectArray()
+	public function testCreateDataWithResourceCollectionIdentifiers()
 	{
 		$data_obj = new \stdClass();
 		$data_obj->type = 'types';
@@ -169,21 +172,25 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertTrue($document->has('data'));
 
-		$resources = $document->get('data');
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $document->get('data'));
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $document->get('data'));
 
-		$this->assertTrue(is_array($resources));
-		$this->assertTrue( count($resources) === 1);
+		$collection = $document->get('data');
 
-		foreach ($resources as $resource)
+		$this->assertTrue($collection->isCollection());
+		$this->assertTrue( count($collection->asArray()) === 1);
+
+		foreach ($collection->asArray() as $resource)
 		{
-			$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $resource);
+			$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $resource);
+			$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $resource);
 		}
 	}
 
 	/**
 	 * @test create with data object array advanced
 	 */
-	public function testCreateWithDataObjectArrayAdvanced()
+	public function testCreateDataWithResourceCollectionResources()
 	{
 		$data_obj = new \stdClass();
 		$data_obj->type = 'types';
@@ -199,21 +206,25 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertTrue($document->has('data'));
 
-		$resources = $document->get('data');
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $document->get('data'));
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $document->get('data'));
 
-		$this->assertTrue(is_array($resources));
-		$this->assertTrue( count($resources) === 1);
+		$collection = $document->get('data');
 
-		foreach ($resources as $resource)
+		$this->assertTrue($collection->isCollection());
+		$this->assertTrue( count($collection->asArray()) === 1);
+
+		foreach ($collection->asArray() as $resource)
 		{
-			$this->assertInstanceOf('Art4\JsonApiClient\Resource', $resource);
+			$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $resource);
+			$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $resource);
 		}
 	}
 
 	/**
 	 * @test create with data empty array
 	 */
-	public function testCreateWithDataEmptyArray()
+	public function testCreateDataWithEmptyResourceCollection()
 	{
 		$object = new \stdClass();
 		$object->data = array();
@@ -223,10 +234,13 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertTrue($document->has('data'));
 
-		$resources = $document->get('data');
+		$collection = $document->get('data');
 
-		$this->assertTrue(is_array($resources));
-		$this->assertTrue( count($resources) === 0);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $collection);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $collection);
+
+		$this->assertTrue($collection->isCollection());
+		$this->assertTrue( count($collection->asArray()) === 0);
 	}
 
 	/**
@@ -366,7 +380,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 
 		foreach ($resources as $resource)
 		{
-			$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $resource);
+			$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $resource);
 		}
 	}
 

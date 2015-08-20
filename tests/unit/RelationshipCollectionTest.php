@@ -3,9 +3,12 @@
 namespace Art4\JsonApiClient\Tests;
 
 use Art4\JsonApiClient\RelationshipCollection;
+use Art4\JsonApiClient\Tests\Fixtures\JsonValueTrait;
 
 class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 {
+	use JsonValueTrait;
+
 	/**
 	 * @test create with object
 	 */
@@ -15,7 +18,7 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 		$object->author = new \stdClass();
 		$object->author->meta = new \stdClass();
 
-		$mock = $this->getMockBuilder('Art4\JsonApiClient\Resource')
+		$mock = $this->getMockBuilder('Art4\JsonApiClient\Resource\Item')
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -35,7 +38,7 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreateWithEmptyObject()
 	{
-		$mock = $this->getMockBuilder('Art4\JsonApiClient\Resource')
+		$mock = $this->getMockBuilder('Art4\JsonApiClient\Resource\Item')
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -55,7 +58,7 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreateWithTypePropertyThrowsException()
 	{
-		$mock = $this->getMockBuilder('Art4\JsonApiClient\Resource')
+		$mock = $this->getMockBuilder('Art4\JsonApiClient\Resource\Item')
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -76,7 +79,7 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreateWithIdPropertyThrowsException()
 	{
-		$mock = $this->getMockBuilder('Art4\JsonApiClient\Resource')
+		$mock = $this->getMockBuilder('Art4\JsonApiClient\Resource\Item')
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -97,7 +100,7 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreateWithRelationshipsPropertyThrowsException()
 	{
-		$mock = $this->getMockBuilder('Art4\JsonApiClient\Resource')
+		$mock = $this->getMockBuilder('Art4\JsonApiClient\Resource\Item')
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -118,7 +121,7 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreateWithAttributesPropertyThrowsException()
 	{
-		$mock = $this->getMockBuilder('Art4\JsonApiClient\Resource')
+		$mock = $this->getMockBuilder('Art4\JsonApiClient\Resource\Item')
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -144,9 +147,9 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 			->getMock();
 		$mock_attributes->method('has')
 			->with($this->equalTo('relationships'))
-			->will($this->returnValue(false));
+			->will($this->returnValue(true));
 
-		$mock = $this->getMockBuilder('Art4\JsonApiClient\Resource')
+		$mock = $this->getMockBuilder('Art4\JsonApiClient\Resource\Item')
 			->disableOriginalConstructor()
 			->getMock();
 		$mock->method('has')
@@ -161,5 +164,24 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 		$object->relationships->author = new \stdClass();
 
 		$collection = new RelationshipCollection($object, $mock);
+	}
+
+	/**
+	 * @dataProvider jsonValuesProvider
+	 */
+	public function testCreateWithoutObjectThrowsException($input)
+	{
+		// Skip if $input is an object
+		if ( gettype($input) === 'object' )
+		{
+			return;
+		}
+
+		$mock = $this->getMockBuilder('Art4\JsonApiClient\Resource\Item')
+			->disableOriginalConstructor()
+			->getMock();
+
+		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+		$document = new RelationshipCollection($input, $mock);
 	}
 }

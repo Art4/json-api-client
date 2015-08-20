@@ -1,4 +1,4 @@
-## Exceptions
+# Exceptions
 [Back to Navigation](README.md)
 
 All Exceptions thrown by JSON API client implements `\Art4\JsonApiClient\Exception\Exception` interface. This allows catching all exceptions like this:
@@ -14,7 +14,7 @@ catch (\Art4\JsonApiClient\Exception\Exception $e)
 }
 ```
 
-### Exception\ValidationException
+## Exception\ValidationException
 
 The `Exception\ValidationException` will be thrown if the response from the JSON API server doesn't follow the JSON API specification.
 

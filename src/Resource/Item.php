@@ -1,7 +1,10 @@
 <?php
 
-namespace Art4\JsonApiClient;
+namespace Art4\JsonApiClient\Resource;
 
+use Art4\JsonApiClient\Attributes;
+use Art4\JsonApiClient\RelationshipCollection;
+use Art4\JsonApiClient\Link;
 use Art4\JsonApiClient\Utils\LinksTrait;
 use Art4\JsonApiClient\Exception\ValidationException;
 
@@ -10,7 +13,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-resource-objects
  */
-class Resource extends ResourceIdentifier
+class Item extends Identifier
 {
 	use LinksTrait;
 
@@ -137,5 +140,45 @@ class Resource extends ResourceIdentifier
 		}
 
 		return $this->$key;
+	}
+
+	/**
+	 * Is this Resource a null resource?
+	 *
+	 * @return boolean false
+	 */
+	public function isNull()
+	{
+		return false;
+	}
+
+	/**
+	 * Is this Resource an identifier?
+	 *
+	 * @return boolean false
+	 */
+	public function isIdentifier()
+	{
+		return false;
+	}
+
+	/**
+	 * Is this Resource an item?
+	 *
+	 * @return boolean true
+	 */
+	public function isItem()
+	{
+		return true;
+	}
+
+	/**
+	 * Is this Resource a collection?
+	 *
+	 * @return boolean false
+	 */
+	public function isCollection()
+	{
+		return false;
 	}
 }

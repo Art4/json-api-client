@@ -1,6 +1,6 @@
 <?php
 
-namespace Art4\JsonApiClient;
+namespace Art4\JsonApiClient\Resource;
 
 use Art4\JsonApiClient\Utils\MetaTrait;
 use Art4\JsonApiClient\Exception\ValidationException;
@@ -10,7 +10,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-resource-identifier-objects
  */
-class ResourceIdentifier
+class Identifier implements ResourceInterface
 {
 	use MetaTrait;
 
@@ -158,5 +158,45 @@ class ResourceIdentifier
 		}
 
 		return $return;
+	}
+
+	/**
+	 * Is this Resource a null resource?
+	 *
+	 * @return boolean false
+	 */
+	public function isNull()
+	{
+		return false;
+	}
+
+	/**
+	 * Is this Resource an identifier?
+	 *
+	 * @return boolean true
+	 */
+	public function isIdentifier()
+	{
+		return true;
+	}
+
+	/**
+	 * Is this Resource an item?
+	 *
+	 * @return boolean false
+	 */
+	public function isItem()
+	{
+		return false;
+	}
+
+	/**
+	 * Is this Resource a collection?
+	 *
+	 * @return boolean false
+	 */
+	public function isCollection()
+	{
+		return false;
 	}
 }
