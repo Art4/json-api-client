@@ -3,7 +3,6 @@
 namespace Art4\JsonApiClient\Utils;
 
 use Art4\JsonApiClient\Link;
-use Art4\JsonApiClient\Exception\AccessException;
 
 /**
  * Trait for Links properties
@@ -25,17 +24,10 @@ trait LinksTrait
 	/**
 	 * Get the links of this document
 	 *
-	 * @throws AccessException If links wasn't set, you can't get it
-	 *
-	 * @return Link The link object
+	 * @return null|Link The link object or null
 	 */
 	public function getLinks()
 	{
-		if ( ! $this->hasLinks() )
-		{
-			throw new AccessException('You can\'t get "links", because it wasn\'t set.');
-		}
-
 		return $this->links;
 	}
 

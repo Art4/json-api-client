@@ -3,7 +3,6 @@
 namespace Art4\JsonApiClient\Utils;
 
 use Art4\JsonApiClient\Meta;
-use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
@@ -26,17 +25,10 @@ trait MetaTrait
 	/**
 	 * Get the meta of this document
 	 *
-	 * @throws AccessException If meta wasn't set, you can't get it
-	 *
-	 * @return Meta The meta object
+	 * @return null|Meta The meta object or null
 	 */
 	public function getMeta()
 	{
-		if ( ! $this->hasMeta() )
-		{
-			throw new AccessException('You can\'t get "meta", because it wasn\'t set.');
-		}
-
 		return $this->meta;
 	}
 
