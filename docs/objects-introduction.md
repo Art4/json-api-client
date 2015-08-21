@@ -96,4 +96,4 @@ $meta = $document->get('meta');
 // $meta contains a meta object.
 ```
 
-> **Note:** Using `get()` on a non-existing value will throw an `RuntimeException`. Use `has()` or `getKeys()` to check if a value exists.
+> **Note:** Using `get()` on a non-existing value will throw an [Exception\AccessException](exception-introduction.md#exceptionaccessexception). Use `has()` or `getKeys()` to check if a value exists.
