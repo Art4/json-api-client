@@ -31,7 +31,7 @@ catch (\Art4\JsonApiClient\Exception\ValidationException $e)
 }
 ```
 
-## Exception\Use `has()` or `getKeys()` to check if a value exists.
+## Exception\AccessException
 
 The `Exception\AccessException` will be thrown if you want to `get()` a value that doesn't exists in an object. Use `has()` or `getKeys()` first to check if a value exists.
 
