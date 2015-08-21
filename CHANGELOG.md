@@ -7,7 +7,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
-- Now `\Art4\JsonApiClient\Exception\ValidationException` will be thrown instead of `InvalidArgumentException`
+- `Document::get('data')` returns always a `ResourceInterface` object
+- `\Art4\JsonApiClient\Exception\ValidationException` will be thrown instead of `InvalidArgumentException`
+- `\Art4\JsonApiClient\Exception\AccessException` will be thrown instead of `RuntimetException`
 
 ## [0.2] - 2015-08-12
 

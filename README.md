@@ -1,9 +1,10 @@
 # JSON API Client
 
-[![Latest Version][ico-version]][link-version]
-[![Software License][ico-license]](LICENSE)
-[![Build Status][ico-travis]][link-travis]
+[![Latest Version][https://img.shields.io/github/release/Art4/json-api-client.svg]][https://github.com/Art4/json-api-client/releases]
+[![Software License][https://img.shields.io/badge/license-GPL2-brightgreen.svg]](LICENSE)
+[![Build Status][https://travis-ci.org/Art4/json-api-client.svg?branch=master]][https://travis-ci.org/Art4/json-api-client]
 [![Coverage Status](https://coveralls.io/repos/Art4/json-api-client/badge.svg?branch=master&service=github)](https://coveralls.io/github/Art4/json-api-client?branch=master)
+[![Total Downloads](https://img.shields.io/packagist/dt/art4/json-api-client.svg)](https://packagist.org/packages/art4/json-api-client)
 
 JSON API Client is a PHP Library to validate and handle the response body from a [JSON API](http://jsonapi.org) Server.
 
@@ -75,17 +76,9 @@ Please feel free to fork and sending Pull Requests.
 
 ## Credits
 
-- [Artur Weigandt][link-author]
-- [All Contributors][link-contributors]
+- [Artur Weigandt][https://github.com/Art4] [![Twitter](http://img.shields.io/badge/Twitter-@weigandtlabs-blue.svg)](https://twitter.com/weigandtlabs)
+- [All Contributors][../../contributors]
 
 ## License
 
 GPL2. Please see [License File](LICENSE) for more information.
-
-[ico-version]: https://img.shields.io/github/release/Art4/json-api-client.svg
-[ico-license]: https://img.shields.io/badge/license-GPL2-brightgreen.svg
-[ico-travis]: https://travis-ci.org/Art4/json-api-client.svg?branch=master
-[link-version]: https://github.com/Art4/json-api-client/releases
-[link-travis]: https://travis-ci.org/Art4/json-api-client
-[link-author]: https://github.com/Art4
-[link-contributors]: ../../contributors
