@@ -4,6 +4,7 @@ namespace Art4\JsonApiClient;
 
 use Art4\JsonApiClient\PaginationLink;
 use Art4\JsonApiClient\Utils\MetaTrait;
+use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
@@ -91,7 +92,7 @@ class Link
 	{
 		if ( ! $this->has($key) )
 		{
-			throw new \RuntimeException('"' . $key . '" doesn\'t exist in this object.');
+			throw new AccessException('"' . $key . '" doesn\'t exist in this object.');
 		}
 
 		if ( $key === 'meta' )

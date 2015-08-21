@@ -6,6 +6,7 @@ use Art4\JsonApiClient\Attributes;
 use Art4\JsonApiClient\RelationshipCollection;
 use Art4\JsonApiClient\Link;
 use Art4\JsonApiClient\Utils\LinksTrait;
+use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
@@ -126,7 +127,7 @@ class Item extends Identifier
 	{
 		if ( ! $this->has($key) )
 		{
-			throw new \RuntimeException('"' . $key . '" doesn\'t exist in this resource.');
+			throw new AccessException('"' . $key . '" doesn\'t exist in this resource.');
 		}
 
 		if ( $key === 'meta' )

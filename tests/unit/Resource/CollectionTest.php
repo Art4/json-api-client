@@ -124,7 +124,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertFalse($collection->has(0));
 
-		$this->setExpectedException('RuntimeException');
+		$this->setExpectedException('Art4\JsonApiClient\Exception\AccessException');
 
 		$collection->get(0);
 	}

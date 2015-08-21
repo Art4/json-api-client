@@ -2,6 +2,7 @@
 
 namespace Art4\JsonApiClient;
 
+use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
@@ -109,7 +110,7 @@ class ErrorSource
 	{
 		if ( ! $this->has($key) )
 		{
-			throw new \RuntimeException('"' . $key . '" doesn\'t exist in this error source.');
+			throw new AccessException('"' . $key . '" doesn\'t exist in this error source.');
 		}
 
 		return $this->$key;
