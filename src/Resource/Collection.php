@@ -46,7 +46,19 @@ class Collection implements ResourceInterface
 	 */
 	public function has($key)
 	{
-		if ( $key === 'resources' and count($this->resources) > 0 )
+		if ( is_object($key) or is_array($key) )
+		{
+			return false;
+		}
+
+		if ( is_string($key) and ! ctype_digit($key) )
+		{
+			return false;
+		}
+
+		$key = intval($key);
+
+		if ( isset($this->resources[$key]) )
 		{
 			return true;
 		}
@@ -61,12 +73,19 @@ class Collection implements ResourceInterface
 	 */
 	public function getKeys()
 	{
-		if ( $this->has('resources') )
+		$keys = array();
+
+		if ( count($this->resources) === 0 )
 		{
-			return array('resources');
+			return $keys;
 		}
 
-		return array();
+		foreach ( $this->resources as $key => $value )
+		{
+			$keys[] = $key;
+		}
+
+		return $keys;
 	}
 
 	/**
@@ -77,12 +96,12 @@ class Collection implements ResourceInterface
 	 */
 	public function get($key)
 	{
-		if ( $key !== 'resources' or ! $this->has('resources') )
+		if ( ! $this->has($key) )
 		{
 			throw new \RuntimeException('"' . $key . '" doesn\'t exist in this resource.');
 		}
 
-		return $this->$key;
+		return $this->resources[$key];
 	}
 
 	/**

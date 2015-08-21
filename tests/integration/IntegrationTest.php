@@ -145,11 +145,13 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase
 		$resources = $document->get('data');
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $resources);
-
 		$this->assertTrue($resources->isCollection());
-		$this->assertTrue(count($resources->asArray()) === 1);
 
-		$resource = $resources->asArray()[0];
+		$this->assertTrue(count($resources->asArray()) === 1);
+		$this->assertSame($resources->getKeys(), array(0));
+
+		$this->assertTrue($resources->has(0));
+		$resource = $resources->get(0);
 
 		$this->assertFalse($resource->has('meta'));
 		$this->assertSame($resource->get('type'), 'articles');
