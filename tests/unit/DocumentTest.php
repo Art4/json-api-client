@@ -39,7 +39,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$object->data = new \stdClass();
 		$object->data->type = 'types';
 		$object->data->id = 'id';
-		$object->included = array(new \stdClass());
+		$object->included = array();
 		$object->included[0] = new \stdClass();
 		$object->included[0]->type = 'types';
 		$object->included[0]->id = 'id';
@@ -58,6 +58,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue($document->has('jsonapi'));
 		$this->assertTrue($document->has('links'));
 		$this->assertTrue($document->has('included'));
+		$this->assertFalse($document->has('ignore'));
 	}
 
 	/**
@@ -178,7 +179,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$collection = $document->get('data');
 
 		$this->assertTrue($collection->isCollection());
-		$this->assertTrue( count($collection->asArray()) === 1);
+		$this->assertTrue(count($collection->asArray()) === 1);
 
 		foreach ($collection->asArray() as $resource)
 		{
@@ -212,7 +213,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$collection = $document->get('data');
 
 		$this->assertTrue($collection->isCollection());
-		$this->assertTrue( count($collection->asArray()) === 1);
+		$this->assertTrue(count($collection->asArray()) === 1);
 
 		foreach ($collection->asArray() as $resource)
 		{
@@ -240,7 +241,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $collection);
 
 		$this->assertTrue($collection->isCollection());
-		$this->assertTrue( count($collection->asArray()) === 0);
+		$this->assertTrue(count($collection->asArray()) === 0);
 	}
 
 	/**
@@ -366,6 +367,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$object->data = $data;
 		$object->included = array(
 			$data,
+			$data,
 		);
 
 		$document = new Document($object);
@@ -375,10 +377,11 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 
 		$resources = $document->get('included');
 
-		$this->assertTrue(is_array($resources));
-		$this->assertTrue( count($resources) === 1);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $resources);
+		$this->assertTrue(count($resources->asArray()) === 2);
+		$this->assertSame($resources->getKeys(), array(0, 1));
 
-		foreach ($resources as $resource)
+		foreach ($resources->asArray() as $resource)
 		{
 			$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $resource);
 		}

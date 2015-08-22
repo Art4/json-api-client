@@ -91,15 +91,7 @@ class Document
 				throw new ValidationException('If $object does not contain a `data` property, the `included` property MUST NOT be present either.');
 			}
 
-			if ( ! is_array($object->included) )
-			{
-				throw new ValidationException('included member has to be an array, "' . gettype($object->included) . '" given.');
-			}
-
-			foreach ($object->included as $resource_obj)
-			{
-				$this->addInclude(new Item($resource_obj));
-			}
+			$this->included = new Collection($object->included);
 		}
 
 		if ( property_exists($object, 'jsonapi') )
@@ -320,19 +312,6 @@ class Document
 	protected function addError(Error $error)
 	{
 		$this->errors[] = $error;
-
-		return $this;
-	}
-
-	/**
-	 * Add an Resource to the included property
-	 *
-	 * @param Item $resource The Resource
-	 * @return self
-	 */
-	protected function addInclude(Item $resource)
-	{
-		$this->included[] = $resource;
 
 		return $this;
 	}
