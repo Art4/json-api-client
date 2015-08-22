@@ -18,7 +18,7 @@ The `Document` object represents the [Top Level](http://jsonapi.org/format/#docu
 1 | meta | [Meta object](objects-meta.md) |
 - | jsonapi | [Jsonapi object](objects-jsonapi.md) |
 - | links | [Document Link object](objects-document-link.md) |
-- | included | array([Resource Item object](objects-resource-item.md)) | not allowed, if 'data' doesn't exist
+- | included | [Resource Collection object](objects-resource-collection.md) | not allowed, if 'data' doesn't exist
 
 ## Usage
 
