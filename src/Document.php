@@ -27,7 +27,7 @@ class Document
 	 */
 	protected $data = false; // Cannot be null, because null is a valid value too
 
-	protected $errors = array();
+	protected $errors = null;
 
 	protected $jsonapi = null;
 
@@ -69,20 +69,7 @@ class Document
 
 		if ( property_exists($object, 'errors') )
 		{
-			if ( ! is_array($object->errors) )
-			{
-				throw new ValidationException('Errors have to be in an array, "' . gettype($object->errors) . '" given.');
-			}
-
-			if ( count($object->errors) === 0 )
-			{
-				throw new ValidationException('Errors array cannot be empty and MUST have at least one object');
-			}
-
-			foreach ($object->errors as $error_obj)
-			{
-				$this->addError(new Error($error_obj));
-			}
+			$this->errors = new ErrorCollection($object->errors);
 		}
 
 		if ( property_exists($object, 'included') )
@@ -302,18 +289,5 @@ class Document
 		}
 
 		return $resource;
-	}
-
-	/**
-	 * Add an error to this document
-	 *
-	 * @param Error $error The Error
-	 * @return self
-	 */
-	protected function addError(Error $error)
-	{
-		$this->errors[] = $error;
-
-		return $this;
 	}
 }

@@ -25,6 +25,7 @@ All possible objects and their hierarchical structure are listet below.
 1. [Attributes object](objects-attributes.md)
 1. [Relationship Collection object](objects-relationship-collection.md)
 1. [Relationship object](objects-relationship.md)
+1. [Error Collection object](objects-error-collection.md)
 1. [Error object](objects-error.md)
 1. [Error Source object](objects-error-source.md)
 1. [Link object](objects-link.md)

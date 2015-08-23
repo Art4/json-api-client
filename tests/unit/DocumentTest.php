@@ -263,11 +263,18 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 
 		$errors = $document->get('errors');
 
-		$this->assertTrue(is_array($errors));
-		$this->assertTrue(count($errors) === 2);
+		$this->assertInstanceOf('Art4\JsonApiClient\ErrorCollection', $errors);
 
-		foreach ($errors as $error)
+		$error_keys = $errors->getKeys();
+
+		$this->assertSame($error_keys, array(0, 1));
+
+		foreach ($error_keys as $error_key)
 		{
+			$this->assertTrue($errors->has($error_key));
+
+			$error = $errors->get($error_key);
+
 			$this->assertInstanceOf('Art4\JsonApiClient\Error', $error);
 		}
 	}

@@ -10,6 +10,7 @@
 * [Attributes object](objects-attributes.md)
 * [Relationship Collection object](objects-relationship-collection.md)
 * [Relationship object](objects-relationship.md)
+* [Error Collection object](objects-error-collection.md)
 * [Error object](objects-error.md)
 * [Error Source object](objects-error-source.md)
 * [Link object](objects-link.md)
