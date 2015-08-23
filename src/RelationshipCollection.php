@@ -3,6 +3,7 @@
 namespace Art4\JsonApiClient;
 
 use Art4\JsonApiClient\Resource\ResourceInterface;
+use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
@@ -86,7 +87,7 @@ class RelationshipCollection
 	{
 		if ( ! $this->has($name) )
 		{
-			throw new \RuntimeException('"' . $key . '" doesn\'t exist in this relationship collection.');
+			throw new AccessException('"' . $key . '" doesn\'t exist in this relationship collection.');
 		}
 
 		return $this->_data[$name];

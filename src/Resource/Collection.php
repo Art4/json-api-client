@@ -2,6 +2,7 @@
 
 namespace Art4\JsonApiClient\Resource;
 
+use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
@@ -98,7 +99,7 @@ class Collection implements ResourceInterface
 	{
 		if ( ! $this->has($key) )
 		{
-			throw new \RuntimeException('"' . $key . '" doesn\'t exist in this resource.');
+			throw new AccessException('"' . $key . '" doesn\'t exist in this resource.');
 		}
 
 		return $this->resources[$key];

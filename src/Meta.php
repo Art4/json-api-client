@@ -2,6 +2,7 @@
 
 namespace Art4\JsonApiClient;
 
+use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
@@ -75,7 +76,7 @@ class Meta
 	{
 		if ( ! $this->has($key) )
 		{
-			throw new \RuntimeException('"' . $key . '" doesn\'t exist in this object.');
+			throw new AccessException('"' . $key . '" doesn\'t exist in this object.');
 		}
 
 		return $this->_data[$key];

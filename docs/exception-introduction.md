@@ -30,3 +30,18 @@ catch (\Art4\JsonApiClient\Exception\ValidationException $e)
 	echo $e->getMessage(); // "A resource object MUST contain a type"
 }
 ```
+
+## Exception\AccessException
+
+The `Exception\AccessException` will be thrown if you want to `get()` a value that doesn't exists in an object. Use `has()` or `getKeys()` first to check if a value exists.
+
+```php
+try
+{
+	$value = $resource->get('meta');
+}
+catch (\Art4\JsonApiClient\Exception\AccessException $e)
+{
+	echo $e->getMessage(); // "meta" doesn't exist in this resource.
+}
+```

@@ -427,7 +427,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException RuntimeException
+	 * @expectedException Art4\JsonApiClient\Exception\AccessException
 	 */
 	public function testGetOnANonExistingKeyThrowsException()
 	{

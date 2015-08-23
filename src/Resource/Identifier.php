@@ -3,6 +3,7 @@
 namespace Art4\JsonApiClient\Resource;
 
 use Art4\JsonApiClient\Utils\MetaTrait;
+use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
@@ -132,7 +133,7 @@ class Identifier implements ResourceInterface
 	{
 		if ( ! $this->has($key) )
 		{
-			throw new \RuntimeException('"' . $key . '" doesn\'t exist in this identifier.');
+			throw new AccessException('"' . $key . '" doesn\'t exist in this identifier.');
 		}
 
 		if ( $key === 'meta' )

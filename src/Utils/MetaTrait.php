@@ -25,17 +25,10 @@ trait MetaTrait
 	/**
 	 * Get the meta of this document
 	 *
-	 * @throws \RuntimeException If meta wasn't set, you can't get it
-	 *
-	 * @return Meta The meta object
+	 * @return null|Meta The meta object or null
 	 */
 	public function getMeta()
 	{
-		if ( ! $this->hasMeta() )
-		{
-			throw new \RuntimeException('You can\'t get "meta", because it wasn\'t set.');
-		}
-
 		return $this->meta;
 	}
 

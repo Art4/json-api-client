@@ -5,6 +5,7 @@ namespace Art4\JsonApiClient;
 use Art4\JsonApiClient\Utils\MetaTrait;
 use Art4\JsonApiClient\Utils\LinksTrait;
 use Art4\JsonApiClient\Resource\Identifier;
+use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
@@ -129,7 +130,7 @@ class Relationship
 	{
 		if ( ! $this->has($key) )
 		{
-			throw new \RuntimeException('"' . $key . '" doesn\'t exist in Relationship.');
+			throw new AccessException('"' . $key . '" doesn\'t exist in Relationship.');
 		}
 
 		if ( $key === 'meta' )

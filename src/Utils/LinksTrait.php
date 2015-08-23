@@ -24,17 +24,10 @@ trait LinksTrait
 	/**
 	 * Get the links of this document
 	 *
-	 * @throws \RuntimeException If links wasn't set, you can't get it
-	 *
-	 * @return Link The link object
+	 * @return null|Link The link object or null
 	 */
 	public function getLinks()
 	{
-		if ( ! $this->hasLinks() )
-		{
-			throw new \RuntimeException('You can\'t get "links", because it wasn\'t set.');
-		}
-
 		return $this->links;
 	}
 
