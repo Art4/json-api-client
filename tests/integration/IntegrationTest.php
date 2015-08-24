@@ -22,7 +22,7 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testParseSimpleResource()
 	{
-		$string = $this->getJsonString('01_simple_resource.js');
+		$string = $this->getJsonString('01_simple_resource.json');
 		$document = Helper::parse($string);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
@@ -50,7 +50,7 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testParseSimpleResourceIdentifier()
 	{
-		$string = $this->getJsonString('02_simple_resource_identifier.js');
+		$string = $this->getJsonString('02_simple_resource_identifier.json');
 		$document = Helper::parse($string);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
@@ -74,7 +74,7 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testParseResourceObject()
 	{
-		$string = $this->getJsonString('03_resource_object.js');
+		$string = $this->getJsonString('03_resource_object.json');
 		$document = Helper::parse($string);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
@@ -131,7 +131,7 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testParseCompleteResourceObjectWithMultipleRelationships()
 	{
-		$string = $this->getJsonString('04_complete_document_with_multiple_relationships.js');
+		$string = $this->getJsonString('04_complete_document_with_multiple_relationships.json');
 		$document = Helper::parse($string);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
