@@ -135,4 +135,21 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
 
 		$identifier = new Identifier($object);
 	}
+
+	/**
+	 * @test get() on an undefined value throws Exception
+	 */
+	public function testGetWithUndefinedValueThrowsException()
+	{
+		$object = new \stdClass();
+		$object->type = 'posts';
+		$object->id = 9;
+
+		$identifier = new Identifier($object);
+		$this->assertFalse($identifier->has('foobar'));
+
+		$this->setExpectedException('Art4\JsonApiClient\Exception\AccessException');
+
+		$identifier->get('foobar');
+	}
 }

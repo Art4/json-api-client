@@ -3,9 +3,12 @@
 namespace Art4\JsonApiClient\Tests;
 
 use Art4\JsonApiClient\Attributes;
+use Art4\JsonApiClient\Tests\Fixtures\JsonValueTrait;
 
 class AttributesTest extends \PHPUnit_Framework_TestCase
 {
+	use JsonValueTrait;
+
 	/**
 	 * @test create with object
 	 */
@@ -44,13 +47,20 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @test create with empty object
+	 * @dataProvider jsonValuesProvider
 	 */
-	public function testCreateWithEmptyObject()
+	public function testCreateWithDataProvider($input)
 	{
-		$object = new \stdClass();
+		// Input must be an object
+		if ( gettype($input) === 'object' )
+		{
+			$this->assertInstanceOf('Art4\JsonApiClient\Attributes', new Attributes($input));
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Attributes', new Attributes($object));
+			return;
+		}
+
+		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+		$error = new Attributes($input);
 	}
 
 	/**

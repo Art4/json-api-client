@@ -35,6 +35,23 @@ class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * @test 'about' property must be set
+	 *
+	 * An error object MAY have the following members:
+	 * - links: a links object containing the following members:
+	 *   - about: a link that leads to further details about this particular occurrence of the problem.
+	 */
+	public function testAboutMustBeSet()
+	{
+		$object = new \stdClass();
+		$object->foobar = new \stdClass();
+
+		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+
+		$link = new ErrorLink($object);
+	}
+
+	/**
 	 * @test 'about' property can be a link object
 	 *
 	 * An error object MAY have the following members:
