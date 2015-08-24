@@ -13,6 +13,6 @@ The `Resource\NullResource` represents a [`null` inside the top level data](http
 
 ### Properties
 
-    | Name | Value | Note
+    | Key | Value | Note
 --- | ---- | ----- | ----
 _This object has no properties._

@@ -11,6 +11,6 @@ The `ErrorLink` represents a [links object inside an error object](http://jsonap
 
 ### Properties
 
-    | Name | Value | Note
+    | Key | Value | Note
 --- | ---- | ----- | ----
 1 | about | - `string`<br />- [Link object](objects-link.md) |

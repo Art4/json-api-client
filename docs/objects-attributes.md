@@ -11,7 +11,7 @@ The `Attributes` object represents the [attributes object](http://jsonapi.org/fo
 
 ### Properties
 
-    | Name | Value | Note
+    | Key | Value | Note
 --- | ---- | ----- | ----
 * | `string` | mixed |
 ! | type |   | already used in [Resource Item object](objects-resource-item.md) |

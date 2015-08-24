@@ -18,7 +18,7 @@ The `Link` object represents a [links object](http://jsonapi.org/format/#documen
 
 ### Properties
 
-    | Name | Value | Note
+    | Key | Value | Note
 --- | ---- | ----- | ----
 * | `string` | - `string`<br />- [Link object](objects-link.md) |
 ? | href | `string` |

@@ -11,7 +11,7 @@ The `DocumentLink` represents a [links object inside the top level document](htt
 
 ### Properties
 
-    | Name | Value | Note
+    | Key | Value | Note
 --- | ---- | ----- | ----
 ? | self | `string` |
 ? | related | `string` |

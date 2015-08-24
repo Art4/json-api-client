@@ -11,6 +11,6 @@ The `ErrorCollection` represents [an array of error objects](http://jsonapi.org/
 
 ### Properties
 
-    | Name | Value | Note
+    | Key | Value | Note
 --- | ---- | ----- | ----
 + | `integer` | [Error object](objects-error.md) |

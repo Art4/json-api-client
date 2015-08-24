@@ -11,7 +11,7 @@ The `Error` object represents the [error object](http://jsonapi.org/format/#erro
 
 ### Properties
 
-    | Name | Value | Note
+    | Key | Value | Note
 --- | ---- | ----- | ----
 ? | id | `string` |
 ? | links | [Error Link object](objects-error-link.md) |

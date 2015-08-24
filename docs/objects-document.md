@@ -11,7 +11,7 @@ The `Document` object represents the [Top Level](http://jsonapi.org/format/#docu
 
 ### Properties
 
-    | Name | Value | Note
+    | Key | Value | Note
 --- | ---- | ----- | ----
 # | data | - [Resource NullResource object](objects-resource-nullresource.md)<br />- [Resource Identifier object](objects-resource-identifier.md)<br />- [Resource Item object](objects-resource-item.md)<br />- [Resource Collection object](objects-resource-collection.md) | not allowed, if 'errors' exists
 # | errors | [Error Collection object](objects-error-collection.md) | not allowed, if 'data' exists
