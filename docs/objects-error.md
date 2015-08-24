@@ -7,7 +7,7 @@ The `Error` object represents the [error object](http://jsonapi.org/format/#erro
 
 - extends:
 - extended by:
-- property of: [Document object](objects-document.md)
+- property of: [Error Collection object](objects-error-collection.md)
 
 ### Properties
 
