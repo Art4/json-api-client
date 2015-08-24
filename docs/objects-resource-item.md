@@ -11,6 +11,8 @@ The `Resource\Item` represents a [resource object](http://jsonapi.org/format/#do
 
 ### Properties
 
+_[Symbols definition](objects-introduction.md#symbols)_
+
     | Key | Value | Note
 --- | ---- | ----- | ----
 ? | attributes | [Attributes object](objects-attributes.md) |

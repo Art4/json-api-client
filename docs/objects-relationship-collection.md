@@ -11,6 +11,8 @@ The `RelationshipCollection` object represents the [an object that holds the rel
 
 ### Properties
 
+_[Symbols definition](objects-introduction.md#symbols)_
+
     | Key | Value | Note
 --- | ---- | ----- | ----
 * | `string` | [Relationship object](objects-relationship.md) | not allowed, if already used in parents [Attributes object](objects-attributes.md) property)

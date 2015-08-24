@@ -13,6 +13,8 @@ The `Resource\Identifier` represents a [resource identifier object](http://jsona
 
 ### Properties
 
+_[Symbols definition](objects-introduction.md#symbols)_
+
     | Key | Value | Note
 --- | ---- | ----- | ----
 1 | type | `string` |

@@ -11,6 +11,8 @@ The `Jsonapi` object represents a [jsonapi object](http://jsonapi.org/format/#do
 
 ### Properties
 
+_[Symbols definition](objects-introduction.md#symbols)_
+
     | Key | Value | Note
 --- | ---- | ----- | ----
 ? | version | `string` | Default: `"1.0"`

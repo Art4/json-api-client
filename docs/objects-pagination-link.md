@@ -13,6 +13,8 @@ The `PaginationLink` represents a [pagination object](http://jsonapi.org/format/
 
 ### Properties
 
+_[Symbols definition](objects-introduction.md#symbols)_
+
     | Key | Value | Note
 --- | ---- | ----- | ----
 ? | first | - `null`<br />- `string` |

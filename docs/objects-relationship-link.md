@@ -11,6 +11,8 @@ The `RelationhipLink` represents a [links object inside a relationship object](h
 
 ### Properties
 
+_[Symbols definition](objects-introduction.md#symbols)_
+
     | Key | Value | Note
 --- | ---- | ----- | ----
 # | self | `string` |

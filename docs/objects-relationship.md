@@ -11,6 +11,8 @@ The `Relationship` object represents the [relationship object](http://jsonapi.or
 
 ### Properties
 
+_[Symbols definition](objects-introduction.md#symbols)_
+
     | Key | Value | Note
 --- | ---- | ----- | ----
 # | links | [Relationship Link object](objects-relationship-link.md) |

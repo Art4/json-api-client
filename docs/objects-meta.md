@@ -17,6 +17,8 @@ The `Meta` object represents a [meta object](http://jsonapi.org/format/#document
 
 ### Properties
 
+_[Symbols definition](objects-introduction.md#symbols)_
+
     | Key | Value | Note
 --- | ---- | ----- | ----
 * | `string` | `mixed` |

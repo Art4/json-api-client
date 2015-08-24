@@ -11,6 +11,8 @@ The `ErrorSource` object represents the [error source object](http://jsonapi.org
 
 ### Properties
 
+_[Symbols definition](objects-introduction.md#symbols)_
+
     | Key | Value | Note
 --- | ---- | ----- | ----
 ? | pointer | `string` |
