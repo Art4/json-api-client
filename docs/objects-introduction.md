@@ -7,8 +7,6 @@ All possible objects and their hierarchical structure are listet below.
 
 ### Symbols
 
-_[Symbols definition](objects-introduction.md#symbols)_
-
 | Symbol | Description |
 | ------ | ----------- |
 | #      | at least one of these properties is required |
