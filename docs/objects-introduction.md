@@ -9,11 +9,12 @@ All possible objects and their hierarchical structure are listet below.
 
 | Symbol | Description |
 | ------ | ----------- |
-| 1      | at least one of these properties is required |
+| #      | at least one of these properties is required |
 | *      | zero, one or more properties |
-| +      | required |
-| -      | optional |
-| !      | not allowed |
+| 1      | property is required |
+| +      | one or more properties are required |
+| ?      | property is optional |
+| !      | property is not allowed |
 
 ### All objects
 

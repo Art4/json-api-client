@@ -13,6 +13,6 @@ The `DocumentLink` represents a [links object inside the top level document](htt
 
     | Name | Value | Note
 --- | ---- | ----- | ----
-- | self | `string` |
-- | related | `string` |
-- | pagination | [Pagination Link object](objects-pagination-link.md) |
+? | self | `string` |
+? | related | `string` |
+? | pagination | [Pagination Link object](objects-pagination-link.md) |

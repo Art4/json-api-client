@@ -7,10 +7,12 @@ The `Resource\Collection` represents [an array of resource objects, an array of 
 
 - extends:
 - extended by:
-- property of: [Document object](objects-document.md)
+- property of:
+  - [Document object](objects-document.md)
+  - [Relationship object](objects-relationship.md)
 
 ### Properties
 
     | Name | Value | Note
 --- | ---- | ----- | ----
-+ | resources | - array()<br />- array([Resource Identifier object](objects-resource-identifier.md))<br />- array([Resource Item object](objects-resource-item.md)) |
+* | `integer` | - [Resource Identifier object](objects-resource-identifier.md)<br />- [Resource Item object](objects-resource-item.md) | Contains only [Resource Identifier object](objects-resource-identifier.md), if the collection is a property of a [Relationship object](objects-relationship.md)

@@ -15,7 +15,7 @@ The `PaginationLink` represents a [pagination object](http://jsonapi.org/format/
 
     | Name | Value | Note
 --- | ---- | ----- | ----
-- | first | - `null`<br />- `string` |
-- | last | - `null`<br />- `string` |
-- | prev | - `null`<br />- `string` |
-- | next | - `null`<br />- `string` |
+? | first | - `null`<br />- `string` |
+? | last | - `null`<br />- `string` |
+? | prev | - `null`<br />- `string` |
+? | next | - `null`<br />- `string` |

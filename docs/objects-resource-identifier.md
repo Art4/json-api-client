@@ -15,6 +15,6 @@ The `Resource\Identifier` represents a [resource identifier object](http://jsona
 
     | Name | Value | Note
 --- | ---- | ----- | ----
-+ | type | `string` |
-+ | id | `string` |
-- | meta | [Meta object](objects-meta.md) |
+1 | type | `string` |
+1 | id | `string` |
+? | meta | [Meta object](objects-meta.md) |

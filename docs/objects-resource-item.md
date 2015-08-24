@@ -13,6 +13,6 @@ The `Resource\Item` represents a [resource object](http://jsonapi.org/format/#do
 
     | Name | Value | Note
 --- | ---- | ----- | ----
-- | attributes | [Attributes object](objects-attributes.md) |
-- | relationships | [Relationship Collection object](objects-relationship-collection.md) |
-- | links | [Link object](objects-link.md) |
+? | attributes | [Attributes object](objects-attributes.md) |
+? | relationships | [Relationship Collection object](objects-relationship-collection.md) |
+? | links | [Link object](objects-link.md) |

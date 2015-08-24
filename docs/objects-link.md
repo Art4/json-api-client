@@ -21,5 +21,5 @@ The `Link` object represents a [links object](http://jsonapi.org/format/#documen
     | Name | Value | Note
 --- | ---- | ----- | ----
 * | `string` | - `string`<br />- [Link object](objects-link.md) |
-- | href | `string` |
-- | meta | [Meta object](objects-meta.md) |
+? | href | `string` |
+? | meta | [Meta object](objects-meta.md) |

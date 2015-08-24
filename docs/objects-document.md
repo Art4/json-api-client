@@ -13,12 +13,12 @@ The `Document` object represents the [Top Level](http://jsonapi.org/format/#docu
 
     | Name | Value | Note
 --- | ---- | ----- | ----
-1 | data | - [Resource NullResource object](objects-resource-nullresource.md)<br />- [Resource Identifier object](objects-resource-identifier.md)<br />- [Resource Item object](objects-resource-item.md)<br />- [Resource Collection object](objects-resource-collection.md) | not allowed, if 'errors' exists
-1 | errors | [Error Collection object](objects-error-collection.md) | not allowed, if 'data' exists
-1 | meta | [Meta object](objects-meta.md) |
-- | jsonapi | [Jsonapi object](objects-jsonapi.md) |
-- | links | [Document Link object](objects-document-link.md) |
-- | included | [Resource Collection object](objects-resource-collection.md) | not allowed, if 'data' doesn't exist
+# | data | - [Resource NullResource object](objects-resource-nullresource.md)<br />- [Resource Identifier object](objects-resource-identifier.md)<br />- [Resource Item object](objects-resource-item.md)<br />- [Resource Collection object](objects-resource-collection.md) | not allowed, if 'errors' exists
+# | errors | [Error Collection object](objects-error-collection.md) | not allowed, if 'data' exists
+# | meta | [Meta object](objects-meta.md) |
+? | jsonapi | [Jsonapi object](objects-jsonapi.md) |
+? | links | [Document Link object](objects-document-link.md) |
+? | included | [Resource Collection object](objects-resource-collection.md) | not allowed, if 'data' doesn't exist
 
 ## Usage
 

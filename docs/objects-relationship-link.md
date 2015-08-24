@@ -13,6 +13,6 @@ The `RelationhipLink` represents a [links object inside a relationship object](h
 
     | Name | Value | Note
 --- | ---- | ----- | ----
-1 | self | `string` |
-1 | related | `string` |
-- | pagination | [Pagination Link object](objects-pagination-link.md) | Only exists if the parent relationship object represents a to-many relationship
+# | self | `string` |
+# | related | `string` |
+? | pagination | [Pagination Link object](objects-pagination-link.md) | Only exists if the parent relationship object represents a to-many relationship

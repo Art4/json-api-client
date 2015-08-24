@@ -13,5 +13,5 @@ The `Jsonapi` object represents a [jsonapi object](http://jsonapi.org/format/#do
 
     | Name | Value | Note
 --- | ---- | ----- | ----
-- | version | `string` | Default: `"1.0"`
-- | meta | [Meta object](objects-meta.md) |
+? | version | `string` | Default: `"1.0"`
+? | meta | [Meta object](objects-meta.md) |
