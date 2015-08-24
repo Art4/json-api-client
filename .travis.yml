@@ -4,6 +4,7 @@ php:
 - 5.4
 - 5.5
 - 5.6
+  env: COLLECT_COVERAGE=true
 - 7
 
 sudo: false
@@ -16,7 +17,7 @@ install:
 - composer require satooshi/php-coveralls --dev
 
 script:
-- php vendor/phpunit/phpunit/phpunit --coverage-clover build/logs/clover.xml
+- if [[ "$COLLECT_COVERAGE" == "true" ]]; then php vendor/phpunit/phpunit/phpunit --coverage-clover build/logs/clover.xml; else php vendor/phpunit/phpunit/phpunit fi
 
 after_script:
-- php vendor/bin/coveralls
+- if [[ "$COLLECT_COVERAGE" == "true" ]]; then php vendor/bin/coveralls fi
