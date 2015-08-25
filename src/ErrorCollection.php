@@ -2,6 +2,7 @@
 
 namespace Art4\JsonApiClient;
 
+use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 
@@ -12,6 +13,8 @@ use Art4\JsonApiClient\Exception\ValidationException;
  */
 class ErrorCollection implements AccessInterface
 {
+	use AccessTrait;
+
 	protected $errors = array();
 
 	/**
@@ -105,16 +108,6 @@ class ErrorCollection implements AccessInterface
 		}
 
 		return $this->errors[$key];
-	}
-
-	/**
-	 * Get all errors from this collection
-	 *
-	 * @return Error[] The errors as array
-	 */
-	public function asArray()
-	{
-		return $this->errors;
 	}
 
 	/**

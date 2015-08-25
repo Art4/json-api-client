@@ -38,6 +38,12 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($link->get('related'), 'http://example.org/related');
 		$this->assertTrue($link->has('pagination'));
 		$this->assertInstanceOf('Art4\JsonApiClient\PaginationLink', $link->get('pagination'));
+
+		$this->assertSame($link->asArray(), array(
+			'self' => $link->get('self'),
+			'related' => $link->get('related'),
+			'pagination' => $link->get('pagination'),
+		));
 	}
 
 	/**

@@ -31,9 +31,16 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue($link->has('meta'));
 		$this->assertInstanceOf('Art4\JsonApiClient\Meta', $link->get('meta'));
 		$this->assertTrue($link->has('link'));
+		$this->assertSame($link->get('link'), 'http://example.org/link');
 		$this->assertTrue($link->has('linkobj'));
 		$this->assertInstanceOf('Art4\JsonApiClient\Link', $link->get('linkobj'));
-		$this->assertSame($link->get('link'), 'http://example.org/link');
+
+		$this->assertSame($link->asArray(), array(
+			'href' => $link->get('href'),
+			'linkobj' => $link->get('linkobj'),
+			'link' => $link->get('link'),
+			'meta' => $link->get('meta'),
+		));
 	}
 
 	/**

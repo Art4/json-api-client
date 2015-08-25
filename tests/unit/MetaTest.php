@@ -44,7 +44,19 @@ class MetaTest extends \PHPUnit_Framework_TestCase
 		$this->assertFalse($meta->get('false'));
 		$this->assertTrue($meta->has('null'));
 		$this->assertNull($meta->get('null'));
+
 		$this->assertSame($meta->getKeys(), array('object', 'array', 'string', 'number_int', 'number_float', 'true', 'false', 'null'));
+
+		$this->assertSame($meta->asArray(), array(
+			'object' => $meta->get('object'),
+			'array' => array(),
+			'string' => 'string',
+			'number_int' => 654,
+			'number_float' => 654.321,
+			'true' => true,
+			'false' => false,
+			'null' => null,
+		));
 	}
 
 	/**

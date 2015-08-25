@@ -3,6 +3,7 @@
 namespace Art4\JsonApiClient;
 
 use Art4\JsonApiClient\PaginationLink;
+use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Utils\MetaTrait;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
@@ -14,6 +15,8 @@ use Art4\JsonApiClient\Exception\ValidationException;
  */
 class Link implements AccessInterface
 {
+	use AccessTrait;
+
 	use MetaTrait;
 
 	protected $_links = array();

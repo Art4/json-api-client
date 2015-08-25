@@ -33,6 +33,10 @@ class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 		$this->assertFalse($link->has('meta'));
 		$this->assertTrue($link->has('about'));
 		$this->assertSame($link->get('about'), 'http://example.org/about');
+
+		$this->assertSame($link->asArray(), array(
+			'about' => $link->get('about'),
+		));
 	}
 
 	/**

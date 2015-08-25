@@ -2,6 +2,7 @@
 
 namespace Art4\JsonApiClient;
 
+use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Utils\MetaTrait;
 use Art4\JsonApiClient\Utils\LinksTrait;
 use Art4\JsonApiClient\Resource\Identifier;
@@ -15,6 +16,8 @@ use Art4\JsonApiClient\Exception\ValidationException;
  */
 class Relationship implements AccessInterface
 {
+	use AccessTrait;
+
 	use MetaTrait;
 
 	use LinksTrait;

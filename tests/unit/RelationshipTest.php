@@ -21,6 +21,12 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Relationship', $relationship);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $relationship);
+
+		$this->assertTrue($relationship->has('meta'));
+
+		$meta = $relationship->get('meta');
+
+		$this->assertSame($relationship->asArray(), array('meta' => $meta));
 	}
 
 	/**
@@ -68,7 +74,11 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($relationship->getKeys(), array('links'));
 		$this->assertTrue($relationship->has('links'));
 
-		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipLink', $relationship->get('links'));
+		$links = $relationship->get('links');
+
+		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipLink', $links);
+
+		$this->assertSame($relationship->asArray(), array('links' => $links));
 	}
 
 	/**

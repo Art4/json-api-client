@@ -41,6 +41,17 @@ class NullResource implements AccessInterface, ResourceInterface
 	}
 
 	/**
+	 * Convert this object in an array
+	 *
+	 * @return null
+	 */
+	public function asArray()
+	{
+		// Null can't converted into an array, because it has no keys
+		return null;
+	}
+
+	/**
 	 * Is this Resource a null resource?
 	 *
 	 * @return boolean true

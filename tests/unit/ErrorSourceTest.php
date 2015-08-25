@@ -34,6 +34,11 @@ class ErrorSourceTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($source->get('pointer'), '/pointer');
 		$this->assertTrue($source->has('parameter'));
 		$this->assertSame($source->get('parameter'), 'parameter');
+
+		$this->assertSame($source->asArray(), array(
+			'pointer' => $source->get('pointer'),
+			'parameter' => $source->get('parameter'),
+		));
 	}
 
 	/**

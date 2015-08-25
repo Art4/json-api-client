@@ -24,11 +24,16 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $document);
 		$this->assertSame($document->getKeys(), array('meta'));
 		$this->assertTrue($document->has('meta'));
+		$this->assertInstanceOf('Art4\JsonApiClient\MEta', $document->get('meta'));
 		$this->assertFalse($document->has('data'));
 		$this->assertFalse($document->has('errors'));
 		$this->assertFalse($document->has('jsonapi'));
 		$this->assertFalse($document->has('links'));
 		$this->assertFalse($document->has('included'));
+
+		$this->assertSame($document->asArray(), array(
+			'meta' => $document->get('meta'),
+		));
 	}
 
 	/**

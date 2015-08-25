@@ -45,6 +45,17 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue($attributes->has('null'));
 		$this->assertNull($attributes->get('null'));
 		$this->assertSame($attributes->getKeys(), array('object', 'array', 'string', 'number_int', 'number_float', 'true', 'false', 'null'));
+
+		$this->assertSame($attributes->asArray(), array(
+			'object' => $attributes->get('object'),
+			'array' => $attributes->get('array'),
+			'string' => $attributes->get('string'),
+			'number_int' => $attributes->get('number_int'),
+			'number_float' => $attributes->get('number_float'),
+			'true' => $attributes->get('true'),
+			'false' => $attributes->get('false'),
+			'null' => $attributes->get('null'),
+		));
 	}
 
 	/**

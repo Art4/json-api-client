@@ -2,6 +2,7 @@
 
 namespace Art4\JsonApiClient;
 
+use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 
@@ -12,6 +13,8 @@ use Art4\JsonApiClient\Exception\ValidationException;
  */
 class Meta implements AccessInterface
 {
+	use AccessTrait;
+
 	protected $_data = array();
 
 	/**

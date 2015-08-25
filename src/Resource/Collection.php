@@ -3,6 +3,7 @@
 namespace Art4\JsonApiClient\Resource;
 
 use Art4\JsonApiClient\AccessInterface;
+use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 
@@ -13,6 +14,8 @@ use Art4\JsonApiClient\Exception\ValidationException;
  */
 class Collection implements AccessInterface, ResourceInterface
 {
+	use AccessTrait;
+
 	protected $resources = array();
 
 	/**
@@ -104,16 +107,6 @@ class Collection implements AccessInterface, ResourceInterface
 		}
 
 		return $this->resources[$key];
-	}
-
-	/**
-	 * Get all resources from this collection
-	 *
-	 * @return ResourceInterface[] The resources as array
-	 */
-	public function asArray()
-	{
-		return $this->resources;
 	}
 
 	/**

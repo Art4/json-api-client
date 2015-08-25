@@ -2,6 +2,7 @@
 
 namespace Art4\JsonApiClient;
 
+use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Utils\MetaTrait;
 use Art4\JsonApiClient\Utils\LinksTrait;
 use Art4\JsonApiClient\Exception\AccessException;
@@ -18,6 +19,8 @@ use Art4\JsonApiClient\Resource\NullResource;
  */
 class Document implements AccessInterface
 {
+	use AccessTrait;
+
 	use MetaTrait;
 
 	use LinksTrait;
@@ -214,23 +217,6 @@ class Document implements AccessInterface
 		}
 
 		return $this->$key;
-	}
-
-	/**
-	 * Convert this document in an array
-	 *
-	 * @return array
-	 */
-	public function asArray()
-	{
-		$return = array();
-
-		foreach($this->getKeys() as $key)
-		{
-			$return[$key] = $this->get($key);
-		}
-
-		return $return;
 	}
 
 	/**

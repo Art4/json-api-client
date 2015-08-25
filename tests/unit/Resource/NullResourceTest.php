@@ -24,5 +24,7 @@ class NullTest extends \PHPUnit_Framework_TestCase
 		$this->assertFalse($resource->isIdentifier());
 		$this->assertFalse($resource->isItem());
 		$this->assertFalse($resource->isCollection());
+
+		$this->assertSame($resource->asArray(), null);
 	}
 }

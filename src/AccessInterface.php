@@ -13,5 +13,5 @@ interface AccessInterface
 
 	public function getKeys();
 
-	//public function asArray();
+	public function asArray();
 }

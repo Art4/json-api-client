@@ -47,6 +47,17 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Art4\JsonApiClient\ErrorSource', $error->get('source'));
 		$this->assertTrue($error->has('meta'));
 		$this->assertInstanceOf('Art4\JsonApiClient\Meta', $error->get('meta'));
+
+		$this->assertSame($error->asArray(), array(
+			'id'     => 'id',
+			'links'  => $error->get('links'),
+			'status' => 'status',
+			'code'   => 'code',
+			'title'  => 'title',
+			'detail' => 'detail',
+			'source' => $error->get('source'),
+			'meta'   => $error->get('meta'),
+		));
 	}
 
 	/**

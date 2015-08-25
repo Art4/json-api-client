@@ -3,6 +3,7 @@
 namespace Art4\JsonApiClient\Resource;
 
 use Art4\JsonApiClient\AccessInterface;
+use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Utils\MetaTrait;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
@@ -14,6 +15,8 @@ use Art4\JsonApiClient\Exception\ValidationException;
  */
 class Identifier implements AccessInterface, ResourceInterface
 {
+	use AccessTrait;
+
 	use MetaTrait;
 
 	protected $type = null;
@@ -143,23 +146,6 @@ class Identifier implements AccessInterface, ResourceInterface
 		}
 
 		return $this->$key;
-	}
-
-	/**
-	 * Convert this identifier in an array
-	 *
-	 * @return array
-	 */
-	public function asArray()
-	{
-		$return = array();
-
-		foreach($this->getKeys() as $key)
-		{
-			$return[$key] = $this->get($key);
-		}
-
-		return $return;
 	}
 
 	/**
