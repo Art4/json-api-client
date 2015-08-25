@@ -26,6 +26,7 @@ class ErrorSourceTest extends \PHPUnit_Framework_TestCase
 		$source = new ErrorSource($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ErrorSource', $source);
+		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $source);
 		$this->assertSame($source->getKeys(), array('pointer', 'parameter'));
 
 		$this->assertFalse($source->has('ignore'));

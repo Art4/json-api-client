@@ -22,6 +22,7 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $identifier);
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $identifier);
+		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $identifier);
 
 		$this->assertSame($identifier->get('type'), 'type');
 		$this->assertSame($identifier->get('id'), '789');

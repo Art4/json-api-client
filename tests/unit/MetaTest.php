@@ -27,6 +27,7 @@ class MetaTest extends \PHPUnit_Framework_TestCase
 		$meta = new Meta($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Meta', $meta);
+		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $meta);
 		$this->assertTrue($meta->has('object'));
 		$this->assertTrue(is_object($meta->get('object')));
 		$this->assertTrue($meta->has('array'));

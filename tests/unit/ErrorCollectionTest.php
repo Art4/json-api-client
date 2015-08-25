@@ -22,6 +22,7 @@ class ErrorCollectionTest extends \PHPUnit_Framework_TestCase
 		$collection = new ErrorCollection($errors);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ErrorCollection', $collection);
+		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $collection);
 
 		$this->assertTrue(count($collection->asArray()) === 2);
 		$this->assertSame($collection->getKeys(), array(0, 1));

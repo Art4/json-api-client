@@ -10,7 +10,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#error-objects
  */
-class ErrorSource
+class ErrorSource implements AccessInterface
 {
 	protected $pointer = null;
 

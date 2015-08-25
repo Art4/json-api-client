@@ -17,6 +17,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 		$collection = new Collection(array());
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $collection);
+		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $collection);
 
 		$this->assertFalse($collection->isNull());
 		$this->assertFalse($collection->isIdentifier());

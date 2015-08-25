@@ -2,11 +2,44 @@
 
 namespace Art4\JsonApiClient\Resource;
 
+use Art4\JsonApiClient\AccessInterface;
+
 /**
  * Null Resource
  */
-class NullResource implements ResourceInterface
+class NullResource implements AccessInterface, ResourceInterface
 {
+	/**
+	 * Check if a value exists in this resource
+	 *
+	 * @param string $key The key of the value
+	 * @return bool false
+	 */
+	public function has($key)
+	{
+		return false;
+	}
+
+	/**
+	 * Returns the keys of all setted values in this resource
+	 *
+	 * @return array Keys of all setted values
+	 */
+	public function getKeys()
+	{
+		return array();
+	}
+
+	/**
+	 * Get a value by the key of this identifier
+	 *
+	 * @param string $key The key of the value
+	 */
+	public function get($key)
+	{
+		throw new AccessException('A NullResource has no values.');
+	}
+
 	/**
 	 * Is this Resource a null resource?
 	 *

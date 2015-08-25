@@ -31,6 +31,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		$link = new PaginationLink($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\PaginationLink', $link);
+		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $link);
 		$this->assertSame($link->getKeys(), array('last', 'next'));
 
 		$this->assertFalse($link->has('about'));

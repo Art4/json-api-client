@@ -17,7 +17,10 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->meta = new \stdClass();
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Relationship', new Relationship($object));
+		$relationship = new Relationship($object);
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Relationship', $relationship);
+		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $relationship);
 	}
 
 	/**

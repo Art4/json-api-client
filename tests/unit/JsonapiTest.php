@@ -27,6 +27,7 @@ class JsonapiTest extends \PHPUnit_Framework_TestCase
 		$jsonapi = new Jsonapi($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Jsonapi', $jsonapi);
+		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $jsonapi);
 		$this->assertSame($jsonapi->getKeys(), array('version', 'meta'));
 
 		$this->assertFalse($jsonapi->has('testobj'));

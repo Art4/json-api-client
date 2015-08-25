@@ -12,7 +12,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-links
  */
-class Link
+class Link implements AccessInterface
 {
 	use MetaTrait;
 

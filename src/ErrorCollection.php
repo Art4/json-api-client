@@ -10,7 +10,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#error-objects
  */
-class ErrorCollection
+class ErrorCollection implements AccessInterface
 {
 	protected $errors = array();
 

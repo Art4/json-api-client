@@ -27,6 +27,7 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 		$attributes = new Attributes($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Attributes', $attributes);
+		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $attributes);
 		$this->assertTrue($attributes->has('object'));
 		$this->assertTrue(is_object($attributes->get('object')));
 		$this->assertTrue($attributes->has('array'));

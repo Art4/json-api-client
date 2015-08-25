@@ -29,6 +29,7 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 		$collection = new RelationshipCollection($object, $mock);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipCollection', $collection);
+		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $collection);
 		$this->assertTrue($collection->has('author'));
 		$this->assertInstanceOf('Art4\JsonApiClient\Relationship', $collection->get('author'));
 	}

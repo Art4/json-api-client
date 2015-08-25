@@ -11,7 +11,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-resource-object-relationships
  */
-class RelationshipCollection
+class RelationshipCollection implements AccessInterface
 {
 	protected $_data = array();
 

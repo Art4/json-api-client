@@ -10,7 +10,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-meta
  */
-class Meta
+class Meta implements AccessInterface
 {
 	protected $_data = array();
 

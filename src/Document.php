@@ -16,7 +16,7 @@ use Art4\JsonApiClient\Resource\NullResource;
  *
  * @see http://jsonapi.org/format/#document-top-level
  */
-class Document
+class Document implements AccessInterface
 {
 	use MetaTrait;
 

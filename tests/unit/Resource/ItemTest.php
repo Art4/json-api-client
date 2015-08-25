@@ -23,6 +23,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $resource);
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $resource);
+		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $resource);
 
 		$this->assertSame($resource->get('type'), 'type');
 		$this->assertSame($resource->get('id'), '789');

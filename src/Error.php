@@ -12,7 +12,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#error-objects
  */
-class Error
+class Error implements AccessInterface
 {
 	use MetaTrait;
 
