@@ -65,9 +65,9 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $resource);
 
 		$this->assertSame($collection->asArray(), array(
-			$collection->get(0),
-			$collection->get(1),
-			$collection->get(2),
+			$collection->get(0)->asArray(),
+			$collection->get(1)->asArray(),
+			$collection->get(2)->asArray(),
 		));
 	}
 

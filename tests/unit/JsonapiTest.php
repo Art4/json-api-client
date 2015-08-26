@@ -39,7 +39,7 @@ class JsonapiTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertSame($jsonapi->asArray(), array(
 			'version' => $jsonapi->get('version'),
-			'meta' => $jsonapi->get('meta'),
+			'meta' => $jsonapi->get('meta')->asArray(),
 		));
 	}
 

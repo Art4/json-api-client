@@ -38,8 +38,8 @@ class ErrorCollectionTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Art4\JsonApiClient\Error', $error);
 
 		$this->assertSame($collection->asArray(), array(
-			$collection->get(0),
-			$collection->get(1),
+			$collection->get(0)->asArray(),
+			$collection->get(1)->asArray(),
 		));
 	}
 

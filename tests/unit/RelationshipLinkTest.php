@@ -46,7 +46,7 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($link->asArray(), array(
 			'self' => $link->get('self'),
 			'related' => $link->get('related'),
-			'pagination' => $link->get('pagination'),
+			'pagination' => $link->get('pagination')->asArray(),
 		));
 	}
 

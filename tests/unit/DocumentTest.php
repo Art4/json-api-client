@@ -32,7 +32,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$this->assertFalse($document->has('included'));
 
 		$this->assertSame($document->asArray(), array(
-			'meta' => $document->get('meta'),
+			'meta' => $document->get('meta')->asArray(),
 		));
 	}
 
@@ -187,8 +187,9 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue($collection->isCollection());
 		$this->assertTrue(count($collection->asArray()) === 1);
 
-		foreach ($collection->asArray() as $resource)
+		foreach ($collection->getKeys() as $key)
 		{
+			$resource = $collection->get($key);
 			$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $resource);
 			$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $resource);
 		}
@@ -221,8 +222,9 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue($collection->isCollection());
 		$this->assertTrue(count($collection->asArray()) === 1);
 
-		foreach ($collection->asArray() as $resource)
+		foreach ($collection->getKeys() as $key)
 		{
+			$resource = $collection->get($key);
 			$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $resource);
 			$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $resource);
 		}
@@ -394,9 +396,8 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue(count($resources->asArray()) === 2);
 		$this->assertSame($resources->getKeys(), array(0, 1));
 
-		foreach ($resources->asArray() as $resource)
-		{
-			$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $resource);
+		foreach ($resources->getKeys() as $key) {
+			$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $resources->get($key));
 		}
 	}
 

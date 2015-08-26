@@ -26,7 +26,7 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase
 
 		$meta = $relationship->get('meta');
 
-		$this->assertSame($relationship->asArray(), array('meta' => $meta));
+		$this->assertSame($relationship->asArray(), array('meta' => $meta->asArray()));
 	}
 
 	/**
@@ -78,7 +78,7 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipLink', $links);
 
-		$this->assertSame($relationship->asArray(), array('links' => $links));
+		$this->assertSame($relationship->asArray(), array('links' => $links->asArray()));
 	}
 
 	/**
