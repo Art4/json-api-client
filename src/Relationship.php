@@ -2,6 +2,7 @@
 
 namespace Art4\JsonApiClient;
 
+use Art4\JsonApiClient\Resource\Collection;
 use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Utils\MetaTrait;
 use Art4\JsonApiClient\Utils\LinksTrait;
@@ -179,24 +180,17 @@ class Relationship implements AccessInterface
 
 		if ( is_array($data) )
 		{
-			$resource_array = array();
-
-			if ( count($data) > 0 )
+			$collection = new Collection($data);
+			foreach ($collection->getKeys() as $key)
 			{
-				foreach ($data as $data_obj)
+				$obj = $collection->get($key);
+				if (!$obj instanceof Identifier)
 				{
-					$resource_obj = $this->parseData($data_obj);
-
-					if ( ! ($resource_obj instanceof Identifier) )
-					{
-						throw new ValidationException('Data has to be instance of "Resource\\Identifier", "' . gettype($data) . '" given.');
-					}
-
-					$resource_array[] = $resource_obj;
+					throw new ValidationException('Data has to be instance of "Resource\\Identifier", "' . gettype($obj) . '" given.');
 				}
 			}
 
-			return $resource_array;
+			return $collection;
 		}
 
 		if ( ! is_object($data) )

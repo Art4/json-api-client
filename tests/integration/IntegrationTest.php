@@ -208,16 +208,16 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase
 
 		$data_array = $comments->get('data');
 
-		$this->assertTrue(is_array($data_array));
-		$this->assertTrue(count($data_array) === 2);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $data_array);
+		$this->assertCount(2, $data_array->getKeys());
 
-		$identifier = $data_array[0];
+		$identifier = $data_array->get(0);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $identifier);
 		$this->assertSame($identifier->get('type'), 'comments');
 		$this->assertSame($identifier->get('id'), '5');
 
-		$identifier = $data_array[1];
+		$identifier = $data_array->get(1);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $identifier);
 		$this->assertSame($identifier->get('type'), 'comments');
