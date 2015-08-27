@@ -58,6 +58,18 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 			'source' => $error->get('source'),
 			'meta'   => $error->get('meta'),
 		));
+
+		// Test full array
+		$this->assertSame($error->asArray(true), array(
+			'id'     => 'id',
+			'links'  => $error->get('links')->asArray(true),
+			'status' => 'status',
+			'code'   => 'code',
+			'title'  => 'title',
+			'detail' => 'detail',
+			'source' => $error->get('source')->asArray(true),
+			'meta'   => $error->get('meta')->asArray(true),
+		));
 	}
 
 	/**

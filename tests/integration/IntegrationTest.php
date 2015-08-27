@@ -43,6 +43,9 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Art4\JsonApiClient\Attributes', $resource->get('attributes'));
 		$this->assertTrue($resource->has('relationships'));
 		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipCollection', $resource->get('relationships'));
+
+		// Test full array
+		$this->assertEquals(json_decode($string, true), $document->asArray(true));
 	}
 
 	/**
@@ -67,6 +70,9 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase
 		$this->assertFalse($resource->has('meta'));
 		$this->assertSame($resource->get('type'), 'articles');
 		$this->assertSame($resource->get('id'), '1');
+
+		// Test full array
+		$this->assertEquals(json_decode($string, true), $document->asArray(true));
 	}
 
 	/**
@@ -124,6 +130,9 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $data);
 		$this->assertSame($data->get('type'), 'people');
 		$this->assertSame($data->get('id'), '9');
+
+		// Test full array
+		$this->assertEquals(json_decode($string, true), $document->asArray(true));
 	}
 
 	/**
@@ -300,5 +309,8 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Art4\JsonApiClient\Link', $links);
 		$this->assertTrue($links->has('self'));
 		$this->assertSame($links->get('self'), 'http://example.com/comments/12');
+
+		// Test full array
+		$this->assertEquals(json_decode($string, true), $document->asArray(true));
 	}
 }

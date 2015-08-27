@@ -37,6 +37,11 @@ class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($link->asArray(), array(
 			'about' => $link->get('about'),
 		));
+
+		// Test full array
+		$this->assertSame($link->asArray(true), array(
+			'about' => $link->get('about'),
+		));
 	}
 
 	/**
