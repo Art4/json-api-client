@@ -141,8 +141,8 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase
 
 		$resources = $relationship->get('data');
 
-		$this->assertTrue(is_array($resources));
-		$this->assertTrue(count($resources) === 1);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $resources);
+		$this->assertCount(1, $resources->getKeys());
 
 		foreach ($resources as $resource)
 		{
@@ -166,8 +166,8 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase
 
 		$resources = $relationship->get('data');
 
-		$this->assertTrue(is_array($resources));
-		$this->assertTrue(count($resources) === 0);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $resources);
+		$this->assertCount(0, $resources->getKeys());
 	}
 
 	/**
