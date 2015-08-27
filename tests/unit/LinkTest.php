@@ -41,6 +41,14 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 			'link' => $link->get('link'),
 			'meta' => $link->get('meta'),
 		));
+
+		// Test full array
+		$this->assertSame($link->asArray(true), array(
+			'href' => $link->get('href'),
+			'linkobj' => $link->get('linkobj')->asArray(true),
+			'link' => $link->get('link'),
+			'meta' => $link->get('meta')->asArray(true),
+		));
 	}
 
 	/**

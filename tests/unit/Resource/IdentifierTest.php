@@ -37,6 +37,11 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
 			'type' => $identifier->get('type'),
 			'id' => $identifier->get('id'),
 		));
+
+		$this->assertSame($identifier->asArray(true), array(
+			'type' => $identifier->get('type'),
+			'id' => $identifier->get('id'),
+		));
 	}
 
 	/**

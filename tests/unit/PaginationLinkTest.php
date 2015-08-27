@@ -46,6 +46,12 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 			'last' => $link->get('last'),
 			'next' => $link->get('next'),
 		));
+
+		// Test full array
+		$this->assertSame($link->asArray(true), array(
+			'last' => $link->get('last'),
+			'next' => $link->get('next'),
+		));
 	}
 
 	/**

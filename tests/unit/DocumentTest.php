@@ -34,6 +34,11 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($document->asArray(), array(
 			'meta' => $document->get('meta'),
 		));
+
+		// Test full array
+		$this->assertSame($document->asArray(true), array(
+			'meta' => $document->get('meta')->asArray(true),
+		));
 	}
 
 	/**

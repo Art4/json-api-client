@@ -56,6 +56,18 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 			'false' => $attributes->get('false'),
 			'null' => $attributes->get('null'),
 		));
+
+		// Test full array
+		$this->assertSame($attributes->asArray(true), array(
+			'object' => (array) $attributes->get('object'),
+			'array' => $attributes->get('array'),
+			'string' => $attributes->get('string'),
+			'number_int' => $attributes->get('number_int'),
+			'number_float' => $attributes->get('number_float'),
+			'true' => $attributes->get('true'),
+			'false' => $attributes->get('false'),
+			'null' => $attributes->get('null'),
+		));
 	}
 
 	/**

@@ -41,6 +41,12 @@ class ErrorCollectionTest extends \PHPUnit_Framework_TestCase
 			$collection->get(0),
 			$collection->get(1),
 		));
+
+		// Test full array
+		$this->assertSame($collection->asArray(true), array(
+			$collection->get(0)->asArray(true),
+			$collection->get(1)->asArray(true),
+		));
 	}
 
 	/**

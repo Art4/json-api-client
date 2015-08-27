@@ -38,6 +38,11 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($collection->asArray(), array(
 			'author' => $collection->get('author'),
 		));
+
+		// Test full array
+		$this->assertSame($collection->asArray(true), array(
+			'author' => $collection->get('author')->asArray(true),
+		));
 	}
 
 	/**
