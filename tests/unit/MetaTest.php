@@ -48,7 +48,7 @@ class MetaTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($meta->getKeys(), array('object', 'array', 'string', 'number_int', 'number_float', 'true', 'false', 'null'));
 
 		$this->assertSame($meta->asArray(), array(
-			'object' => $meta->get('object'),
+			'object' => json_decode(json_encode($meta->get('object')), true),
 			'array' => array(),
 			'string' => 'string',
 			'number_int' => 654,

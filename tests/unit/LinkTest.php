@@ -37,9 +37,9 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertSame($link->asArray(), array(
 			'href' => $link->get('href'),
-			'linkobj' => $link->get('linkobj'),
+			'linkobj' => $link->get('linkobj')->asArray(),
 			'link' => $link->get('link'),
-			'meta' => $link->get('meta'),
+			'meta' => $link->get('meta')->asArray(),
 		));
 	}
 

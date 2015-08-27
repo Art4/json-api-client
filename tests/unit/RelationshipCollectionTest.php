@@ -36,7 +36,7 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Art4\JsonApiClient\Relationship', $collection->get('author'));
 
 		$this->assertSame($collection->asArray(), array(
-			'author' => $collection->get('author'),
+			'author' => $collection->get('author')->asArray(),
 		));
 	}
 

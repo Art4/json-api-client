@@ -69,9 +69,9 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($resource->asArray(), array(
 			'type' => $resource->get('type'),
 			'id' => $resource->get('id'),
-			'attributes' => $resource->get('attributes'),
-			'relationships' => $resource->get('relationships'),
-			'links' => $resource->get('links'),
+			'attributes' => $resource->get('attributes')->asArray(),
+			'relationships' => $resource->get('relationships')->asArray(),
+			'links' => $resource->get('links')->asArray(),
 		));
 	}
 }

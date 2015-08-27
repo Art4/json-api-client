@@ -50,13 +50,13 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertSame($error->asArray(), array(
 			'id'     => 'id',
-			'links'  => $error->get('links'),
+			'links'  => $error->get('links')->asArray(),
 			'status' => 'status',
 			'code'   => 'code',
 			'title'  => 'title',
 			'detail' => 'detail',
-			'source' => $error->get('source'),
-			'meta'   => $error->get('meta'),
+			'source' => $error->get('source')->asArray(),
+			'meta'   => $error->get('meta')->asArray(),
 		));
 	}
 

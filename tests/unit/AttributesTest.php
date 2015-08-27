@@ -47,7 +47,7 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($attributes->getKeys(), array('object', 'array', 'string', 'number_int', 'number_float', 'true', 'false', 'null'));
 
 		$this->assertSame($attributes->asArray(), array(
-			'object' => $attributes->get('object'),
+			'object' => json_decode(json_encode($attributes->get('object')), true),
 			'array' => $attributes->get('array'),
 			'string' => $attributes->get('string'),
 			'number_int' => $attributes->get('number_int'),
