@@ -5,6 +5,15 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
+### Added
+
+- Every object inside the document implements `AccessInterface`
+- `AccessInterface` supports `asArray()` for transforming an object into an array
+
+### Fixed
+
+- `Relationship::get('data')` returns a `Resource\Collection` object instead of an array
+
 ## [0.3] - 2015-08-24
 
 ### Added
