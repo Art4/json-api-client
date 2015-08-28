@@ -39,6 +39,12 @@ class ErrorSourceTest extends \PHPUnit_Framework_TestCase
 			'pointer' => $source->get('pointer'),
 			'parameter' => $source->get('parameter'),
 		));
+
+		// Test full array
+		$this->assertSame($source->asArray(true), array(
+			'pointer' => $source->get('pointer'),
+			'parameter' => $source->get('parameter'),
+		));
 	}
 
 	/**

@@ -41,6 +41,12 @@ class JsonapiTest extends \PHPUnit_Framework_TestCase
 			'version' => $jsonapi->get('version'),
 			'meta' => $jsonapi->get('meta'),
 		));
+
+		// Test full array
+		$this->assertSame($jsonapi->asArray(true), array(
+			'version' => $jsonapi->get('version'),
+			'meta' => $jsonapi->get('meta')->asArray(true),
+		));
 	}
 
 	/**

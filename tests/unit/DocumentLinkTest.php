@@ -44,6 +44,13 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 			'related' => $link->get('related'),
 			'pagination' => $link->get('pagination'),
 		));
+
+		// Test full array
+		$this->assertSame($link->asArray(true), array(
+			'self' => $link->get('self'),
+			'related' => $link->get('related'),
+			'pagination' => $link->get('pagination')->asArray(true),
+		));
 	}
 
 	/**

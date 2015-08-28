@@ -69,6 +69,12 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 			$collection->get(1),
 			$collection->get(2),
 		));
+
+		$this->assertSame($collection->asArray(true), array(
+			$collection->get(0)->asArray(true),
+			$collection->get(1)->asArray(true),
+			$collection->get(2)->asArray(true),
+		));
 	}
 
 	/**
