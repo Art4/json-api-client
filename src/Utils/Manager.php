@@ -36,4 +36,23 @@ class Manager implements ManagerInterface, FactoryManagerInterface
 
 		return $this->factory;
 	}
+
+	/**
+	 * Parse a JSON API string into an object
+	 *
+	 * @param   string $string The JSON API string
+	 *
+	 * @throws  Art4\JsonApiClient\Exception\ValidationException If $string is not valid JSON API
+	 *
+	 * @return  Art4\JsonApiClient\AccessInterface
+	 */
+	public function parse($string)
+	{
+		$object = Helper::decodeJson($string);
+
+		return $this->getFactory()->make('Document', [
+			$object,
+			$this,
+		]);
+	}
 }

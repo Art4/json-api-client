@@ -41,4 +41,16 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Utils\FactoryInterface', $manager->getFactory());
 	}
+
+	/**
+	 * @test
+	 */
+	public function testParseReturnsDocument()
+	{
+		$manager = new Manager;
+
+		$jsonapi_string = '{"meta":{}}';
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Document', $manager->parse($jsonapi_string));
+	}
 }

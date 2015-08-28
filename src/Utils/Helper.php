@@ -23,6 +23,22 @@ class Helper
 	 */
 	public static function parse($json_string)
 	{
+		$data = static::decodeJson($json_string);
+
+		return new Document($data);
+	}
+
+	/**
+	 * Decodes a json string
+	 *
+	 * @param string $json_string
+	 *
+	 * @return object
+	 *
+	 * @throws ValidationException
+	 */
+	public static function decodeJson($json_string)
+	{
 		$jsonErrors = array(
 			JSON_ERROR_DEPTH => 'JSON_ERROR_DEPTH - Maximum stack depth exceeded',
 			JSON_ERROR_STATE_MISMATCH => 'JSON_ERROR_STATE_MISMATCH - Underflow or the modes mismatch',
@@ -47,6 +63,6 @@ class Helper
 			throw new ValidationException('Unable to parse JSON data: ' . $error);
 		}
 
-		return new Document($data);
+		return $data;
 	}
 }
