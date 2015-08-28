@@ -134,6 +134,30 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $document->get('data'));
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $document->get('data'));
+		$this->assertNotInstanceOf('Art4\JsonApiClient\Resource\Item', $document->get('data'));
+	}
+
+	/**
+	 * @test create with data resource identifier and meta
+	 */
+	public function testCreateDataWithResourceIdentifierAndMeta()
+	{
+		$data = new \stdClass();
+		$data->type = 'posts';
+		$data->id = 5;
+		$data->meta = new \stdClass();
+
+		$object = new \stdClass();
+		$object->data = $data;
+
+		$document = new Document($object, $this->manager);
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
+
+		$this->assertTrue($document->has('data'));
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $document->get('data'));
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $document->get('data'));
+		$this->assertNotInstanceOf('Art4\JsonApiClient\Resource\Item', $document->get('data'));
 	}
 
 	/**
@@ -157,23 +181,6 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $document->get('data'));
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $document->get('data'));
-	}
-
-	/**
-	 * @test create with data null
-	 */
-	public function testCreateDataWithResourceNull()
-	{
-		$object = new \stdClass();
-		$object->data = null;
-
-		$document = new Document($object, $this->manager);
-
-		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
-		$this->assertTrue($document->has('data'));
-
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $document->get('data'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\NullResource', $document->get('data'));
 	}
 
 	/**
@@ -221,22 +228,60 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @test create with data empty array
+	 * @dataProvider jsonValuesProvider
+	 *
+	 * Test create with any value in data
 	 */
-	public function testCreateDataWithEmptyResourceCollection()
+	public function testCreateWithDataproviderInValue($input)
 	{
+		// Skip if $input is an object
+		if ( gettype($input) === 'object' )
+		{
+			return;
+		}
+
+		// Test with empty array in data
+		if ( gettype($input) === 'array' )
+		{
+			$object = new \stdClass();
+			$object->data = $input;
+
+			$document = new Document($object, $this->manager);
+
+			$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
+			$this->assertTrue($document->has('data'));
+
+			$collection = $document->get('data');
+
+			$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $collection);
+			$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $collection);
+
+			return;
+		}
+
+		// Test with null in data
+		if ( gettype($input) === 'NULL' )
+		{
+			$object = new \stdClass();
+			$object->data = $input;
+
+			$document = new Document($object, $this->manager);
+
+			$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
+			$this->assertTrue($document->has('data'));
+
+			$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $document->get('data'));
+			$this->assertInstanceOf('Art4\JsonApiClient\Resource\NullResource', $document->get('data'));
+
+			return;
+		}
+
+		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException', 'Data value has to be null or an object, "' . gettype($input) . '" given.');
+
 		$object = new \stdClass();
-		$object->data = array();
+		$object->data = $input;
 
 		$document = new Document($object, $this->manager);
-
-		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
-		$this->assertTrue($document->has('data'));
-
-		$collection = $document->get('data');
-
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $collection);
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $collection);
 	}
 
 	/**
