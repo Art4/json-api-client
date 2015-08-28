@@ -117,7 +117,10 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'Resources for a collection has to be in an array, "' . gettype($input) . '" given.'
+		);
 
 		$collection = new Collection($input);
 	}

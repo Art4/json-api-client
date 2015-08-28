@@ -301,37 +301,22 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($document->getKeys(), array('errors'));
 		$this->assertTrue($document->has('errors'));
 
-		$errors = $document->get('errors');
-
-		$this->assertInstanceOf('Art4\JsonApiClient\ErrorCollection', $errors);
+		$this->assertInstanceOf('Art4\JsonApiClient\ErrorCollection', $document->get('errors'));
 	}
 
 	/**
-	 * @dataProvider jsonValuesProvider
-	 *
-	 * A document MUST contain at least one of the following top-level members: errors: an array of error objects
-	 * Error objects MUST be returned as an array keyed by errors
-	 */
-	public function testCreateWithDataproviderInErrorsThrowsException($input)
-	{
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
-
-		$object = new \stdClass();
-		$object->errors = $input;
-
-		$document = new Document($object, $this->manager);
-	}
-
-	/**
-	 * @expectedException Art4\JsonApiClient\Exception\ValidationException
-	 *
-	 * The members `data` and `errors` MUST NOT coexist in the same document.
+	 * @test The members `data` and `errors` MUST NOT coexist in the same document.
 	 */
 	public function testCreateWithDataAndErrorsThrowsException()
 	{
 		$object = new \stdClass();
 		$object->data = new \stdClass();
 		$object->errors = array();
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'The properties `data` and `errors` MUST NOT coexist in $object.'
+		);
 
 		$document = new Document($object, $this->manager);
 	}
@@ -415,40 +400,18 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @dataProvider jsonValuesProvider
-	 *
-	 * @test create with included is not an array
-	 */
-	public function testCreateWithIncludedIsNotAnArray($input)
-	{
-		if ( gettype($input) === 'array' )
-		{
-			return;
-		}
-
-		$data = new \stdClass();
-		$data->type = 'posts';
-		$data->id = 5;
-
-		$object = new \stdClass();
-		$object->data = $data;
-		$object->included = $input;
-
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
-
-		$document = new Document($object, $this->manager);
-	}
-
-	/**
-	 * @expectedException Art4\JsonApiClient\Exception\ValidationException
-	 *
-	 * If a document does not contain a top-level `data` key, the `included` member MUST NOT be present either.
+	 * @test If a document does not contain a top-level `data` key, the `included` member MUST NOT be present either.
 	 */
 	public function testCreateIncludedWithoutDataThrowsException()
 	{
 		$object = new \stdClass();
 		$object->included = new \stdClass();
 		$object->meta = new \stdClass();
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'If Document does not contain a `data` property, the `included` property MUST NOT be present either.'
+		);
 
 		$document = new Document($object, $this->manager);
 	}

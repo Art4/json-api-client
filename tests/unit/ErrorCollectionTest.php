@@ -54,13 +54,21 @@ class ErrorCollectionTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreateWithoutArrayThrowsException($input)
 	{
-		// Input must be an array
+		// Input must be an array with at least one object
 		if ( gettype($input) === 'array' )
 		{
-			return;
+			$this->setExpectedException(
+				'Art4\JsonApiClient\Exception\ValidationException',
+				'Errors array cannot be empty and MUST have at least one object'
+			);
 		}
-
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+		else
+		{
+			$this->setExpectedException(
+				'Art4\JsonApiClient\Exception\ValidationException',
+				'Errors for a collection has to be in an array, "' . gettype($input) . '" given.'
+			);
+		}
 
 		$collection = new ErrorCollection($input);
 	}

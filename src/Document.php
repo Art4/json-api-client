@@ -86,7 +86,7 @@ class Document implements AccessInterface
 		{
 			if ( ! property_exists($object, 'data') )
 			{
-				throw new ValidationException('If $object does not contain a `data` property, the `included` property MUST NOT be present either.');
+				throw new ValidationException('If Document does not contain a `data` property, the `included` property MUST NOT be present either.');
 			}
 
 			$this->included = $this->manager->getFactory()->make(
