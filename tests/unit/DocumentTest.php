@@ -3,31 +3,19 @@
 namespace Art4\JsonApiClient\Tests;
 
 use Art4\JsonApiClient\Document;
-use Art4\JsonApiClient\Tests\Fixtures\JsonValueTrait;
+use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 use Art4\JsonApiClient\Tests\Fixtures\Factory;
 
 class DocumentTest extends \PHPUnit_Framework_TestCase
 {
-	use JsonValueTrait;
+	use HelperTrait;
 
 	/**
 	 * @setup
 	 */
 	public function setUp()
 	{
-		// Mock factory
-		$factory = new Factory;
-		$factory->testcase = $this;
-
-		// Mock Manager
-		$manager = $this->getMockBuilder('Art4\JsonApiClient\Utils\Manager')
-			->getMock();
-
-		$manager->expects($this->any())
-			->method('getFactory')
-			->will($this->returnValue($factory));
-
-		$this->manager = $manager;
+		$this->manager = $this->buildManagerMock();
 	}
 
 	/**

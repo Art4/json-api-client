@@ -3,11 +3,11 @@
 namespace Art4\JsonApiClient\Tests;
 
 use Art4\JsonApiClient\PaginationLink;
-use Art4\JsonApiClient\Tests\Fixtures\JsonValueTrait;
+use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 
 class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 {
-	use JsonValueTrait;
+	use HelperTrait;
 
 	/**
 	 * @test The following keys MUST be used for pagination links:

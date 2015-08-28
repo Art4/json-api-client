@@ -3,11 +3,11 @@
 namespace Art4\JsonApiClient\Tests;
 
 use Art4\JsonApiClient\RelationshipLink;
-use Art4\JsonApiClient\Tests\Fixtures\JsonValueTrait;
+use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 
 class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 {
-	use JsonValueTrait;
+	use HelperTrait;
 
 	/**
 	 * @test only self, related and pagination property can exist

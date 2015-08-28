@@ -3,11 +3,11 @@
 namespace Art4\JsonApiClient\Resource\Tests;
 
 use Art4\JsonApiClient\Resource\Collection;
-use Art4\JsonApiClient\Tests\Fixtures\JsonValueTrait;
+use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 
 class CollectionTest extends \PHPUnit_Framework_TestCase
 {
-	use JsonValueTrait;
+	use HelperTrait;
 
 	/**
 	 * @test create with empty array

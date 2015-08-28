@@ -3,11 +3,11 @@
 namespace Art4\JsonApiClient\Tests;
 
 use Art4\JsonApiClient\ErrorLink;
-use Art4\JsonApiClient\Tests\Fixtures\JsonValueTrait;
+use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 
 class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 {
-	use JsonValueTrait;
+	use HelperTrait;
 
 	/**
 	 * @test only 'about' property' can exist

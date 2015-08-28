@@ -3,11 +3,11 @@
 namespace Art4\JsonApiClient\Resource\Tests;
 
 use Art4\JsonApiClient\Resource\NullResource;
-use Art4\JsonApiClient\Tests\Fixtures\JsonValueTrait;
+use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 
 class NullTest extends \PHPUnit_Framework_TestCase
 {
-	use JsonValueTrait;
+	use HelperTrait;
 
 	/**
 	 * @dataProvider jsonValuesProvider
