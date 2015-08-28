@@ -10,6 +10,14 @@ use Art4\JsonApiClient\AccessInterface;
 class NullResource implements AccessInterface, ResourceInterface
 {
 	/**
+	 * Constructor
+	 */
+	public function __construct()
+	{
+		return $this;
+	}
+
+	/**
 	 * Check if a value exists in this resource
 	 *
 	 * @param string $key The key of the value

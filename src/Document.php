@@ -5,12 +5,9 @@ namespace Art4\JsonApiClient;
 use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Utils\MetaTrait;
 use Art4\JsonApiClient\Utils\LinksTrait;
+use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
-use Art4\JsonApiClient\Resource\Identifier;
-use Art4\JsonApiClient\Resource\Item;
-use Art4\JsonApiClient\Resource\Collection;
-use Art4\JsonApiClient\Resource\NullResource;
 
 /**
  * Document Top Level Object
@@ -24,6 +21,11 @@ class Document implements AccessInterface
 	use MetaTrait;
 
 	use LinksTrait;
+
+	/**
+	 * @var FactoryManagerInterface
+	 */
+	protected $manager;
 
 	/**
 	 * @var null|ResourceIdentifier
@@ -43,7 +45,7 @@ class Document implements AccessInterface
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($object)
+	public function __construct($object, FactoryManagerInterface $manager)
 	{
 		if ( ! is_object($object) )
 		{
@@ -60,6 +62,8 @@ class Document implements AccessInterface
 			throw new ValidationException('The properties `data` and `errors` MUST NOT coexist in $object.');
 		}
 
+		$this->manager = $manager;
+
 		if ( property_exists($object, 'data') )
 		{
 			$this->setData($object->data);
@@ -72,7 +76,10 @@ class Document implements AccessInterface
 
 		if ( property_exists($object, 'errors') )
 		{
-			$this->errors = new ErrorCollection($object->errors);
+			$this->errors = $this->manager->getFactory()->make(
+				'ErrorCollection',
+				[$object->errors, $this->manager]
+			);
 		}
 
 		if ( property_exists($object, 'included') )
@@ -82,17 +89,26 @@ class Document implements AccessInterface
 				throw new ValidationException('If $object does not contain a `data` property, the `included` property MUST NOT be present either.');
 			}
 
-			$this->included = new Collection($object->included);
+			$this->included = $this->manager->getFactory()->make(
+				'Resource\Collection',
+				[$object->included, $this->manager]
+			);
 		}
 
 		if ( property_exists($object, 'jsonapi') )
 		{
-			$this->jsonapi = new Jsonapi($object->jsonapi);
+			$this->jsonapi = $this->manager->getFactory()->make(
+				'Jsonapi',
+				[$object->jsonapi, $this->manager]
+			);
 		}
 
 		if ( property_exists($object, 'links') )
 		{
-			$this->setLinks(new DocumentLink($object->links));
+			$this->setLinks($this->manager->getFactory()->make(
+				'DocumentLink',
+				[$object->links, $this->manager]
+			));
 		}
 
 		return $this;
@@ -244,12 +260,18 @@ class Document implements AccessInterface
 	{
 		if ( $data === null )
 		{
-			return new NullResource();
+			return $this->manager->getFactory()->make(
+				'Resource\NullResource',
+				[$data, $this->manager]
+			);
 		}
 
 		if ( is_array($data) )
 		{
-			return new Collection($data);
+			return $this->manager->getFactory()->make(
+				'Resource\Collection',
+				[$data, $this->manager]
+			);
 		}
 
 		if ( ! is_object($data) )
@@ -262,16 +284,25 @@ class Document implements AccessInterface
 		// the properties must be type and id
 		if ( count($object_vars) === 2 )
 		{
-			$resource = new Identifier($data);
+			$resource = $this->manager->getFactory()->make(
+				'Resource\Identifier',
+				[$data, $this->manager]
+			);
 		}
 		// the 3 properties must be type, id and meta
 		elseif ( count($object_vars) === 3 and property_exists($data, 'meta') )
 		{
-			$resource = new Identifier($data);
+			$resource = $this->manager->getFactory()->make(
+				'Resource\Identifier',
+				[$data, $this->manager]
+			);
 		}
 		else
 		{
-			$resource = new Item($data);
+			$resource = $this->manager->getFactory()->make(
+				'Resource\Item',
+				[$data, $this->manager]
+			);
 		}
 
 		return $resource;

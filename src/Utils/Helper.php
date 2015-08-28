@@ -25,7 +25,7 @@ class Helper
 	{
 		$data = static::decodeJson($json_string);
 
-		return new Document($data);
+		return new Document($data, new Manager);
 	}
 
 	/**
