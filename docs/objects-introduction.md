@@ -23,6 +23,7 @@ All possible objects and their hierarchical structure are listet below.
 1. [Resource Identifier object](objects-resource-identifier.md)
 1. [Resource Item object](objects-resource-item.md)
 1. [Resource Collection object](objects-resource-collection.md)
+1. [Resource Identifier Collection object](objects-resource-identifier-collection.md)
 1. [Attributes object](objects-attributes.md)
 1. [Relationship Collection object](objects-relationship-collection.md)
 1. [Relationship object](objects-relationship.md)
