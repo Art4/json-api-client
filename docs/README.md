@@ -23,5 +23,7 @@
 * [Meta object](objects-meta.md)
 
 ### Utils:
+* [Manager](utils-manager.md)
+* [Factory](utils-factory.md)
 * [Helper](utils-helper.md)
 * [Exceptions](exception-introduction.md)
