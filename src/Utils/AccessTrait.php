@@ -2,6 +2,8 @@
 
 namespace Art4\JsonApiClient\Utils;
 
+use Art4\JsonApiClient\AccessInterface;
+
 /**
  * Trait for array conversion
  */
@@ -15,11 +17,11 @@ trait AccessTrait
 	 */
 	protected function objectTransform($val)
 	{
-		if (!is_object($val))
+		if ( ! is_object($val) )
 		{
 			return $val;
 		}
-		elseif (is_callable([$val, 'asArray']))
+		elseif ( $val instanceOf AccessInterface )
 		{
 			return $val->asArray(true);
 		}
@@ -44,9 +46,12 @@ trait AccessTrait
 		{
 			$val = $this->get($key);
 
-			if ($fullArray) {
+			if ( $fullArray )
+			{
 				$return[$key] = $this->objectTransform($val);
-			} else {
+			}
+			else
+			{
 				$return[$key] = $val;
 			}
 		}
