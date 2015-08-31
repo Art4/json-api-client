@@ -7,9 +7,7 @@ The `Resource\Collection` represents [an array of resource objects, an array of 
 
 - extends:
 - extended by: [Resource Identifier Collection object](objects-resource-identifier-collection.md)
-- property of:
-  - [Document object](objects-document.md)
-  - [Relationship object](objects-relationship.md)
+- property of: [Document object](objects-document.md)
 
 ### Properties
 
