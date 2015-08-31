@@ -66,7 +66,7 @@ catch (\Art4\JsonApiClient\Exception\ValidationException $e)
 
 ### Extend the client
 
-Need more functionality? Want to directly inject your model? Easily extend the client with the [Factory](utils-factory.md).
+Need more functionality? Want to directly inject your model? Easily extend the client with the [Factory](docs/utils-factory.md).
 
 ## Change log
 
