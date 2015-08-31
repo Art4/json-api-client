@@ -25,7 +25,12 @@ class Helper
 	{
 		$data = static::decodeJson($json_string);
 
-		return new Document($data, new Manager);
+		$manager = new Manager();
+
+		return $manager->getFactory()->make(
+			'Document',
+			[$data, $manager]
+		);
 	}
 
 	/**
