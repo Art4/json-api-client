@@ -10,6 +10,14 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 	use HelperTrait;
 
 	/**
+	 * @setup
+	 */
+	public function setUp()
+	{
+		$this->manager = $this->buildManagerMock();
+	}
+
+	/**
 	 * @test create with object returns self
 	 */
 	public function testCreateWithObjectReturnsSelf()
@@ -25,7 +33,7 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 		$object->source = new \stdClass();
 		$object->meta = new \stdClass();
 
-		$error = new Error($object);
+		$error = new Error($object, $this->manager);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Error', $error);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $error);
@@ -83,8 +91,12 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
-		$error = new Error($input);
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'Error has to be an object, "' . gettype($input) . '" given.'
+		);
+
+		$error = new Error($input, $this->manager);
 	}
 
 	/**
@@ -102,7 +114,7 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 		$object->id = $input;
 
 		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
-		$error = new Error($object);
+		$error = new Error($object, $this->manager);
 	}
 
 	/**
@@ -120,7 +132,7 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 		$object->status = $input;
 
 		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
-		$error = new Error($object);
+		$error = new Error($object, $this->manager);
 	}
 
 	/**
@@ -138,7 +150,7 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 		$object->code = $input;
 
 		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
-		$error = new Error($object);
+		$error = new Error($object, $this->manager);
 	}
 
 	/**
@@ -156,7 +168,7 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 		$object->title = $input;
 
 		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
-		$error = new Error($object);
+		$error = new Error($object, $this->manager);
 	}
 
 	/**
@@ -174,6 +186,6 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 		$object->detail = $input;
 
 		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
-		$error = new Error($object);
+		$error = new Error($object, $this->manager);
 	}
 }

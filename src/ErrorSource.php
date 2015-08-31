@@ -3,6 +3,7 @@
 namespace Art4\JsonApiClient;
 
 use Art4\JsonApiClient\Utils\AccessTrait;
+use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 
@@ -15,6 +16,11 @@ class ErrorSource implements AccessInterface
 {
 	use AccessTrait;
 
+	/**
+	 * @var FactoryManagerInterface
+	 */
+	protected $manager;
+
 	protected $pointer = null;
 
 	protected $parameter = null;
@@ -26,12 +32,14 @@ class ErrorSource implements AccessInterface
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($object)
+	public function __construct($object, FactoryManagerInterface $manager)
 	{
 		if ( ! is_object($object) )
 		{
 			throw new ValidationException('ErrorSource has to be an object, "' . gettype($object) . '" given.');
 		}
+
+		$this->manager = $manager;
 
 		if ( property_exists($object, 'pointer') )
 		{

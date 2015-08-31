@@ -10,6 +10,14 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase
 	use HelperTrait;
 
 	/**
+	 * @setup
+	 */
+	public function setUp()
+	{
+		$this->manager = $this->buildManagerMock();
+	}
+
+	/**
 	 * @test create with object returns self
 	 */
 	public function testCreateWithObjectReturnsSelf()
@@ -17,7 +25,7 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->meta = new \stdClass();
 
-		$relationship = new Relationship($object);
+		$relationship = new Relationship($object, $this->manager);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Relationship', $relationship);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $relationship);
@@ -46,7 +54,7 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase
 		}
 
 		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
-		$relationship = new Relationship($input);
+		$relationship = new Relationship($input, $this->manager);
 	}
 
 	/**
@@ -59,7 +67,7 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->foo = 'bar';
 
-		$relationship = new Relationship($object);
+		$relationship = new Relationship($object, $this->manager);
 	}
 
 	/**
@@ -71,7 +79,7 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase
 		$object->links = new \stdClass();
 		$object->links->self = 'http://example.org/self';
 
-		$relationship = new Relationship($object);
+		$relationship = new Relationship($object, $this->manager);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Relationship', $relationship);
 		$this->assertSame($relationship->getKeys(), array('links'));
@@ -101,7 +109,7 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->data = $data;
 
-		$relationship = new Relationship($object);
+		$relationship = new Relationship($object, $this->manager);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Relationship', $relationship);
 		$this->assertSame($relationship->getKeys(), array('data'));
@@ -118,7 +126,7 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->data = null;
 
-		$relationship = new Relationship($object);
+		$relationship = new Relationship($object, $this->manager);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Relationship', $relationship);
 		$this->assertSame($relationship->getKeys(), array('data'));
@@ -139,7 +147,7 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->data = array($data_obj);
 
-		$relationship = new Relationship($object);
+		$relationship = new Relationship($object, $this->manager);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Relationship', $relationship);
 		$this->assertSame($relationship->getKeys(), array('data'));
@@ -148,12 +156,6 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase
 		$resources = $relationship->get('data');
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $resources);
-		$this->assertCount(1, $resources->getKeys());
-
-		foreach ($resources as $resource)
-		{
-			$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $resource);
-		}
 	}
 
 	/**
@@ -164,7 +166,7 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->data = array();
 
-		$relationship = new Relationship($object);
+		$relationship = new Relationship($object, $this->manager);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Relationship', $relationship);
 		$this->assertSame($relationship->getKeys(), array('data'));
@@ -173,7 +175,6 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase
 		$resources = $relationship->get('data');
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $resources);
-		$this->assertCount(0, $resources->getKeys());
 	}
 
 	/**
@@ -184,7 +185,7 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->meta = new \stdClass();
 
-		$relationship = new Relationship($object);
+		$relationship = new Relationship($object, $this->manager);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Relationship', $relationship);
 		$this->assertSame($relationship->getKeys(), array('meta'));

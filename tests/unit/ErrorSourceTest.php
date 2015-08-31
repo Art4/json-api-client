@@ -10,6 +10,14 @@ class ErrorSourceTest extends \PHPUnit_Framework_TestCase
 	use HelperTrait;
 
 	/**
+	 * @setup
+	 */
+	public function setUp()
+	{
+		$this->manager = $this->buildManagerMock();
+	}
+
+	/**
 	 * @test only 'about' property' can exist
 	 *
 	 * source: an object containing references to the source of the error, optionally including any of the following members:
@@ -23,7 +31,7 @@ class ErrorSourceTest extends \PHPUnit_Framework_TestCase
 		$object->parameter = 'parameter';
 		$object->ignore = 'must be ignored';
 
-		$source = new ErrorSource($object);
+		$source = new ErrorSource($object, $this->manager);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ErrorSource', $source);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $source);
@@ -65,7 +73,7 @@ class ErrorSourceTest extends \PHPUnit_Framework_TestCase
 
 		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
-		$source = new ErrorSource($object);
+		$source = new ErrorSource($object, $this->manager);
 	}
 
 	/**
@@ -86,6 +94,6 @@ class ErrorSourceTest extends \PHPUnit_Framework_TestCase
 
 		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
-		$source = new ErrorSource($object);
+		$source = new ErrorSource($object, $this->manager);
 	}
 }

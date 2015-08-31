@@ -2,8 +2,8 @@
 
 namespace Art4\JsonApiClient;
 
-use Art4\JsonApiClient\PaginationLink;
 use Art4\JsonApiClient\Utils\AccessTrait;
+use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 use Art4\JsonApiClient\Utils\MetaTrait;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
@@ -19,6 +19,11 @@ class Link implements AccessInterface
 
 	use MetaTrait;
 
+	/**
+	 * @var FactoryManagerInterface
+	 */
+	protected $manager;
+
 	protected $_links = array();
 
 	/**
@@ -28,12 +33,14 @@ class Link implements AccessInterface
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($object)
+	public function __construct($object, FactoryManagerInterface $manager)
 	{
 		if ( ! is_object($object) )
 		{
 			throw new ValidationException('Link has to be an object, "' . gettype($object) . '" given.');
 		}
+
+		$this->manager = $manager;
 
 		$object_vars = get_object_vars($object);
 
@@ -147,7 +154,10 @@ class Link implements AccessInterface
 		// Create Link object if needed
 		if ( ! ($link instanceof Link) )
 		{
-			$link = new Link($link);
+			$link = $this->manager->getFactory()->make(
+				'Link',
+				[$link, $this->manager]
+			);
 		}
 
 		$this->_links[$name] = $link;

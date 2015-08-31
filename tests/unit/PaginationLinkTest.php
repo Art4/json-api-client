@@ -10,6 +10,14 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 	use HelperTrait;
 
 	/**
+	 * @setup
+	 */
+	public function setUp()
+	{
+		$this->manager = $this->buildManagerMock();
+	}
+
+	/**
 	 * @test The following keys MUST be used for pagination links:
 	 *
 	 * first: the first page of data
@@ -28,7 +36,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		$object->next = 'http://example.org/next';
 		$object->about = 'http://example.org/about';
 
-		$link = new PaginationLink($object);
+		$link = new PaginationLink($object, $this->manager);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\PaginationLink', $link);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $link);
@@ -67,9 +75,12 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'Pagination has to be an object, "' . gettype($input) . '" given.'
+		);
 
-		$link = new PaginationLink($input);
+		$link = new PaginationLink($input, $this->manager);
 	}
 
 	/**
@@ -85,7 +96,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		// Input must be null or string
 		if ( gettype($input) === 'string' )
 		{
-			$link = new PaginationLink($object);
+			$link = new PaginationLink($object, $this->manager);
 			$this->assertSame($link->getKeys(), array('first'));
 
 			$this->assertTrue($link->has('first'));
@@ -95,7 +106,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		}
 		elseif ( gettype($input) === 'NULL' )
 		{
-			$link = new PaginationLink($object);
+			$link = new PaginationLink($object, $this->manager);
 			$this->assertSame($link->getKeys(), array());
 
 			$this->assertFalse($link->has('first'));
@@ -105,7 +116,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 
 		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
-		$link = new PaginationLink($object);
+		$link = new PaginationLink($object, $this->manager);
 	}
 
 	/**
@@ -121,7 +132,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		// Input must be null or string
 		if ( gettype($input) === 'string' )
 		{
-			$link = new PaginationLink($object);
+			$link = new PaginationLink($object, $this->manager);
 			$this->assertSame($link->getKeys(), array('last'));
 
 			$this->assertTrue($link->has('last'));
@@ -131,7 +142,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		}
 		elseif ( gettype($input) === 'NULL' )
 		{
-			$link = new PaginationLink($object);
+			$link = new PaginationLink($object, $this->manager);
 			$this->assertSame($link->getKeys(), array());
 
 			$this->assertFalse($link->has('last'));
@@ -141,7 +152,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 
 		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
-		$link = new PaginationLink($object);
+		$link = new PaginationLink($object, $this->manager);
 	}
 
 	/**
@@ -157,7 +168,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		// Input must be null or string
 		if ( gettype($input) === 'string' )
 		{
-			$link = new PaginationLink($object);
+			$link = new PaginationLink($object, $this->manager);
 			$this->assertSame($link->getKeys(), array('prev'));
 
 			$this->assertTrue($link->has('prev'));
@@ -167,7 +178,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		}
 		elseif ( gettype($input) === 'NULL' )
 		{
-			$link = new PaginationLink($object);
+			$link = new PaginationLink($object, $this->manager);
 			$this->assertSame($link->getKeys(), array());
 
 			$this->assertFalse($link->has('prev'));
@@ -177,7 +188,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 
 		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
-		$link = new PaginationLink($object);
+		$link = new PaginationLink($object, $this->manager);
 	}
 
 	/**
@@ -193,7 +204,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		// Input must be null or string
 		if ( gettype($input) === 'string' )
 		{
-			$link = new PaginationLink($object);
+			$link = new PaginationLink($object, $this->manager);
 			$this->assertSame($link->getKeys(), array('next'));
 
 			$this->assertTrue($link->has('next'));
@@ -203,7 +214,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		}
 		elseif ( gettype($input) === 'NULL' )
 		{
-			$link = new PaginationLink($object);
+			$link = new PaginationLink($object, $this->manager);
 			$this->assertSame($link->getKeys(), array());
 
 			$this->assertFalse($link->has('next'));
@@ -213,6 +224,6 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 
 		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
-		$link = new PaginationLink($object);
+		$link = new PaginationLink($object, $this->manager);
 	}
 }

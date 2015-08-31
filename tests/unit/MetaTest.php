@@ -10,6 +10,14 @@ class MetaTest extends \PHPUnit_Framework_TestCase
 	use HelperTrait;
 
 	/**
+	 * @setup
+	 */
+	public function setUp()
+	{
+		$this->manager = $this->buildManagerMock();
+	}
+
+	/**
 	 * @test create with object
 	 */
 	public function testCreateWithObject()
@@ -24,7 +32,7 @@ class MetaTest extends \PHPUnit_Framework_TestCase
 		$object->false = false;
 		$object->null = null;
 
-		$meta = new Meta($object);
+		$meta = new Meta($object, $this->manager);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Meta', $meta);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $meta);
@@ -73,6 +81,27 @@ class MetaTest extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * @dataProvider jsonValuesProvider
+	 */
+	public function testCreateWithoutObjectThrowsException($input)
+	{
+		// Input must be an object
+		if ( gettype($input) === 'object' )
+		{
+			$this->assertInstanceOf('Art4\JsonApiClient\Meta', new Meta($input, $this->manager));
+
+			return;
+		}
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'Meta has to be an object, "' . gettype($input) . '" given.'
+		);
+
+		$link = new Meta($input, $this->manager);
+	}
+
+	/**
+	 * @dataProvider jsonValuesProvider
 	 *
 	 * The value of each meta member MUST be an object (a "meta object").
 	 */
@@ -81,13 +110,13 @@ class MetaTest extends \PHPUnit_Framework_TestCase
 		// Input must be an object
 		if ( gettype($input) === 'object' )
 		{
-			$this->assertInstanceOf('Art4\JsonApiClient\Meta', new Meta($input));
+			$this->assertInstanceOf('Art4\JsonApiClient\Meta', new Meta($input, $this->manager));
 
 			return;
 		}
 
 		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
-		$meta = new Meta($input);
+		$meta = new Meta($input, $this->manager);
 	}
 }

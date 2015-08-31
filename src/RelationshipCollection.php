@@ -3,6 +3,7 @@
 namespace Art4\JsonApiClient;
 
 use Art4\JsonApiClient\Utils\AccessTrait;
+use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 use Art4\JsonApiClient\Resource\ResourceInterface;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
@@ -16,6 +17,11 @@ class RelationshipCollection implements AccessInterface
 {
 	use AccessTrait;
 
+	/**
+	 * @var FactoryManagerInterface
+	 */
+	protected $manager;
+
 	protected $_data = array();
 
 	/**
@@ -25,7 +31,7 @@ class RelationshipCollection implements AccessInterface
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($object, ResourceInterface $resource)
+	public function __construct($object, FactoryManagerInterface $manager, ResourceInterface $resource)
 	{
 		if ( ! is_object($object) )
 		{
@@ -36,6 +42,8 @@ class RelationshipCollection implements AccessInterface
 		{
 			throw new ValidationException('These properties are not allowed in attributes: `type`, `id`');
 		}
+
+		$this->manager = $manager;
 
 		$object_vars = get_object_vars($object);
 
@@ -51,7 +59,10 @@ class RelationshipCollection implements AccessInterface
 				throw new ValidationException('"' . $name . '" property cannot be set because it exists already in parents Resource object.');
 			}
 
-			$this->set($name, new Relationship($value));
+			$this->set($name, $this->manager->getFactory()->make(
+				'Relationship',
+				[$value, $this->manager]
+			));
 		}
 
 		return $this;

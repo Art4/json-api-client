@@ -10,11 +10,19 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	use HelperTrait;
 
 	/**
+	 * @setup
+	 */
+	public function setUp()
+	{
+		$this->manager = $this->buildManagerMock();
+	}
+
+	/**
 	 * @test create with empty array
 	 */
 	public function testCreateWithEmptyArray()
 	{
-		$collection = new Collection(array());
+		$collection = new Collection(array(), $this->manager);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $collection);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $collection);
@@ -38,7 +46,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 		$object->id = 789;
 		$object->meta = new \stdClass();
 
-		$collection = new Collection(array($object, $object, $object));
+		$collection = new Collection(array($object, $object, $object), $this->manager);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $collection);
 
@@ -89,7 +97,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 		$object->relationships = new \stdClass();
 		$object->links = new \stdClass();
 
-		$collection = new Collection(array($object));
+		$collection = new Collection(array($object), $this->manager);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $collection);
 
@@ -112,7 +120,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 		// Input must be an array
 		if ( gettype($input) === 'array' )
 		{
-			$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', new Collection($input));
+			$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', new Collection($input, $this->manager));
 
 			return;
 		}
@@ -122,7 +130,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 			'Resources for a collection has to be in an array, "' . gettype($input) . '" given.'
 		);
 
-		$collection = new Collection($input);
+		$collection = new Collection($input, $this->manager);
 	}
 
 	/**
@@ -138,7 +146,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
 		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
-		$collection = new Collection(array($input));
+		$collection = new Collection(array($input), $this->manager);
 	}
 
 	/**
@@ -146,7 +154,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetResourcesWithEmptyCollectionThrowsException()
 	{
-		$collection = new Collection(array());
+		$collection = new Collection(array(), $this->manager);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $collection);
 

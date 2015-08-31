@@ -10,6 +10,14 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 	use HelperTrait;
 
 	/**
+	 * @setup
+	 */
+	public function setUp()
+	{
+		$this->manager = $this->buildManagerMock();
+	}
+
+	/**
 	 * @test create with object
 	 */
 	public function testCreateWithObject()
@@ -24,7 +32,7 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 		$object->false = false;
 		$object->null = null;
 
-		$attributes = new Attributes($object);
+		$attributes = new Attributes($object, $this->manager);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Attributes', $attributes);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $attributes);
@@ -78,13 +86,13 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 		// Input must be an object
 		if ( gettype($input) === 'object' )
 		{
-			$this->assertInstanceOf('Art4\JsonApiClient\Attributes', new Attributes($input));
+			$this->assertInstanceOf('Art4\JsonApiClient\Attributes', new Attributes($input, $this->manager));
 
 			return;
 		}
 
 		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
-		$error = new Attributes($input);
+		$error = new Attributes($input, $this->manager);
 	}
 
 	/**
@@ -97,7 +105,7 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->type = 'posts';
 
-		$attributes = new Attributes($object);
+		$attributes = new Attributes($object, $this->manager);
 	}
 
 	/**
@@ -110,7 +118,7 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->id = '5';
 
-		$attributes = new Attributes($object);
+		$attributes = new Attributes($object, $this->manager);
 	}
 
 	/**
@@ -123,7 +131,7 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->relationships = new \stdClass();
 
-		$attributes = new Attributes($object);
+		$attributes = new Attributes($object, $this->manager);
 	}
 
 	/**
@@ -136,6 +144,6 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->links = new \stdClass();
 
-		$attributes = new Attributes($object);
+		$attributes = new Attributes($object, $this->manager);
 	}
 }

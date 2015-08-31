@@ -10,6 +10,14 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 	use HelperTrait;
 
 	/**
+	 * @setup
+	 */
+	public function setUp()
+	{
+		$this->manager = $this->buildManagerMock();
+	}
+
+	/**
 	 * @test only 'about' property' can exist
 	 *
 	 * The top-level links object MAY contain the following members:
@@ -25,7 +33,7 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 		$object->pagination = new \stdClass();
 		$object->ignore = 'http://example.org/should-be-ignored';
 
-		$link = new DocumentLink($object);
+		$link = new DocumentLink($object, $this->manager);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\DocumentLink', $link);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $link);
@@ -71,7 +79,7 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 
 		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
-		$link = new DocumentLink($object);
+		$link = new DocumentLink($object, $this->manager);
 	}
 
 	/**
@@ -93,27 +101,6 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 
 		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
-		$link = new DocumentLink($object);
-	}
-
-	/**
-	 * @dataProvider jsonValuesProvider
-	 *
-	 * pagination links for the primary data.
-	 */
-	public function testPaginationMustBeAnObject($input)
-	{
-		// Input must be an object
-		if ( gettype($input) === 'object' )
-		{
-			return;
-		}
-
-		$object = new \stdClass();
-		$object->pagination = $input;
-
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
-
-		$link = new DocumentLink($object);
+		$link = new DocumentLink($object, $this->manager);
 	}
 }

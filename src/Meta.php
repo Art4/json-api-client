@@ -3,6 +3,7 @@
 namespace Art4\JsonApiClient;
 
 use Art4\JsonApiClient\Utils\AccessTrait;
+use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 
@@ -15,6 +16,11 @@ class Meta implements AccessInterface
 {
 	use AccessTrait;
 
+	/**
+	 * @var FactoryManagerInterface
+	 */
+	protected $manager;
+
 	protected $_data = array();
 
 	/**
@@ -24,12 +30,14 @@ class Meta implements AccessInterface
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($object)
+	public function __construct($object, FactoryManagerInterface $manager)
 	{
 		if ( ! is_object($object) )
 		{
 			throw new ValidationException('Meta has to be an object, "' . gettype($object) . '" given.');
 		}
+
+		$this->manager = $manager;
 
 		$object_vars = get_object_vars($object);
 

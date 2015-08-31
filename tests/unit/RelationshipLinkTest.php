@@ -10,6 +10,14 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 	use HelperTrait;
 
 	/**
+	 * @setup
+	 */
+	public function setUp()
+	{
+		$this->manager = $this->buildManagerMock();
+	}
+
+	/**
 	 * @test only self, related and pagination property can exist
 	 *
 	 * links: a links object containing at least one of the following:
@@ -29,7 +37,7 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 		$object->pagination = new \stdClass();
 		$object->ignore = 'http://example.org/should-be-ignored';
 
-		$link = new RelationshipLink($object);
+		$link = new RelationshipLink($object, $this->manager);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipLink', $link);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $link);
@@ -67,7 +75,7 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->pagination = new \stdClass();
 
-		$link = new RelationshipLink($object);
+		$link = new RelationshipLink($object, $this->manager);
 	}
 
 	/**
@@ -88,7 +96,7 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 
 		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
-		$link = new RelationshipLink($object);
+		$link = new RelationshipLink($object, $this->manager);
 	}
 
 	/**
@@ -110,7 +118,7 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 
 		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
-		$link = new RelationshipLink($object);
+		$link = new RelationshipLink($object, $this->manager);
 	}
 
 	/**
@@ -129,6 +137,6 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 
 		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
-		$link = new RelationshipLink($object);
+		$link = new RelationshipLink($object, $this->manager);
 	}
 }

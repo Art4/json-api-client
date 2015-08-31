@@ -4,6 +4,7 @@ namespace Art4\JsonApiClient\Resource;
 
 use Art4\JsonApiClient\AccessInterface;
 use Art4\JsonApiClient\Utils\AccessTrait;
+use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 
@@ -16,6 +17,11 @@ class Collection implements AccessInterface, ResourceInterface
 {
 	use AccessTrait;
 
+	/**
+	 * @var FactoryManagerInterface
+	 */
+	protected $manager;
+
 	protected $resources = array();
 
 	/**
@@ -25,12 +31,14 @@ class Collection implements AccessInterface, ResourceInterface
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($resources)
+	public function __construct($resources, FactoryManagerInterface $manager)
 	{
 		if ( ! is_array($resources) )
 		{
 			throw new ValidationException('Resources for a collection has to be in an array, "' . gettype($resources) . '" given.');
 		}
+
+		$this->manager = $manager;
 
 		if ( count($resources) > 0 )
 		{
@@ -138,16 +146,25 @@ class Collection implements AccessInterface, ResourceInterface
 		// the properties must be type and id
 		if ( count($object_vars) === 2 )
 		{
-			$resource = new Identifier($data);
+			$resource = $this->manager->getFactory()->make(
+				'Resource\Identifier',
+				[$data, $this->manager]
+			);
 		}
 		// the 3 properties must be type, id and meta
 		elseif ( count($object_vars) === 3 and property_exists($data, 'meta') )
 		{
-			$resource = new Identifier($data);
+			$resource = $this->manager->getFactory()->make(
+				'Resource\Identifier',
+				[$data, $this->manager]
+			);
 		}
 		else
 		{
-			$resource = new Item($data);
+			$resource = $this->manager->getFactory()->make(
+				'Resource\Item',
+				[$data, $this->manager]
+			);
 		}
 
 		return $resource;

@@ -3,6 +3,7 @@
 namespace Art4\JsonApiClient;
 
 use Art4\JsonApiClient\Utils\AccessTrait;
+use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 
@@ -15,6 +16,11 @@ class ErrorCollection implements AccessInterface
 {
 	use AccessTrait;
 
+	/**
+	 * @var FactoryManagerInterface
+	 */
+	protected $manager;
+
 	protected $errors = array();
 
 	/**
@@ -24,7 +30,7 @@ class ErrorCollection implements AccessInterface
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($errors)
+	public function __construct($errors, FactoryManagerInterface $manager)
 	{
 		if ( ! is_array($errors) )
 		{
@@ -36,9 +42,14 @@ class ErrorCollection implements AccessInterface
 			throw new ValidationException('Errors array cannot be empty and MUST have at least one object');
 		}
 
+		$this->manager = $manager;
+
 		foreach ($errors as $error)
 		{
-			$this->addError(new Error($error));
+			$this->addError($this->manager->getFactory()->make(
+				'Error',
+				[$error, $this->manager]
+			));
 		}
 
 		return $this;
