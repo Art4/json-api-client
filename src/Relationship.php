@@ -177,8 +177,8 @@ class Relationship implements AccessInterface
 	 *
 	 * @throws ValidationException If $data isn't null or an object
 	 *
-	 * @param null|object $data Data value
-	 * @return null|ResourceIdentifier The parsed data
+	 * @param null|array|object $data Data value
+	 * @return null|Resource\Identifier|Resource\IdentifierCollection The parsed data
 	 */
 	protected function parseData($data)
 	{
@@ -189,28 +189,10 @@ class Relationship implements AccessInterface
 
 		if ( is_array($data) )
 		{
-			$collection = $this->manager->getFactory()->make(
-				'Resource\Collection',
+			return $this->manager->getFactory()->make(
+				'Resource\IdentifierCollection',
 				[$data, $this->manager]
 			);
-/*
-			// TODO
-			foreach ($collection->getKeys() as $key)
-			{
-				$obj = $collection->get($key);
-
-				if ( ! $obj->isIdentifier() )
-				{
-					throw new ValidationException('Data has to be instance of "Resource\\Identifier", "' . gettype($obj) . '" given.');
-				}
-			}
-*/
-			return $collection;
-		}
-
-		if ( ! is_object($data) )
-		{
-			throw new ValidationException('Data value has to be null or an object, "' . gettype($data) . '" given.');
 		}
 
 		return $this->manager->getFactory()->make(

@@ -155,7 +155,7 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase
 
 		$resources = $relationship->get('data');
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $resources);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\IdentifierCollection', $resources);
 	}
 
 	/**
@@ -174,7 +174,7 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase
 
 		$resources = $relationship->get('data');
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $resources);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\IdentifierCollection', $resources);
 	}
 
 	/**
