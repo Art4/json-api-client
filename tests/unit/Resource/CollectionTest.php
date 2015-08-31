@@ -34,12 +34,49 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue(count($collection->asArray()) === 0);
 		$this->assertSame($collection->getKeys(), array());
 		$this->assertFalse($collection->has(0));
+		
+		// Test get() with various key types
+		$this->assertFalse($collection->has(new \stdClass()));
+		$this->assertFalse($collection->has(array()));
+		$this->assertFalse($collection->has('string'));
 	}
 
 	/**
 	 * @test create with identifier object
 	 */
 	public function testCreateWithIdentifier()
+	{
+		$object = new \stdClass();
+		$object->type = 'type';
+		$object->id = 789;
+
+		$collection = new Collection(array($object), $this->manager);
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $collection);
+
+		$this->assertTrue($collection->isCollection());
+		$this->assertCount(1, $collection->asArray());
+		$this->assertSame($collection->getKeys(), array(0));
+
+		$this->assertTrue($collection->has(0));
+		$resource = $collection->get(0);
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $resource);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $resource);
+
+		$this->assertSame($collection->asArray(), array(
+			$collection->get(0),
+		));
+
+		$this->assertSame($collection->asArray(true), array(
+			$collection->get(0)->asArray(true),
+		));
+	}
+
+	/**
+	 * @test create with identifier object and meta
+	 */
+	public function testCreateWithIdentifierAndMeta()
 	{
 		$object = new \stdClass();
 		$object->type = 'type';
