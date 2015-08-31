@@ -3,12 +3,18 @@
 namespace Art4\JsonApiClient\Resource;
 
 use Art4\JsonApiClient\AccessInterface;
+use Art4\JsonApiClient\Exception\AccessException;
 
 /**
  * Null Resource
  */
 class NullResource implements AccessInterface, ResourceInterface
 {
+	/**
+	 * Constructor need for mocking
+	 */
+	public function __construct() { }
+
 	/**
 	 * Check if a value exists in this resource
 	 *

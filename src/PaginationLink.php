@@ -2,6 +2,7 @@
 
 namespace Art4\JsonApiClient;
 
+use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
@@ -12,18 +13,25 @@ use Art4\JsonApiClient\Exception\ValidationException;
 class PaginationLink extends Link
 {
 	/**
+	 * @var FactoryManagerInterface
+	 */
+	protected $manager;
+
+	/**
 	 * @param object $object The link object
 	 *
 	 * @return self
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($object)
+	public function __construct($object, FactoryManagerInterface $manager)
 	{
 		if ( ! is_object($object) )
 		{
 			throw new ValidationException('Pagination has to be an object, "' . gettype($object) . '" given.');
 		}
+
+		$this->manager = $manager;
 
 		if ( property_exists($object, 'first') )
 		{

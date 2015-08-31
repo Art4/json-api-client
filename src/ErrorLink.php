@@ -2,6 +2,7 @@
 
 namespace Art4\JsonApiClient;
 
+use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
@@ -16,13 +17,18 @@ use Art4\JsonApiClient\Exception\ValidationException;
 class ErrorLink extends Link
 {
 	/**
+	 * @var FactoryManagerInterface
+	 */
+	protected $manager;
+
+	/**
 	 * @param object $object The link object
 	 *
 	 * @return self
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($object)
+	public function __construct($object, FactoryManagerInterface $manager)
 	{
 		if ( ! is_object($object) )
 		{
@@ -33,6 +39,8 @@ class ErrorLink extends Link
 		{
 			throw new ValidationException('$object MUST contain these properties: about');
 		}
+
+		$this->manager = $manager;
 
 		$this->set('about', $object->about);
 	}

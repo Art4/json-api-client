@@ -4,6 +4,7 @@ namespace Art4\JsonApiClient\Resource;
 
 use Art4\JsonApiClient\AccessInterface;
 use Art4\JsonApiClient\Utils\AccessTrait;
+use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 use Art4\JsonApiClient\Utils\MetaTrait;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
@@ -19,6 +20,11 @@ class Identifier implements AccessInterface, ResourceInterface
 
 	use MetaTrait;
 
+	/**
+	 * @var FactoryManagerInterface
+	 */
+	protected $manager;
+
 	protected $type = null;
 
 	protected $id = null;
@@ -30,7 +36,7 @@ class Identifier implements AccessInterface, ResourceInterface
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($object)
+	public function __construct($object, FactoryManagerInterface $manager)
 	{
 		if ( ! is_object($object) )
 		{
@@ -56,6 +62,8 @@ class Identifier implements AccessInterface, ResourceInterface
 		{
 			throw new ValidationException('Resource Id cannot be an array or object');
 		}
+
+		$this->manager = $manager;
 
 		$this->type = strval($object->type);
 		$this->id = strval($object->id);

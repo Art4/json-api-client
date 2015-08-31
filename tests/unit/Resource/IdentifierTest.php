@@ -3,11 +3,19 @@
 namespace Art4\JsonApiClient\Resource\Tests;
 
 use Art4\JsonApiClient\Resource\Identifier;
-use Art4\JsonApiClient\Tests\Fixtures\JsonValueTrait;
+use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 
 class IdentifierTest extends \PHPUnit_Framework_TestCase
 {
-	use JsonValueTrait;
+	use HelperTrait;
+
+	/**
+	 * @setup
+	 */
+	public function setUp()
+	{
+		$this->manager = $this->buildManagerMock();
+	}
 
 	/**
 	 * @test create with object
@@ -18,7 +26,7 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
 		$object->type = 'type';
 		$object->id = 789;
 
-		$identifier = new Identifier($object);
+		$identifier = new Identifier($object, $this->manager);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $identifier);
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $identifier);
@@ -54,7 +62,7 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
 		$object->id = 159;
 		$object->meta = new \stdClass();
 
-		$identifier = new Identifier($object);
+		$identifier = new Identifier($object, $this->manager);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $identifier);
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $identifier);
@@ -82,7 +90,7 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
 			$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 		}
 
-		$identifier = new Identifier($object);
+		$identifier = new Identifier($object, $this->manager);
 
 		$this->assertTrue(is_string($identifier->get('type')));
 	}
@@ -103,7 +111,7 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
 			$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 		}
 
-		$identifier = new Identifier($object);
+		$identifier = new Identifier($object, $this->manager);
 
 		$this->assertTrue(is_string($identifier->get('id')));
 	}
@@ -118,7 +126,7 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
-		$identifier = new Identifier($input);
+		$identifier = new Identifier($input, $this->manager);
 	}
 
 	/**
@@ -131,7 +139,7 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->id = 123;
 
-		$identifier = new Identifier($object);
+		$identifier = new Identifier($object, $this->manager);
 	}
 
 	/**
@@ -144,7 +152,7 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->type = 'type';
 
-		$identifier = new Identifier($object);
+		$identifier = new Identifier($object, $this->manager);
 	}
 
 	/**
@@ -156,7 +164,7 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
 		$object->type = 'posts';
 		$object->id = 9;
 
-		$identifier = new Identifier($object);
+		$identifier = new Identifier($object, $this->manager);
 		$this->assertFalse($identifier->has('foobar'));
 
 		$this->setExpectedException('Art4\JsonApiClient\Exception\AccessException');

@@ -3,6 +3,7 @@
 namespace Art4\JsonApiClient;
 
 use Art4\JsonApiClient\Utils\AccessTrait;
+use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 use Art4\JsonApiClient\Utils\MetaTrait;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
@@ -18,6 +19,11 @@ class Jsonapi implements AccessInterface
 
 	use MetaTrait;
 
+	/**
+	 * @var FactoryManagerInterface
+	 */
+	protected $manager;
+
 	protected $version = null;
 
 	/**
@@ -27,12 +33,14 @@ class Jsonapi implements AccessInterface
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($object)
+	public function __construct($object, FactoryManagerInterface $manager)
 	{
 		if ( ! is_object($object) )
 		{
 			throw new ValidationException('Jsonapi has to be an object, "' . gettype($object) . '" given.');
 		}
+
+		$this->manager = $manager;
 
 		if ( property_exists($object, 'version') )
 		{

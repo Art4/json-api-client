@@ -3,11 +3,19 @@
 namespace Art4\JsonApiClient\Tests;
 
 use Art4\JsonApiClient\Jsonapi;
-use Art4\JsonApiClient\Tests\Fixtures\JsonValueTrait;
+use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 
 class JsonapiTest extends \PHPUnit_Framework_TestCase
 {
-	use JsonValueTrait;
+	use HelperTrait;
+
+	/**
+	 * @setup
+	 */
+	public function setUp()
+	{
+		$this->manager = $this->buildManagerMock();
+	}
 
 	/**
 	 * @test create with object
@@ -24,7 +32,7 @@ class JsonapiTest extends \PHPUnit_Framework_TestCase
 		$object->testobj = new \stdClass();
 		$object->teststring = 'http://example.org/link';
 
-		$jsonapi = new Jsonapi($object);
+		$jsonapi = new Jsonapi($object, $this->manager);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Jsonapi', $jsonapi);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $jsonapi);
@@ -59,13 +67,13 @@ class JsonapiTest extends \PHPUnit_Framework_TestCase
 		// Input must be an object
 		if ( gettype($input) === 'object' )
 		{
-			$this->assertInstanceOf('Art4\JsonApiClient\Jsonapi', new Jsonapi($input));
+			$this->assertInstanceOf('Art4\JsonApiClient\Jsonapi', new Jsonapi($input, $this->manager));
 			return;
 		}
 
 		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
-		$jsonapi = new Jsonapi($input);
+		$jsonapi = new Jsonapi($input, $this->manager);
 	}
 
 	/**
@@ -81,11 +89,11 @@ class JsonapiTest extends \PHPUnit_Framework_TestCase
 		if ( gettype($input) === 'object' or gettype($input) === 'array' )
 		{
 			$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
-			$jsonapi = new Jsonapi($object);
+			$jsonapi = new Jsonapi($object, $this->manager);
 			return;
 		}
 
-		$jsonapi = new Jsonapi($object);
+		$jsonapi = new Jsonapi($object, $this->manager);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Jsonapi', $jsonapi);
 		$this->assertSame($jsonapi->getKeys(), array('version'));

@@ -2,7 +2,7 @@
 
 namespace Art4\JsonApiClient;
 
-use Art4\JsonApiClient\PaginationLink;
+use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
@@ -22,13 +22,18 @@ use Art4\JsonApiClient\Exception\ValidationException;
 class RelationshipLink extends Link
 {
 	/**
+	 * @var FactoryManagerInterface
+	 */
+	protected $manager;
+
+	/**
 	 * @param object $object The link object
 	 *
 	 * @return self
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($object)
+	public function __construct($object, FactoryManagerInterface $manager)
 	{
 		if ( ! is_object($object) )
 		{
@@ -39,6 +44,8 @@ class RelationshipLink extends Link
 		{
 			throw new ValidationException('RelationshipLink has to be at least a "self" or "related" link');
 		}
+
+		$this->manager = $manager;
 
 		if ( property_exists($object, 'self') )
 		{
@@ -62,7 +69,10 @@ class RelationshipLink extends Link
 
 		if ( property_exists($object, 'pagination') )
 		{
-			$this->set('pagination', new PaginationLink($object->pagination));
+			$this->set('pagination', $this->manager->getFactory()->make(
+				'PaginationLink',
+				[$object->pagination, $this->manager]
+			));
 		}
 	}
 }

@@ -28,7 +28,9 @@ See the [documentation](docs/README.md).
 // The Response body from a JSON API server
 $jsonapi_string = '{"meta":{"info":"Testing the JSON API Client."}}';
 
-$document = \Art4\JsonApiClient\Utils\Helper::parse($jsonapi_string);
+$manager = new \Art4\JsonApiClient\Utils\Manager();
+
+$document = $manager->parse($jsonapi_string);
 
 if ($document->has('meta') and $document->get('meta')->has('info'))
 {
@@ -50,15 +52,21 @@ JSON API Client can be used as a validator for JSON API contents:
 ```php
 $wrong_jsonapi = '{"data":{},"meta":{"info":"This is wrong JSON API. `data` has to be `null` or containing at least `type` and `id`."}}';
 
+$manager = new \Art4\JsonApiClient\Utils\Manager();
+
 try
 {
-	$document = \Art4\JsonApiClient\Utils\Helper::parse($wrong_jsonapi);
+	$document = $manager->parse($wrong_jsonapi);
 }
 catch (\Art4\JsonApiClient\Exception\ValidationException $e)
 {
 	echo $e->getMessage(); // "A resource object MUST contain a type"
 }
 ```
+
+### Extend the client
+
+Need more functionality? Want to directly inject your model? Easily extend the client with the [Factory](utils-factory.md).
 
 ## Change log
 

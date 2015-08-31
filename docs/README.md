@@ -7,6 +7,7 @@
 * [Resource Identifier object](objects-resource-identifier.md)
 * [Resource Item object](objects-resource-item.md)
 * [Resource Collection object](objects-resource-collection.md)
+* [Resource Identifier Collection object](objects-resource-identifier-collection.md)
 * [Attributes object](objects-attributes.md)
 * [Relationship Collection object](objects-relationship-collection.md)
 * [Relationship object](objects-relationship.md)
@@ -22,5 +23,7 @@
 * [Meta object](objects-meta.md)
 
 ### Utils:
+* [Manager](utils-manager.md)
+* [Factory](utils-factory.md)
 * [Helper](utils-helper.md)
 * [Exceptions](exception-introduction.md)

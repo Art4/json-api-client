@@ -3,11 +3,19 @@
 namespace Art4\JsonApiClient\Tests;
 
 use Art4\JsonApiClient\ErrorCollection;
-use Art4\JsonApiClient\Tests\Fixtures\JsonValueTrait;
+use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 
 class ErrorCollectionTest extends \PHPUnit_Framework_TestCase
 {
-	use JsonValueTrait;
+	use HelperTrait;
+
+	/**
+	 * @setup
+	 */
+	public function setUp()
+	{
+		$this->manager = $this->buildManagerMock();
+	}
 
 	/**
 	 * @test create
@@ -19,7 +27,7 @@ class ErrorCollectionTest extends \PHPUnit_Framework_TestCase
 			new \stdClass(),
 		);
 
-		$collection = new ErrorCollection($errors);
+		$collection = new ErrorCollection($errors, $this->manager);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ErrorCollection', $collection);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $collection);
@@ -54,31 +62,23 @@ class ErrorCollectionTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreateWithoutArrayThrowsException($input)
 	{
-		// Input must be an array
+		// Input must be an array with at least one object
 		if ( gettype($input) === 'array' )
 		{
-			return;
+			$this->setExpectedException(
+				'Art4\JsonApiClient\Exception\ValidationException',
+				'Errors array cannot be empty and MUST have at least one object'
+			);
 		}
-
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
-
-		$collection = new ErrorCollection($input);
-	}
-
-	/**
-	 * @dataProvider jsonValuesProvider
-	 */
-	public function testCreateWithoutObjectInArrayThrowsException($input)
-	{
-		// Input must be an object
-		if ( gettype($input) === 'object' )
+		else
 		{
-			return;
+			$this->setExpectedException(
+				'Art4\JsonApiClient\Exception\ValidationException',
+				'Errors for a collection has to be in an array, "' . gettype($input) . '" given.'
+			);
 		}
 
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
-
-		$collection = new ErrorCollection(array($input));
+		$collection = new ErrorCollection($input, $this->manager);
 	}
 
 	/**
@@ -90,7 +90,7 @@ class ErrorCollectionTest extends \PHPUnit_Framework_TestCase
 			new \stdClass(),
 		);
 
-		$collection = new ErrorCollection($errors);
+		$collection = new ErrorCollection($errors, $this->manager);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ErrorCollection', $collection);
 

@@ -2,6 +2,7 @@
 
 namespace Art4\JsonApiClient;
 
+use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
@@ -12,13 +13,18 @@ use Art4\JsonApiClient\Exception\ValidationException;
 class Attributes extends Meta implements AccessInterface
 {
 	/**
+	 * @var FactoryManagerInterface
+	 */
+	protected $manager;
+
+	/**
 	 * @param object $object The object
 	 *
 	 * @return self
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($object)
+	public function __construct($object, FactoryManagerInterface $manager)
 	{
 		if ( ! is_object($object) )
 		{
@@ -30,6 +36,6 @@ class Attributes extends Meta implements AccessInterface
 			throw new ValidationException('These properties are not allowed in attributes: `type`, `id`, `relationships`, `links`');
 		}
 
-		return parent::__construct($object);
+		return parent::__construct($object, $manager);
 	}
 }

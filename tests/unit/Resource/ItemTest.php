@@ -3,11 +3,19 @@
 namespace Art4\JsonApiClient\Resource\Tests;
 
 use Art4\JsonApiClient\Resource\Item;
-use Art4\JsonApiClient\Tests\Fixtures\JsonValueTrait;
+use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 
 class ItemTest extends \PHPUnit_Framework_TestCase
 {
-	use JsonValueTrait;
+	use HelperTrait;
+
+	/**
+	 * @setup
+	 */
+	public function setUp()
+	{
+		$this->manager = $this->buildManagerMock();
+	}
 
 	/**
 	 * @test create with object
@@ -19,7 +27,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 		$object->id = 789;
 		$object->meta = new \stdClass();
 
-		$resource = new Item($object);
+		$resource = new Item($object, $this->manager);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $resource);
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $resource);
@@ -50,7 +58,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 		$object->relationships = new \stdClass();
 		$object->links = new \stdClass();
 
-		$resource = new Item($object);
+		$resource = new Item($object, $this->manager);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $resource);
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $resource);

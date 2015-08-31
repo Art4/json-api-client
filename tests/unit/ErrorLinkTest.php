@@ -3,11 +3,19 @@
 namespace Art4\JsonApiClient\Tests;
 
 use Art4\JsonApiClient\ErrorLink;
-use Art4\JsonApiClient\Tests\Fixtures\JsonValueTrait;
+use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 
 class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 {
-	use JsonValueTrait;
+	use HelperTrait;
+
+	/**
+	 * @setup
+	 */
+	public function setUp()
+	{
+		$this->manager = $this->buildManagerMock();
+	}
 
 	/**
 	 * @test only 'about' property' can exist
@@ -23,7 +31,7 @@ class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 		$object->href = 'http://example.org/href';
 		$object->about = 'http://example.org/about';
 
-		$link = new ErrorLink($object);
+		$link = new ErrorLink($object, $this->manager);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ErrorLink', $link);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $link);
@@ -58,7 +66,7 @@ class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 
 		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
-		$link = new ErrorLink($object);
+		$link = new ErrorLink($object, $this->manager);
 	}
 
 	/**
@@ -73,7 +81,7 @@ class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->about = new \stdClass();
 
-		$link = new ErrorLink($object);
+		$link = new ErrorLink($object, $this->manager);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ErrorLink', $link);
 		$this->assertSame($link->getKeys(), array('about'));
@@ -97,6 +105,6 @@ class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 
 		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
-		$link = new ErrorLink($input);
+		$link = new ErrorLink($input, $this->manager);
 	}
 }

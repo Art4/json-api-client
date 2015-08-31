@@ -3,11 +3,19 @@
 namespace Art4\JsonApiClient\Tests;
 
 use Art4\JsonApiClient\Link;
-use Art4\JsonApiClient\Tests\Fixtures\JsonValueTrait;
+use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 
 class LinkTest extends \PHPUnit_Framework_TestCase
 {
-	use JsonValueTrait;
+	use HelperTrait;
+
+	/**
+	 * @setup
+	 */
+	public function setUp()
+	{
+		$this->manager = $this->buildManagerMock();
+	}
 
 	/**
 	 * @test create with object
@@ -20,7 +28,7 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 		$object->linkobj = new \stdClass();
 		$object->link = 'http://example.org/link';
 
-		$link = new Link($object);
+		$link = new Link($object, $this->manager);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Link', $link);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $link);
@@ -64,7 +72,7 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 
 		if ( gettype($input) === 'string' )
 		{
-			$link = new Link($object);
+			$link = new Link($object, $this->manager);
 
 			$this->assertTrue(is_string($link->get('href')));
 
@@ -73,18 +81,7 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 
 		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
-		$link = new Link($object);
-	}
-
-	/**
-	 * @expectedException Art4\JsonApiClient\Exception\ValidationException
-	 */
-	public function testMetaHasToBeAnObject()
-	{
-		$object = new \stdClass();
-		$object->meta = 'http://example.org';
-
-		$link = new Link($object);
+		$link = new Link($object, $this->manager);
 	}
 
 	/**
@@ -97,12 +94,12 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 		// A link object could be empty
 		if ( gettype($input) === 'object' )
 		{
-			$this->assertInstanceOf('Art4\JsonApiClient\Link', new Link($input));
+			$this->assertInstanceOf('Art4\JsonApiClient\Link', new Link($input, $this->manager));
 			return;
 		}
 
 		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
-		$link = new Link($input);
+		$link = new Link($input, $this->manager);
 	}
 }

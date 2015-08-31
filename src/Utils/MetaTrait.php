@@ -42,6 +42,9 @@ trait MetaTrait
 	 */
 	protected function setMeta($meta)
 	{
-		$this->meta = new Meta($meta);
+		$this->meta = $this->manager->getFactory()->make(
+			'Meta',
+			[$meta, $this->manager]
+		);
 	}
 }

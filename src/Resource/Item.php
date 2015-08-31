@@ -3,10 +3,8 @@
 namespace Art4\JsonApiClient\Resource;
 
 use Art4\JsonApiClient\AccessInterface;
-use Art4\JsonApiClient\Attributes;
-use Art4\JsonApiClient\RelationshipCollection;
-use Art4\JsonApiClient\Link;
 use Art4\JsonApiClient\Utils\LinksTrait;
+use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 
@@ -30,24 +28,33 @@ class Item extends Identifier
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($object)
+	public function __construct($object, FactoryManagerInterface $manager)
 	{
 		// check type, id and meta in ResourceIdentifier
-		parent::__construct($object);
+		parent::__construct($object, $manager);
 
 		if ( property_exists($object, 'attributes') )
 		{
-			$this->attributes = new Attributes($object->attributes);
+			$this->attributes = $this->manager->getFactory()->make(
+				'Attributes',
+				[$object->attributes, $this->manager]
+			);
 		}
 
 		if ( property_exists($object, 'relationships') )
 		{
-			$this->relationships = new RelationshipCollection($object->relationships, $this);
+			$this->relationships = $this->manager->getFactory()->make(
+				'RelationshipCollection',
+				[$object->relationships, $this->manager, $this]
+			);
 		}
 
 		if ( property_exists($object, 'links') )
 		{
-			$this->setLinks(new Link($object->links));
+			$this->setLinks($this->manager->getFactory()->make(
+				'Link',
+				[$object->links, $this->manager]
+			));
 		}
 
 		return $this;

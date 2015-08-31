@@ -2,11 +2,10 @@
 
 namespace Art4\JsonApiClient;
 
-use Art4\JsonApiClient\Resource\Collection;
 use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Utils\MetaTrait;
 use Art4\JsonApiClient\Utils\LinksTrait;
-use Art4\JsonApiClient\Resource\Identifier;
+use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 
@@ -24,6 +23,11 @@ class Relationship implements AccessInterface
 	use LinksTrait;
 
 	/**
+	 * @var FactoryManagerInterface
+	 */
+	protected $manager;
+
+	/**
 	 * @var null|ResourceIdentifier
 	 */
 	protected $data = false; // Cannot be null, because null is a valid value too
@@ -35,7 +39,7 @@ class Relationship implements AccessInterface
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($object)
+	public function __construct($object, FactoryManagerInterface $manager)
 	{
 		if ( ! is_object($object) )
 		{
@@ -47,9 +51,14 @@ class Relationship implements AccessInterface
 			throw new ValidationException('A Relationship object MUST contain at least one of the following properties: links, data, meta');
 		}
 
+		$this->manager = $manager;
+
 		if ( property_exists($object, 'links') )
 		{
-			$this->setLinks(new RelationshipLink($object->links));
+			$this->setLinks($this->manager->getFactory()->make(
+				'RelationshipLink',
+				[$object->links, $this->manager]
+			));
 		}
 
 		if ( property_exists($object, 'data') )
@@ -168,8 +177,8 @@ class Relationship implements AccessInterface
 	 *
 	 * @throws ValidationException If $data isn't null or an object
 	 *
-	 * @param null|object $data Data value
-	 * @return null|ResourceIdentifier The parsed data
+	 * @param null|array|object $data Data value
+	 * @return null|Resource\Identifier|Resource\IdentifierCollection The parsed data
 	 */
 	protected function parseData($data)
 	{
@@ -180,24 +189,15 @@ class Relationship implements AccessInterface
 
 		if ( is_array($data) )
 		{
-			$collection = new Collection($data);
-			foreach ($collection->getKeys() as $key)
-			{
-				$obj = $collection->get($key);
-				if (!$obj instanceof Identifier)
-				{
-					throw new ValidationException('Data has to be instance of "Resource\\Identifier", "' . gettype($obj) . '" given.');
-				}
-			}
-
-			return $collection;
+			return $this->manager->getFactory()->make(
+				'Resource\IdentifierCollection',
+				[$data, $this->manager]
+			);
 		}
 
-		if ( ! is_object($data) )
-		{
-			throw new ValidationException('Data value has to be null or an object, "' . gettype($data) . '" given.');
-		}
-
-		return new Identifier($data);
+		return $this->manager->getFactory()->make(
+			'Resource\Identifier',
+			[$data, $this->manager]
+		);
 	}
 }

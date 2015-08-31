@@ -5,6 +5,7 @@ namespace Art4\JsonApiClient;
 use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Utils\MetaTrait;
 use Art4\JsonApiClient\Utils\LinksTrait;
+use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 
@@ -20,6 +21,11 @@ class Error implements AccessInterface
 	use MetaTrait;
 
 	use LinksTrait;
+
+	/**
+	 * @var FactoryManagerInterface
+	 */
+	protected $manager;
 
 	protected $id = null;
 
@@ -40,12 +46,14 @@ class Error implements AccessInterface
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($object)
+	public function __construct($object, FactoryManagerInterface $manager)
 	{
 		if ( ! is_object($object) )
 		{
 			throw new ValidationException('Error has to be an object, "' . gettype($object) . '" given.');
 		}
+
+		$this->manager = $manager;
 
 		if ( property_exists($object, 'id') )
 		{
@@ -59,7 +67,10 @@ class Error implements AccessInterface
 
 		if ( property_exists($object, 'links') )
 		{
-			$this->setLinks(new ErrorLink($object->links));
+			$this->setLinks($this->manager->getFactory()->make(
+				'ErrorLink',
+				[$object->links, $this->manager]
+			));
 		}
 
 		if ( property_exists($object, 'status') )
@@ -104,7 +115,10 @@ class Error implements AccessInterface
 
 		if ( property_exists($object, 'source') )
 		{
-			$this->source = new ErrorSource($object->source);
+			$this->source = $this->manager->getFactory()->make(
+				'ErrorSource',
+				[$object->source, $this->manager]
+			);
 		}
 
 		if ( property_exists($object, 'meta') )
