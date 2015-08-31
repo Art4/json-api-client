@@ -40,11 +40,12 @@ All possible objects and their hierarchical structure are listet below.
 
 ## Value access
 
-JSON API Client will parse a JSON API content into a hierarchical object stucture. **Every object has these methods for getting the values:**
+JSON API Client will parse a JSON API content into a hierarchical object stucture. Every object implements the `AccessInterface` and has these methods for getting the values:
 
-- `has($key)`
-- `get($key)`
-- `getKeys()`
+- `has($key)`: Check, if a value exists
+- `get($key)`: Get a value
+- `getKeys()`: Get the keys of all existing values
+- `asArray()`: Get all values as an array
 
 ### Check if a value exist
 
@@ -61,7 +62,7 @@ var_dump($document->has('meta'));
 This returns:
 
 ```php
-true
+bool(true)
 ```
 
 ### Get the keys of all existing values
@@ -75,9 +76,9 @@ var_dump($document->getKeys());
 This returns:
 
 ```php
-array(
+array(1) {
   0 => 'meta'
-)
+}
 ```
 
 This can be useful to get available values:
@@ -85,7 +86,7 @@ This can be useful to get available values:
 ```php
 foreach($document->getKeys() as $key)
 {
-	$value = $document->get($key);
+	$model->$key = $document->get($key);
 }
 ```
 
@@ -100,3 +101,43 @@ $meta = $document->get('meta');
 ```
 
 > **Note:** Using `get()` on a non-existing value will throw an [Exception\AccessException](exception-introduction.md#exceptionaccessexception). Use `has()` or `getKeys()` to check if a value exists.
+
+### Get the containing data as array
+
+You can get all data as an array using the `asArray()` method.
+
+```php
+$array = $document->asArray();
+
+var_dump($array);
+```
+
+This returns:
+
+```php
+array(1) {
+  ["meta"] => object(Art4\JsonApiClient\Meta)#9 (2) { ... }
+}
+```
+
+If you want a full array without any objects, use `asArray(true)` to parse all objects recursively into arrays.
+
+```php
+$array = $document->asArray(true);
+
+var_dump($array);
+```
+
+This returns:
+
+```php
+array(1) {
+  ["meta"] => array(1) {
+    ["info"] => string(28) "Testing the JSON API Client."
+  }
+}
+```
+
+### Need more?
+
+If you need more opportunities to get the values take a look at the [Factory](utils-factory.md) to inject more functionality.

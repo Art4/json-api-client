@@ -7,12 +7,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
+- Introduce `Utils\Manager` and `Utils\Factory` for injecting own classes into the client
 - Every object inside the document implements `AccessInterface`
 - `AccessInterface` supports `asArray()` for transforming an object into an array
+- A `Resource\IdentifierCollection` that is either empty or holds only `Resource\Identifier` objects
 
 ### Fixed
 
-- `Relationship::get('data')` returns a `Resource\Collection` object instead of an array
+- `Relationship::get('data')` returns a `Resource\IdentifierCollection` object instead of an array
 
 ## [0.3] - 2015-08-24
 
