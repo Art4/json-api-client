@@ -9,6 +9,33 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @test
 	 */
+	public function testCreateReturnsSelf()
+	{
+		$manager = new Manager;
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Utils\ManagerInterface', $manager);
+		$this->assertInstanceOf('Art4\JsonApiClient\Utils\FactoryManagerInterface', $manager);
+	}
+
+	/**
+	 * @test
+	 */
+	public function testCreateWithConstructorReturnsSelf()
+	{
+		$factory = $this->getMockBuilder('Art4\JsonApiClient\Utils\Factory')
+			->getMock();
+
+		$manager = new Manager($factory);
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Utils\ManagerInterface', $manager);
+		$this->assertInstanceOf('Art4\JsonApiClient\Utils\FactoryManagerInterface', $manager);
+
+		$this->assertSame($factory, $manager->getFactory());
+	}
+
+	/**
+	 * @test
+	 */
 	public function testSetFactoryReturnsSelf()
 	{
 		$factory = $this->getMockBuilder('Art4\JsonApiClient\Utils\Factory')

@@ -7,7 +7,19 @@ class Manager implements ManagerInterface, FactoryManagerInterface
 	/**
 	 * @var FactoryInterface
 	 */
-	protected $factory = null;
+	public $factory = null;
+
+	/**
+	 * @param  FactoryInterface $factory
+	 * @return object
+	 */
+	public function __construct($factory = null)
+	{
+		if ( ! is_null($factory) )
+		{
+			$this->setFactory($factory);
+		}
+	}
 
 	/**
 	 * Set a factory into the manager
@@ -41,10 +53,9 @@ class Manager implements ManagerInterface, FactoryManagerInterface
 	 * Parse a JSON API string into an object
 	 *
 	 * @param   string $string The JSON API string
+	 * @return  Art4\JsonApiClient\AccessInterface
 	 *
 	 * @throws  Art4\JsonApiClient\Exception\ValidationException If $string is not valid JSON API
-	 *
-	 * @return  Art4\JsonApiClient\AccessInterface
 	 */
 	public function parse($string)
 	{
