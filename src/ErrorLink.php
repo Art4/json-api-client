@@ -32,12 +32,12 @@ class ErrorLink extends Link
 	{
 		if ( ! is_object($object) )
 		{
-			throw new ValidationException('$object has to be an object, "' . gettype($object) . '" given.');
+			throw new ValidationException('Link has to be an object, "' . gettype($object) . '" given.');
 		}
 
 		if ( ! property_exists($object, 'about') )
 		{
-			throw new ValidationException('$object MUST contain these properties: about');
+			throw new ValidationException('ErrorLink MUST contain these properties: about');
 		}
 
 		$this->manager = $manager;

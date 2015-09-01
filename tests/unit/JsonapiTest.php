@@ -71,7 +71,10 @@ class JsonapiTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'Jsonapi has to be an object, "' . gettype($input) . '" given.'
+		);
 
 		$jsonapi = new Jsonapi($input, $this->manager);
 	}
@@ -88,7 +91,11 @@ class JsonapiTest extends \PHPUnit_Framework_TestCase
 
 		if ( gettype($input) === 'object' or gettype($input) === 'array' )
 		{
-			$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+			$this->setExpectedException(
+				'Art4\JsonApiClient\Exception\ValidationException',
+				'property "version" cannot be an object or array, "' . gettype($input) . '" given.'
+			);
+
 			$jsonapi = new Jsonapi($object, $this->manager);
 			return;
 		}

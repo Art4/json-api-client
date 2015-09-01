@@ -71,7 +71,10 @@ class ErrorSourceTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->pointer = $input;
 
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'property "pointer" has to be a string, "' . gettype($input) . '" given.'
+		);
 
 		$source = new ErrorSource($object, $this->manager);
 	}
@@ -92,7 +95,10 @@ class ErrorSourceTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->parameter = $input;
 
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'property "parameter" has to be a string, "' . gettype($input) . '" given.'
+		);
 
 		$source = new ErrorSource($object, $this->manager);
 	}

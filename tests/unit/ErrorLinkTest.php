@@ -64,7 +64,10 @@ class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->foobar = new \stdClass();
 
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'ErrorLink MUST contain these properties: about'
+		);
 
 		$link = new ErrorLink($object, $this->manager);
 	}
@@ -103,7 +106,10 @@ class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'Link has to be an object, "' . gettype($input) . '" given.'
+		);
 
 		$link = new ErrorLink($input, $this->manager);
 	}

@@ -98,7 +98,10 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'Link has to be an object, "' . gettype($input) . '" given.'
+		);
 
 		$link = new Link($input, $this->manager);
 	}

@@ -113,7 +113,11 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->id = $input;
 
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'property "id" has to be a string, "' . gettype($input) . '" given.'
+		);
+
 		$error = new Error($object, $this->manager);
 	}
 
@@ -131,7 +135,11 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->status = $input;
 
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'property "status" has to be a string, "' . gettype($input) . '" given.'
+		);
+
 		$error = new Error($object, $this->manager);
 	}
 
@@ -149,7 +157,11 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->code = $input;
 
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'property "code" has to be a string, "' . gettype($input) . '" given.'
+		);
+
 		$error = new Error($object, $this->manager);
 	}
 
@@ -167,7 +179,11 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->title = $input;
 
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'property "title" has to be a string, "' . gettype($input) . '" given.'
+		);
+
 		$error = new Error($object, $this->manager);
 	}
 
@@ -185,7 +201,11 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->detail = $input;
 
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'property "detail" has to be a string, "' . gettype($input) . '" given.'
+		);
+
 		$error = new Error($object, $this->manager);
 	}
 }
