@@ -101,4 +101,25 @@ class MetaTest extends \PHPUnit_Framework_TestCase
 
 		$link = new Meta($input, $this->manager);
 	}
+
+	/**
+	 * @test get() with not existing key throws an exception
+	 */
+	public function testGetWithNotExistingKeyThrowsException()
+	{
+		$object = new \stdClass();
+
+		$meta = new Meta($object, $this->manager);
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Meta', $meta);
+
+		$this->assertFalse($meta->has('something'));
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\AccessException',
+			'"something" doesn\'t exist in this object.'
+		);
+
+		$meta->get('something');
+	}
 }

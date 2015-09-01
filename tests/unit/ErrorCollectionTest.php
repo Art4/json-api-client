@@ -35,6 +35,10 @@ class ErrorCollectionTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue(count($collection->asArray()) === 2);
 		$this->assertSame($collection->getKeys(), array(0, 1));
 
+		$this->assertFalse($collection->has(new \stdClass));
+		$this->assertFalse($collection->has(array()));
+		$this->assertFalse($collection->has('string'));
+
 		$this->assertTrue($collection->has(0));
 		$error = $collection->get(0);
 

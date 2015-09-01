@@ -53,6 +53,37 @@ class ErrorSourceTest extends \PHPUnit_Framework_TestCase
 			'pointer' => $source->get('pointer'),
 			'parameter' => $source->get('parameter'),
 		));
+
+		// test get() with not existing key throws an exception
+		$this->assertFalse($source->has('something'));
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\AccessException',
+			'"something" doesn\'t exist in this error source.'
+		);
+
+		$source->get('something');
+	}
+
+	/**
+	 * @dataProvider jsonValuesProvider
+	 *
+	 * source: an object containing references to ...
+	 */
+	public function testCreateWithoutObjectThrowsException($input)
+	{
+		// Input must be an object
+		if ( gettype($input) === 'object' )
+		{
+			return;
+		}
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'ErrorSource has to be an object, "' . gettype($input) . '" given.'
+		);
+
+		$source = new ErrorSource($input, $this->manager);
 	}
 
 	/**

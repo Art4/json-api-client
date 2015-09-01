@@ -92,14 +92,12 @@ class ErrorCollection implements AccessInterface
 	{
 		$keys = array();
 
-		if ( count($this->errors) === 0 )
+		if ( count($this->errors) > 0 )
 		{
-			return $keys;
-		}
-
-		foreach ( $this->errors as $key => $value )
-		{
-			$keys[] = $key;
+			foreach ( $this->errors as $key => $value )
+			{
+				$keys[] = $key;
+			}
 		}
 
 		return $keys;
