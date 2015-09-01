@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][]
 
+## [0.4] - 2015-09-01
+
 ### Added
 
 - Introduce `Utils\Manager` and `Utils\Factory` for injecting own classes into the client
@@ -49,6 +51,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Validator fits nearly 100% specification
 - Full test coverage
 
-[Unreleased]: https://github.com/Art4/json-api-client/compare/0.3...HEAD
+[Unreleased]: https://github.com/Art4/json-api-client/compare/0.4...HEAD
+[0.4]: https://github.com/Art4/json-api-client/compare/0.3...0.4
 [0.3]: https://github.com/Art4/json-api-client/compare/0.2...0.3
 [0.2]: https://github.com/Art4/json-api-client/compare/0.1...0.2
