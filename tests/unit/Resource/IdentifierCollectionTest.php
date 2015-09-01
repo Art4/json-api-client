@@ -57,25 +57,8 @@ class IdentifierCollectionTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($collection->getKeys(), array(0, 1, 2));
 
 		$this->assertTrue($collection->has(0));
-		$resource = $collection->get(0);
-
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $resource);
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $resource);
-		$this->assertNotInstanceOf('Art4\JsonApiClient\Resource\Item', $resource);
-
 		$this->assertTrue($collection->has(1));
-		$resource = $collection->get(1);
-
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $resource);
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $resource);
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $resource);
-
 		$this->assertTrue($collection->has(2));
-		$resource = $collection->get(2);
-
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $resource);
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $resource);
-		$this->assertNotInstanceOf('Art4\JsonApiClient\Resource\Item', $resource);
 
 		$this->assertSame($collection->asArray(), array(
 			$collection->get(0),
@@ -108,7 +91,7 @@ class IdentifierCollectionTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $collection);
 
 		$this->assertTrue($collection->isCollection());
-		$this->assertCount($collection->asArray(), 1);
+		$this->assertCount(1, $collection->asArray());
 		$this->assertSame($collection->getKeys(), array(0));
 		$this->assertTrue($collection->has(0));
 
@@ -141,22 +124,6 @@ class IdentifierCollectionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @dataProvider jsonValuesProvider
-	 */
-	public function testCreateWithoutObjectInArrayThrowsException($input)
-	{
-		// Input must be an object
-		if ( gettype($input) === 'object' )
-		{
-			return;
-		}
-
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
-
-		$collection = new IdentifierCollection(array($input), $this->manager);
-	}
-
-	/**
 	 * @test get('resources') on an empty identifier collection throws an exception
 	 */
 	public function testGetResourcesWithEmptyCollectionThrowsException()
@@ -167,7 +134,10 @@ class IdentifierCollectionTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertFalse($collection->has(0));
 
-		$this->setExpectedException('Art4\JsonApiClient\Exception\AccessException');
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\AccessException',
+			'"0" doesn\'t exist in this resource.'
+		);
 
 		$collection->get(0);
 	}
