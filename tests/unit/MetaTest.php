@@ -81,6 +81,8 @@ class MetaTest extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * @dataProvider jsonValuesProvider
+	 *
+	 * The value of each meta member MUST be an object (a "meta object").
 	 */
 	public function testCreateWithoutObjectThrowsException($input)
 	{
@@ -98,25 +100,5 @@ class MetaTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$link = new Meta($input, $this->manager);
-	}
-
-	/**
-	 * @dataProvider jsonValuesProvider
-	 *
-	 * The value of each meta member MUST be an object (a "meta object").
-	 */
-	public function testSelfMustBeAString($input)
-	{
-		// Input must be an object
-		if ( gettype($input) === 'object' )
-		{
-			$this->assertInstanceOf('Art4\JsonApiClient\Meta', new Meta($input, $this->manager));
-
-			return;
-		}
-
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
-
-		$meta = new Meta($input, $this->manager);
 	}
 }

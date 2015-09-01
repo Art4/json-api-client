@@ -70,7 +70,10 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreateWithoutSelfAndRelatedPropertiesThrowsException()
 	{
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'RelationshipLink has to be at least a "self" or "related" link'
+		);
 
 		$object = new \stdClass();
 		$object->pagination = new \stdClass();
@@ -94,7 +97,10 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->self = $input;
 
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'property "self" has to be a string, "' . gettype($input) . '" given.'
+		);
 
 		$link = new RelationshipLink($object, $this->manager);
 	}
@@ -116,26 +122,10 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->related = $input;
 
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
-
-		$link = new RelationshipLink($object, $this->manager);
-	}
-
-	/**
-	 * @dataProvider jsonValuesProvider
-	 */
-	public function testPaginationMustBeAnObject($input)
-	{
-		// Input must be an object
-		if ( gettype($input) === 'object' )
-		{
-			return;
-		}
-
-		$object = new \stdClass();
-		$object->pagination = $input;
-
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'property "related" has to be a string, "' . gettype($input) . '" given.'
+		);
 
 		$link = new RelationshipLink($object, $this->manager);
 	}

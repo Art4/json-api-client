@@ -99,7 +99,7 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException Art4\JsonApiClient\Exception\ValidationException
+	 * @test
 	 *
 	 * Fields for a resource object MUST share a common namespace with each other and with `type` and `id`.
 	 */
@@ -126,7 +126,7 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException Art4\JsonApiClient\Exception\ValidationException
+	 * @test
 	 *
 	 * In other words, a resource can not have an attribute and relationship with the same name,
 	 */
@@ -137,26 +137,30 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 			->getMock();
 		$mock_attributes->expects($this->any())
 			->method('has')
-			->with($this->equalTo('relationships'))
+			->with($this->equalTo('author'))
 			->will($this->returnValue(true));
 
-		$mock = $this->getMockBuilder('Art4\JsonApiClient\Resource\Item')
+		$item = $this->getMockBuilder('Art4\JsonApiClient\Resource\Item')
 			->disableOriginalConstructor()
 			->getMock();
-		$mock->expects($this->any())
+		$item->expects($this->any())
 			->method('has')
 			->with($this->equalTo('attributes'))
 			->willReturn(true);
-		$mock->expects($this->any())
+		$item->expects($this->any())
 			->method('get')
 			->with($this->equalTo('attributes'))
 			->willReturn($mock_attributes);
 
 		$object = new \stdClass();
-		$object->relationships = new \stdClass();
-		$object->relationships->author = new \stdClass();
+		$object->author = new \stdClass();
 
-		$collection = new RelationshipCollection($object, $this->manager, $mock);
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'"author" property cannot be set because it exists already in parents Resource object.'
+		);
+
+		$collection = new RelationshipCollection($object, $this->manager, $item);
 	}
 
 	/**

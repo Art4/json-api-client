@@ -114,7 +114,10 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'property "first" has to be a string or null, "' . gettype($input) . '" given.'
+		);
 
 		$link = new PaginationLink($object, $this->manager);
 	}
@@ -150,7 +153,10 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'property "last" has to be a string or null, "' . gettype($input) . '" given.'
+		);
 
 		$link = new PaginationLink($object, $this->manager);
 	}
@@ -186,7 +192,10 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'property "prev" has to be a string or null, "' . gettype($input) . '" given.'
+		);
 
 		$link = new PaginationLink($object, $this->manager);
 	}
@@ -222,7 +231,10 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'property "next" has to be a string or null, "' . gettype($input) . '" given.'
+		);
 
 		$link = new PaginationLink($object, $this->manager);
 	}
