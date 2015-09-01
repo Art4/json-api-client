@@ -49,17 +49,17 @@ class Document implements AccessInterface
 	{
 		if ( ! is_object($object) )
 		{
-			throw new ValidationException('$object has to be an object, "' . gettype($object) . '" given.');
+			throw new ValidationException('Document has to be an object, "' . gettype($object) . '" given.');
 		}
 
 		if ( ! property_exists($object, 'data') and ! property_exists($object, 'meta') and ! property_exists($object, 'errors') )
 		{
-			throw new ValidationException('$object MUST contain at least one of the following properties: data, errors, meta');
+			throw new ValidationException('Document MUST contain at least one of the following properties: data, errors, meta');
 		}
 
 		if ( property_exists($object, 'data') and property_exists($object, 'errors') )
 		{
-			throw new ValidationException('The properties `data` and `errors` MUST NOT coexist in $object.');
+			throw new ValidationException('The properties `data` and `errors` MUST NOT coexist in Document.');
 		}
 
 		$this->manager = $manager;

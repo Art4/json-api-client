@@ -53,12 +53,16 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'Relationship has to be an object, "' . gettype($input) . '" given.'
+		);
+
 		$relationship = new Relationship($input, $this->manager);
 	}
 
 	/**
-	 * @expectedException Art4\JsonApiClient\Exception\ValidationException
+	 * @test
 	 *
 	 * A "relationship object" MUST contain at least one of the following: links, data, meta
 	 */
@@ -66,6 +70,11 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase
 	{
 		$object = new \stdClass();
 		$object->foo = 'bar';
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'A Relationship object MUST contain at least one of the following properties: links, data, meta'
+		);
 
 		$relationship = new Relationship($object, $this->manager);
 	}

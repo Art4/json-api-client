@@ -77,7 +77,10 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->self = $input;
 
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'property "self" has to be a string, "' . gettype($input) . '" given.'
+		);
 
 		$link = new DocumentLink($object, $this->manager);
 	}
@@ -99,7 +102,10 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->related = $input;
 
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'property "related" has to be a string, "' . gettype($input) . '" given.'
+		);
 
 		$link = new DocumentLink($object, $this->manager);
 	}

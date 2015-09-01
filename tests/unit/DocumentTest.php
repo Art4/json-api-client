@@ -99,13 +99,18 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException Art4\JsonApiClient\Exception\ValidationException
+	 * @test
 	 *
 	 * A document MUST contain at least one of the following top-level members: data, errors, meta
 	 */
 	public function testCreateWithoutAnyToplevelMemberThrowsException()
 	{
 		$object = new \stdClass();
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'Document MUST contain at least one of the following properties: data, errors, meta'
+		);
 
 		$document = new Document($object, $this->manager);
 	}
@@ -276,7 +281,10 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException', 'Data value has to be null or an object, "' . gettype($input) . '" given.');
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'Data value has to be null or an object, "' . gettype($input) . '" given.'
+		);
 
 		$object = new \stdClass();
 		$object->data = $input;
@@ -315,7 +323,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
-			'The properties `data` and `errors` MUST NOT coexist in $object.'
+			'The properties `data` and `errors` MUST NOT coexist in Document.'
 		);
 
 		$document = new Document($object, $this->manager);
@@ -417,7 +425,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException Art4\JsonApiClient\Exception\AccessException
+	 * @test
 	 */
 	public function testGetOnANonExistingKeyThrowsException()
 	{
@@ -425,6 +433,11 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$object->meta = new \stdClass();
 
 		$document = new Document($object, $this->manager);
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\AccessException',
+			'"something" doesn\'t exist in Document.'
+		);
 
 		$document->get('something');
 	}

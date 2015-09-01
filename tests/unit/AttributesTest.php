@@ -91,12 +91,16 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'Attributes has to be an object, "' . gettype($input) . '" given.'
+		);
+
 		$error = new Attributes($input, $this->manager);
 	}
 
 	/**
-	 * @expectedException Art4\JsonApiClient\Exception\ValidationException
+	 * @test
 	 *
 	 * These properties are not allowed in attributes: `type`, `id`, `relationships`, `links`
 	 */
@@ -105,11 +109,16 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->type = 'posts';
 
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'These properties are not allowed in attributes: `type`, `id`, `relationships`, `links`'
+		);
+
 		$attributes = new Attributes($object, $this->manager);
 	}
 
 	/**
-	 * @expectedException Art4\JsonApiClient\Exception\ValidationException
+	 * @test
 	 *
 	 * These properties are not allowed in attributes: `type`, `id`, `relationships`, `links`
 	 */
@@ -118,11 +127,16 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->id = '5';
 
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'These properties are not allowed in attributes: `type`, `id`, `relationships`, `links`'
+		);
+
 		$attributes = new Attributes($object, $this->manager);
 	}
 
 	/**
-	 * @expectedException Art4\JsonApiClient\Exception\ValidationException
+	 * @test
 	 *
 	 * These properties are not allowed in attributes: `type`, `id`, `relationships`, `links`
 	 */
@@ -131,11 +145,16 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->relationships = new \stdClass();
 
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'These properties are not allowed in attributes: `type`, `id`, `relationships`, `links`'
+		);
+
 		$attributes = new Attributes($object, $this->manager);
 	}
 
 	/**
-	 * @expectedException Art4\JsonApiClient\Exception\ValidationException
+	 * @test
 	 *
 	 * These properties are not allowed in attributes: `type`, `id`, `relationships`, `links`
 	 */
@@ -143,6 +162,11 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 	{
 		$object = new \stdClass();
 		$object->links = new \stdClass();
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'These properties are not allowed in attributes: `type`, `id`, `relationships`, `links`'
+		);
 
 		$attributes = new Attributes($object, $this->manager);
 	}

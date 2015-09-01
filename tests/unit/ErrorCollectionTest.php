@@ -96,7 +96,10 @@ class ErrorCollectionTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertFalse($collection->has(1));
 
-		$this->setExpectedException('Art4\JsonApiClient\Exception\AccessException');
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\AccessException',
+			'"1" doesn\'t exist in this collection.'
+		);
 
 		$collection->get(1);
 	}
