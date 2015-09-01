@@ -51,6 +51,16 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($collection->asArray(true), array(
 			'author' => $collection->get('author')->asArray(true),
 		));
+
+		// test get() with not existing key throws an exception
+		$this->assertFalse($collection->has('something'));
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\AccessException',
+			'"something" doesn\'t exist in this relationship collection.'
+		);
+
+		$collection->get('something');
 	}
 
 	/**

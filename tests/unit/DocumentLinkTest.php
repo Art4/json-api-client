@@ -64,6 +64,27 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @dataProvider jsonValuesProvider
 	 *
+	 * links: a links object related to the primary data.
+	 */
+	public function testCreateWithoutObjectThrowsException($input)
+	{
+		// Input must be an object
+		if ( gettype($input) === 'object' )
+		{
+			return;
+		}
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'DocumentLink has to be an object, "' . gettype($input) . '" given.'
+		);
+
+		$link = new DocumentLink($input, $this->manager);
+	}
+
+	/**
+	 * @dataProvider jsonValuesProvider
+	 *
 	 * self: the link that generated the current response document.
 	 */
 	public function testSelfMustBeAString($input)

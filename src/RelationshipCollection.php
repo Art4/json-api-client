@@ -101,7 +101,7 @@ class RelationshipCollection implements AccessInterface
 	{
 		if ( ! $this->has($name) )
 		{
-			throw new AccessException('"' . $key . '" doesn\'t exist in this relationship collection.');
+			throw new AccessException('"' . $name . '" doesn\'t exist in this relationship collection.');
 		}
 
 		return $this->_data[$name];

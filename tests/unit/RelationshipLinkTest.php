@@ -66,6 +66,27 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * @dataProvider jsonValuesProvider
+	 *
+	 * links: a links object containing at least one of the following:
+	 */
+	public function testCreateWithoutObjectThrowsException($input)
+	{
+		// Input must be an object
+		if ( gettype($input) === 'object' )
+		{
+			return;
+		}
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'RelationshipLink has to be an object, "' . gettype($input) . '" given.'
+		);
+
+		$link = new RelationshipLink($input, $this->manager);
+	}
+
+	/**
 	 * @test object contains at least one of the following: self, related
 	 */
 	public function testCreateWithoutSelfAndRelatedPropertiesThrowsException()

@@ -33,7 +33,7 @@ class DocumentLink extends Link
 	{
 		if ( ! is_object($object) )
 		{
-			throw new ValidationException('DocumentLinks has to be an object, "' . gettype($object) . '" given.');
+			throw new ValidationException('DocumentLink has to be an object, "' . gettype($object) . '" given.');
 		}
 
 		$this->manager = $manager;
