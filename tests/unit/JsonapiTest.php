@@ -55,6 +55,16 @@ class JsonapiTest extends \PHPUnit_Framework_TestCase
 			'version' => $jsonapi->get('version'),
 			'meta' => $jsonapi->get('meta')->asArray(true),
 		));
+
+		// test get() with not existing key throws an exception
+		$this->assertFalse($jsonapi->has('something'));
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\AccessException',
+			'"something" doesn\'t exist in this jsonapi object.'
+		);
+
+		$jsonapi->get('something');
 	}
 
 	/**

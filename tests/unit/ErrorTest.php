@@ -78,6 +78,16 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 			'source' => $error->get('source')->asArray(true),
 			'meta'   => $error->get('meta')->asArray(true),
 		));
+
+		// test get() with not existing key throws an exception
+		$this->assertFalse($error->has('something'));
+
+		$this->setExpectedException(
+		'Art4\JsonApiClient\Exception\AccessException',
+		'"something" doesn\'t exist in this error object.'
+		);
+
+		$error->get('something');
 	}
 
 	/**

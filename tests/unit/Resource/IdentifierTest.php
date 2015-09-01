@@ -167,7 +167,10 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
 		$identifier = new Identifier($object, $this->manager);
 		$this->assertFalse($identifier->has('foobar'));
 
-		$this->setExpectedException('Art4\JsonApiClient\Exception\AccessException');
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\AccessException',
+			'"foobar" doesn\'t exist in this identifier.'
+		);
 
 		$identifier->get('foobar');
 	}

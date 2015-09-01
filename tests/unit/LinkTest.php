@@ -57,6 +57,16 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 			'link' => $link->get('link'),
 			'meta' => $link->get('meta')->asArray(true),
 		));
+
+		// test get() with not existing key throws an exception
+		$this->assertFalse($link->has('something'));
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\AccessException',
+			'"something" doesn\'t exist in this object.'
+		);
+
+		$link->get('something');
 	}
 
 	/**

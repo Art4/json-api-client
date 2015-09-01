@@ -38,6 +38,16 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase
 
 		// Test full array
 		$this->assertSame($relationship->asArray(true), array('meta' => $meta->asArray(true)));
+
+		// test get() with not existing key throws an exception
+		$this->assertFalse($relationship->has('something'));
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\AccessException',
+			'"something" doesn\'t exist in Relationship.'
+		);
+
+		$relationship->get('something');
 	}
 
 	/**
