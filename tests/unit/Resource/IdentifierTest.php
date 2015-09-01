@@ -87,7 +87,10 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
 
 		if ( gettype($input) === 'object' or gettype($input) === 'array' )
 		{
-			$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+			$this->setExpectedException(
+				'Art4\JsonApiClient\Exception\ValidationException',
+				'Resource type cannot be an array or object'
+			);
 		}
 
 		$identifier = new Identifier($object, $this->manager);
@@ -108,7 +111,10 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
 
 		if ( gettype($input) === 'object' or gettype($input) === 'array' )
 		{
-			$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+			$this->setExpectedException(
+				'Art4\JsonApiClient\Exception\ValidationException',
+				'Resource Id cannot be an array or object'
+			);
 		}
 
 		$identifier = new Identifier($object, $this->manager);
@@ -124,7 +130,15 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreateWithDataproviderThrowsException($input)
 	{
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+		if ( gettype($input) === 'object' )
+		{
+			return;
+		}
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'Resource has to be an object, "' . gettype($input) . '" given.'
+		);
 
 		$identifier = new Identifier($input, $this->manager);
 	}

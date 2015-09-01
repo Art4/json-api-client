@@ -47,7 +47,10 @@ class NullTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetThrowsException()
 	{
-		$this->setExpectedException('Art4\JsonApiClient\Exception\AccessException', 'A NullResource has no values.');
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\AccessException',
+			'A NullResource has no values.'
+		);
 
 		$resource = new NullResource(null, $this->manager);
 		$resource->get('something');

@@ -34,7 +34,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue(count($collection->asArray()) === 0);
 		$this->assertSame($collection->getKeys(), array());
 		$this->assertFalse($collection->has(0));
-		
+
 		// Test get() with various key types
 		$this->assertFalse($collection->has(new \stdClass()));
 		$this->assertFalse($collection->has(array()));
@@ -181,7 +181,10 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'Resources inside a collection MUST be objects, "' . gettype($input) . '" given.'
+		);
 
 		$collection = new Collection(array($input), $this->manager);
 	}
@@ -197,7 +200,10 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertFalse($collection->has(0));
 
-		$this->setExpectedException('Art4\JsonApiClient\Exception\AccessException');
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\AccessException',
+			'"0" doesn\'t exist in this resource.'
+		);
 
 		$collection->get(0);
 	}
