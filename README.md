@@ -10,6 +10,14 @@ JSON API Client is a PHP Library to validate and handle the response body from a
 
 Format: [JSON API](http://jsonapi.org/format) 1.0
 
+### WIP: Goals for 1.0
+
+* [x] Be 100% JSON API 1.0 spec conform
+* [x] Handle/validate a server response body
+* [ ] Offer an easy way to retrieve the data
+* [x] Be extendable and allow injection of classes/models
+* [ ] Handle/validate a client request body
+
 ## Install
 
 Via Composer
@@ -80,7 +88,7 @@ $ phpunit
 
 ## Contributing
 
-Please feel free to fork and sending Pull Requests.
+Please feel free to fork and sending Pull Requests. This project follows [Semantic Versioning 2](http://semver.org).
 
 ## Credits
 
