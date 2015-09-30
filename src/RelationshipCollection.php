@@ -75,7 +75,7 @@ class RelationshipCollection implements AccessInterface
 	 *
 	 * @return bool true if the value is set, false if not
 	 */
-	public function has($key)
+	protected function hasValue($key)
 	{
 		return array_key_exists($key, $this->_data);
 	}

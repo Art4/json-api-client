@@ -66,10 +66,10 @@ class Item extends Identifier
 	 * @param string $key The key of the value
 	 * @return bool true if data exists, false if not
 	 */
-	public function has($key)
+	protected function hasValue($key)
 	{
 		// meta, type, id
-		if ( parent::has($key) === true )
+		if ( parent::hasValue($key) === true )
 		{
 			return true;
 		}

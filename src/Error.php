@@ -135,7 +135,7 @@ class Error implements AccessInterface
 	 * @param string $key The key of the value
 	 * @return bool true if data exists, false if not
 	 */
-	public function has($key)
+	protected function hasValue($key)
 	{
 		// id
 		if ( $key === 'id' and $this->id !== null )

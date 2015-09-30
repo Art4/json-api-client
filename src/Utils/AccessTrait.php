@@ -38,30 +38,49 @@ trait AccessTrait
 	}
 
 	/**
-	 * Converts a key into an object
+	 * Check if a value exists
 	 *
 	 * @param mixed $key The key
-	 * @return array
+	 * @return boolean
+	 */
+	public function has($key)
+	{
+		$key = $this->parseKey($key);
+
+		$string = $key->shift();
+		$key->next();
+
+		if ( $key->count() === 0 )
+		{
+			return $this->hasValue($string);
+		}
+
+		if ( ! $this->hasValue($string) )
+		{
+			return false;
+		}
+
+		$value = $this->getValue($string);
+
+		// #TODO Handle other objects an arrays
+		if ( ! $value instanceof AccessInterface )
+		{
+			//throw new AccessException('The existance for the key "' . $key->raw . '" could\'nt be checked.');
+			return false;
+		}
+
+		return $value->has($key);
+	}
+
+	/**
+	 * Get a value by a key
+	 *
+	 * @param mixed $key The key
+	 * @return mixed
 	 */
 	public function get($key)
 	{
-		if ( ! is_object($key) and ! $key instanceof \SplStack )
-		{
-			// #TODO Handle arrays and objects
-			$key_string = (string) $key;
-
-			$keys = explode('.', $key_string);
-
-			$key = new \SplStack;
-			$key->raw = $key_string;
-
-			foreach ( $keys as $value )
-			{
-				$key->push($value);
-			}
-
-			$key->rewind();
-		}
+		$key = $this->parseKey($key);
 
 		$string = $key->shift();
 		$key->next();
@@ -79,6 +98,42 @@ trait AccessTrait
 		}
 
 		return $value->get($key);
+	}
+
+	/**
+	 * Parse a dot.notated.key to an object
+	 *
+	 * @param string|\SplStack $key The key
+	 * @return \SplStack The parsed key
+	 */
+	protected function parseKey($key)
+	{
+		if ( is_object($key) and $key instanceof \SplStack )
+		{
+			return $key;
+		}
+
+		// Handle arrays and objects
+		if ( is_object($key) or is_array($key) )
+		{
+			$key = '';
+		}
+
+		$key_string = strval($key);
+
+		$keys = explode('.', $key_string);
+
+		$key = new \SplStack;
+		$key->raw = $key_string;
+
+		foreach ( $keys as $value )
+		{
+			$key->push($value);
+		}
+
+		$key->rewind();
+
+		return $key;
 	}
 
 	/**

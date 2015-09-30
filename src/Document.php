@@ -120,7 +120,7 @@ class Document implements AccessInterface
 	 * @param string $key The key of the value
 	 * @return bool true if data exists, false if not
 	 */
-	public function has($key)
+	protected function hasValue($key)
 	{
 		// data
 		if ( $key === 'data' and $this->data !== false )

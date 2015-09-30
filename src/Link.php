@@ -64,7 +64,7 @@ class Link implements AccessInterface
 	 *
 	 * @return bool true if the link is set, false if not
 	 */
-	public function has($key)
+	protected function hasValue($key)
 	{
 		if ( $key === 'meta' )
 		{

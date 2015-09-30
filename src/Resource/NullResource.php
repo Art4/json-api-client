@@ -44,7 +44,7 @@ class NullResource implements AccessInterface, ResourceInterface
 	 *
 	 * @param string $key The key of the value
 	 */
-	protected function getValue($key)
+	public function get($key)
 	{
 		throw new AccessException('A NullResource has no values.');
 	}

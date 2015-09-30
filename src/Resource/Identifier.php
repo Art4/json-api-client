@@ -82,7 +82,7 @@ class Identifier implements AccessInterface, ResourceInterface
 	 * @param string $key The key of the value
 	 * @return bool true if data exists, false if not
 	 */
-	public function has($key)
+	protected function hasValue($key)
 	{
 		// meta
 		if ( $key === 'meta' and $this->hasMeta() )

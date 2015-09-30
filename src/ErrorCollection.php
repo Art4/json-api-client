@@ -61,7 +61,7 @@ class ErrorCollection implements AccessInterface
 	 * @param string $key The key of the value
 	 * @return bool true if data exists, false if not
 	 */
-	public function has($key)
+	protected function hasValue($key)
 	{
 		if ( is_object($key) or is_array($key) )
 		{
