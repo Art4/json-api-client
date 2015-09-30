@@ -215,7 +215,7 @@ class Document implements AccessInterface
 	 * @param string $key The key of the value
 	 * @return mixed The value
 	 */
-	public function get($key)
+	protected function getValue($key)
 	{
 		if ( ! $this->has($key) )
 		{

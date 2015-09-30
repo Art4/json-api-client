@@ -83,7 +83,7 @@ class Meta implements AccessInterface
 	 *
 	 * @return mixed The value
 	 */
-	public function get($key)
+	protected function getValue($key)
 	{
 		if ( ! $this->has($key) )
 		{

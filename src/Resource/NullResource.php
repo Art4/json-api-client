@@ -3,6 +3,7 @@
 namespace Art4\JsonApiClient\Resource;
 
 use Art4\JsonApiClient\AccessInterface;
+use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Exception\AccessException;
 
 /**
@@ -10,6 +11,8 @@ use Art4\JsonApiClient\Exception\AccessException;
  */
 class NullResource implements AccessInterface, ResourceInterface
 {
+	use AccessTrait;
+
 	/**
 	 * Constructor need for mocking
 	 */
@@ -41,7 +44,7 @@ class NullResource implements AccessInterface, ResourceInterface
 	 *
 	 * @param string $key The key of the value
 	 */
-	public function get($key)
+	protected function getValue($key)
 	{
 		throw new AccessException('A NullResource has no values.');
 	}

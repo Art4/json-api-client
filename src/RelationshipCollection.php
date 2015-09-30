@@ -93,18 +93,18 @@ class RelationshipCollection implements AccessInterface
 	/**
 	 * Get a value
 	 *
-	 * @param string $name The Name
+	 * @param string $key The Key
 	 *
 	 * @return mixed The value
 	 */
-	public function get($name)
+	protected function getValue($key)
 	{
-		if ( ! $this->has($name) )
+		if ( ! $this->has($key) )
 		{
-			throw new AccessException('"' . $name . '" doesn\'t exist in this relationship collection.');
+			throw new AccessException('"' . $key . '" doesn\'t exist in this relationship collection.');
 		}
 
-		return $this->_data[$name];
+		return $this->_data[$key];
 	}
 
 	/**

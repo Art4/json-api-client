@@ -98,7 +98,7 @@ class Link implements AccessInterface
 	 *
 	 * @return string|Link The link
 	 */
-	public function get($key)
+	protected function getValue($key)
 	{
 		if ( ! $this->has($key) )
 		{
