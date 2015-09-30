@@ -2,6 +2,7 @@
 
 namespace Art4\JsonApiClient;
 
+use Art4\JsonApiClient\Utils\AccessAbstract;
 use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Utils\MetaTrait;
 use Art4\JsonApiClient\Utils\LinksTrait;
@@ -14,7 +15,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-top-level
  */
-class Document implements AccessInterface
+class Document extends AccessAbstract
 {
 	use AccessTrait;
 

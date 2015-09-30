@@ -2,6 +2,7 @@
 
 namespace Art4\JsonApiClient;
 
+use Art4\JsonApiClient\Utils\AccessAbstract;
 use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 use Art4\JsonApiClient\Resource\ResourceInterface;
@@ -13,7 +14,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-resource-object-relationships
  */
-class RelationshipCollection implements AccessInterface
+class RelationshipCollection extends AccessAbstract
 {
 	use AccessTrait;
 

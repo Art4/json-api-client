@@ -2,7 +2,6 @@
 
 namespace Art4\JsonApiClient\Resource;
 
-use Art4\JsonApiClient\AccessInterface;
 use Art4\JsonApiClient\Utils\LinksTrait;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 use Art4\JsonApiClient\Exception\AccessException;

@@ -10,7 +10,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-resource-object-attributes
  */
-class Attributes extends Meta implements AccessInterface
+class Attributes extends Meta
 {
 	/**
 	 * @var FactoryManagerInterface

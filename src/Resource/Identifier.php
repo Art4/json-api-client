@@ -2,7 +2,7 @@
 
 namespace Art4\JsonApiClient\Resource;
 
-use Art4\JsonApiClient\AccessInterface;
+use Art4\JsonApiClient\Utils\AccessAbstract;
 use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 use Art4\JsonApiClient\Utils\MetaTrait;
@@ -14,7 +14,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-resource-identifier-objects
  */
-class Identifier implements AccessInterface, ResourceInterface
+class Identifier extends AccessAbstract implements ResourceInterface
 {
 	use AccessTrait;
 
