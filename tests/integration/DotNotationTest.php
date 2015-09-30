@@ -182,6 +182,12 @@ class DotNotationTest extends \PHPUnit_Framework_TestCase
 		$string = $this->getJsonString('05_simple_meta_object.json');
 		$document = Helper::parse($string);
 
+		// Test 3 segments, segment 2 don't exists
+		$this->assertFalse($document->has('meta.foobar.zap'));
+
+		// Test 3 segments, segment 3 don't exists
+		$this->assertFalse($document->has('meta.random_object.zap'));
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\AccessException',
 			'Could not get the value for the key "meta.random_object.zap".'
