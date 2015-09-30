@@ -3,19 +3,11 @@
 namespace Art4\JsonApiClient\Integration\Tests;
 
 use Art4\JsonApiClient\Utils\Helper;
+use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 
-class IntegrationTest extends \PHPUnit_Framework_TestCase
+class ParsingTest extends \PHPUnit_Framework_TestCase
 {
-
-	/**
-	 * returns a json string
-	 */
-	protected function getJsonString($filename)
-	{
-		$content = file_get_contents(__DIR__ . '/../files/' . $filename);
-
-		return $content;
-	}
+	use HelperTrait;
 
 	/**
 	 * @test
