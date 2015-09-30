@@ -94,7 +94,7 @@ trait AccessTrait
 
 		if ( ! $value instanceof AccessInterface )
 		{
-			throw new AccessException('A value for the key "' . $key->raw . '" doesn\'t exist.');
+			throw new AccessException('Could not get the value for the key "' . $key->raw . '".');
 		}
 
 		return $value->get($key);

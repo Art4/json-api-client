@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "foo": "bar",
+    "integer": 26,
+    "empty_list": [
+    ],
+    "list": [
+      "items",
+      "things",
+      "apples"
+    ],
+    "random_object": {
+      "zap":"paz"
+    }
+  }
+}

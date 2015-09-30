@@ -173,4 +173,20 @@ class DotNotationTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue($document->has('included.2.links.self'));
 		$this->assertSame($document->get('included.2.links.self'), 'http://example.com/comments/12');
 	}
+
+	/**
+	 * @test
+	 */
+	public function testGetNotExistentValueThrowsException()
+	{
+		$string = $this->getJsonString('05_simple_meta_object.json');
+		$document = Helper::parse($string);
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\AccessException',
+			'Could not get the value for the key "meta.random_object.zap".'
+		);
+
+		$document->get('meta.random_object.zap');
+	}
 }
