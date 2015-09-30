@@ -59,11 +59,6 @@ class Collection implements AccessInterface, ResourceInterface
 	 */
 	protected function hasValue($key)
 	{
-		if ( is_object($key) or is_array($key) )
-		{
-			return false;
-		}
-
 		if ( is_string($key) and ! ctype_digit($key) )
 		{
 			return false;
