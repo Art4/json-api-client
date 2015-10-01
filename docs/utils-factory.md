@@ -55,7 +55,7 @@ If you need to make more changes in the factory you can write your own factory. 
 ```php
 <?php
 namespace My\Own
-class Factory implement \Art4\JsonApiClient\Utils\FactoryInterface
+class Factory implements \Art4\JsonApiClient\Utils\FactoryInterface
 {
     /**
      * Create a new instance of a class
