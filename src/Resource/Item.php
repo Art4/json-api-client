@@ -2,7 +2,6 @@
 
 namespace Art4\JsonApiClient\Resource;
 
-use Art4\JsonApiClient\AccessInterface;
 use Art4\JsonApiClient\Utils\LinksTrait;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 use Art4\JsonApiClient\Exception\AccessException;
@@ -66,10 +65,10 @@ class Item extends Identifier
 	 * @param string $key The key of the value
 	 * @return bool true if data exists, false if not
 	 */
-	public function has($key)
+	protected function hasValue($key)
 	{
 		// meta, type, id
-		if ( parent::has($key) === true )
+		if ( parent::hasValue($key) === true )
 		{
 			return true;
 		}
@@ -131,7 +130,7 @@ class Item extends Identifier
 	 * @param string $key The key of the value
 	 * @return mixed The value
 	 */
-	public function get($key)
+	protected function getValue($key)
 	{
 		if ( ! $this->has($key) )
 		{

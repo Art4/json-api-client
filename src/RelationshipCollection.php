@@ -2,6 +2,7 @@
 
 namespace Art4\JsonApiClient;
 
+use Art4\JsonApiClient\Utils\AccessAbstract;
 use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 use Art4\JsonApiClient\Resource\ResourceInterface;
@@ -13,7 +14,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-resource-object-relationships
  */
-class RelationshipCollection implements AccessInterface
+class RelationshipCollection extends AccessAbstract
 {
 	use AccessTrait;
 
@@ -75,7 +76,7 @@ class RelationshipCollection implements AccessInterface
 	 *
 	 * @return bool true if the value is set, false if not
 	 */
-	public function has($key)
+	protected function hasValue($key)
 	{
 		return array_key_exists($key, $this->_data);
 	}
@@ -93,18 +94,18 @@ class RelationshipCollection implements AccessInterface
 	/**
 	 * Get a value
 	 *
-	 * @param string $name The Name
+	 * @param string $key The Key
 	 *
 	 * @return mixed The value
 	 */
-	public function get($name)
+	protected function getValue($key)
 	{
-		if ( ! $this->has($name) )
+		if ( ! $this->has($key) )
 		{
-			throw new AccessException('"' . $name . '" doesn\'t exist in this relationship collection.');
+			throw new AccessException('"' . $key . '" doesn\'t exist in this relationship collection.');
 		}
 
-		return $this->_data[$name];
+		return $this->_data[$key];
 	}
 
 	/**

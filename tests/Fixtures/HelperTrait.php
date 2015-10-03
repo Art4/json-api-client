@@ -46,4 +46,12 @@ trait HelperTrait
 
 		return $manager;
 	}
+
+	/**
+	 * returns a json string from a file
+	 */
+	protected function getJsonString($filename)
+	{
+		return file_get_contents(__DIR__ . '/../files/' . $filename);
+	}
 }

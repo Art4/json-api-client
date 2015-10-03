@@ -2,7 +2,7 @@
 
 namespace Art4\JsonApiClient\Resource;
 
-use Art4\JsonApiClient\AccessInterface;
+use Art4\JsonApiClient\Utils\AccessAbstract;
 use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 use Art4\JsonApiClient\Utils\MetaTrait;
@@ -14,7 +14,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-resource-identifier-objects
  */
-class Identifier implements AccessInterface, ResourceInterface
+class Identifier extends AccessAbstract implements ResourceInterface
 {
 	use AccessTrait;
 
@@ -82,7 +82,7 @@ class Identifier implements AccessInterface, ResourceInterface
 	 * @param string $key The key of the value
 	 * @return bool true if data exists, false if not
 	 */
-	public function has($key)
+	protected function hasValue($key)
 	{
 		// meta
 		if ( $key === 'meta' and $this->hasMeta() )
@@ -141,7 +141,7 @@ class Identifier implements AccessInterface, ResourceInterface
 	 * @param string $key The key of the value
 	 * @return mixed The value
 	 */
-	public function get($key)
+	protected function getValue($key)
 	{
 		if ( ! $this->has($key) )
 		{

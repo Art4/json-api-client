@@ -2,6 +2,7 @@
 
 namespace Art4\JsonApiClient;
 
+use Art4\JsonApiClient\Utils\AccessAbstract;
 use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 use Art4\JsonApiClient\Exception\AccessException;
@@ -12,7 +13,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-meta
  */
-class Meta implements AccessInterface
+class Meta extends AccessAbstract
 {
 	use AccessTrait;
 
@@ -61,7 +62,7 @@ class Meta implements AccessInterface
 	 *
 	 * @return bool true if the value is set, false if not
 	 */
-	public function has($key)
+	protected function hasValue($key)
 	{
 		return array_key_exists($key, $this->_data);
 	}
@@ -83,7 +84,7 @@ class Meta implements AccessInterface
 	 *
 	 * @return mixed The value
 	 */
-	public function get($key)
+	protected function getValue($key)
 	{
 		if ( ! $this->has($key) )
 		{

@@ -2,6 +2,7 @@
 
 namespace Art4\JsonApiClient;
 
+use Art4\JsonApiClient\Utils\AccessAbstract;
 use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 use Art4\JsonApiClient\Exception\AccessException;
@@ -12,7 +13,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#error-objects
  */
-class ErrorSource implements AccessInterface
+class ErrorSource extends AccessAbstract
 {
 	use AccessTrait;
 
@@ -70,7 +71,7 @@ class ErrorSource implements AccessInterface
 	 * @param string $key The key of the value
 	 * @return bool true if data exists, false if not
 	 */
-	public function has($key)
+	protected function hasValue($key)
 	{
 		// pointer
 		if ( $key === 'pointer' and $this->pointer !== null )
@@ -117,7 +118,7 @@ class ErrorSource implements AccessInterface
 	 * @param string $key The key of the value
 	 * @return mixed The value
 	 */
-	public function get($key)
+	protected function getValue($key)
 	{
 		if ( ! $this->has($key) )
 		{
