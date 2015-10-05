@@ -65,6 +65,20 @@ This returns:
 bool(true)
 ```
 
+The `has()` method has support for dot-notated keys:
+
+```php
+var_dump($document->has('meta.info'));
+var_dump($document->has('jsonapi.version'));
+```
+
+This returns:
+
+```php
+bool(true)
+bool(false)
+```
+
 ### Get the keys of all existing values
 
 You can get the keys of all existing values using the `getKeys()` method. Assume we have the same `$document` like in the last example.
@@ -101,6 +115,18 @@ $meta = $document->get('meta');
 ```
 
 > **Note:** Using `get()` on a non-existing value will throw an [Exception\AccessException](exception-introduction.md#exceptionaccessexception). Use `has()` or `getKeys()` to check if a value exists.
+
+The `get()` method has support for dot-notated keys:
+
+```php
+var_dump($document->get('meta.info'));
+```
+
+This returns:
+
+```php
+string(28) "Testing the JSON API Client."
+```
 
 ### Get the containing data as array
 

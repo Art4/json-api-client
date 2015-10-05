@@ -14,7 +14,7 @@ Format: [JSON API 1.0](http://jsonapi.org/format/1.0/)
 
 * [x] Be 100% JSON API 1.0 spec conform
 * [x] Handle/validate a server response body
-* [ ] Offer an easy way to retrieve the data
+* [x] Offer an easy way to retrieve the data
 * [x] Be extendable and allow injection of classes/models
 * [ ] Offer access to included resources through identifier
 * [ ] Handle/validate a client request body
@@ -41,9 +41,9 @@ $manager = new \Art4\JsonApiClient\Utils\Manager();
 
 $document = $manager->parse($jsonapi_string);
 
-if ($document->has('meta') and $document->get('meta')->has('info'))
+if ($document->has('meta.info'))
 {
-    echo $document->get('meta')->get('info'); // "Testing the JSON API Client."
+    echo $document->get('meta.info'); // "Testing the JSON API Client."
 }
 
 // List all keys
