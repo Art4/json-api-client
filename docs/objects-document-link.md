@@ -5,9 +5,8 @@
 
 The `DocumentLink` represents a [links object inside the top level document](http://jsonapi.org/format/#document-top-level).
 
-- extends: [Link object](objects-link.md)
-- extended by:
-- property of: [Document object](objects-document.md)
+Property of:
+- [Document object](objects-document.md)
 
 ### Properties
 

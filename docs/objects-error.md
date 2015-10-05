@@ -5,9 +5,8 @@
 
 The `Error` object represents the [error object](http://jsonapi.org/format/#error-objects).
 
-- extends:
-- extended by:
-- property of: [Error Collection object](objects-error-collection.md)
+Property of:
+- [Error Collection object](objects-error-collection.md)
 
 ### Properties
 

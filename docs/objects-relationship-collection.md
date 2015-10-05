@@ -5,9 +5,8 @@
 
 The `RelationshipCollection` object represents the [an object that holds the relationship objects](http://jsonapi.org/format/#document-resource-object-relationships) from a resource object.
 
-- extends:
-- extended by:
-- property of: [Resource Item object](objects-resource-item.md)
+Property of:
+- [Resource Item object](objects-resource-item.md)
 
 ### Properties
 

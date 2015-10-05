@@ -5,9 +5,8 @@
 
 The `Resource\IdentifierCollection` is a [Resource Collection object](objects-resource-collection.md) that is either empty or holds only [Resource Identifier object](objects-resource-identifier.md)s. It implements the `Resource\ResourceInterface`.
 
-- extends: [Resource Collection object](objects-resource-collection.md)
-- extended by:
-- property of: [Relationship object](objects-relationship.md)
+Property of:
+- [Relationship object](objects-relationship.md)
 
 ### Properties
 

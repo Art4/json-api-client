@@ -5,9 +5,8 @@
 
 The `Relationship` object represents the [relationship object](http://jsonapi.org/format/#document-resource-object-relationships) inside a relationship collection.
 
-- extends:
-- extended by:
-- property of: [Relationship Collection object](objects-relationship-collection.md)
+Property of:
+- [Relationship Collection object](objects-relationship-collection.md)
 
 ### Properties
 

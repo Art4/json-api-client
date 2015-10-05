@@ -5,9 +5,8 @@
 
 The `ErrorSource` object represents the [error source object](http://jsonapi.org/format/#error-objects) inside an error object.
 
-- extends:
-- extended by:
-- property of: [Error object](objects-error.md)
+Property of:
+- [Error object](objects-error.md)
 
 ### Properties
 

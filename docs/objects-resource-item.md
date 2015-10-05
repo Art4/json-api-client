@@ -5,9 +5,9 @@
 
 The `Resource\Item` represents a [resource object](http://jsonapi.org/format/#document-resource-objects). It implements the `Resource\ResourceInterface`.
 
-- extends: [Resource Identifier object](objects-resource-identifier.md)
-- extended by:
-- property of: [Document object](objects-document.md)
+Property of:
+- [Document object](objects-document.md)
+- [Resource Collection object](objects-resource-collection.md)
 
 ### Properties
 
@@ -15,6 +15,9 @@ _[Symbols definition](objects-introduction.md#symbols)_
 
     | Key | Value | Note
 --- | ---- | ----- | ----
+1 | type | `string` |
+1 | id | `string` |
+? | meta | [Meta object](objects-meta.md) |
 ? | attributes | [Attributes object](objects-attributes.md) |
 ? | relationships | [Relationship Collection object](objects-relationship-collection.md) |
 ? | links | [Link object](objects-link.md) |

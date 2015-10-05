@@ -5,11 +5,9 @@
 
 The `PaginationLink` represents a [pagination object](http://jsonapi.org/format/#fetching-pagination).
 
-- extends: [Link object](objects-link.md)
-- extended by:
-- property of:
-  - [Document Link object](objects-document-link.md)
-  - [Relationship Link object](objects-relationship-link.md)
+Property of:
+- [Document Link object](objects-document-link.md)
+- [Relationship Link object](objects-relationship-link.md)
 
 ### Properties
 

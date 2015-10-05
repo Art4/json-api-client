@@ -5,9 +5,8 @@
 
 The `ErrorCollection` represents [an array of error objects](http://jsonapi.org/format/#error-objects).
 
-- extends:
-- extended by:
-- property of: [Document object](objects-document.md)
+Property of:
+- [Document object](objects-document.md)
 
 ### Properties
 

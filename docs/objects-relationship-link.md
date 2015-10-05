@@ -5,9 +5,8 @@
 
 The `RelationhipLink` represents a [links object inside a relationship object](http://jsonapi.org/format/#document-resource-object-relationships).
 
-- extends: [Link object](objects-link.md)
-- extended by:
-- property of: [Relationship object](objects-relationship.md)
+Property of:
+- [Relationship object](objects-relationship.md)
 
 ### Properties
 

@@ -5,9 +5,7 @@
 
 The `Document` object represents the [Top Level](http://jsonapi.org/format/#document-top-level) of a JSON API response. You can create it using [Utils\Helper](utils-helper.md).
 
-- extends:
-- extended by:
-- property of:
+Property of: _none_
 
 ### Properties
 

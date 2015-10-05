@@ -5,9 +5,8 @@
 
 The `Jsonapi` object represents a [jsonapi object](http://jsonapi.org/format/#document-links) inside the top level document object.
 
-- extends:
-- extended by:
-- property of: [Document object](objects-document.md)
+Property of:
+- [Document object](objects-document.md)
 
 ### Properties
 
