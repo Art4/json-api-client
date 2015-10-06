@@ -5,16 +5,50 @@ namespace Art4\JsonApiClient\Utils;
 use Art4\JsonApiClient\AccessInterface;
 use Art4\JsonApiClient\Exception\AccessException;
 
-/**
- * Abstract class for AccessInterface
- */
-abstract class AccessAbstract implements AccessInterface
+final class DataContainer implements DataContainerInterface
 {
-	abstract public function getKeys();
+	/**
+	 * @var array
+	 */
+	protected $allowed_keys = [];
 
-	abstract protected function getValue($key);
+	/**
+	 * @var array
+	 */
+	protected $data = [];
 
-	abstract protected function hasValue($key);
+	/**
+	 * @param array $allowed_keys Keys of allowed values
+	 */
+	public function __construct(array $allowed_keys = [])
+	{
+		$this->allowed_keys = $allowed_keys;
+	}
+
+	/**
+	 * Set a value
+	 *
+	 * @param string $key The Key
+	 * @param mixed $value The Value
+	 *
+	 * @return self
+	 */
+	public function set($key, $value)
+	{
+		$this->data[$key] = $value;
+
+		return $this;
+	}
+
+	/**
+	 * Returns the keys of all setted values
+	 *
+	 * @return array Keys of all setted values
+	 */
+	public function getKeys()
+	{
+		return array_keys($this->data);
+	}
 
 	/**
 	 * Check if a value exists
@@ -31,10 +65,10 @@ abstract class AccessAbstract implements AccessInterface
 
 		if ( $key->count() === 0 )
 		{
-			return $this->hasValue($string);
+			return array_key_exists($string, $this->data);
 		}
 
-		if ( ! $this->hasValue($string) )
+		if ( ! array_key_exists($string, $this->data) )
 		{
 			return false;
 		}
@@ -71,6 +105,7 @@ abstract class AccessAbstract implements AccessInterface
 			return $value;
 		}
 
+		// #TODO Handle other objects and arrays
 		if ( ! $value instanceof AccessInterface )
 		{
 			throw new AccessException('Could not get the value for the key "' . $key->raw . '".');
@@ -87,23 +122,39 @@ abstract class AccessAbstract implements AccessInterface
 	 */
 	public function asArray($fullArray = false)
 	{
-		$return = array();
+		$array = array();
 
 		foreach($this->getKeys() as $key)
 		{
-			$val = $this->get($key);
+			$value = $this->getValue($key);
 
 			if ( $fullArray )
 			{
-				$return[$key] = $this->objectTransform($val);
+				$array[$key] = $this->objectTransform($value);
 			}
 			else
 			{
-				$return[$key] = $val;
+				$array[$key] = $value;
 			}
 		}
 
-		return $return;
+		return $array;
+	}
+
+	/**
+	 * Get a value by the key
+	 *
+	 * @param string $key The key of the value
+	 * @return mixed The value
+	 */
+	protected function getValue($key)
+	{
+		if ( array_key_exists($key, $this->data) )
+		{
+			return $this->data[$key];
+		}
+
+		throw new AccessException('Could not get the value for the key "' . $key . '".');
 	}
 
 	/**

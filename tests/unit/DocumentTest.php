@@ -71,7 +71,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$document = new Document($object, $this->manager);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
-		$this->assertSame($document->getKeys(), array('data', 'meta', 'jsonapi', 'links', 'included'));
+		$this->assertSame($document->getKeys(), array('data', 'meta', 'included', 'jsonapi', 'links'));
 		$this->assertTrue($document->has('data'));
 		$this->assertTrue($document->has('meta'));
 		$this->assertFalse($document->has('errors'));

@@ -2,7 +2,7 @@
 
 namespace Art4\JsonApiClient\Utils;
 
-class Manager implements ManagerInterface, FactoryManagerInterface
+final class Manager implements ManagerInterface, FactoryManagerInterface
 {
 	/**
 	 * @var FactoryInterface

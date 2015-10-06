@@ -10,7 +10,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * Website: http://github.com/Art4/json-api-client
  */
-class Helper
+final class Helper
 {
 	const JSONAPI_VERSION = '1.0';
 

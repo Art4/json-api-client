@@ -2,7 +2,7 @@
 
 namespace Art4\JsonApiClient\Utils;
 
-use Art4\JsonApiClient\Link;
+use Art4\JsonApiClient\AccessInterface;
 
 /**
  * Trait for Links properties
@@ -24,7 +24,7 @@ trait LinksTrait
 	/**
 	 * Get the links of this document
 	 *
-	 * @return null|Link The link object or null
+	 * @return null|AccessInterface The link object or null
 	 */
 	public function getLinks()
 	{
@@ -34,10 +34,10 @@ trait LinksTrait
 	/**
 	 * Set the links for this document
 	 *
-	 * @param Link $link The Link
+	 * @param AccessInterface $link The Link
 	 * @return self
 	 */
-	protected function setLinks(Link $link)
+	protected function setLinks(AccessInterface $link)
 	{
 		$this->links = $link;
 	}
