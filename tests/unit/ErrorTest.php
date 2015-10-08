@@ -42,7 +42,7 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue($error->has('id'));
 		$this->assertSame($error->get('id'), 'id');
 		$this->assertTrue($error->has('links'));
-		$this->assertInstanceOf('Art4\JsonApiClient\ErrorLink', $error->get('links'));
+		$this->assertInstanceOf('Art4\JsonApiClient\ErrorLinkInterface', $error->get('links'));
 		$this->assertTrue($error->has('status'));
 		$this->assertSame($error->get('status'), 'status');
 		$this->assertTrue($error->has('code'));
@@ -52,9 +52,9 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue($error->has('detail'));
 		$this->assertSame($error->get('detail'), 'detail');
 		$this->assertTrue($error->has('source'));
-		$this->assertInstanceOf('Art4\JsonApiClient\ErrorSource', $error->get('source'));
+		$this->assertInstanceOf('Art4\JsonApiClient\ErrorSourceInterface', $error->get('source'));
 		$this->assertTrue($error->has('meta'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Meta', $error->get('meta'));
+		$this->assertInstanceOf('Art4\JsonApiClient\MetaInterface', $error->get('meta'));
 
 		$this->assertSame($error->asArray(), array(
 			'id'     => 'id',

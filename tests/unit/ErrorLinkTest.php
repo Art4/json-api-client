@@ -90,7 +90,7 @@ class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($link->getKeys(), array('about'));
 
 		$this->assertTrue($link->has('about'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Link', $link->get('about'));
+		$this->assertInstanceOf('Art4\JsonApiClient\LinkInterface', $link->get('about'));
 	}
 
 	/**

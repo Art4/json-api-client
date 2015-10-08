@@ -43,7 +43,7 @@ class JsonapiTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue($jsonapi->has('version'));
 		$this->assertSame($jsonapi->get('version'), '1.0');
 		$this->assertTrue($jsonapi->has('meta'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Meta', $jsonapi->get('meta'));
+		$this->assertInstanceOf('Art4\JsonApiClient\MetaInterface', $jsonapi->get('meta'));
 
 		$this->assertSame($jsonapi->asArray(), array(
 			'version' => $jsonapi->get('version'),

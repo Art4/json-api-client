@@ -20,7 +20,7 @@ class Factory extends OrigFactory
 		if ( isset($this->classes[$name]) )
 		{
 			return $this->testcase
-				->getMockBuilder($this->classes[$name])
+				->getMockBuilder($this->classes[$name] . 'Interface') // Mock only the interfaces
 				->disableOriginalConstructor()
 				->getMock();
 		}

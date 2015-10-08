@@ -5,7 +5,6 @@ namespace Art4\JsonApiClient;
 use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Utils\DataContainer;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
-use Art4\JsonApiClient\Resource\ResourceInterface;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 
@@ -35,7 +34,7 @@ class RelationshipCollection implements RelationshipCollectionInterface
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($object, FactoryManagerInterface $manager, ResourceInterface $resource)
+	public function __construct($object, FactoryManagerInterface $manager, AccessInterface $resource)
 	{
 		if ( ! is_object($object) )
 		{

@@ -37,11 +37,11 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue($link->has('href'));
 		$this->assertSame($link->get('href'), 'http://example.org/href');
 		$this->assertTrue($link->has('meta'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Meta', $link->get('meta'));
+		$this->assertInstanceOf('Art4\JsonApiClient\MetaInterface', $link->get('meta'));
 		$this->assertTrue($link->has('link'));
 		$this->assertSame($link->get('link'), 'http://example.org/link');
 		$this->assertTrue($link->has('linkobj'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Link', $link->get('linkobj'));
+		$this->assertInstanceOf('Art4\JsonApiClient\LinkInterface', $link->get('linkobj'));
 
 		$this->assertSame($link->asArray(), array(
 			'meta' => $link->get('meta'),
@@ -104,7 +104,7 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 		// A link object could be empty
 		if ( gettype($input) === 'object' )
 		{
-			$this->assertInstanceOf('Art4\JsonApiClient\Link', new Link($input, $this->manager));
+			$this->assertInstanceOf('Art4\JsonApiClient\LinkInterface', new Link($input, $this->manager));
 			return;
 		}
 

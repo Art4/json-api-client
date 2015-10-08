@@ -97,9 +97,7 @@ class IdentifierCollectionTest extends \PHPUnit_Framework_TestCase
 
 		$resource = $collection->get(0);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $resource);
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $resource);
-		$this->assertNotInstanceOf('Art4\JsonApiClient\Resource\Item', $resource);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\IdentifierInterface', $resource);
 	}
 
 	/**

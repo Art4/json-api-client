@@ -70,7 +70,7 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($identifier->get('type'), 'types');
 		$this->assertSame($identifier->get('id'), '159');
 		$this->assertTrue($identifier->has('meta'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Meta', $identifier->get('meta'));
+		$this->assertInstanceOf('Art4\JsonApiClient\MetaInterface', $identifier->get('meta'));
 		$this->assertSame($identifier->getKeys(), array('type', 'id', 'meta'));
 	}
 

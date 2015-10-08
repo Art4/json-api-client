@@ -41,7 +41,7 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($collection->getKeys(), array('author'));
 
 		$this->assertTrue($collection->has('author'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Relationship', $collection->get('author'));
+		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipInterface', $collection->get('author'));
 
 		$this->assertSame($collection->asArray(), array(
 			'author' => $collection->get('author'),
@@ -68,7 +68,7 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreateWithEmptyObject()
 	{
-		$mock = $this->getMockBuilder('Art4\JsonApiClient\Resource\Item')
+		$mock = $this->getMockBuilder('Art4\JsonApiClient\Resource\ItemInterface')
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -88,7 +88,7 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreateWithTypePropertyThrowsException()
 	{
-		$mock = $this->getMockBuilder('Art4\JsonApiClient\Resource\Item')
+		$mock = $this->getMockBuilder('Art4\JsonApiClient\Resource\ItemInterface')
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -115,7 +115,7 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreateWithIdPropertyThrowsException()
 	{
-		$mock = $this->getMockBuilder('Art4\JsonApiClient\Resource\Item')
+		$mock = $this->getMockBuilder('Art4\JsonApiClient\Resource\ItemInterface')
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -142,7 +142,7 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreateWithAuthorInRelationshipsAndAttributesThrowsException()
 	{
-		$item = $this->getMockBuilder('Art4\JsonApiClient\Resource\Item')
+		$item = $this->getMockBuilder('Art4\JsonApiClient\Resource\ItemInterface')
 			->disableOriginalConstructor()
 			->getMock();
 		$item->expects($this->any())
@@ -172,7 +172,7 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
-		$mock = $this->getMockBuilder('Art4\JsonApiClient\Resource\Item')
+		$mock = $this->getMockBuilder('Art4\JsonApiClient\Resource\ItemInterface')
 			->disableOriginalConstructor()
 			->getMock();
 

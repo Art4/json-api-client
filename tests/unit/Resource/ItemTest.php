@@ -76,13 +76,13 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($resource->get('type'), 'type');
 		$this->assertSame($resource->get('id'), '789');
 		$this->assertTrue($resource->has('meta'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Meta', $resource->get('meta'));
+		$this->assertInstanceOf('Art4\JsonApiClient\MetaInterface', $resource->get('meta'));
 		$this->assertTrue($resource->has('attributes'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Attributes', $resource->get('attributes'));
+		$this->assertInstanceOf('Art4\JsonApiClient\AttributesInterface', $resource->get('attributes'));
 		$this->assertTrue($resource->has('relationships'));
-		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipCollection', $resource->get('relationships'));
+		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipCollectionInterface', $resource->get('relationships'));
 		$this->assertTrue($resource->has('links'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Link', $resource->get('links'));
+		$this->assertInstanceOf('Art4\JsonApiClient\LinkInterface', $resource->get('links'));
 		$this->assertSame($resource->getKeys(), array('type', 'id', 'meta', 'attributes', 'relationships', 'links'));
 
 		$this->assertSame($resource->asArray(), array(
