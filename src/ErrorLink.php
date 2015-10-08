@@ -5,6 +5,7 @@ namespace Art4\JsonApiClient;
 use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Utils\DataContainer;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
+use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
@@ -51,7 +52,7 @@ class ErrorLink implements ErrorLinkInterface
 
 		if ( ! is_string($object->about) and ! is_object($object->about) )
 		{
-			throw new ValidationException('Link has to be an object or string, "' . gettype($link) . '" given.');
+			throw new ValidationException('Link has to be an object or string, "' . gettype($object->about) . '" given.');
 		}
 
 		$this->manager = $manager;
