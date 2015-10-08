@@ -2,8 +2,8 @@
 
 namespace Art4\JsonApiClient\Resource;
 
-use Art4\JsonApiClient\Utils\AccessAbstract;
 use Art4\JsonApiClient\Utils\AccessTrait;
+use Art4\JsonApiClient\Utils\DataContainer;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
@@ -13,16 +13,19 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-resource-objects
  */
-class Collection extends AccessAbstract implements ResourceInterface
+class Collection implements CollectionInterface, ResourceInterface
 {
 	use AccessTrait;
+
+	/**
+	 * @var DataContainerInterface
+	 */
+	protected $container;
 
 	/**
 	 * @var FactoryManagerInterface
 	 */
 	protected $manager;
-
-	protected $resources = array();
 
 	/**
 	 * @param array $resources The resources as array
@@ -40,11 +43,13 @@ class Collection extends AccessAbstract implements ResourceInterface
 
 		$this->manager = $manager;
 
+		$this->container = new DataContainer();
+
 		if ( count($resources) > 0 )
 		{
 			foreach ($resources as $resource)
 			{
-				$this->addResource($this->parseResource($resource));
+				$this->container->set('', $this->parseResource($resource));
 			}
 		}
 
@@ -52,75 +57,21 @@ class Collection extends AccessAbstract implements ResourceInterface
 	}
 
 	/**
-	 * Check if a value exists in this resource
-	 *
-	 * @param string $key The key of the value
-	 * @return bool true if data exists, false if not
-	 */
-	protected function hasValue($key)
-	{
-		if ( is_string($key) and ! ctype_digit($key) )
-		{
-			return false;
-		}
-
-		$key = intval($key);
-
-		if ( isset($this->resources[$key]) )
-		{
-			return true;
-		}
-
-		return false;
-	}
-
-	/**
-	 * Returns the keys of all setted values in this resource
-	 *
-	 * @return array Keys of all setted values
-	 */
-	public function getKeys()
-	{
-		$keys = array();
-
-		if ( count($this->resources) === 0 )
-		{
-			return $keys;
-		}
-
-		foreach ( $this->resources as $key => $value )
-		{
-			$keys[] = $key;
-		}
-
-		return $keys;
-	}
-
-	/**
-	 * Get a value by the key of this resource
+	 * Get a value by the key of this document
 	 *
 	 * @param string $key The key of the value
 	 * @return mixed The value
 	 */
-	protected function getValue($key)
+	public function get($key)
 	{
-		if ( ! $this->has($key) )
+		try
+		{
+			return $this->container->get($key);
+		}
+		catch (AccessException $e)
 		{
 			throw new AccessException('"' . $key . '" doesn\'t exist in this resource.');
 		}
-
-		return $this->resources[$key];
-	}
-
-	/**
-	 * Generate a new resource
-	 *
-	 * @param ResourceInterface $resource The resource
-	 * @return ResourceInterface[] The resources as array
-	 */
-	protected function addResource(ResourceInterface $resource)
-	{
-		return $this->resources[] = $resource;
 	}
 
 	/**
@@ -138,16 +89,9 @@ class Collection extends AccessAbstract implements ResourceInterface
 
 		$object_vars = get_object_vars($data);
 
-		// the properties must be type and id
-		if ( count($object_vars) === 2 )
-		{
-			$resource = $this->manager->getFactory()->make(
-				'Resource\Identifier',
-				[$data, $this->manager]
-			);
-		}
-		// the 3 properties must be type, id and meta
-		elseif ( count($object_vars) === 3 and property_exists($data, 'meta') )
+		// the 2 properties must be type and id
+		// or the 3 properties must be type, id and meta
+		if ( count($object_vars) === 2 or ( count($object_vars) === 3 and property_exists($data, 'meta') ) )
 		{
 			$resource = $this->manager->getFactory()->make(
 				'Resource\Identifier',

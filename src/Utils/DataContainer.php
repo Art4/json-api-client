@@ -35,7 +35,15 @@ final class DataContainer implements DataContainerInterface
 	 */
 	public function set($key, $value)
 	{
-		$this->data[$key] = $value;
+		// Allow non-associative array for collections
+		if ( $key === '' )
+		{
+			$this->data[] = $value;
+		}
+		else
+		{
+			$this->data[$key] = $value;
+		}
 
 		return $this;
 	}
@@ -160,12 +168,12 @@ final class DataContainer implements DataContainerInterface
 	/**
 	 * Parse a dot.notated.key to an object
 	 *
-	 * @param string|\SplStack $key The key
-	 * @return \SplStack The parsed key
+	 * @param string|AccessKey $key The key
+	 * @return AccessKey The parsed key
 	 */
 	protected function parseKey($key)
 	{
-		if ( is_object($key) and $key instanceof \SplStack )
+		if ( is_object($key) and $key instanceof AccessKey )
 		{
 			return $key;
 		}
@@ -178,10 +186,10 @@ final class DataContainer implements DataContainerInterface
 
 		$key_string = strval($key);
 
-		$keys = explode('.', $key_string);
-
-		$key = new \SplStack;
+		$key = new AccessKey;
 		$key->raw = $key_string;
+
+		$keys = explode('.', $key_string);
 
 		foreach ( $keys as $value )
 		{

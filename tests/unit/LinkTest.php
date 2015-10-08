@@ -32,7 +32,7 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Link', $link);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $link);
-		$this->assertSame($link->getKeys(), array('href', 'linkobj', 'link', 'meta'));
+		$this->assertSame($link->getKeys(), array('meta', 'href', 'linkobj', 'link'));
 
 		$this->assertTrue($link->has('href'));
 		$this->assertSame($link->get('href'), 'http://example.org/href');
@@ -44,18 +44,18 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Art4\JsonApiClient\Link', $link->get('linkobj'));
 
 		$this->assertSame($link->asArray(), array(
+			'meta' => $link->get('meta'),
 			'href' => $link->get('href'),
 			'linkobj' => $link->get('linkobj'),
 			'link' => $link->get('link'),
-			'meta' => $link->get('meta'),
 		));
 
 		// Test full array
 		$this->assertSame($link->asArray(true), array(
+			'meta' => $link->get('meta')->asArray(true),
 			'href' => $link->get('href'),
 			'linkobj' => $link->get('linkobj')->asArray(true),
 			'link' => $link->get('link'),
-			'meta' => $link->get('meta')->asArray(true),
 		));
 
 		// test get() with not existing key throws an exception

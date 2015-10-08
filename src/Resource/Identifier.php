@@ -2,10 +2,9 @@
 
 namespace Art4\JsonApiClient\Resource;
 
-use Art4\JsonApiClient\Utils\AccessAbstract;
 use Art4\JsonApiClient\Utils\AccessTrait;
+use Art4\JsonApiClient\Utils\DataContainer;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
-use Art4\JsonApiClient\Utils\MetaTrait;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 
@@ -14,20 +13,19 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-resource-identifier-objects
  */
-class Identifier extends AccessAbstract implements ResourceInterface
+class Identifier implements IdentifierInterface, ResourceInterface
 {
 	use AccessTrait;
 
-	use MetaTrait;
+	/**
+	 * @var DataContainerInterface
+	 */
+	protected $container;
 
 	/**
 	 * @var FactoryManagerInterface
 	 */
 	protected $manager;
-
-	protected $type = null;
-
-	protected $id = null;
 
 	/**
 	 * @param object $object The error object
@@ -65,95 +63,38 @@ class Identifier extends AccessAbstract implements ResourceInterface
 
 		$this->manager = $manager;
 
-		$this->type = strval($object->type);
-		$this->id = strval($object->id);
+		$this->container = new DataContainer();
+
+		$this->container->set('type', strval($object->type));
+		$this->container->set('id', strval($object->id));
 
 		if ( property_exists($object, 'meta') )
 		{
-			$this->setMeta($object->meta);
+			$this->container->set('meta', $this->manager->getFactory()->make(
+				'Meta',
+				[$object->meta, $this->manager]
+			));
 		}
 
 		return $this;
 	}
 
 	/**
-	 * Check if a value exists in this identifier
-	 *
-	 * @param string $key The key of the value
-	 * @return bool true if data exists, false if not
-	 */
-	protected function hasValue($key)
-	{
-		// meta
-		if ( $key === 'meta' and $this->hasMeta() )
-		{
-			return true;
-		}
-
-		// type always exists
-		if ( $key === 'type' and $this->type !== null )
-		{
-			return true;
-		}
-
-		// id always exists
-		if ( $key === 'id' and $this->id !== null )
-		{
-			return true;
-		}
-
-		return false;
-	}
-
-	/**
-	 * Returns the keys of all setted values in this identifier
-	 *
-	 * @return array Keys of all setted values
-	 */
-	public function getKeys()
-	{
-		$keys = array();
-
-		// type
-		if ( $this->has('type') )
-		{
-			$keys[] = 'type';
-		}
-
-		// id
-		if ( $this->has('id') )
-		{
-			$keys[] = 'id';
-		}
-
-		// meta
-		if ( $this->has('meta') )
-		{
-			$keys[] = 'meta';
-		}
-
-		return $keys;
-	}
-
-	/**
-	 * Get a value by the key of this identifier
+	 * Get a value by the key of this object
 	 *
 	 * @param string $key The key of the value
 	 * @return mixed The value
 	 */
-	protected function getValue($key)
+	public function get($key)
 	{
-		if ( ! $this->has($key) )
+		try
+		{
+			return $this->container->get($key);
+		}
+		catch (AccessException $e)
 		{
 			throw new AccessException('"' . $key . '" doesn\'t exist in this identifier.');
 		}
-
-		if ( $key === 'meta' )
-		{
-			return $this->getMeta();
-		}
-
-		return $this->$key;
 	}
 
 	/**

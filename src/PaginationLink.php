@@ -2,6 +2,8 @@
 
 namespace Art4\JsonApiClient;
 
+use Art4\JsonApiClient\Utils\AccessTrait;
+use Art4\JsonApiClient\Utils\DataContainer;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 use Art4\JsonApiClient\Exception\ValidationException;
 
@@ -10,8 +12,15 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#fetching-pagination
  */
-class PaginationLink extends Link implements PaginationLinkInterface
+class PaginationLink implements PaginationLinkInterface
 {
+	use AccessTrait;
+
+	/**
+	 * @var DataContainerInterface
+	 */
+	protected $container;
+
 	/**
 	 * @var FactoryManagerInterface
 	 */
@@ -33,6 +42,8 @@ class PaginationLink extends Link implements PaginationLinkInterface
 
 		$this->manager = $manager;
 
+		$this->container = new DataContainer();
+
 		if ( property_exists($object, 'first') )
 		{
 			if ( ! is_string($object->first) and ! is_null($object->first) )
@@ -51,6 +62,7 @@ class PaginationLink extends Link implements PaginationLinkInterface
 			}
 
 			$this->set('last', $object->last);
+
 		}
 
 		if ( property_exists($object, 'prev') )
@@ -61,6 +73,7 @@ class PaginationLink extends Link implements PaginationLinkInterface
 			}
 
 			$this->set('prev', $object->prev);
+
 		}
 
 		if ( property_exists($object, 'next') )
@@ -71,6 +84,44 @@ class PaginationLink extends Link implements PaginationLinkInterface
 			}
 
 			$this->set('next', $object->next);
+
 		}
+	}
+
+	/**
+	 * Get a value by the key of this object
+	 *
+	 * @param string $key The key of the value
+	 * @return mixed The value
+	 */
+	public function get($key)
+	{
+		try
+		{
+			return $this->container->get($key);
+		}
+		catch (AccessException $e)
+		{
+			throw new AccessException('"' . $key . '" doesn\'t exist in this object.');
+		}
+	}
+
+	/**
+	 * Set a link
+	 *
+	 * @param string $name The Name
+	 * @param string $link The Link
+	 *
+	 * @return self
+	 */
+	protected function set($name, $link)
+	{
+		// Pagination: Keys MUST either be omitted or have a null value to indicate that a particular link is unavailable.
+		if ( ! is_null($link) )
+		{
+			$this->container->set($name, strval($link));
+		}
+
+		return $this;
 	}
 }

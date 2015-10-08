@@ -2,8 +2,8 @@
 
 namespace Art4\JsonApiClient;
 
-use Art4\JsonApiClient\Utils\AccessAbstract;
 use Art4\JsonApiClient\Utils\AccessTrait;
+use Art4\JsonApiClient\Utils\DataContainer;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
@@ -13,16 +13,19 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#error-objects
  */
-class ErrorCollection extends AccessAbstract implements ErrorCollectionInterface
+class ErrorCollection implements ErrorCollectionInterface
 {
 	use AccessTrait;
+
+	/**
+	 * @var DataContainerInterface
+	 */
+	protected $container;
 
 	/**
 	 * @var FactoryManagerInterface
 	 */
 	protected $manager;
-
-	protected $errors = array();
 
 	/**
 	 * @param array $resources The resources as array
@@ -45,9 +48,11 @@ class ErrorCollection extends AccessAbstract implements ErrorCollectionInterface
 
 		$this->manager = $manager;
 
+		$this->container = new DataContainer();
+
 		foreach ($errors as $error)
 		{
-			$this->addError($this->manager->getFactory()->make(
+			$this->container->set('', $this->manager->getFactory()->make(
 				'Error',
 				[$error, $this->manager]
 			));
@@ -57,74 +62,20 @@ class ErrorCollection extends AccessAbstract implements ErrorCollectionInterface
 	}
 
 	/**
-	 * Check if a value exists in this collection
-	 *
-	 * @param string $key The key of the value
-	 * @return bool true if data exists, false if not
-	 */
-	protected function hasValue($key)
-	{
-		if ( is_string($key) and ! ctype_digit($key) )
-		{
-			return false;
-		}
-
-		$key = intval($key);
-
-		if ( isset($this->errors[$key]) )
-		{
-			return true;
-		}
-
-		return false;
-	}
-
-	/**
-	 * Returns the keys of all setted values in this collection
-	 *
-	 * @return array Keys of all setted values
-	 */
-	public function getKeys()
-	{
-		$keys = array();
-
-		if ( count($this->errors) > 0 )
-		{
-			foreach ( $this->errors as $key => $value )
-			{
-				$keys[] = $key;
-			}
-		}
-
-		return $keys;
-	}
-
-	/**
-	 * Get a value by the key of this collection
+	 * Get a value by the key of this document
 	 *
 	 * @param string $key The key of the value
 	 * @return mixed The value
 	 */
-	protected function getValue($key)
+	public function get($key)
 	{
-		if ( ! $this->has($key) )
+		try
+		{
+			return $this->container->get($key);
+		}
+		catch (AccessException $e)
 		{
 			throw new AccessException('"' . $key . '" doesn\'t exist in this collection.');
 		}
-
-		return $this->errors[$key];
-	}
-
-	/**
-	 * Add an error to this collection
-	 *
-	 * @param Error $error The Error
-	 * @return self
-	 */
-	protected function addError(Error $error)
-	{
-		$this->errors[] = $error;
-
-		return $this;
 	}
 }

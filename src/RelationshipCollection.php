@@ -2,8 +2,8 @@
 
 namespace Art4\JsonApiClient;
 
-use Art4\JsonApiClient\Utils\AccessAbstract;
 use Art4\JsonApiClient\Utils\AccessTrait;
+use Art4\JsonApiClient\Utils\DataContainer;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 use Art4\JsonApiClient\Resource\ResourceInterface;
 use Art4\JsonApiClient\Exception\AccessException;
@@ -14,16 +14,19 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-resource-object-relationships
  */
-class RelationshipCollection extends AccessAbstract implements RelationshipCollectionInterface
+class RelationshipCollection implements RelationshipCollectionInterface
 {
 	use AccessTrait;
+
+	/**
+	 * @var DataContainerInterface
+	 */
+	protected $container;
 
 	/**
 	 * @var FactoryManagerInterface
 	 */
 	protected $manager;
-
-	protected $_data = array();
 
 	/**
 	 * @param object $object The object
@@ -46,6 +49,8 @@ class RelationshipCollection extends AccessAbstract implements RelationshipColle
 
 		$this->manager = $manager;
 
+		$this->container = new DataContainer();
+
 		$object_vars = get_object_vars($object);
 
 		if ( count($object_vars) === 0 )
@@ -55,12 +60,13 @@ class RelationshipCollection extends AccessAbstract implements RelationshipColle
 
 		foreach ($object_vars as $name => $value)
 		{
-			if ( $resource->has('attributes') and $resource->get('attributes')->has($name) )
+			// #FIXME: Work here with parent strategy
+			if ( $resource->has('attributes.' . $name) )
 			{
 				throw new ValidationException('"' . $name . '" property cannot be set because it exists already in parents Resource object.');
 			}
 
-			$this->set($name, $this->manager->getFactory()->make(
+			$this->container->set($name, $this->manager->getFactory()->make(
 				'Relationship',
 				[$value, $this->manager]
 			));
@@ -70,56 +76,20 @@ class RelationshipCollection extends AccessAbstract implements RelationshipColle
 	}
 
 	/**
-	 * Is a value set?
+	 * Get a value by the key of this document
 	 *
-	 * @param string $key The Key
-	 *
-	 * @return bool true if the value is set, false if not
-	 */
-	protected function hasValue($key)
-	{
-		return array_key_exists($key, $this->_data);
-	}
-
-	/**
-	 * Returns the keys of all setted values
-	 *
-	 * @return array Keys of all setted values
-	 */
-	public function getKeys()
-	{
-		return array_keys($this->_data);
-	}
-
-	/**
-	 * Get a value
-	 *
-	 * @param string $key The Key
-	 *
+	 * @param string $key The key of the value
 	 * @return mixed The value
 	 */
-	protected function getValue($key)
+	public function get($key)
 	{
-		if ( ! $this->has($key) )
+		try
+		{
+			return $this->container->get($key);
+		}
+		catch (AccessException $e)
 		{
 			throw new AccessException('"' . $key . '" doesn\'t exist in this relationship collection.');
 		}
-
-		return $this->_data[$key];
-	}
-
-	/**
-	 * Set a value
-	 *
-	 * @param string $name The Name
-	 * @param mixed $value The Value
-	 *
-	 * @return self
-	 */
-	protected function set($name, Relationship $value)
-	{
-		$this->_data[$name] = $value;
-
-		return $this;
 	}
 }

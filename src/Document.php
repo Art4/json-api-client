@@ -2,7 +2,6 @@
 
 namespace Art4\JsonApiClient;
 
-use Art4\JsonApiClient\AccessInterface;
 use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Utils\DataContainer;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
@@ -19,14 +18,14 @@ class Document implements DocumentInterface
 	use AccessTrait;
 
 	/**
-	 * @var FactoryManagerInterface
-	 */
-	protected $manager;
-
-	/**
 	 * @var DataContainerInterface
 	 */
 	protected $container;
+
+	/**
+	 * @var FactoryManagerInterface
+	 */
+	protected $manager;
 
 	/**
 	 * @param object $object The document body
@@ -110,27 +109,6 @@ class Document implements DocumentInterface
 	}
 
 	/**
-	 * Check if a value exists in this document
-	 *
-	 * @param string $key The key of the value
-	 * @return bool true if data exists, false if not
-	 */
-	public function has($key)
-	{
-		return $this->container->has($key);
-	}
-
-	/**
-	 * Returns the keys of all setted values in this document
-	 *
-	 * @return array Keys of all setted values
-	 */
-	public function getKeys()
-	{
-		return $this->container->getKeys();
-	}
-
-	/**
 	 * Get a value by the key of this document
 	 *
 	 * @param string $key The key of the value
@@ -146,18 +124,6 @@ class Document implements DocumentInterface
 		{
 			throw new AccessException('"' . $key . '" doesn\'t exist in Document.');
 		}
-
-	}
-
-	/**
-	 * Convert this object in an array
-	 *
-	 * @param bool $fullArray If true, objects are transformed into arrays recursively
-	 * @return array
-	 */
-	public function asArray($fullArray = false)
-	{
-		return $this->container->asArray($fullArray);
 	}
 
 	/**
