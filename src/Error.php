@@ -15,7 +15,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#error-objects
  */
-class Error extends AccessAbstract
+class Error extends AccessAbstract implements ErrorInterface
 {
 	use AccessTrait;
 

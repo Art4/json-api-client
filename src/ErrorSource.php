@@ -13,7 +13,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#error-objects
  */
-class ErrorSource extends AccessAbstract
+class ErrorSource extends AccessAbstract implements ErrorSourceInterface
 {
 	use AccessTrait;
 

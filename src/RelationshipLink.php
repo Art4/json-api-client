@@ -19,7 +19,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  * A relationship object that represents a to-many relationship MAY also contain pagination
  * links under the links member, as described below.
  */
-class RelationshipLink extends Link
+class RelationshipLink extends Link implements RelationshipLinkInterface
 {
 	/**
 	 * @var FactoryManagerInterface

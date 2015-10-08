@@ -15,7 +15,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-resource-object-relationships
  */
-class Relationship extends AccessAbstract
+class Relationship extends AccessAbstract implements RelationshipInterface
 {
 	use AccessTrait;
 

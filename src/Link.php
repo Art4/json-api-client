@@ -14,7 +14,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-links
  */
-class Link extends AccessAbstract
+class Link extends AccessAbstract implements LinkInterface
 {
 	use AccessTrait;
 

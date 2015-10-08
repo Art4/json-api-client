@@ -10,7 +10,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#fetching-pagination
  */
-class PaginationLink extends Link
+class PaginationLink extends Link implements PaginationLinkInterface
 {
 	/**
 	 * @var FactoryManagerInterface

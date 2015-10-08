@@ -14,7 +14,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-top-level
  */
-class Document implements AccessInterface
+class Document implements DocumentInterface
 {
 	use AccessTrait;
 
@@ -54,7 +54,6 @@ class Document implements AccessInterface
 
 		$this->manager = $manager;
 
-		// #TODO: Use Factory to create the DataContainer
 		$this->container = new DataContainer();
 
 		if ( property_exists($object, 'data') )

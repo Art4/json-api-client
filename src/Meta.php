@@ -13,7 +13,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-meta
  */
-class Meta extends AccessAbstract
+class Meta extends AccessAbstract implements MetaInterface
 {
 	use AccessTrait;
 
