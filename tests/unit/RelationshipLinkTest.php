@@ -49,7 +49,7 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue($link->has('related'));
 		$this->assertSame($link->get('related'), 'http://example.org/related');
 		$this->assertTrue($link->has('pagination'));
-		$this->assertInstanceOf('Art4\JsonApiClient\PaginationLink', $link->get('pagination'));
+		$this->assertInstanceOf('Art4\JsonApiClient\Pagination', $link->get('pagination'));
 
 		$this->assertSame($link->asArray(), array(
 			'self' => $link->get('self'),

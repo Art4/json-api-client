@@ -72,7 +72,7 @@ class DocumentLink implements DocumentLinkInterface
 		if ( property_exists($object, 'pagination') )
 		{
 			$this->container->set('pagination', $this->manager->getFactory()->make(
-				'PaginationLink',
+				'Pagination',
 				[$object->pagination, $this->manager]
 			));
 		}

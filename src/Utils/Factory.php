@@ -20,7 +20,7 @@ class Factory implements FactoryInterface
 		'Jsonapi'                       => 'Art4\JsonApiClient\Jsonapi',
 		'Link'                          => 'Art4\JsonApiClient\Link',
 		'Meta'                          => 'Art4\JsonApiClient\Meta',
-		'PaginationLink'                => 'Art4\JsonApiClient\PaginationLink',
+		'Pagination'                    => 'Art4\JsonApiClient\Pagination',
 		'Relationship'                  => 'Art4\JsonApiClient\Relationship',
 		'RelationshipCollection'        => 'Art4\JsonApiClient\RelationshipCollection',
 		'RelationshipLink'              => 'Art4\JsonApiClient\RelationshipLink',

@@ -2,10 +2,10 @@
 
 namespace Art4\JsonApiClient\Tests;
 
-use Art4\JsonApiClient\PaginationLink;
+use Art4\JsonApiClient\Pagination;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 
-class PaginationLinkTest extends \PHPUnit_Framework_TestCase
+class PaginationTest extends \PHPUnit_Framework_TestCase
 {
 	use HelperTrait;
 
@@ -36,9 +36,9 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		$object->next = 'http://example.org/next';
 		$object->about = 'http://example.org/about';
 
-		$link = new PaginationLink($object, $this->manager);
+		$link = new Pagination($object, $this->manager);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\PaginationLink', $link);
+		$this->assertInstanceOf('Art4\JsonApiClient\Pagination', $link);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $link);
 		$this->assertSame($link->getKeys(), array('last', 'next'));
 
@@ -80,7 +80,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 			'Pagination has to be an object, "' . gettype($input) . '" given.'
 		);
 
-		$link = new PaginationLink($input, $this->manager);
+		$link = new Pagination($input, $this->manager);
 	}
 
 	/**
@@ -96,7 +96,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		// Input must be null or string
 		if ( gettype($input) === 'string' )
 		{
-			$link = new PaginationLink($object, $this->manager);
+			$link = new Pagination($object, $this->manager);
 			$this->assertSame($link->getKeys(), array('first'));
 
 			$this->assertTrue($link->has('first'));
@@ -106,7 +106,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		}
 		elseif ( gettype($input) === 'NULL' )
 		{
-			$link = new PaginationLink($object, $this->manager);
+			$link = new Pagination($object, $this->manager);
 			$this->assertSame($link->getKeys(), array());
 
 			$this->assertFalse($link->has('first'));
@@ -119,7 +119,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 			'property "first" has to be a string or null, "' . gettype($input) . '" given.'
 		);
 
-		$link = new PaginationLink($object, $this->manager);
+		$link = new Pagination($object, $this->manager);
 	}
 
 	/**
@@ -135,7 +135,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		// Input must be null or string
 		if ( gettype($input) === 'string' )
 		{
-			$link = new PaginationLink($object, $this->manager);
+			$link = new Pagination($object, $this->manager);
 			$this->assertSame($link->getKeys(), array('last'));
 
 			$this->assertTrue($link->has('last'));
@@ -145,7 +145,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		}
 		elseif ( gettype($input) === 'NULL' )
 		{
-			$link = new PaginationLink($object, $this->manager);
+			$link = new Pagination($object, $this->manager);
 			$this->assertSame($link->getKeys(), array());
 
 			$this->assertFalse($link->has('last'));
@@ -158,7 +158,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 			'property "last" has to be a string or null, "' . gettype($input) . '" given.'
 		);
 
-		$link = new PaginationLink($object, $this->manager);
+		$link = new Pagination($object, $this->manager);
 	}
 
 	/**
@@ -174,7 +174,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		// Input must be null or string
 		if ( gettype($input) === 'string' )
 		{
-			$link = new PaginationLink($object, $this->manager);
+			$link = new Pagination($object, $this->manager);
 			$this->assertSame($link->getKeys(), array('prev'));
 
 			$this->assertTrue($link->has('prev'));
@@ -184,7 +184,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		}
 		elseif ( gettype($input) === 'NULL' )
 		{
-			$link = new PaginationLink($object, $this->manager);
+			$link = new Pagination($object, $this->manager);
 			$this->assertSame($link->getKeys(), array());
 
 			$this->assertFalse($link->has('prev'));
@@ -197,7 +197,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 			'property "prev" has to be a string or null, "' . gettype($input) . '" given.'
 		);
 
-		$link = new PaginationLink($object, $this->manager);
+		$link = new Pagination($object, $this->manager);
 	}
 
 	/**
@@ -213,7 +213,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		// Input must be null or string
 		if ( gettype($input) === 'string' )
 		{
-			$link = new PaginationLink($object, $this->manager);
+			$link = new Pagination($object, $this->manager);
 			$this->assertSame($link->getKeys(), array('next'));
 
 			$this->assertTrue($link->has('next'));
@@ -223,7 +223,7 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 		}
 		elseif ( gettype($input) === 'NULL' )
 		{
-			$link = new PaginationLink($object, $this->manager);
+			$link = new Pagination($object, $this->manager);
 			$this->assertSame($link->getKeys(), array());
 
 			$this->assertFalse($link->has('next'));
@@ -236,6 +236,6 @@ class PaginationLinkTest extends \PHPUnit_Framework_TestCase
 			'property "next" has to be a string or null, "' . gettype($input) . '" given.'
 		);
 
-		$link = new PaginationLink($object, $this->manager);
+		$link = new Pagination($object, $this->manager);
 	}
 }
