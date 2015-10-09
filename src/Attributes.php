@@ -12,7 +12,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-resource-object-attributes
  */
-class Attributes implements AttributesInterface
+final class Attributes implements AttributesInterface
 {
 	use AccessTrait;
 

@@ -17,7 +17,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  * - related: a related resource link when the primary data represents a resource relationship.
  * - pagination links for the primary data
  */
-class DocumentLink implements DocumentLinkInterface
+final class DocumentLink implements DocumentLinkInterface
 {
 	use AccessTrait;
 

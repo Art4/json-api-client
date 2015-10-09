@@ -17,7 +17,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  * - links: a links object containing the following members:
  *   - about: a link that leads to further details about this particular occurrence of the problem.
  */
-class ErrorLink implements ErrorLinkInterface
+final class ErrorLink implements ErrorLinkInterface
 {
 	use AccessTrait;
 

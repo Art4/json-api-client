@@ -13,7 +13,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-resource-objects
  */
-class Item implements ItemInterface, ResourceInterface
+final class Item implements ItemInterface, ResourceInterface
 {
 	use AccessTrait;
 

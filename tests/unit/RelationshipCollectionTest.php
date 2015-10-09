@@ -26,7 +26,7 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 		$object->author = new \stdClass();
 		$object->author->meta = new \stdClass();
 
-		$item = $this->getMockBuilder('Art4\JsonApiClient\Resource\Item')
+		$item = $this->getMockBuilder('Art4\JsonApiClient\Resource\ItemInterface')
 			->disableOriginalConstructor()
 			->getMock();
 

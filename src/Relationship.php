@@ -13,7 +13,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-resource-object-relationships
  */
-class Relationship implements RelationshipInterface
+final class Relationship implements RelationshipInterface
 {
 	use AccessTrait;
 

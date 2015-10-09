@@ -7,7 +7,7 @@ use Art4\JsonApiClient\Exception\AccessException;
 /**
  * Null Resource
  */
-class NullResource implements NullResourceInterface, ResourceInterface
+final class NullResource implements NullResourceInterface, ResourceInterface
 {
 	/**
 	 * Constructor need for mocking

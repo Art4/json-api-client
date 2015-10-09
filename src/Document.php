@@ -13,7 +13,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-top-level
  */
-class Document implements DocumentInterface
+final class Document implements DocumentInterface
 {
 	use AccessTrait;
 

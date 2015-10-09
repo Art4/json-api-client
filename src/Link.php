@@ -13,7 +13,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-links
  */
-class Link implements LinkInterface
+final class Link implements LinkInterface
 {
 	use AccessTrait;
 
