@@ -238,4 +238,27 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 
 		$link = new Pagination($object, $this->manager);
 	}
+
+	/**
+	 * @test
+	 */
+	public function testGetOnANonExistingKeyThrowsException()
+	{
+		$object = new \stdClass();
+		$object->first = null;
+		$object->last = 'http://example.org/last';
+		$object->prev = null;
+		$object->next = 'http://example.org/next';
+
+		$link = new Pagination($object, $this->manager);
+
+		$this->assertFalse($link->has('something'));
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\AccessException',
+			'"something" doesn\'t exist in this object.'
+		);
+
+		$link->get('something');
+	}
 }

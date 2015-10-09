@@ -130,4 +130,24 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 
 		$link = new DocumentLink($object, $this->manager);
 	}
+
+	/**
+	 * @test
+	 */
+	public function testGetOnANonExistingKeyThrowsException()
+	{
+		$object = new \stdClass();
+		$object->self = 'http://example.org/self';
+
+		$link = new DocumentLink($object, $this->manager);
+
+		$this->assertFalse($link->has('something'));
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\AccessException',
+			'"something" doesn\'t exist in this object.'
+		);
+
+		$link->get('something');
+	}
 }
