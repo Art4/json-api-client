@@ -22,7 +22,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreateWithConstructorReturnsSelf()
 	{
-		$factory = $this->getMockBuilder('Art4\JsonApiClient\Utils\Factory')
+		$factory = $this->getMockBuilder('Art4\JsonApiClient\Utils\FactoryInterface')
 			->getMock();
 
 		$manager = new Manager($factory);
@@ -30,7 +30,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Art4\JsonApiClient\Utils\ManagerInterface', $manager);
 		$this->assertInstanceOf('Art4\JsonApiClient\Utils\FactoryManagerInterface', $manager);
 
-		$this->assertSame($factory, $manager->getFactory());
+		$this->assertInstanceOf('Art4\JsonApiClient\Utils\FactoryInterface', $manager->getFactory());
 	}
 
 	/**
@@ -38,7 +38,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testSetFactoryReturnsSelf()
 	{
-		$factory = $this->getMockBuilder('Art4\JsonApiClient\Utils\Factory')
+		$factory = $this->getMockBuilder('Art4\JsonApiClient\Utils\FactoryInterface')
 			->getMock();
 
 		$manager = new Manager;
@@ -51,7 +51,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetFactoryReturnsFactoryInterface()
 	{
-		$factory = $this->getMockBuilder('Art4\JsonApiClient\Utils\Factory')
+		$factory = $this->getMockBuilder('Art4\JsonApiClient\Utils\FactoryInterface')
 			->getMock();
 
 		$manager = (new Manager)->setFactory($factory);

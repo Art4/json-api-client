@@ -4,7 +4,7 @@ namespace Art4\JsonApiClient\Utils;
 
 use Art4\JsonApiClient\Exception\FactoryException;
 
-class Factory implements FactoryInterface
+final class Factory implements FactoryInterface
 {
 	/**
 	 * @var array
