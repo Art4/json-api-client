@@ -148,6 +148,8 @@ class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 
 		$link = new ErrorLink($object, $this->manager);
 
+		$this->assertFalse($link->has('something'));
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\AccessException',
 			'"something" doesn\'t exist in this object.'

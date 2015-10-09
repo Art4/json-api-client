@@ -21,7 +21,6 @@ class Factory extends OrigFactory
 		{
 			return $this->testcase
 				->getMockBuilder($this->classes[$name] . 'Interface') // Mock only the interfaces
-				->disableOriginalConstructor()
 				->getMock();
 		}
 	}

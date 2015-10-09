@@ -170,4 +170,24 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 
 		$attributes = new Attributes($object, $this->manager);
 	}
+
+	/**
+	 * @test
+	 */
+	public function testGetOnANonExistingKeyThrowsException()
+	{
+		$object = new \stdClass();
+		$object->pages = '1126';
+
+		$attributes = new Attributes($object, $this->manager);
+
+		$this->assertFalse($attributes->has('foobar'));
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\AccessException',
+			'"foobar" doesn\'t exist in this object.'
+		);
+
+		$attributes->get('foobar');
+	}
 }

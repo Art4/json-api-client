@@ -53,7 +53,7 @@ final class Item implements ItemInterface, ResourceInterface
 
 		if ( is_object($object->id) or is_array($object->id)  )
 		{
-			throw new ValidationException('Resource Id cannot be an array or object');
+			throw new ValidationException('Resource id cannot be an array or object');
 		}
 
 		$this->manager = $manager;
