@@ -2,7 +2,6 @@
 
 namespace Art4\JsonApiClient\Utils;
 
-use Art4\JsonApiClient\Document;
 use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
