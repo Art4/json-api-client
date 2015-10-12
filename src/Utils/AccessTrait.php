@@ -8,7 +8,7 @@ namespace Art4\JsonApiClient\Utils;
 trait AccessTrait
 {
 	/**
-	 * Check if a value exists in this document
+	 * Check if a value exists in this object
 	 *
 	 * @param string $key The key of the value
 	 * @return bool true if data exists, false if not
@@ -19,7 +19,7 @@ trait AccessTrait
 	}
 
 	/**
-	 * Returns the keys of all setted values in this document
+	 * Returns the keys of all setted values in this object
 	 *
 	 * @return array Keys of all setted values
 	 */
