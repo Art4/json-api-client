@@ -5,9 +5,17 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.5] - 2015-10-12
+
 ### Added
 
 - Dot-notation support in `AccessInterface::has()` and `AccessInterface::get()`
+- Every object has now his own interface, eg. `DocumentInterface`, `MetaInterface` or `Resource\ItemInterface`
+
+### Changed
+
+- **BREAKING**: object `PaginationLink` was renamed to `Pagination`
+- **BREAKING**: nearly all classes was set to `final` and can't be extended anymore. Implement the new interfaces instead. See also [#18](https://github.com/Art4/json-api-client/pull/18).
 
 ## [0.4] - 2015-09-01
 
@@ -55,7 +63,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Validator fits nearly 100% specification
 - Full test coverage
 
-[Unreleased]: https://github.com/Art4/json-api-client/compare/0.4...HEAD
+[Unreleased]: https://github.com/Art4/json-api-client/compare/0.5...HEAD
+[0.5]: https://github.com/Art4/json-api-client/compare/0.4...0.5
 [0.4]: https://github.com/Art4/json-api-client/compare/0.3...0.4
 [0.3]: https://github.com/Art4/json-api-client/compare/0.2...0.3
 [0.2]: https://github.com/Art4/json-api-client/compare/0.1...0.2
