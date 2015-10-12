@@ -2,7 +2,6 @@
 
 namespace Art4\JsonApiClient\Utils;
 
-use Art4\JsonApiClient\Document;
 use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
@@ -10,7 +9,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * Website: http://github.com/Art4/json-api-client
  */
-class Helper
+final class Helper
 {
 	const JSONAPI_VERSION = '1.0';
 

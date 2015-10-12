@@ -190,7 +190,7 @@ class DotNotationTest extends \PHPUnit_Framework_TestCase
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\AccessException',
-			'Could not get the value for the key "meta.random_object.zap".'
+			'"meta.random_object.zap" doesn\'t exist in Document.'
 		);
 
 		$document->get('meta.random_object.zap');

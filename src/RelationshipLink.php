@@ -2,7 +2,10 @@
 
 namespace Art4\JsonApiClient;
 
+use Art4\JsonApiClient\Utils\AccessTrait;
+use Art4\JsonApiClient\Utils\DataContainer;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
+use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
@@ -19,8 +22,15 @@ use Art4\JsonApiClient\Exception\ValidationException;
  * A relationship object that represents a to-many relationship MAY also contain pagination
  * links under the links member, as described below.
  */
-class RelationshipLink extends Link
+final class RelationshipLink implements RelationshipLinkInterface
 {
+	use AccessTrait;
+
+	/**
+	 * @var DataContainerInterface
+	 */
+	protected $container;
+
 	/**
 	 * @var FactoryManagerInterface
 	 */
@@ -47,6 +57,8 @@ class RelationshipLink extends Link
 
 		$this->manager = $manager;
 
+		$this->container = new DataContainer();
+
 		if ( property_exists($object, 'self') )
 		{
 			if ( ! is_string($object->self) )
@@ -54,7 +66,7 @@ class RelationshipLink extends Link
 				throw new ValidationException('property "self" has to be a string, "' . gettype($object->self) . '" given.');
 			}
 
-			$this->set('self', $object->self);
+			$this->container->set('self', strval($object->self));
 		}
 
 		if ( property_exists($object, 'related') )
@@ -64,15 +76,33 @@ class RelationshipLink extends Link
 				throw new ValidationException('property "related" has to be a string, "' . gettype($object->related) . '" given.');
 			}
 
-			$this->set('related', $object->related);
+			$this->container->set('related', strval($object->related));
 		}
 
 		if ( property_exists($object, 'pagination') )
 		{
-			$this->set('pagination', $this->manager->getFactory()->make(
-				'PaginationLink',
+			$this->container->set('pagination', $this->manager->getFactory()->make(
+				'Pagination',
 				[$object->pagination, $this->manager]
 			));
+		}
+	}
+
+	/**
+	 * Get a value by the key of this object
+	 *
+	 * @param string $key The key of the value
+	 * @return mixed The value
+	 */
+	public function get($key)
+	{
+		try
+		{
+			return $this->container->get($key);
+		}
+		catch (AccessException $e)
+		{
+			throw new AccessException('"' . $key . '" doesn\'t exist in this object.');
 		}
 	}
 }

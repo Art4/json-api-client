@@ -2,10 +2,9 @@
 
 namespace Art4\JsonApiClient;
 
-use Art4\JsonApiClient\Utils\AccessAbstract;
 use Art4\JsonApiClient\Utils\AccessTrait;
+use Art4\JsonApiClient\Utils\DataContainer;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
-use Art4\JsonApiClient\Utils\MetaTrait;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 
@@ -14,18 +13,19 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-links
  */
-class Link extends AccessAbstract
+final class Link implements LinkInterface
 {
 	use AccessTrait;
 
-	use MetaTrait;
+	/**
+	 * @var DataContainerInterface
+	 */
+	protected $container;
 
 	/**
 	 * @var FactoryManagerInterface
 	 */
 	protected $manager;
-
-	protected $_links = array();
 
 	/**
 	 * @param object $object The error object
@@ -43,6 +43,8 @@ class Link extends AccessAbstract
 
 		$this->manager = $manager;
 
+		$this->container = new DataContainer();
+
 		$object_vars = get_object_vars($object);
 
 		if ( count($object_vars) === 0 )
@@ -59,59 +61,21 @@ class Link extends AccessAbstract
 	}
 
 	/**
-	 * Is a link set?
+	 * Get a value by the key of this object
 	 *
-	 * @param string $key The Key
-	 *
-	 * @return bool true if the link is set, false if not
+	 * @param string $key The key of the value
+	 * @return mixed The value
 	 */
-	protected function hasValue($key)
+	public function get($key)
 	{
-		if ( $key === 'meta' )
+		try
 		{
-			return $this->hasMeta();
+			return $this->container->get($key);
 		}
-
-		return array_key_exists($key, $this->_links);
-	}
-
-	/**
-	 * Returns the keys of all setted values
-	 *
-	 * @return array Keys of all setted values
-	 */
-	public function getKeys()
-	{
-		$keys = array_keys($this->_links);
-
-		if ( $this->has('meta') )
-		{
-			$keys[] = 'meta';
-		}
-
-		return $keys;
-	}
-
-	/**
-	 * Get a link
-	 *
-	 * @param string $key The Name
-	 *
-	 * @return string|Link The link
-	 */
-	protected function getValue($key)
-	{
-		if ( ! $this->has($key) )
+		catch (AccessException $e)
 		{
 			throw new AccessException('"' . $key . '" doesn\'t exist in this object.');
 		}
-
-		if ( $key === 'meta' )
-		{
-			return $this->getMeta();
-		}
-
-		return $this->_links[$key];
 	}
 
 	/**
@@ -126,7 +90,10 @@ class Link extends AccessAbstract
 	{
 		if ( $name === 'meta' )
 		{
-			$this->setMeta($link);
+			$this->container->set($name, $this->manager->getFactory()->make(
+				'Meta',
+				[$link, $this->manager]
+			));
 
 			return $this;
 		}
@@ -135,33 +102,25 @@ class Link extends AccessAbstract
 		// - href: a string containing the link's URL.
 		if ( $name === 'href' or ! is_object($link) )
 		{
-			// Pagination: Keys MUST either be omitted or have a null value to indicate that a particular link is unavailable.
-			if ( is_null($link) and ($this instanceof PaginationLink) )
-			{
-				return $this;
-			}
-
 			if ( ! is_string($link) )
 			{
 				throw new ValidationException('Link has to be an object or string, "' . gettype($link) . '" given.');
 			}
 
-			$this->_links[$name] = strval($link);
+			$this->container->set($name, strval($link));
 
 			return $this;
 		}
 
 		// Now $link can only be an object
 		// Create Link object if needed
-		if ( ! ($link instanceof Link) )
+		if ( ! ($link instanceof LinkInterface) )
 		{
-			$link = $this->manager->getFactory()->make(
+			$this->container->set($name, $this->manager->getFactory()->make(
 				'Link',
 				[$link, $this->manager]
-			);
+			));
 		}
-
-		$this->_links[$name] = $link;
 
 		return $this;
 	}

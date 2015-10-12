@@ -2,10 +2,8 @@
 
 namespace Art4\JsonApiClient;
 
-use Art4\JsonApiClient\Utils\AccessAbstract;
 use Art4\JsonApiClient\Utils\AccessTrait;
-use Art4\JsonApiClient\Utils\MetaTrait;
-use Art4\JsonApiClient\Utils\LinksTrait;
+use Art4\JsonApiClient\Utils\DataContainer;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
@@ -15,29 +13,19 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-top-level
  */
-class Document extends AccessAbstract
+final class Document implements DocumentInterface
 {
 	use AccessTrait;
 
-	use MetaTrait;
-
-	use LinksTrait;
+	/**
+	 * @var DataContainerInterface
+	 */
+	protected $container;
 
 	/**
 	 * @var FactoryManagerInterface
 	 */
 	protected $manager;
-
-	/**
-	 * @var null|ResourceIdentifier
-	 */
-	protected $data = false; // Cannot be null, because null is a valid value too
-
-	protected $errors = null;
-
-	protected $jsonapi = null;
-
-	protected $included = null;
 
 	/**
 	 * @param object $object The document body
@@ -65,22 +53,27 @@ class Document extends AccessAbstract
 
 		$this->manager = $manager;
 
+		$this->container = new DataContainer();
+
 		if ( property_exists($object, 'data') )
 		{
-			$this->setData($object->data);
+			$this->container->set('data', $this->parseData($object->data));
 		}
 
 		if ( property_exists($object, 'meta') )
 		{
-			$this->setMeta($object->meta);
+			$this->container->set('meta', $this->manager->getFactory()->make(
+				'Meta',
+				[$object->meta, $this->manager]
+			));
 		}
 
 		if ( property_exists($object, 'errors') )
 		{
-			$this->errors = $this->manager->getFactory()->make(
+			$this->container->set('errors', $this->manager->getFactory()->make(
 				'ErrorCollection',
 				[$object->errors, $this->manager]
-			);
+			));
 		}
 
 		if ( property_exists($object, 'included') )
@@ -90,23 +83,23 @@ class Document extends AccessAbstract
 				throw new ValidationException('If Document does not contain a `data` property, the `included` property MUST NOT be present either.');
 			}
 
-			$this->included = $this->manager->getFactory()->make(
+			$this->container->set('included', $this->manager->getFactory()->make(
 				'Resource\Collection',
 				[$object->included, $this->manager]
-			);
+			));
 		}
 
 		if ( property_exists($object, 'jsonapi') )
 		{
-			$this->jsonapi = $this->manager->getFactory()->make(
+			$this->container->set('jsonapi', $this->manager->getFactory()->make(
 				'Jsonapi',
 				[$object->jsonapi, $this->manager]
-			);
+			));
 		}
 
 		if ( property_exists($object, 'links') )
 		{
-			$this->setLinks($this->manager->getFactory()->make(
+			$this->container->set('links', $this->manager->getFactory()->make(
 				'DocumentLink',
 				[$object->links, $this->manager]
 			));
@@ -116,137 +109,21 @@ class Document extends AccessAbstract
 	}
 
 	/**
-	 * Check if a value exists in this document
-	 *
-	 * @param string $key The key of the value
-	 * @return bool true if data exists, false if not
-	 */
-	protected function hasValue($key)
-	{
-		// data
-		if ( $key === 'data' and $this->data !== false )
-		{
-			return true;
-		}
-
-		// errors
-		if ( $key === 'errors' and count($this->errors) > 0 )
-		{
-			return true;
-		}
-
-		// meta
-		if ( $key === 'meta' and $this->hasMeta() )
-		{
-			return true;
-		}
-
-		// jsonapi
-		if ( $key === 'jsonapi' and $this->jsonapi !== null )
-		{
-			return true;
-		}
-
-		// links
-		if ( $key === 'links' and $this->hasLinks() )
-		{
-			return true;
-		}
-
-		// included
-		if ( $key === 'included' and $this->included !== null )
-		{
-			return true;
-		}
-
-		return false;
-	}
-
-	/**
-	 * Returns the keys of all setted values in this document
-	 *
-	 * @return array Keys of all setted values
-	 */
-	public function getKeys()
-	{
-		$keys = array();
-
-		// data
-		if ( $this->has('data') )
-		{
-			$keys[] = 'data';
-		}
-
-		// errors
-		if ( $this->has('errors') )
-		{
-			$keys[] = 'errors';
-		}
-
-		// meta
-		if ( $this->has('meta') )
-		{
-			$keys[] = 'meta';
-		}
-
-		// jsonapi
-		if ( $this->has('jsonapi') )
-		{
-			$keys[] = 'jsonapi';
-		}
-
-		// links
-		if ( $this->has('links') )
-		{
-			$keys[] = 'links';
-		}
-
-		// included
-		if ( $this->has('included') )
-		{
-			$keys[] = 'included';
-		}
-
-		return $keys;
-	}
-
-	/**
 	 * Get a value by the key of this document
 	 *
 	 * @param string $key The key of the value
 	 * @return mixed The value
 	 */
-	protected function getValue($key)
+	public function get($key)
 	{
-		if ( ! $this->has($key) )
+		try
+		{
+			return $this->container->get($key);
+		}
+		catch (AccessException $e)
 		{
 			throw new AccessException('"' . $key . '" doesn\'t exist in Document.');
 		}
-
-		if ( $key === 'meta' )
-		{
-			return $this->getMeta();
-		}
-
-		if ( $key === 'links' )
-		{
-			return $this->getLinks();
-		}
-
-		return $this->$key;
-	}
-
-	/**
-	 * Set the data for this document
-	 *
-	 * @throws ValidationException If $data isn't ResourceInterface
-	 *
-	 * @param null|object $data The Data
-	 * @return self
-	 */
-	protected function setData($data)
-	{
-		$this->data = $this->parseData($data);
 	}
 
 	/**

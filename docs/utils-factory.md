@@ -19,8 +19,17 @@ Assuming you want a `toJson()` functionality in your document object. First crea
 
 ```php
 namespace My\Own
-class Document extends \Art4\JsonApiClient\Document
+class Document implements \Art4\JsonApiClient\DocumentInterface
 {
+    // Implement the \Art4\JsonApiClient\DocumentInterface here
+    /*
+    public function get($key);
+    public function has($key);
+    public function getKeys();
+    public function asArray();
+    */
+
+    // your new method
     public function toJson()
     {
         return json_encode($this->asArray(true));

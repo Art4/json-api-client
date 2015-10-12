@@ -16,4 +16,4 @@ _[Symbols definition](objects-introduction.md#symbols)_
 --- | ---- | ----- | ----
 ? | self | `string` |
 ? | related | `string` |
-? | pagination | [Pagination Link object](objects-pagination-link.md) |
+? | pagination | [Pagination object](objects-pagination.md) |

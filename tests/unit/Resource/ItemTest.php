@@ -76,13 +76,13 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($resource->get('type'), 'type');
 		$this->assertSame($resource->get('id'), '789');
 		$this->assertTrue($resource->has('meta'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Meta', $resource->get('meta'));
+		$this->assertInstanceOf('Art4\JsonApiClient\MetaInterface', $resource->get('meta'));
 		$this->assertTrue($resource->has('attributes'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Attributes', $resource->get('attributes'));
+		$this->assertInstanceOf('Art4\JsonApiClient\AttributesInterface', $resource->get('attributes'));
 		$this->assertTrue($resource->has('relationships'));
-		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipCollection', $resource->get('relationships'));
+		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipCollectionInterface', $resource->get('relationships'));
 		$this->assertTrue($resource->has('links'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Link', $resource->get('links'));
+		$this->assertInstanceOf('Art4\JsonApiClient\LinkInterface', $resource->get('links'));
 		$this->assertSame($resource->getKeys(), array('type', 'id', 'meta', 'attributes', 'relationships', 'links'));
 
 		$this->assertSame($resource->asArray(), array(
@@ -103,5 +103,106 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 			'relationships' => $resource->get('relationships')->asArray(true),
 			'links' => $resource->get('links')->asArray(true),
 		));
+	}
+
+	/**
+	 * @dataProvider jsonValuesProvider
+		*
+	 * The values of the id and type members MUST be strings.
+	 */
+	public function testTypeCannotBeAnObjectOrArray($input)
+	{
+		$object = new \stdClass();
+		$object->type = $input;
+		$object->id = '753';
+
+		if ( gettype($input) === 'object' or gettype($input) === 'array' )
+		{
+			$this->setExpectedException(
+				'Art4\JsonApiClient\Exception\ValidationException',
+				'Resource type cannot be an array or object'
+			);
+		}
+
+		$item = new Item($object, $this->manager);
+
+		$this->assertTrue(is_string($item->get('type')));
+	}
+
+	/**
+	 * @dataProvider jsonValuesProvider
+	 *
+	 * The values of the id and type members MUST be strings.
+	 */
+	public function testIdCannotBeAnObjectOrArray($input)
+	{
+		$object = new \stdClass();
+		$object->type = 'posts';
+		$object->id = $input;
+
+		if ( gettype($input) === 'object' or gettype($input) === 'array' )
+		{
+			$this->setExpectedException(
+				'Art4\JsonApiClient\Exception\ValidationException',
+				'Resource id cannot be an array or object'
+			);
+		}
+
+		$item = new Item($object, $this->manager);
+
+		$this->assertTrue(is_string($item->get('id')));
+	}
+
+	/**
+	 * @dataProvider jsonValuesProvider
+	 *
+	 * A "resource object" is an object that identifies an individual resource.
+	 * A "resource object" MUST contain type and id members.
+	 */
+	public function testCreateWithDataproviderThrowsException($input)
+	{
+		if ( gettype($input) === 'object' )
+		{
+			return;
+		}
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'Resource has to be an object, "' . gettype($input) . '" given.'
+		);
+
+		$item = new Item($input, $this->manager);
+	}
+
+	/**
+	 * @test A "resource object" MUST contain type and id members.
+	 */
+	public function testCreateWithObjectWithoutTypeThrowsException()
+	{
+		$object = new \stdClass();
+		$object->id = 123;
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'A resource object MUST contain a type'
+		);
+
+		$item = new Item($object, $this->manager);
+	}
+
+	/**
+	 * @test A "resource object" MUST contain type and id members.
+	 */
+	public function testCreateWithObjectWithoutIdThrowsException()
+	{
+		$object = new \stdClass();
+		$object->type = 'type';
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'A resource object MUST contain an id'
+		);
+
+		$item = new Item($object, $this->manager);
 	}
 }

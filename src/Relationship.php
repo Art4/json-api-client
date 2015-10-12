@@ -2,10 +2,8 @@
 
 namespace Art4\JsonApiClient;
 
-use Art4\JsonApiClient\Utils\AccessAbstract;
 use Art4\JsonApiClient\Utils\AccessTrait;
-use Art4\JsonApiClient\Utils\MetaTrait;
-use Art4\JsonApiClient\Utils\LinksTrait;
+use Art4\JsonApiClient\Utils\DataContainer;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
@@ -15,23 +13,19 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-resource-object-relationships
  */
-class Relationship extends AccessAbstract
+final class Relationship implements RelationshipInterface
 {
 	use AccessTrait;
 
-	use MetaTrait;
-
-	use LinksTrait;
+	/**
+	 * @var DataContainerInterface
+	 */
+	protected $container;
 
 	/**
 	 * @var FactoryManagerInterface
 	 */
 	protected $manager;
-
-	/**
-	 * @var null|ResourceIdentifier
-	 */
-	protected $data = false; // Cannot be null, because null is a valid value too
 
 	/**
 	 * @param object $object The relationship object
@@ -54,9 +48,11 @@ class Relationship extends AccessAbstract
 
 		$this->manager = $manager;
 
+		$this->container = new DataContainer();
+
 		if ( property_exists($object, 'links') )
 		{
-			$this->setLinks($this->manager->getFactory()->make(
+			$this->container->set('links', $this->manager->getFactory()->make(
 				'RelationshipLink',
 				[$object->links, $this->manager]
 			));
@@ -64,113 +60,36 @@ class Relationship extends AccessAbstract
 
 		if ( property_exists($object, 'data') )
 		{
-			$this->setData($object->data);
+			$this->container->set('data', $this->parseData($object->data));
 		}
 
 		if ( property_exists($object, 'meta') )
 		{
-			$this->setMeta($object->meta);
+			$this->container->set('meta', $this->manager->getFactory()->make(
+				'Meta',
+				[$object->meta, $this->manager]
+			));
 		}
 
 		return $this;
 	}
 
 	/**
-	 * Check if a value exists in this relationship
-		*
-	 * @param string $key The key of the value
-	 * @return bool true if data exists, false if not
-	 */
-	protected function hasValue($key)
-	{
-		// links
-		if ( $key === 'links' and $this->hasLinks() )
-		{
-			return true;
-		}
-
-		// data
-		if ( $key === 'data' and $this->data !== false )
-		{
-			return true;
-		}
-
-		// meta
-		if ( $key === 'meta' and $this->hasMeta() )
-		{
-			return true;
-		}
-
-		return false;
-	}
-
-	/**
-	 * Returns the keys of all setted values in this relationship
-	 *
-	 * @return array Keys of all setted values
-	 */
-	public function getKeys()
-	{
-		$keys = array();
-
-		// links
-		if ( $this->has('links') )
-		{
-			$keys[] = 'links';
-		}
-
-		// data
-		if ( $this->has('data') )
-		{
-			$keys[] = 'data';
-		}
-
-		// meta
-		if ( $this->has('meta') )
-		{
-			$keys[] = 'meta';
-		}
-
-		return $keys;
-	}
-
-	/**
-	 * Get a value by the key of this relationship
+	 * Get a value by the key of this object
 	 *
 	 * @param string $key The key of the value
 	 * @return mixed The value
 	 */
-	protected function getValue($key)
+	public function get($key)
 	{
-		if ( ! $this->has($key) )
+		try
+		{
+			return $this->container->get($key);
+		}
+		catch (AccessException $e)
 		{
 			throw new AccessException('"' . $key . '" doesn\'t exist in Relationship.');
 		}
-
-		if ( $key === 'meta' )
-		{
-			return $this->getMeta();
-		}
-
-		if ( $key === 'links' )
-		{
-			return $this->getLinks();
-		}
-
-		return $this->$key;
-	}
-
-	/**
-	 * Set the data for this relationship
-	 *
-	 * @throws ValidationException If $data isn't null or ResourceIdentifier
-	 *
-	 * @param null|object $data The Data
-	 * @return self
-	 */
-	protected function setData($data)
-	{
-		$this->data = $this->parseData($data);
 	}
 
 	/**

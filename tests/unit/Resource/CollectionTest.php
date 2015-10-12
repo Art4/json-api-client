@@ -61,8 +61,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue($collection->has(0));
 		$resource = $collection->get(0);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $resource);
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $resource);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\IdentifierInterface', $resource);
 
 		$this->assertSame($collection->asArray(), array(
 			$collection->get(0),
@@ -94,20 +93,17 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue($collection->has(0));
 		$resource = $collection->get(0);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $resource);
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $resource);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\IdentifierInterface', $resource);
 
 		$this->assertTrue($collection->has(1));
 		$resource = $collection->get(1);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $resource);
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $resource);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\IdentifierInterface', $resource);
 
 		$this->assertTrue($collection->has(2));
 		$resource = $collection->get(2);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $resource);
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $resource);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\IdentifierInterface', $resource);
 
 		$this->assertSame($collection->asArray(), array(
 			$collection->get(0),
@@ -145,8 +141,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
 		$resource = $collection->get(0);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $resource);
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $resource);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ItemInterface', $resource);
 	}
 
 	/**

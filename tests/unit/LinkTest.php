@@ -32,30 +32,30 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Link', $link);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $link);
-		$this->assertSame($link->getKeys(), array('href', 'linkobj', 'link', 'meta'));
+		$this->assertSame($link->getKeys(), array('meta', 'href', 'linkobj', 'link'));
 
 		$this->assertTrue($link->has('href'));
 		$this->assertSame($link->get('href'), 'http://example.org/href');
 		$this->assertTrue($link->has('meta'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Meta', $link->get('meta'));
+		$this->assertInstanceOf('Art4\JsonApiClient\MetaInterface', $link->get('meta'));
 		$this->assertTrue($link->has('link'));
 		$this->assertSame($link->get('link'), 'http://example.org/link');
 		$this->assertTrue($link->has('linkobj'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Link', $link->get('linkobj'));
+		$this->assertInstanceOf('Art4\JsonApiClient\LinkInterface', $link->get('linkobj'));
 
 		$this->assertSame($link->asArray(), array(
+			'meta' => $link->get('meta'),
 			'href' => $link->get('href'),
 			'linkobj' => $link->get('linkobj'),
 			'link' => $link->get('link'),
-			'meta' => $link->get('meta'),
 		));
 
 		// Test full array
 		$this->assertSame($link->asArray(true), array(
+			'meta' => $link->get('meta')->asArray(true),
 			'href' => $link->get('href'),
 			'linkobj' => $link->get('linkobj')->asArray(true),
 			'link' => $link->get('link'),
-			'meta' => $link->get('meta')->asArray(true),
 		));
 
 		// test get() with not existing key throws an exception
@@ -104,7 +104,7 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 		// A link object could be empty
 		if ( gettype($input) === 'object' )
 		{
-			$this->assertInstanceOf('Art4\JsonApiClient\Link', new Link($input, $this->manager));
+			$this->assertInstanceOf('Art4\JsonApiClient\LinkInterface', new Link($input, $this->manager));
 			return;
 		}
 

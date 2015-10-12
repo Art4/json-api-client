@@ -209,7 +209,7 @@ class ParsingTest extends \PHPUnit_Framework_TestCase
 
 		$data_array = $comments->get('data');
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $data_array);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\IdentifierCollection', $data_array);
 		$this->assertCount(2, $data_array->getKeys());
 
 		$identifier = $data_array->get(0);

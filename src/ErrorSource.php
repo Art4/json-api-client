@@ -2,8 +2,8 @@
 
 namespace Art4\JsonApiClient;
 
-use Art4\JsonApiClient\Utils\AccessAbstract;
 use Art4\JsonApiClient\Utils\AccessTrait;
+use Art4\JsonApiClient\Utils\DataContainer;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
@@ -13,18 +13,19 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#error-objects
  */
-class ErrorSource extends AccessAbstract
+final class ErrorSource implements ErrorSourceInterface
 {
 	use AccessTrait;
+
+	/**
+	 * @var DataContainerInterface
+	 */
+	protected $container;
 
 	/**
 	 * @var FactoryManagerInterface
 	 */
 	protected $manager;
-
-	protected $pointer = null;
-
-	protected $parameter = null;
 
 	/**
 	 * @param object $object The error source object
@@ -42,6 +43,8 @@ class ErrorSource extends AccessAbstract
 
 		$this->manager = $manager;
 
+		$this->container = new DataContainer();
+
 		if ( property_exists($object, 'pointer') )
 		{
 			if ( ! is_string($object->pointer) )
@@ -49,7 +52,7 @@ class ErrorSource extends AccessAbstract
 				throw new ValidationException('property "pointer" has to be a string, "' . gettype($object->pointer) . '" given.');
 			}
 
-			$this->pointer = strval($object->pointer);
+			$this->container->set('pointer', strval($object->pointer));
 		}
 
 		if ( property_exists($object, 'parameter') )
@@ -59,72 +62,27 @@ class ErrorSource extends AccessAbstract
 				throw new ValidationException('property "parameter" has to be a string, "' . gettype($object->parameter) . '" given.');
 			}
 
-			$this->parameter = strval($object->parameter);
+			$this->container->set('parameter', strval($object->parameter));
 		}
 
 		return $this;
 	}
 
 	/**
-	 * Check if a value exists in this error source
-	 *
-	 * @param string $key The key of the value
-	 * @return bool true if data exists, false if not
-	 */
-	protected function hasValue($key)
-	{
-		// pointer
-		if ( $key === 'pointer' and $this->pointer !== null )
-		{
-			return true;
-		}
-
-		// parameter
-		if ( $key === 'parameter' and $this->parameter !== null )
-		{
-			return true;
-		}
-
-		return false;
-	}
-
-	/**
-	 * Returns the keys of all setted values in this object
-	 *
-	 * @return array Keys of all setted values
-	 */
-	public function getKeys()
-	{
-		$keys = array();
-
-		// pointer
-		if ( $this->has('pointer') )
-		{
-			$keys[] = 'pointer';
-		}
-
-		// parameter
-		if ( $this->has('parameter') )
-		{
-			$keys[] = 'parameter';
-		}
-
-		return $keys;
-	}
-
-	/**
-	 * Get a value by the key of this object
+	 * Get a value by the key of this document
 	 *
 	 * @param string $key The key of the value
 	 * @return mixed The value
 	 */
-	protected function getValue($key)
+	public function get($key)
 	{
-		if ( ! $this->has($key) )
+		try
+		{
+			return $this->container->get($key);
+		}
+		catch (AccessException $e)
 		{
 			throw new AccessException('"' . $key . '" doesn\'t exist in this error source.');
 		}
-
-		return $this->$key;
 	}
 }

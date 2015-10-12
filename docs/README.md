@@ -18,7 +18,7 @@
 * [Document Link object](objects-document-link.md)
 * [Relationship Link object](objects-relationship-link.md)
 * [Error Link object](objects-error-link.md)
-* [Pagination Link object](objects-pagination-link.md)
+* [Pagination object](objects-pagination.md)
 * [Jsonapi object](objects-jsonapi.md)
 * [Meta object](objects-meta.md)
 

@@ -1,9 +1,9 @@
-# PaginationLink
+# Pagination
 [Back to Navigation](README.md)
 
 ## Description
 
-The `PaginationLink` represents a [pagination object](http://jsonapi.org/format/#fetching-pagination).
+The `Pagination` represents a [pagination object](http://jsonapi.org/format/#fetching-pagination).
 
 Property of:
 - [Document Link object](objects-document-link.md)

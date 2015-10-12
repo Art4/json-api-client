@@ -2,17 +2,13 @@
 
 namespace Art4\JsonApiClient\Resource;
 
-use Art4\JsonApiClient\AccessInterface;
-use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Exception\AccessException;
 
 /**
  * Null Resource
  */
-class NullResource implements AccessInterface, ResourceInterface
+final class NullResource implements NullResourceInterface, ResourceInterface
 {
-	use AccessTrait;
-
 	/**
 	 * Constructor need for mocking
 	 */

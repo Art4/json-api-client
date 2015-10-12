@@ -2,9 +2,9 @@
 
 namespace Art4\JsonApiClient\Tests\Fixtures;
 
-use Art4\JsonApiClient\Utils\Factory as OrigFactory;
+use Art4\JsonApiClient\Utils\FactoryInterface;
 
-class Factory extends OrigFactory
+final class Factory implements FactoryInterface
 {
 	public $testcase;
 
@@ -17,12 +17,8 @@ class Factory extends OrigFactory
 	 */
 	public function make($name, array $args = [])
 	{
-		if ( isset($this->classes[$name]) )
-		{
-			return $this->testcase
-				->getMockBuilder($this->classes[$name])
-				->disableOriginalConstructor()
-				->getMock();
-		}
+		return $this->testcase
+			->getMockBuilder('Art4\JsonApiClient\\' . $name . 'Interface') // Mock only the interfaces
+			->getMock();
 	}
 }

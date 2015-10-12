@@ -45,7 +45,7 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue($link->has('related'));
 		$this->assertSame($link->get('related'), 'http://example.org/related');
 		$this->assertTrue($link->has('pagination'));
-		$this->assertInstanceOf('Art4\JsonApiClient\PaginationLink', $link->get('pagination'));
+		$this->assertInstanceOf('Art4\JsonApiClient\PaginationInterface', $link->get('pagination'));
 
 		$this->assertSame($link->asArray(), array(
 			'self' => $link->get('self'),
@@ -129,5 +129,25 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$link = new DocumentLink($object, $this->manager);
+	}
+
+	/**
+	 * @test
+	 */
+	public function testGetOnANonExistingKeyThrowsException()
+	{
+		$object = new \stdClass();
+		$object->self = 'http://example.org/self';
+
+		$link = new DocumentLink($object, $this->manager);
+
+		$this->assertFalse($link->has('something'));
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\AccessException',
+			'"something" doesn\'t exist in this object.'
+		);
+
+		$link->get('something');
 	}
 }

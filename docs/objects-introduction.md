@@ -34,7 +34,7 @@ All possible objects and their hierarchical structure are listet below.
 1. [Document Link object](objects-document-link.md)
 1. [Relationship Link object](objects-relationship-link.md)
 1. [Error Link object](objects-error-link.md)
-1. [Pagination Link object](objects-pagination-link.md)
+1. [Pagination object](objects-pagination.md)
 1. [Jsonapi object](objects-jsonapi.md)
 1. [Meta object](objects-meta.md)
 

@@ -25,7 +25,7 @@ class IdentifierCollectionTest extends \PHPUnit_Framework_TestCase
 		$collection = new IdentifierCollection(array(), $this->manager);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\IdentifierCollection', $collection);
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $collection);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\IdentifierCollectionInterface', $collection);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $collection);
 
 		$this->assertFalse($collection->isNull());
@@ -49,8 +49,8 @@ class IdentifierCollectionTest extends \PHPUnit_Framework_TestCase
 
 		$collection = new IdentifierCollection(array($object, $object, $object), $this->manager);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $collection);
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\IdentifierCollection', $collection);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\IdentifierCollectionInterface', $collection);
 
 		$this->assertTrue($collection->isCollection());
 		$this->assertTrue( count($collection->asArray()) === 3);
@@ -88,7 +88,7 @@ class IdentifierCollectionTest extends \PHPUnit_Framework_TestCase
 		$collection = new IdentifierCollection(array($object), $this->manager);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\IdentifierCollection', $collection);
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $collection);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\IdentifierCollectionInterface', $collection);
 
 		$this->assertTrue($collection->isCollection());
 		$this->assertCount(1, $collection->asArray());
@@ -97,9 +97,7 @@ class IdentifierCollectionTest extends \PHPUnit_Framework_TestCase
 
 		$resource = $collection->get(0);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $resource);
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $resource);
-		$this->assertNotInstanceOf('Art4\JsonApiClient\Resource\Item', $resource);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\IdentifierInterface', $resource);
 	}
 
 	/**

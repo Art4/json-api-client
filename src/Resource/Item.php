@@ -2,7 +2,8 @@
 
 namespace Art4\JsonApiClient\Resource;
 
-use Art4\JsonApiClient\Utils\LinksTrait;
+use Art4\JsonApiClient\Utils\AccessTrait;
+use Art4\JsonApiClient\Utils\DataContainer;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
@@ -12,13 +13,14 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-resource-objects
  */
-class Item extends Identifier
+final class Item implements ItemInterface, ResourceInterface
 {
-	use LinksTrait;
+	use AccessTrait;
 
-	protected $attributes = null;
-
-	protected $relationships = null;
+	/**
+	 * @var DataContainerInterface
+	 */
+	protected $container;
 
 	/**
 	 * @param object $object The error object
@@ -29,28 +31,65 @@ class Item extends Identifier
 	 */
 	public function __construct($object, FactoryManagerInterface $manager)
 	{
-		// check type, id and meta in ResourceIdentifier
-		parent::__construct($object, $manager);
+		if ( ! is_object($object) )
+		{
+			throw new ValidationException('Resource has to be an object, "' . gettype($object) . '" given.');
+		}
+
+		if ( ! property_exists($object, 'type') )
+		{
+			throw new ValidationException('A resource object MUST contain a type');
+		}
+
+		if ( ! property_exists($object, 'id') )
+		{
+			throw new ValidationException('A resource object MUST contain an id');
+		}
+
+		if ( is_object($object->type) or is_array($object->type)  )
+		{
+			throw new ValidationException('Resource type cannot be an array or object');
+		}
+
+		if ( is_object($object->id) or is_array($object->id)  )
+		{
+			throw new ValidationException('Resource id cannot be an array or object');
+		}
+
+		$this->manager = $manager;
+
+		$this->container = new DataContainer();
+
+		$this->container->set('type', strval($object->type));
+		$this->container->set('id', strval($object->id));
+
+		if ( property_exists($object, 'meta') )
+		{
+			$this->container->set('meta', $this->manager->getFactory()->make(
+				'Meta',
+				[$object->meta, $this->manager]
+			));
+		}
 
 		if ( property_exists($object, 'attributes') )
 		{
-			$this->attributes = $this->manager->getFactory()->make(
+			$this->container->set('attributes', $this->manager->getFactory()->make(
 				'Attributes',
 				[$object->attributes, $this->manager]
-			);
+			));
 		}
 
 		if ( property_exists($object, 'relationships') )
 		{
-			$this->relationships = $this->manager->getFactory()->make(
+			$this->container->set('relationships', $this->manager->getFactory()->make(
 				'RelationshipCollection',
 				[$object->relationships, $this->manager, $this]
-			);
+			));
 		}
 
 		if ( property_exists($object, 'links') )
 		{
-			$this->setLinks($this->manager->getFactory()->make(
+			$this->container->set('links', $this->manager->getFactory()->make(
 				'Link',
 				[$object->links, $this->manager]
 			));
@@ -60,94 +99,21 @@ class Item extends Identifier
 	}
 
 	/**
-	 * Check if a value exists in this resource
-	 *
-	 * @param string $key The key of the value
-	 * @return bool true if data exists, false if not
-	 */
-	protected function hasValue($key)
-	{
-		// meta, type, id
-		if ( parent::hasValue($key) === true )
-		{
-			return true;
-		}
-
-		// attributes
-		if ( $key === 'attributes' and $this->attributes !== null )
-		{
-			return true;
-		}
-
-		// relationships
-		if ( $key === 'relationships' and $this->relationships !== null )
-		{
-			return true;
-		}
-
-		// links
-		if ( $key === 'links' and $this->hasLinks() )
-		{
-			return true;
-		}
-
-		return false;
-	}
-
-	/**
-	 * Returns the keys of all setted values in this resource
-	 *
-	 * @return array Keys of all setted values
-	 */
-	public function getKeys()
-	{
-		$keys = parent::getKeys();
-
-		// attributes
-		if ( $this->has('attributes') )
-		{
-			$keys[] = 'attributes';
-		}
-
-		// relationships
-		if ( $this->has('relationships') )
-		{
-			$keys[] = 'relationships';
-		}
-
-		// links
-		if ( $this->has('links') )
-		{
-			$keys[] = 'links';
-		}
-
-		return $keys;
-	}
-
-	/**
-	 * Get a value by the key of this resource
+	 * Get a value by the key of this object
 	 *
 	 * @param string $key The key of the value
 	 * @return mixed The value
 	 */
-	protected function getValue($key)
+	public function get($key)
 	{
-		if ( ! $this->has($key) )
+		try
+		{
+			return $this->container->get($key);
+		}
+		catch (AccessException $e)
 		{
 			throw new AccessException('"' . $key . '" doesn\'t exist in this resource.');
 		}
-
-		if ( $key === 'meta' )
-		{
-			return $this->getMeta();
-		}
-
-		if ( $key === 'links' )
-		{
-			return $this->getLinks();
-		}
-
-		return $this->$key;
 	}
 
 	/**
