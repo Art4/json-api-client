@@ -39,7 +39,7 @@ See the [documentation](docs/README.md).
 
 ```php
 // The Response body from a JSON API server
-$jsonapi_string = '{"meta":{"info":"Testing the JsonApiClient Library."}}';
+$jsonapi_string = '{"meta":{"info":"Testing the JsonApiClient library."}}';
 
 $manager = new \Art4\JsonApiClient\Utils\Manager();
 
@@ -47,7 +47,7 @@ $document = $manager->parse($jsonapi_string);
 
 if ($document->has('meta.info'))
 {
-    echo $document->get('meta.info'); // "Testing the JsonApiClient Library."
+    echo $document->get('meta.info'); // "Testing the JsonApiClient library."
 }
 
 // List all keys

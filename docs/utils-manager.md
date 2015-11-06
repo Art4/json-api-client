@@ -10,7 +10,7 @@ Assuming you have get a response from a JSON API server. Use `parse()` to work w
 ```php
 
 // The Response body from a JSON API server
-$jsonapi_string = '{"meta":{"info":"Testing the JSON API Client."}}';
+$jsonapi_string = '{"meta":{"info":"Testing the JsonApiClient library."}}';
 
 $manager = new \Art4\JsonApiClient\Utils\Manager();
 

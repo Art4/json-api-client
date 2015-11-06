@@ -6,7 +6,7 @@ All Exceptions thrown by JSON API client implements `\Art4\JsonApiClient\Excepti
 ```php
 try
 {
-	// do something with JSON API Client
+	// do something with JsonApiClient
 }
 catch (\Art4\JsonApiClient\Exception\Exception $e)
 {

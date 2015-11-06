@@ -39,7 +39,7 @@ All possible objects and their hierarchical structure are listet below.
 
 ## Value access
 
-JSON API Client will parse a JSON API content into a hierarchical object stucture. Every object implements the `AccessInterface` and has these methods for getting the values:
+JsonApiClient will parse a JSON API content into a hierarchical object stucture. Every object implements the `AccessInterface` and has these methods for getting the values:
 
 - `has($key)`: Check, if a value exists
 - `get($key)`: Get a value
@@ -51,7 +51,7 @@ JSON API Client will parse a JSON API content into a hierarchical object stuctur
 You can check for all possible values using the `has()` method.
 
 ```php
-$jsonapi_string = '{"meta":{"info":"Testing the JSON API Client."}}';
+$jsonapi_string = '{"meta":{"info":"Testing the JsonApiClient library."}}';
 
 $document = \Art4\JsonApiClient\Utils\Helper::parse($jsonapi_string);
 
@@ -124,7 +124,7 @@ var_dump($document->get('meta.info'));
 This returns:
 
 ```php
-string(28) "Testing the JSON API Client."
+string(28) "Testing the JsonApiClient library."
 ```
 
 ### Get the containing data as array
@@ -158,7 +158,7 @@ This returns:
 ```php
 array(1) {
   ["meta"] => array(1) {
-    ["info"] => string(28) "Testing the JSON API Client."
+    ["info"] => string(28) "Testing the JsonApiClient library."
   }
 }
 ```

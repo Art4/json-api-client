@@ -10,7 +10,7 @@ Assuming you have get a response from a JSON API server. Use `parse()` to work w
 ```php
 
 // The Response body from a JSON API server
-$jsonapi_string = '{"meta":{"info":"Testing the JSON API Client."}}';
+$jsonapi_string = '{"meta":{"info":"Testing the JsonApiClient library."}}';
 
 $document = \Art4\JsonApiClient\Utils\Helper::parse($jsonapi_string);
 ```
@@ -23,7 +23,7 @@ This returns a [Document](objects-document.md) object which provided all content
 
 ### Validate a JSON API response body
 
-JSON API Client can be used as a validator:
+JsonApiClient can be used as a validator:
 
 ```php
 $wrong_jsonapi = '{"data":{},"meta":{"info":"This is wrong JSON API. `data` has to be `null` or containing at least `type` and `id`."}}';
