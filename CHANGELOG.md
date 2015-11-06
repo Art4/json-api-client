@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.6] - 2015-11-06
+
 ### Added
 
 - `Helper::isValid()` checks if a string is valid JSON API
@@ -75,7 +77,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Validator fits nearly 100% specification
 - Full test coverage
 
-[Unreleased]: https://github.com/Art4/json-api-client/compare/0.5...HEAD
+[Unreleased]: https://github.com/Art4/json-api-client/compare/0.6...HEAD
+[0.6]: https://github.com/Art4/json-api-client/compare/0.5...0.6
 [0.5]: https://github.com/Art4/json-api-client/compare/0.4...0.5
 [0.4]: https://github.com/Art4/json-api-client/compare/0.3...0.4
 [0.3]: https://github.com/Art4/json-api-client/compare/0.2...0.3
