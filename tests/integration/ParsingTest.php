@@ -305,4 +305,61 @@ class ParsingTest extends \PHPUnit_Framework_TestCase
 		// Test full array
 		$this->assertEquals(json_decode($string, true), $document->asArray(true));
 	}
+
+	/**
+	 * @test
+	 */
+	public function testParsePaginationExample()
+	{
+		$string = $this->getJsonString('06_pagination_example.json');
+		$document = Helper::parse($string);
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
+		$this->assertTrue($document->has('data'));
+		$this->assertTrue($document->has('links'));
+		$this->assertTrue($document->has('meta'));
+
+		$resource_collection = $document->get('data');
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $resource_collection);
+		$this->assertTrue($resource_collection->has(0));
+		$this->assertFalse($resource_collection->has(1));
+
+		$resource = $resource_collection->get(0);
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $resource);
+		$this->assertFalse($resource->has('meta'));
+		$this->assertSame($resource->get('type'), 'articles');
+		$this->assertSame($resource->get('id'), '3');
+		$this->assertTrue($resource->has('attributes'));
+		$this->assertInstanceOf('Art4\JsonApiClient\Attributes', $resource->get('attributes'));
+
+		$attributes = $resource->get('attributes');
+
+		$this->assertTrue($attributes->has('title'));
+		$this->assertSame($attributes->get('title'), 'JSON API paints my bikeshed!');
+		$this->assertTrue($attributes->has('body'));
+		$this->assertSame($attributes->get('body'), 'The shortest article. Ever.');
+		$this->assertTrue($attributes->has('created'));
+		$this->assertSame($attributes->get('created'), '2015-05-22T14:56:29.000Z');
+		$this->assertTrue($attributes->has('updated'));
+		$this->assertSame($attributes->get('updated'), '2015-05-22T14:56:28.000Z');
+
+		$links = $document->get('links');
+
+		$this->assertInstanceOf('Art4\JsonApiClient\DocumentLink', $links);
+		$this->assertTrue($links->has('self'));
+		$this->assertSame($links->get('self'), 'http://example.com/articles?page[number]=3&page[size]=1');
+		$this->assertTrue($links->has('first'));
+		$this->assertSame($links->get('first'), 'http://example.com/articles?page[number]=1&page[size]=1');
+		$this->assertTrue($links->has('prev'));
+		$this->assertSame($links->get('prev'), 'http://example.com/articles?page[number]=2&page[size]=1');
+		$this->assertTrue($links->has('next'));
+		$this->assertSame($links->get('next'), 'http://example.com/articles?page[number]=4&page[size]=1');
+		$this->assertTrue($links->has('last'));
+		$this->assertSame($links->get('last'), 'http://example.com/articles?page[number]=13&page[size]=1');
+
+		// Test full array
+		//$this->assertEquals(json_decode($string, true), $document->asArray(true));
+	}
 }

@@ -34,34 +34,50 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->self = 'http://example.org/self';
 		$object->related = 'http://example.org/related';
-		$object->pagination = new \stdClass();
+		$object->first = 'http://example.org/first';
+		$object->last = 'http://example.org/last';
+		$object->prev = 'http://example.org/prev';
+		$object->next = 'http://example.org/next';
 		$object->ignore = 'http://example.org/should-be-ignored';
 
 		$link = new RelationshipLink($object, $this->manager);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipLink', $link);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $link);
-		$this->assertSame($link->getKeys(), array('self', 'related', 'pagination'));
+		$this->assertSame($link->getKeys(), array('self', 'related', 'first', 'last', 'prev', 'next'));
 
 		$this->assertFalse($link->has('ignore'));
 		$this->assertTrue($link->has('self'));
 		$this->assertSame($link->get('self'), 'http://example.org/self');
 		$this->assertTrue($link->has('related'));
 		$this->assertSame($link->get('related'), 'http://example.org/related');
-		$this->assertTrue($link->has('pagination'));
-		$this->assertInstanceOf('Art4\JsonApiClient\PaginationInterface', $link->get('pagination'));
+		$this->assertTrue($link->has('first'));
+		$this->assertSame($link->get('first'), 'http://example.org/first');
+		$this->assertTrue($link->has('last'));
+		$this->assertSame($link->get('last'), 'http://example.org/last');
+		$this->assertTrue($link->has('prev'));
+		$this->assertSame($link->get('prev'), 'http://example.org/prev');
+		$this->assertTrue($link->has('next'));
+		$this->assertSame($link->get('next'), 'http://example.org/next');
 
 		$this->assertSame($link->asArray(), array(
 			'self' => $link->get('self'),
 			'related' => $link->get('related'),
-			'pagination' => $link->get('pagination'),
+			'first' => $link->get('first'),
+			'last' => $link->get('last'),
+			'last' => $link->get('last'),
+			'prev' => $link->get('prev'),
+			'next' => $link->get('next'),
 		));
 
 		// Test full array
 		$this->assertSame($link->asArray(true), array(
 			'self' => $link->get('self'),
 			'related' => $link->get('related'),
-			'pagination' => $link->get('pagination')->asArray(true),
+			'first' => $link->get('first'),
+			'last' => $link->get('last'),
+			'prev' => $link->get('prev'),
+			'next' => $link->get('next'),
 		));
 	}
 
@@ -97,7 +113,8 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$object = new \stdClass();
-		$object->pagination = new \stdClass();
+		$object->first = 'http://example.org/first';
+		$object->next = 'http://example.org/next';
 
 		$link = new RelationshipLink($object, $this->manager);
 	}
