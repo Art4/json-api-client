@@ -5,6 +5,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+
+- **BREAKING**: pagination links moved from `Pagination` to `DocumentLink` and `RelationshipLink`
+
+### Removed
+
+- **BREAKING**: object `Pagination` was removed
+
 ## [0.5] - 2015-10-12
 
 ### Added

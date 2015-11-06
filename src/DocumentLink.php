@@ -70,12 +70,58 @@ final class DocumentLink implements DocumentLinkInterface
 			$this->container->set('related', $object->related);
 		}
 
-		if ( property_exists($object, 'pagination') )
+		// Pagination links
+
+		if ( property_exists($object, 'first') )
 		{
-			$this->container->set('pagination', $this->manager->getFactory()->make(
-				'Pagination',
-				[$object->pagination, $this->manager]
-			));
+			if ( ! is_string($object->first) and ! is_null($object->first) )
+			{
+				throw new ValidationException('property "first" has to be a string or null, "' . gettype($object->first) . '" given.');
+			}
+
+			if ( ! is_null($object->first) )
+			{
+				$this->container->set('first', strval($object->first));
+			}
+		}
+
+		if ( property_exists($object, 'last') )
+		{
+			if ( ! is_string($object->last) and ! is_null($object->last) )
+			{
+				throw new ValidationException('property "last" has to be a string or null, "' . gettype($object->last) . '" given.');
+			}
+
+			if ( ! is_null($object->last) )
+			{
+				$this->container->set('last', strval($object->last));
+			}
+		}
+
+		if ( property_exists($object, 'prev') )
+		{
+			if ( ! is_string($object->prev) and ! is_null($object->prev) )
+			{
+				throw new ValidationException('property "prev" has to be a string or null, "' . gettype($object->prev) . '" given.');
+			}
+
+			if ( ! is_null($object->prev) )
+			{
+				$this->container->set('prev', strval($object->prev));
+			}
+		}
+
+		if ( property_exists($object, 'next') )
+		{
+			if ( ! is_string($object->next) and ! is_null($object->next) )
+			{
+				throw new ValidationException('property "next" has to be a string or null, "' . gettype($object->next) . '" given.');
+			}
+
+			if ( ! is_null($object->next) )
+			{
+				$this->container->set('next', strval($object->next));
+			}
 		}
 	}
 
