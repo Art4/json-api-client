@@ -16,4 +16,7 @@ _[Symbols definition](objects-introduction.md#symbols)_
 --- | ---- | ----- | ----
 ? | self | `string` |
 ? | related | `string` |
-? | pagination | [Pagination object](objects-pagination.md) |
+? | first | - `null`<br />- `string` |
+? | last | - `null`<br />- `string` |
+? | prev | - `null`<br />- `string` |
+? | next | - `null`<br />- `string` |

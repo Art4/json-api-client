@@ -16,4 +16,7 @@ _[Symbols definition](objects-introduction.md#symbols)_
 --- | ---- | ----- | ----
 # | self | `string` |
 # | related | `string` |
-? | pagination | [Pagination object](objects-pagination.md) | Only exists if the parent relationship object represents a to-many relationship
+? | first | - `null`<br />- `string` | Only exists if the parent relationship object represents a to-many relationship |
+? | last | - `null`<br />- `string` | Only exists if the parent relationship object represents a to-many relationship |
+? | prev | - `null`<br />- `string` | Only exists if the parent relationship object represents a to-many relationship |
+? | next | - `null`<br />- `string` | Only exists if the parent relationship object represents a to-many relationship |
