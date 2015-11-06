@@ -39,4 +39,34 @@ class HelperTest extends \PHPUnit_Framework_TestCase
 
 		$output = Helper::parse($invalid_json);
 	}
+
+	/**
+	 * @test isValid() with valid JSON API returns true
+	 */
+	public function testIsValidWithValidJsonapi()
+	{
+		$jsonapi = '{"meta":{}}';
+
+		$this->assertTrue(Helper::isValid($jsonapi));
+	}
+
+	/**
+	 * @test isValid() with invalid jsonapi
+	 */
+	public function testIsValidWithInvalidJsonapi()
+	{
+		$invalid_jsonapi = '["This is valid JSON", "but invalid JSON API"]';
+
+		$this->assertFalse(Helper::isValid($invalid_jsonapi));
+	}
+
+	/**
+	 * @test isValid() with invalid json
+	 */
+	public function testIsValidWithInvalidJson()
+	{
+		$invalid_json = 'invalid_json_string';
+
+		$this->assertFalse(Helper::isValid($invalid_json));
+	}
 }

@@ -2,6 +2,7 @@
 
 namespace Art4\JsonApiClient\Utils;
 
+use Art4\JsonApiClient\Exception\Exception;
 use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
@@ -30,6 +31,26 @@ final class Helper
 			'Document',
 			[$data, $manager]
 		);
+	}
+
+	/**
+	 * Checks if a string is a valid JSON API
+	 *
+	 * @param string $json_string
+	 * @return bool true, if $json_string contains valid JSON API, else false
+	 */
+	public static function isValid($json_string)
+	{
+		try
+		{
+			$document = static::parse($json_string);
+		}
+		catch ( Exception $e )
+		{
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
