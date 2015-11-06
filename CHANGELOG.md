@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- `Helper::isValid()` checks if a string is valid JSON API
+
 ### Fixed
 
 - **BREAKING**: pagination links moved from `Pagination` to `DocumentLink` and `RelationshipLink`

@@ -61,16 +61,16 @@ JSON API Client can be used as a validator for JSON API contents:
 ```php
 $wrong_jsonapi = '{"data":{},"meta":{"info":"This is wrong JSON API. `data` has to be `null` or containing at least `type` and `id`."}}';
 
-$manager = new \Art4\JsonApiClient\Utils\Manager();
+if ( \Art4\JsonApiClient\Utils\Helper::isValid($wrong_jsonapi) )
+{
+	echo 'string is valid.';
+}
+else
+{
+	echo 'string is invalid json api!';
+}
 
-try
-{
-	$document = $manager->parse($wrong_jsonapi);
-}
-catch (\Art4\JsonApiClient\Exception\ValidationException $e)
-{
-	echo $e->getMessage(); // "A resource object MUST contain a type"
-}
+// echos 'string is invalid json api!'
 ```
 
 ### Extend the client
