@@ -147,6 +147,166 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * @dataProvider jsonValuesProvider
+	 *
+	 * Keys MUST either be omitted or have a null value to indicate that a particular link is unavailable.
+	 */
+	public function testFirstCanBeAStringOrNull($input)
+	{
+		$object = new \stdClass();
+		$object->self = 'https://example.org/self';
+		$object->first = $input;
+
+		// Input must be null or string
+		if ( gettype($input) === 'string' )
+		{
+			$link = new DocumentLink($object, $this->manager);
+			$this->assertSame($link->getKeys(), array('self', 'first'));
+
+			$this->assertTrue($link->has('first'));
+			$this->assertSame($link->get('first'), $input);
+
+			return;
+		}
+		elseif ( gettype($input) === 'NULL' )
+		{
+			$link = new DocumentLink($object, $this->manager);
+			$this->assertSame($link->getKeys(), array('self'));
+
+			$this->assertFalse($link->has('first'));
+
+			return;
+		}
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'property "first" has to be a string or null, "' . gettype($input) . '" given.'
+		);
+
+		$link = new DocumentLink($object, $this->manager);
+	}
+
+	/**
+	 * @dataProvider jsonValuesProvider
+	 *
+	 * Keys MUST either be omitted or have a null value to indicate that a particular link is unavailable.
+	 */
+	public function testLastCanBeAStringOrNull($input)
+	{
+		$object = new \stdClass();
+		$object->self = 'https://example.org/self';
+		$object->last = $input;
+
+		// Input must be null or string
+		if ( gettype($input) === 'string' )
+		{
+			$link = new DocumentLink($object, $this->manager);
+			$this->assertSame($link->getKeys(), array('self', 'last'));
+
+			$this->assertTrue($link->has('last'));
+			$this->assertSame($link->get('last'), $input);
+
+			return;
+		}
+		elseif ( gettype($input) === 'NULL' )
+		{
+			$link = new DocumentLink($object, $this->manager);
+			$this->assertSame($link->getKeys(), array('self'));
+
+			$this->assertFalse($link->has('last'));
+
+			return;
+		}
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'property "last" has to be a string or null, "' . gettype($input) . '" given.'
+		);
+
+		$link = new DocumentLink($object, $this->manager);
+	}
+
+	/**
+	 * @dataProvider jsonValuesProvider
+	 *
+	 * Keys MUST either be omitted or have a null value to indicate that a particular link is unavailable.
+	 */
+	public function testPrevCanBeAStringOrNull($input)
+	{
+		$object = new \stdClass();
+		$object->self = 'https://example.org/self';
+		$object->prev = $input;
+
+		// Input must be null or string
+		if ( gettype($input) === 'string' )
+		{
+			$link = new DocumentLink($object, $this->manager);
+			$this->assertSame($link->getKeys(), array('self', 'prev'));
+
+			$this->assertTrue($link->has('prev'));
+			$this->assertSame($link->get('prev'), $input);
+
+			return;
+		}
+		elseif ( gettype($input) === 'NULL' )
+		{
+			$link = new DocumentLink($object, $this->manager);
+			$this->assertSame($link->getKeys(), array('self'));
+
+			$this->assertFalse($link->has('prev'));
+
+			return;
+		}
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'property "prev" has to be a string or null, "' . gettype($input) . '" given.'
+		);
+
+		$link = new DocumentLink($object, $this->manager);
+	}
+
+	/**
+	 * @dataProvider jsonValuesProvider
+	 *
+	 * Keys MUST either be omitted or have a null value to indicate that a particular link is unavailable.
+	 */
+	public function testNextCanBeAStringOrNull($input)
+	{
+		$object = new \stdClass();
+		$object->self = 'https://example.org/self';
+		$object->next = $input;
+
+		// Input must be null or string
+		if ( gettype($input) === 'string' )
+		{
+			$link = new DocumentLink($object, $this->manager);
+			$this->assertSame($link->getKeys(), array('self', 'next'));
+
+			$this->assertTrue($link->has('next'));
+			$this->assertSame($link->get('next'), $input);
+
+			return;
+		}
+		elseif ( gettype($input) === 'NULL' )
+		{
+			$link = new DocumentLink($object, $this->manager);
+			$this->assertSame($link->getKeys(), array('self'));
+
+			$this->assertFalse($link->has('next'));
+
+			return;
+		}
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'property "next" has to be a string or null, "' . gettype($input) . '" given.'
+		);
+
+		$link = new DocumentLink($object, $this->manager);
+	}
+
+	/**
 	 * @test
 	 */
 	public function testGetOnANonExistingKeyThrowsException()
