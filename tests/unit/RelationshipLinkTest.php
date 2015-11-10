@@ -38,15 +38,16 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 		$object->last = 'http://example.org/last';
 		$object->prev = 'http://example.org/prev';
 		$object->next = 'http://example.org/next';
-		$object->ignore = 'http://example.org/should-be-ignored';
+		$object->custom = 'http://example.org/custom';
 
 		$link = new RelationshipLink($object, $this->manager);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipLink', $link);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $link);
-		$this->assertSame($link->getKeys(), array('self', 'related', 'first', 'last', 'prev', 'next'));
+		$this->assertSame($link->getKeys(), array('self', 'related', 'first', 'last', 'prev', 'next', 'custom'));
 
-		$this->assertFalse($link->has('ignore'));
+		$this->assertTrue($link->has('custom'));
+		$this->assertSame($link->get('custom'), 'http://example.org/custom');
 		$this->assertTrue($link->has('self'));
 		$this->assertSame($link->get('self'), 'http://example.org/self');
 		$this->assertTrue($link->has('related'));
@@ -68,6 +69,7 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 			'last' => $link->get('last'),
 			'prev' => $link->get('prev'),
 			'next' => $link->get('next'),
+			'custom' => $link->get('custom'),
 		));
 
 		// Test full array
@@ -78,6 +80,7 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 			'last' => $link->get('last'),
 			'prev' => $link->get('prev'),
 			'next' => $link->get('next'),
+			'custom' => $link->get('custom'),
 		));
 	}
 

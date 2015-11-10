@@ -35,20 +35,26 @@ class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ErrorLink', $link);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $link);
-		$this->assertSame($link->getKeys(), array('about'));
+		$this->assertSame($link->getKeys(), array('about', 'href', 'meta'));
 
-		$this->assertFalse($link->has('href'));
-		$this->assertFalse($link->has('meta'));
+		$this->assertTrue($link->has('href'));
+		$this->assertSame($link->get('href'), 'http://example.org/href');
+		$this->assertTrue($link->has('meta'));
+		$this->assertInstanceOf('Art4\JsonApiClient\MetaInterface', $link->get('meta'));
 		$this->assertTrue($link->has('about'));
 		$this->assertSame($link->get('about'), 'http://example.org/about');
 
 		$this->assertSame($link->asArray(), array(
 			'about' => $link->get('about'),
+			'href' => $link->get('href'),
+			'meta' => $link->get('meta'),
 		));
 
 		// Test full array
 		$this->assertSame($link->asArray(true), array(
 			'about' => $link->get('about'),
+			'href' => $link->get('href'),
+			'meta' => $link->get('meta'),
 		));
 	}
 
