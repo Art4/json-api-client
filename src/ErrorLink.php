@@ -45,31 +45,41 @@ final class ErrorLink implements ErrorLinkInterface
 			throw new ValidationException('Link has to be an object, "' . gettype($object) . '" given.');
 		}
 
-		if ( ! property_exists($object, 'about') )
+		$links = get_object_vars($object);
+
+		if ( ! array_key_exists('about', $links) )
 		{
 			throw new ValidationException('ErrorLink MUST contain these properties: about');
 		}
 
-		if ( ! is_string($object->about) and ! is_object($object->about) )
+		if ( ! is_string($links['about']) and ! is_object($links['about']) )
 		{
-			throw new ValidationException('Link has to be an object or string, "' . gettype($object->about) . '" given.');
+			throw new ValidationException('Link has to be an object or string, "' . gettype($links['about']) . '" given.');
 		}
 
 		$this->manager = $manager;
 
 		$this->container = new DataContainer();
 
-		if ( is_string($object->about) )
+		if ( is_string($links['about']) )
 		{
-			$this->container->set('about', strval($object->about));
-
-			return $this;
+			$this->container->set('about', strval($links['about']));
+		}
+		else
+		{
+			$this->container->set('about', $this->manager->getFactory()->make(
+				'Link',
+				[$links['about'], $this->manager]
+			));
 		}
 
-		$this->container->set('about', $this->manager->getFactory()->make(
-			'Link',
-			[$object->about, $this->manager]
-		));
+		unset($links['about']);
+
+		// custom links
+		foreach ($links as $name => $value)
+		{
+			$this->setLink($name, $value);
+		}
 	}
 
 	/**
@@ -88,5 +98,44 @@ final class ErrorLink implements ErrorLinkInterface
 		{
 			throw new AccessException('"' . $key . '" doesn\'t exist in this object.');
 		}
+	}
+	/**
+	 * Set a link
+	 *
+	 * @param string $name The name of the link
+	 * @param string $link The link
+	 * @return self
+	 */
+	private function setLink($name, $link)
+	{
+		if ( ! is_string($link) and ! is_object($link) )
+		{
+			throw new ValidationException('Link has to be an object or string, "' . gettype($link) . '" given.');
+		}
+
+		if ( $name === 'meta' )
+		{
+			$this->container->set($name, $this->manager->getFactory()->make(
+				'Meta',
+				[$link, $this->manager]
+			));
+
+			return $this;
+		}
+
+		if ( is_string($link) )
+		{
+			$this->container->set($name, strval($link));
+
+			return $this;
+		}
+
+		// Now $link can only be an object
+		$this->container->set($name, $this->manager->getFactory()->make(
+			'Link',
+			[$link, $this->manager]
+		));
+
+		return $this;
 	}
 }

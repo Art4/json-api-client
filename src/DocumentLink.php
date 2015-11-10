@@ -50,78 +50,66 @@ final class DocumentLink implements DocumentLinkInterface
 
 		$this->container = new DataContainer();
 
-		if ( property_exists($object, 'self') )
+		$links = get_object_vars($object);
+
+		if ( array_key_exists('self', $links) )
 		{
-			if ( ! is_string($object->self) )
+			if ( ! is_string($links['self']) )
 			{
-				throw new ValidationException('property "self" has to be a string, "' . gettype($object->self) . '" given.');
+				throw new ValidationException('property "self" has to be a string, "' . gettype($links['self']) . '" given.');
 			}
 
-			$this->container->set('self', $object->self);
+			$this->container->set('self', $links['self']);
+
+			unset($links['self']);
 		}
 
-		if ( property_exists($object, 'related') )
+		if ( array_key_exists('related', $links) )
 		{
-			if ( ! is_string($object->related) )
+			if ( ! is_string($links['related']) )
 			{
-				throw new ValidationException('property "related" has to be a string, "' . gettype($object->related) . '" given.');
+				throw new ValidationException('property "related" has to be a string, "' . gettype($links['related']) . '" given.');
 			}
 
-			$this->container->set('related', $object->related);
+			$this->container->set('related', $links['related']);
+
+			unset($links['related']);
 		}
 
 		// Pagination links
 
-		if ( property_exists($object, 'first') )
+		if ( array_key_exists('first', $links) )
 		{
-			if ( ! is_string($object->first) and ! is_null($object->first) )
-			{
-				throw new ValidationException('property "first" has to be a string or null, "' . gettype($object->first) . '" given.');
-			}
+			$this->setPaginationLink('first', $links['first']);
 
-			if ( ! is_null($object->first) )
-			{
-				$this->container->set('first', strval($object->first));
-			}
+			unset($links['first']);
 		}
 
-		if ( property_exists($object, 'last') )
+		if ( array_key_exists('last', $links) )
 		{
-			if ( ! is_string($object->last) and ! is_null($object->last) )
-			{
-				throw new ValidationException('property "last" has to be a string or null, "' . gettype($object->last) . '" given.');
-			}
+			$this->setPaginationLink('last', $links['last']);
 
-			if ( ! is_null($object->last) )
-			{
-				$this->container->set('last', strval($object->last));
-			}
+			unset($links['last']);
 		}
 
-		if ( property_exists($object, 'prev') )
+		if ( array_key_exists('prev', $links) )
 		{
-			if ( ! is_string($object->prev) and ! is_null($object->prev) )
-			{
-				throw new ValidationException('property "prev" has to be a string or null, "' . gettype($object->prev) . '" given.');
-			}
+			$this->setPaginationLink('prev', $links['prev']);
 
-			if ( ! is_null($object->prev) )
-			{
-				$this->container->set('prev', strval($object->prev));
-			}
+			unset($links['prev']);
 		}
 
-		if ( property_exists($object, 'next') )
+		if ( array_key_exists('next', $links) )
 		{
-			if ( ! is_string($object->next) and ! is_null($object->next) )
-			{
-				throw new ValidationException('property "next" has to be a string or null, "' . gettype($object->next) . '" given.');
-			}
+			$this->setPaginationLink('next', $links['next']);
 
-			if ( ! is_null($object->next) )
-			{
-				$this->container->set('next', strval($object->next));
-			}
+			unset($links['next']);
+		}
+
+		// custom links
+		foreach ($links as $name => $value)
+		{
+			$this->setLink($name, $value);
 		}
 	}
 
@@ -141,5 +129,67 @@ final class DocumentLink implements DocumentLinkInterface
 		{
 			throw new AccessException('"' . $key . '" doesn\'t exist in this object.');
 		}
+	}
+
+	/**
+	 * Set a pagination link
+	 *
+	 * @param string $name The name of the link
+	 * @param string $value The link
+	 * @return self
+	 */
+	private function setPaginationLink($name, $value)
+	{
+		if ( ! is_string($value) and ! is_null($value) )
+		{
+			throw new ValidationException('property "' . $name . '" has to be a string or null, "' . gettype($value) . '" given.');
+		}
+
+		if ( ! is_null($value) )
+		{
+			$this->container->set($name, strval($value));
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Set a link
+	 *
+	 * @param string $name The name of the link
+	 * @param string $link The link
+	 * @return self
+	 */
+	private function setLink($name, $link)
+	{
+		if ( ! is_string($link) and ! is_object($link) )
+		{
+			throw new ValidationException('Link has to be an object or string, "' . gettype($link) . '" given.');
+		}
+
+		if ( $name === 'meta' )
+		{
+			$this->container->set($name, $this->manager->getFactory()->make(
+				'Meta',
+				[$link, $this->manager]
+			));
+
+			return $this;
+		}
+
+		if ( is_string($link) )
+		{
+			$this->container->set($name, strval($link));
+
+			return $this;
+		}
+
+		// Now $link can only be an object
+		$this->container->set($name, $this->manager->getFactory()->make(
+			'Link',
+			[$link, $this->manager]
+		));
+
+		return $this;
 	}
 }

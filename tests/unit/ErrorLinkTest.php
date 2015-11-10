@@ -18,13 +18,13 @@ class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @test only 'about' property' can exist
+	 * @test all properties can exist
 	 *
 	 * An error object MAY have the following members:
 	 * - links: a links object containing the following members:
 	 *   - about: a link that leads to further details about this particular occurrence of the problem.
 	 */
-	public function testOnlyAboutPropertyExists()
+	public function testAllPropertiesExists()
 	{
 		$object = new \stdClass();
 		$object->meta = new \stdClass();
@@ -35,7 +35,7 @@ class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ErrorLink', $link);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $link);
-		$this->assertSame($link->getKeys(), array('about', 'href', 'meta'));
+		$this->assertSame($link->getKeys(), array('about', 'meta', 'href'));
 
 		$this->assertTrue($link->has('href'));
 		$this->assertSame($link->get('href'), 'http://example.org/href');
@@ -46,16 +46,12 @@ class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertSame($link->asArray(), array(
 			'about' => $link->get('about'),
-			'href' => $link->get('href'),
 			'meta' => $link->get('meta'),
+			'href' => $link->get('href'),
 		));
 
-		// Test full array
-		$this->assertSame($link->asArray(true), array(
-			'about' => $link->get('about'),
-			'href' => $link->get('href'),
-			'meta' => $link->get('meta'),
-		));
+		// TODO: Test full array
+
 	}
 
 	/**
