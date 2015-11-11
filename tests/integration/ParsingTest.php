@@ -360,6 +360,69 @@ class ParsingTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($links->get('last'), 'http://example.com/articles?page[number]=13&page[size]=1');
 
 		// Test full array
-		//$this->assertEquals(json_decode($string, true), $document->asArray(true));
+		$this->assertEquals(json_decode($string, true), $document->asArray(true));
+	}
+
+	/**
+	 * @test
+	 */
+	public function testParseRelationshipExample()
+	{
+		$string = $this->getJsonString('07_relationship_example.json');
+		$document = Helper::parse($string);
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
+		$this->assertTrue($document->has('data'));
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $document->get('data'));
+		$this->assertTrue($document->has('data.0'));
+		$this->assertFalse($document->has('data.1'));
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $document->get('data.0'));
+		$this->assertFalse($document->has('data.0.meta'));
+		$this->assertSame($document->get('data.0.type'), 'articles');
+		$this->assertSame($document->get('data.0.id'), '1');
+		$this->assertTrue($document->has('data.0.attributes'));
+		$this->assertInstanceOf('Art4\JsonApiClient\Attributes', $document->get('data.0.attributes'));
+
+		$this->assertTrue($document->has('data.0.attributes.title'));
+		$this->assertSame($document->get('data.0.attributes.title'), 'JSON API paints my bikeshed!');
+
+		$this->assertTrue($document->has('data.0.relationships'));
+		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipCollection', $document->get('data.0.relationships'));
+
+		$this->assertTrue($document->has('data.0.relationships.comments'));
+		$this->assertInstanceOf('Art4\JsonApiClient\Relationship', $document->get('data.0.relationships.comments'));
+
+		$this->assertTrue($document->has('data.0.relationships.comments.links'));
+		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipLink', $document->get('data.0.relationships.comments.links'));
+
+		$this->assertTrue($document->has('data.0.relationships.comments.links.custom'));
+		$this->assertSame($document->get('data.0.relationships.comments.links.custom'), 'http://example.com/articles/1/custom');
+		$this->assertTrue($document->has('data.0.relationships.comments.links.self'));
+		$this->assertSame($document->get('data.0.relationships.comments.links.self'), 'http://example.com/articles/1/relationships/comments');
+		$this->assertTrue($document->has('data.0.relationships.comments.links.first'));
+		$this->assertSame($document->get('data.0.relationships.comments.links.first'), 'http://example.com/articles/1/comments?page=1');
+		$this->assertTrue($document->has('data.0.relationships.comments.links.last'));
+		$this->assertSame($document->get('data.0.relationships.comments.links.last'), 'http://example.com/articles/1/comments?page=10');
+		$this->assertTrue($document->has('data.0.relationships.comments.links.prev'));
+		$this->assertSame($document->get('data.0.relationships.comments.links.prev'), 'http://example.com/articles/1/comments?page=1');
+		$this->assertTrue($document->has('data.0.relationships.comments.links.next'));
+		$this->assertSame($document->get('data.0.relationships.comments.links.next'), 'http://example.com/articles/1/comments?page=2');
+
+		$this->assertTrue($document->has('data.0.relationships.comments.links.related'));
+		$this->assertInstanceOf('Art4\JsonApiClient\Link', $document->get('data.0.relationships.comments.links.related'));
+
+		$this->assertTrue($document->has('data.0.relationships.comments.links.related.href'));
+		$this->assertSame($document->get('data.0.relationships.comments.links.related.href'), 'http://example.com/articles/1/comments');
+
+		$this->assertTrue($document->has('data.0.relationships.comments.links.related.meta'));
+		$this->assertInstanceOf('Art4\JsonApiClient\Meta', $document->get('data.0.relationships.comments.links.related.meta'));
+
+		$this->assertTrue($document->has('data.0.relationships.comments.links.related.meta.count'));
+		$this->assertSame($document->get('data.0.relationships.comments.links.related.meta.count'), 10);
+
+		// Test full array
+		$this->assertEquals(json_decode($string, true), $document->asArray(true));
 	}
 }
