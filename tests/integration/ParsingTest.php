@@ -368,7 +368,7 @@ class ParsingTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testParseRelationshipExample()
 	{
-		$string = $this->getJsonString('07_relationship_example.json');
+		$string = $this->getJsonString('07_relationship_example_without_data.json');
 		$document = Helper::parse($string);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
