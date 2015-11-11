@@ -43,7 +43,7 @@ final class RelationshipLink implements RelationshipLinkInterface
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($object, FactoryManagerInterface $manager)
+	public function __construct($object, FactoryManagerInterface $manager, RelationshipInterface $relationship)
 	{
 		if ( ! is_object($object) )
 		{
@@ -86,33 +86,35 @@ final class RelationshipLink implements RelationshipLinkInterface
 		}
 
 		// Pagination links
-
-		if ( array_key_exists('first', $links) )
+		if ( $relationship->has('data') )
 		{
-			$this->setPaginationLink('first', $links['first']);
+			if ( array_key_exists('first', $links) )
+			{
+				$this->setPaginationLink('first', $links['first']);
 
-			unset($links['first']);
-		}
+				unset($links['first']);
+			}
 
-		if ( array_key_exists('last', $links) )
-		{
-			$this->setPaginationLink('last', $links['last']);
+			if ( array_key_exists('last', $links) )
+			{
+				$this->setPaginationLink('last', $links['last']);
 
-			unset($links['last']);
-		}
+				unset($links['last']);
+			}
 
-		if ( array_key_exists('prev', $links) )
-		{
-			$this->setPaginationLink('prev', $links['prev']);
+			if ( array_key_exists('prev', $links) )
+			{
+				$this->setPaginationLink('prev', $links['prev']);
 
-			unset($links['prev']);
-		}
+				unset($links['prev']);
+			}
 
-		if ( array_key_exists('next', $links) )
-		{
-			$this->setPaginationLink('next', $links['next']);
+			if ( array_key_exists('next', $links) )
+			{
+				$this->setPaginationLink('next', $links['next']);
 
-			unset($links['next']);
+				unset($links['next']);
+			}
 		}
 
 		// custom links
