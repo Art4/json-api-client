@@ -69,17 +69,20 @@ final class RelationshipLink implements RelationshipLinkInterface
 			}
 
 			$this->container->set('self', strval($links['self']));
+
+			unset($links['self']);
 		}
 
 		if ( array_key_exists('related', $links) )
 		{
-			// TODO: related could also be an object
-			if ( ! is_string($links['related']) )
+			if ( ! is_string($links['related']) and ! is_object($links['related']) )
 			{
-				throw new ValidationException('property "related" has to be a string, "' . gettype($links['related']) . '" given.');
+				throw new ValidationException('property "related" has to be a string or object, "' . gettype($links['related']) . '" given.');
 			}
 
-			$this->container->set('related', strval($links['related']));
+			$this->setLink('related', $links['related']);
+
+			unset($links['related']);
 		}
 
 		// Pagination links

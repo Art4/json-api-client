@@ -152,20 +152,24 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 	 * related: a related resource link when the primary data represents a resource relationship.
 	 * If present, a related resource link MUST reference a valid URL
 	 */
-	public function testRelatedMustBeAString($input)
+	public function testRelatedMustBeAStringOrObject($input)
 	{
-		// Input must be a string
-		if ( gettype($input) === 'string' )
-		{
-			return;
-		}
-
 		$object = new \stdClass();
 		$object->related = $input;
 
+		// Input must be a string or object
+		if ( gettype($input) === 'string' or gettype($input) === 'object' )
+		{
+			$link = new RelationshipLink($object, $this->manager);
+
+			$this->assertTrue($link->has('related'));
+
+			return;
+		}
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
-			'property "related" has to be a string, "' . gettype($input) . '" given.'
+			'property "related" has to be a string or object, "' . gettype($input) . '" given.'
 		);
 
 		$link = new RelationshipLink($object, $this->manager);
