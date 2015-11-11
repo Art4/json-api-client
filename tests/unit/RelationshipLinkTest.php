@@ -85,6 +85,69 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * @test pagination links are parsed, if data in parent relationship object exists
+	 */
+	public function testPaginationParsedIfRelationshipDataExists()
+	{
+		$object = new \stdClass();
+		$object->self = 'http://example.org/self';
+		$object->first = new \stdClass();
+		$object->last = new \stdClass();
+		$object->prev = new \stdClass();
+		$object->next = new \stdClass();
+
+		// Mock Relationship
+		$relationship = $this->getMockBuilder('Art4\JsonApiClient\RelationshipInterface')
+			->getMock()
+			->expects($this->any())
+			->method('has')
+			->will($this->returnValue(true));
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'property "first" has to be a string or null, "object" given.'
+		);
+
+		$link = new RelationshipLink($object, $this->manager, $relationship);
+	}
+
+	/**
+	 * @test pagination links are not parsed, if data in parent relationship object doesnt exist
+	 */
+	public function testPaginationNotParsedIfRelationshipDataNotExists()
+	{
+		$object = new \stdClass();
+		$object->self = 'http://example.org/self';
+		$object->first = new \stdClass();
+		$object->last = new \stdClass();
+		$object->prev = new \stdClass();
+		$object->next = new \stdClass();
+
+		// Mock Relationship
+		$relationship = $this->getMockBuilder('Art4\JsonApiClient\RelationshipInterface')
+			->getMock()
+			->expects($this->any())
+			->method('has')
+			->will($this->returnValue(false));
+
+		$link = new RelationshipLink($object, $this->manager, $relationship);
+
+		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipLink', $link);
+		$this->assertSame($link->getKeys(), array('self', 'first', 'last', 'prev', 'next'));
+
+		$this->assertTrue($link->has('self'));
+		$this->assertInstanceOf('Art4\JsonApiClient\Link', $link->get('self'));
+		$this->assertTrue($link->has('first'));
+		$this->assertInstanceOf('Art4\JsonApiClient\Link', $link->get('first'));
+		$this->assertTrue($link->has('last'));
+		$this->assertInstanceOf('Art4\JsonApiClient\Link', $link->get('last'));
+		$this->assertTrue($link->has('prev'));
+		$this->assertInstanceOf('Art4\JsonApiClient\Link', $link->get('prev'));
+		$this->assertTrue($link->has('next'));
+		$this->assertInstanceOf('Art4\JsonApiClient\Link', $link->get('next'));
+	}
+
+	/**
 	 * @dataProvider jsonValuesProvider
 	 *
 	 * links: a links object containing at least one of the following:
