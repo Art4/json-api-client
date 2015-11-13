@@ -35,15 +35,18 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 		$object->prev = 'http://example.org/prev';
 		$object->next = 'http://example.org/next';
 		$object->custom = 'http://example.org/custom';
+		$object->meta = 'http://example.org/meta';
 
 		$link = new DocumentLink($object, $this->manager);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\DocumentLink', $link);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $link);
-		$this->assertSame($link->getKeys(), array('self', 'related', 'first', 'last', 'prev', 'next', 'custom'));
+		$this->assertSame($link->getKeys(), array('self', 'related', 'first', 'last', 'prev', 'next', 'custom', 'meta'));
 
 		$this->assertTrue($link->has('custom'));
 		$this->assertSame($link->get('custom'), 'http://example.org/custom');
+		$this->assertTrue($link->has('meta'));
+		$this->assertSame($link->get('meta'), 'http://example.org/meta');
 		$this->assertTrue($link->has('self'));
 		$this->assertSame($link->get('self'), 'http://example.org/self');
 		$this->assertTrue($link->has('related'));
@@ -65,6 +68,7 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 			'prev' => $link->get('prev'),
 			'next' => $link->get('next'),
 			'custom' => $link->get('custom'),
+			'meta' => $link->get('meta'),
 		));
 
 		// Test full array
@@ -76,6 +80,7 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 			'prev' => $link->get('prev'),
 			'next' => $link->get('next'),
 			'custom' => $link->get('custom'),
+			'meta' => $link->get('meta'),
 		));
 	}
 

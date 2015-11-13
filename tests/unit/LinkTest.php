@@ -15,6 +15,10 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 	public function setUp()
 	{
 		$this->manager = $this->buildManagerMock();
+
+		// Mock parent link
+		$this->parent_link = $this->getMockBuilder('Art4\JsonApiClient\LinkInterface')
+			->getMock();
 	}
 
 	/**
@@ -28,7 +32,7 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 		$object->linkobj = new \stdClass();
 		$object->link = 'http://example.org/link';
 
-		$link = new Link($object, $this->manager);
+		$link = new Link($object, $this->manager, $this->parent_link);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Link', $link);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $link);
@@ -82,7 +86,7 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 
 		if ( gettype($input) === 'string' )
 		{
-			$link = new Link($object, $this->manager);
+			$link = new Link($object, $this->manager, $this->parent_link);
 
 			$this->assertTrue(is_string($link->get('href')));
 
@@ -91,7 +95,43 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 
 		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
 
-		$link = new Link($object, $this->manager);
+		$link = new Link($object, $this->manager, $this->parent_link);
+	}
+
+	/**
+	 * @test meta attribute will be parsed as Link object inside Resource\Item
+	 */
+	public function testMetaIsParsedAsLinkInsideItem()
+	{
+		$object = new \stdClass();
+		$object->meta = new \stdClass();
+
+		// Mock parent link
+		$this->parent_link = $this->getMockBuilder('Art4\JsonApiClient\Resource\ItemInterface')
+			->getMock();
+
+		$link = new Link($object, $this->manager, $this->parent_link);
+
+		$this->assertTrue($link->has('meta'));
+		$this->assertInstanceOf('Art4\JsonApiClient\LinkInterface', $link->get('meta'));
+	}
+
+	/**
+	 * @test meta attribute will be parsed as Meta object inside Link
+	 */
+	public function testMetaIsParsedAsMetaInsideItem()
+	{
+		$object = new \stdClass();
+		$object->meta = new \stdClass();
+
+		// Mock parent link
+		$this->parent_link = $this->getMockBuilder('Art4\JsonApiClient\LinkInterface')
+			->getMock();
+
+		$link = new Link($object, $this->manager, $this->parent_link);
+
+		$this->assertTrue($link->has('meta'));
+		$this->assertInstanceOf('Art4\JsonApiClient\MetaInterface', $link->get('meta'));
 	}
 
 	/**
@@ -104,7 +144,7 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 		// A link object could be empty
 		if ( gettype($input) === 'object' )
 		{
-			$this->assertInstanceOf('Art4\JsonApiClient\LinkInterface', new Link($input, $this->manager));
+			$this->assertInstanceOf('Art4\JsonApiClient\LinkInterface', new Link($input, $this->manager, $this->parent_link));
 			return;
 		}
 
@@ -113,6 +153,6 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 			'Link has to be an object, "' . gettype($input) . '" given.'
 		);
 
-		$link = new Link($input, $this->manager);
+		$link = new Link($input, $this->manager, $this->parent_link);
 	}
 }

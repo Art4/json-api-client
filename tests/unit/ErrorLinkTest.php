@@ -40,7 +40,7 @@ class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue($link->has('href'));
 		$this->assertSame($link->get('href'), 'http://example.org/href');
 		$this->assertTrue($link->has('meta'));
-		$this->assertInstanceOf('Art4\JsonApiClient\MetaInterface', $link->get('meta'));
+		$this->assertInstanceOf('Art4\JsonApiClient\LinkInterface', $link->get('meta'));
 		$this->assertTrue($link->has('about'));
 		$this->assertSame($link->get('about'), 'http://example.org/about');
 
