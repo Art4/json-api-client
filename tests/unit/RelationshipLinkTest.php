@@ -16,6 +16,10 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->manager = $this->buildManagerMock();
 
+		// Mock identifier collection
+		$collection = $this->getMockBuilder('Art4\JsonApiClient\Resource\IdentifierCollectionInterface')
+			->getMock();
+
 		// Mock Relationship with data
 		$this->relationship = $this->getMockBuilder('Art4\JsonApiClient\RelationshipInterface')
 			->getMock();
@@ -24,6 +28,11 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 			->method('has')
 			->with($this->equalTo('data'))
 			->will($this->returnValue(true));
+
+		$this->relationship->expects($this->any())
+			->method('get')
+			->with($this->equalTo('data'))
+			->will($this->returnValue($collection));
 	}
 
 	/**
@@ -133,6 +142,53 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 			->method('has')
 			->with($this->equalTo('data'))
 			->will($this->returnValue(false));
+
+		$link = new RelationshipLink($object, $this->manager, $relationship);
+
+		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipLink', $link);
+		$this->assertSame($link->getKeys(), array('self', 'first', 'last', 'prev', 'next'));
+
+		$this->assertTrue($link->has('self'));
+		$this->assertSame($link->get('self'), 'http://example.org/self');
+		$this->assertTrue($link->has('first'));
+		$this->assertInstanceOf('Art4\JsonApiClient\LinkInterface', $link->get('first'));
+		$this->assertTrue($link->has('last'));
+		$this->assertInstanceOf('Art4\JsonApiClient\LinkInterface', $link->get('last'));
+		$this->assertTrue($link->has('prev'));
+		$this->assertInstanceOf('Art4\JsonApiClient\LinkInterface', $link->get('prev'));
+		$this->assertTrue($link->has('next'));
+		$this->assertInstanceOf('Art4\JsonApiClient\LinkInterface', $link->get('next'));
+	}
+
+	/**
+	 * @test pagination links are not parsed, if data in parent relationship object is not IdentifierCollection
+	 */
+	public function testPaginationNotParsedIfRelationshipIdentifierCollectionNotExists()
+	{
+		$object = new \stdClass();
+		$object->self = 'http://example.org/self';
+		$object->first = new \stdClass();
+		$object->last = new \stdClass();
+		$object->prev = new \stdClass();
+		$object->next = new \stdClass();
+
+		// Mock Relationship
+		$relationship = $this->getMockBuilder('Art4\JsonApiClient\RelationshipInterface')
+			->getMock();
+
+		$relationship->expects($this->any())
+			->method('has')
+			->with($this->equalTo('data'))
+			->will($this->returnValue(true));
+		
+		// Mock identifier item
+		$data = $this->getMockBuilder('Art4\JsonApiClient\Resource\IdentifierInterface')
+			->getMock();
+
+		$relationship->expects($this->any())
+			->method('get')
+			->with($this->equalTo('data'))
+			->will($this->returnValue($data));
 
 		$link = new RelationshipLink($object, $this->manager, $relationship);
 
