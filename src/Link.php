@@ -2,6 +2,7 @@
 
 namespace Art4\JsonApiClient;
 
+use Art4\JsonApiClient\Resource\ItemInterface;
 use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Utils\DataContainer;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
@@ -16,6 +17,11 @@ use Art4\JsonApiClient\Exception\ValidationException;
 final class Link implements LinkInterface
 {
 	use AccessTrait;
+
+	/**
+	 * @var AccessInterface
+	 */
+	protected $parent;
 
 	/**
 	 * @var DataContainerInterface
@@ -34,12 +40,14 @@ final class Link implements LinkInterface
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($object, FactoryManagerInterface $manager)
+	public function __construct($object, FactoryManagerInterface $manager, AccessInterface $parent)
 	{
 		if ( ! is_object($object) )
 		{
 			throw new ValidationException('Link has to be an object, "' . gettype($object) . '" given.');
 		}
+
+		$this->parent = $parent;
 
 		$this->manager = $manager;
 
@@ -88,7 +96,7 @@ final class Link implements LinkInterface
 	 */
 	protected function set($name, $link)
 	{
-		if ( $name === 'meta' )
+		if ( $name === 'meta' and ! $this->parent instanceof ItemInterface )
 		{
 			$this->container->set($name, $this->manager->getFactory()->make(
 				'Meta',
@@ -118,7 +126,7 @@ final class Link implements LinkInterface
 		{
 			$this->container->set($name, $this->manager->getFactory()->make(
 				'Link',
-				[$link, $this->manager]
+				[$link, $this->manager, $this]
 			));
 		}
 

@@ -91,7 +91,7 @@ final class Item implements ItemInterface, ResourceInterface
 		{
 			$this->container->set('links', $this->manager->getFactory()->make(
 				'Link',
-				[$object->links, $this->manager]
+				[$object->links, $this->manager, $this]
 			));
 		}
 

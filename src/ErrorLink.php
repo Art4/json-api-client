@@ -69,7 +69,7 @@ final class ErrorLink implements ErrorLinkInterface
 		{
 			$this->container->set('about', $this->manager->getFactory()->make(
 				'Link',
-				[$links['about'], $this->manager]
+				[$links['about'], $this->manager, $this]
 			));
 		}
 
@@ -113,16 +113,6 @@ final class ErrorLink implements ErrorLinkInterface
 			throw new ValidationException('Link has to be an object or string, "' . gettype($link) . '" given.');
 		}
 
-		if ( $name === 'meta' )
-		{
-			$this->container->set($name, $this->manager->getFactory()->make(
-				'Meta',
-				[$link, $this->manager]
-			));
-
-			return $this;
-		}
-
 		if ( is_string($link) )
 		{
 			$this->container->set($name, strval($link));
@@ -133,7 +123,7 @@ final class ErrorLink implements ErrorLinkInterface
 		// Now $link can only be an object
 		$this->container->set($name, $this->manager->getFactory()->make(
 			'Link',
-			[$link, $this->manager]
+			[$link, $this->manager, $this]
 		));
 
 		return $this;

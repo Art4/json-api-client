@@ -179,16 +179,6 @@ final class RelationshipLink implements RelationshipLinkInterface
 			throw new ValidationException('Link has to be an object or string, "' . gettype($link) . '" given.');
 		}
 
-		if ( $name === 'meta' )
-		{
-			$this->container->set($name, $this->manager->getFactory()->make(
-				'Meta',
-				[$link, $this->manager]
-			));
-
-			return $this;
-		}
-
 		if ( is_string($link) )
 		{
 			$this->container->set($name, strval($link));
@@ -199,7 +189,7 @@ final class RelationshipLink implements RelationshipLinkInterface
 		// Now $link can only be an object
 		$this->container->set($name, $this->manager->getFactory()->make(
 			'Link',
-			[$link, $this->manager]
+			[$link, $this->manager, $this]
 		));
 
 		return $this;
