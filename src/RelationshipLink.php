@@ -2,6 +2,7 @@
 
 namespace Art4\JsonApiClient;
 
+use Art4\JsonApiClient\Resource\IdentifierCollectionInterface;
 use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Utils\DataContainer;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
@@ -86,7 +87,7 @@ final class RelationshipLink implements RelationshipLinkInterface
 		}
 
 		// Pagination links
-		if ( $relationship->has('data') )
+		if ( $relationship->has('data') and $relationship->get('data') instanceof IdentifierCollectionInterface )
 		{
 			if ( array_key_exists('first', $links) )
 			{
