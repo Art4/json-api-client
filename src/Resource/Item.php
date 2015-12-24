@@ -90,7 +90,7 @@ final class Item implements ItemInterface, ResourceInterface
 		if ( property_exists($object, 'links') )
 		{
 			$this->container->set('links', $this->manager->getFactory()->make(
-				'Link',
+				'Resource\ItemLink',
 				[$object->links, $this->manager, $this]
 			));
 		}

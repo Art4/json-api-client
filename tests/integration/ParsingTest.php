@@ -226,7 +226,7 @@ class ParsingTest extends \PHPUnit_Framework_TestCase
 
 		$links = $resource->get('links');
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Link', $links);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ItemLink', $links);
 		$this->assertTrue($links->has('self'));
 		$this->assertSame($links->get('self'), 'http://example.com/articles/1');
 
@@ -256,7 +256,7 @@ class ParsingTest extends \PHPUnit_Framework_TestCase
 
 		$links = $include->get('links');
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Link', $links);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ItemLink', $links);
 		$this->assertTrue($links->has('self'));
 		$this->assertSame($links->get('self'), 'http://example.com/people/9');
 
@@ -277,7 +277,7 @@ class ParsingTest extends \PHPUnit_Framework_TestCase
 
 		$links = $include->get('links');
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Link', $links);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ItemLink', $links);
 		$this->assertTrue($links->has('self'));
 		$this->assertSame($links->get('self'), 'http://example.com/comments/5');
 
@@ -298,7 +298,7 @@ class ParsingTest extends \PHPUnit_Framework_TestCase
 
 		$links = $include->get('links');
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Link', $links);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ItemLink', $links);
 		$this->assertTrue($links->has('self'));
 		$this->assertSame($links->get('self'), 'http://example.com/comments/12');
 

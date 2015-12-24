@@ -29,14 +29,12 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->meta = new \stdClass();
 		$object->href = 'http://example.org/href';
-		$object->linkobj = new \stdClass();
 		$object->link = 'http://example.org/link';
 
 		$link = new Link($object, $this->manager, $this->parent_link);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Link', $link);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $link);
-		$this->assertSame($link->getKeys(), array('meta', 'href', 'linkobj', 'link'));
 
 		$this->assertTrue($link->has('href'));
 		$this->assertSame($link->get('href'), 'http://example.org/href');
@@ -44,13 +42,10 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Art4\JsonApiClient\MetaInterface', $link->get('meta'));
 		$this->assertTrue($link->has('link'));
 		$this->assertSame($link->get('link'), 'http://example.org/link');
-		$this->assertTrue($link->has('linkobj'));
-		$this->assertInstanceOf('Art4\JsonApiClient\LinkInterface', $link->get('linkobj'));
 
 		$this->assertSame($link->asArray(), array(
 			'meta' => $link->get('meta'),
 			'href' => $link->get('href'),
-			'linkobj' => $link->get('linkobj'),
 			'link' => $link->get('link'),
 		));
 
@@ -58,7 +53,6 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($link->asArray(true), array(
 			'meta' => $link->get('meta')->asArray(true),
 			'href' => $link->get('href'),
-			'linkobj' => $link->get('linkobj')->asArray(true),
 			'link' => $link->get('link'),
 		));
 

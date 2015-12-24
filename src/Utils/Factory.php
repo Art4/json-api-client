@@ -27,6 +27,7 @@ final class Factory implements FactoryInterface
 		'Resource\Identifier'           => 'Art4\JsonApiClient\Resource\Identifier',
 		'Resource\IdentifierCollection' => 'Art4\JsonApiClient\Resource\IdentifierCollection',
 		'Resource\Item'                 => 'Art4\JsonApiClient\Resource\Item',
+		'Resource\ItemLink'             => 'Art4\JsonApiClient\Resource\ItemLink',
 		'Resource\NullResource'         => 'Art4\JsonApiClient\Resource\NullResource',
 	];
 

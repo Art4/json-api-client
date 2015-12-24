@@ -82,7 +82,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue($resource->has('relationships'));
 		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipCollectionInterface', $resource->get('relationships'));
 		$this->assertTrue($resource->has('links'));
-		$this->assertInstanceOf('Art4\JsonApiClient\LinkInterface', $resource->get('links'));
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ItemLinkInterface', $resource->get('links'));
 		$this->assertSame($resource->getKeys(), array('type', 'id', 'meta', 'attributes', 'relationships', 'links'));
 
 		$this->assertSame($resource->asArray(), array(

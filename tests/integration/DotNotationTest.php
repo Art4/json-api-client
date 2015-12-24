@@ -39,7 +39,7 @@ class DotNotationTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($document->get('data.0.attributes.title'), 'JSON API paints my bikeshed!');
 
 		$this->assertTrue($document->has('data.0.links'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Link', $document->get('data.0.links'));
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ItemLink', $document->get('data.0.links'));
 
 		$this->assertTrue($document->has('data.0.links.self'));
 		$this->assertSame($document->get('data.0.links.self'), 'http://example.com/articles/1');
@@ -126,7 +126,7 @@ class DotNotationTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($document->get('included.0.attributes.twitter'), 'dgeb');
 
 		$this->assertTrue($document->has('included.0.links'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Link', $document->get('included.0.links'));
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ItemLink', $document->get('included.0.links'));
 
 		$this->assertTrue($document->has('included.0.links.self'));
 		$this->assertSame($document->get('included.0.links.self'), 'http://example.com/people/9');
@@ -147,7 +147,7 @@ class DotNotationTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($document->get('included.1.attributes.body'), 'First!');
 
 		$this->assertTrue($document->has('included.1.links'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Link', $document->get('included.1.links'));
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ItemLink', $document->get('included.1.links'));
 
 		$this->assertTrue($document->has('included.1.links.self'));
 		$this->assertSame($document->get('included.1.links.self'), 'http://example.com/comments/5');
@@ -168,7 +168,7 @@ class DotNotationTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($document->get('included.2.attributes.body'), 'I like XML better');
 
 		$this->assertTrue($document->has('included.2.links'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Link', $document->get('included.2.links'));
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ItemLink', $document->get('included.2.links'));
 
 		$this->assertTrue($document->has('included.2.links.self'));
 		$this->assertSame($document->get('included.2.links.self'), 'http://example.com/comments/12');
