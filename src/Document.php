@@ -101,7 +101,7 @@ final class Document implements DocumentInterface
 		{
 			$this->container->set('links', $this->manager->getFactory()->make(
 				'DocumentLink',
-				[$object->links, $this->manager]
+				[$object->links, $this->manager, $this]
 			));
 		}
 

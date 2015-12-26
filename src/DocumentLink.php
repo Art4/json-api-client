@@ -33,13 +33,18 @@ final class DocumentLink implements DocumentLinkInterface
 	protected $manager;
 
 	/**
+	 * @var AccessInterface
+	 */
+	protected $parent;
+
+	/**
 	 * @param object $object The link object
 	 *
 	 * @return self
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($object, FactoryManagerInterface $manager)
+	public function __construct($object, FactoryManagerInterface $manager, AccessInterface $parent)
 	{
 		if ( ! is_object($object) )
 		{
@@ -47,6 +52,8 @@ final class DocumentLink implements DocumentLinkInterface
 		}
 
 		$this->manager = $manager;
+
+		$this->parent = $parent;
 
 		$this->container = new DataContainer();
 
@@ -76,34 +83,36 @@ final class DocumentLink implements DocumentLinkInterface
 			unset($links['related']);
 		}
 
-		// Pagination links
-
-		if ( array_key_exists('first', $links) )
+		// Pagination links, if data in parent attributes exists
+		if ( $parent->has('data') )
 		{
-			$this->setPaginationLink('first', $links['first']);
+			if ( array_key_exists('first', $links) )
+			{
+				$this->setPaginationLink('first', $links['first']);
 
-			unset($links['first']);
-		}
+				unset($links['first']);
+			}
 
-		if ( array_key_exists('last', $links) )
-		{
-			$this->setPaginationLink('last', $links['last']);
+			if ( array_key_exists('last', $links) )
+			{
+				$this->setPaginationLink('last', $links['last']);
 
-			unset($links['last']);
-		}
+				unset($links['last']);
+			}
 
-		if ( array_key_exists('prev', $links) )
-		{
-			$this->setPaginationLink('prev', $links['prev']);
+			if ( array_key_exists('prev', $links) )
+			{
+				$this->setPaginationLink('prev', $links['prev']);
 
-			unset($links['prev']);
-		}
+				unset($links['prev']);
+			}
 
-		if ( array_key_exists('next', $links) )
-		{
-			$this->setPaginationLink('next', $links['next']);
+			if ( array_key_exists('next', $links) )
+			{
+				$this->setPaginationLink('next', $links['next']);
 
-			unset($links['next']);
+				unset($links['next']);
+			}
 		}
 
 		// custom links

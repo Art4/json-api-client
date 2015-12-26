@@ -15,6 +15,15 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 	public function setUp()
 	{
 		$this->manager = $this->buildManagerMock();
+
+		// Mock parent
+		$this->parent = $this->getMockBuilder('Art4\JsonApiClient\AccessInterface')
+			->getMock();
+
+		$this->parent->expects($this->any())
+			->method('has')
+			->with('data')
+			->will($this->returnValue(true));
 	}
 
 	/**
@@ -37,7 +46,7 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 		$object->custom = 'http://example.org/custom';
 		$object->meta = 'http://example.org/meta';
 
-		$link = new DocumentLink($object, $this->manager);
+		$link = new DocumentLink($object, $this->manager, $this->parent);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\DocumentLink', $link);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $link);
@@ -102,7 +111,7 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 			'DocumentLink has to be an object, "' . gettype($input) . '" given.'
 		);
 
-		$link = new DocumentLink($input, $this->manager);
+		$link = new DocumentLink($input, $this->manager, $this->parent);
 	}
 
 	/**
@@ -126,7 +135,7 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 			'property "self" has to be a string, "' . gettype($input) . '" given.'
 		);
 
-		$link = new DocumentLink($object, $this->manager);
+		$link = new DocumentLink($object, $this->manager, $this->parent);
 	}
 
 	/**
@@ -154,7 +163,7 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 		// Input must be a string or object
 		if ( gettype($input) === 'string' or gettype($input) === 'object' )
 		{
-			$link = new DocumentLink($object, $this->manager);
+			$link = new DocumentLink($object, $this->manager, $this->parent);
 
 			$this->assertTrue($link->has('related'));
 
@@ -166,7 +175,7 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 			'property "related" has to be a string or object, "' . gettype($input) . '" given.'
 		);
 
-		$link = new DocumentLink($object, $this->manager);
+		$link = new DocumentLink($object, $this->manager, $this->parent);
 	}
 
 	/**
@@ -183,7 +192,7 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 		// Input must be null or string
 		if ( gettype($input) === 'string' )
 		{
-			$link = new DocumentLink($object, $this->manager);
+			$link = new DocumentLink($object, $this->manager, $this->parent);
 			$this->assertSame($link->getKeys(), array('self', 'first'));
 
 			$this->assertTrue($link->has('first'));
@@ -193,7 +202,7 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 		}
 		elseif ( gettype($input) === 'NULL' )
 		{
-			$link = new DocumentLink($object, $this->manager);
+			$link = new DocumentLink($object, $this->manager, $this->parent);
 			$this->assertSame($link->getKeys(), array('self'));
 
 			$this->assertFalse($link->has('first'));
@@ -206,7 +215,7 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 			'property "first" has to be a string or null, "' . gettype($input) . '" given.'
 		);
 
-		$link = new DocumentLink($object, $this->manager);
+		$link = new DocumentLink($object, $this->manager, $this->parent);
 	}
 
 	/**
@@ -223,7 +232,7 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 		// Input must be null or string
 		if ( gettype($input) === 'string' )
 		{
-			$link = new DocumentLink($object, $this->manager);
+			$link = new DocumentLink($object, $this->manager, $this->parent);
 			$this->assertSame($link->getKeys(), array('self', 'last'));
 
 			$this->assertTrue($link->has('last'));
@@ -233,7 +242,7 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 		}
 		elseif ( gettype($input) === 'NULL' )
 		{
-			$link = new DocumentLink($object, $this->manager);
+			$link = new DocumentLink($object, $this->manager, $this->parent);
 			$this->assertSame($link->getKeys(), array('self'));
 
 			$this->assertFalse($link->has('last'));
@@ -246,7 +255,7 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 			'property "last" has to be a string or null, "' . gettype($input) . '" given.'
 		);
 
-		$link = new DocumentLink($object, $this->manager);
+		$link = new DocumentLink($object, $this->manager, $this->parent);
 	}
 
 	/**
@@ -263,7 +272,7 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 		// Input must be null or string
 		if ( gettype($input) === 'string' )
 		{
-			$link = new DocumentLink($object, $this->manager);
+			$link = new DocumentLink($object, $this->manager, $this->parent);
 			$this->assertSame($link->getKeys(), array('self', 'prev'));
 
 			$this->assertTrue($link->has('prev'));
@@ -273,7 +282,7 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 		}
 		elseif ( gettype($input) === 'NULL' )
 		{
-			$link = new DocumentLink($object, $this->manager);
+			$link = new DocumentLink($object, $this->manager, $this->parent);
 			$this->assertSame($link->getKeys(), array('self'));
 
 			$this->assertFalse($link->has('prev'));
@@ -286,7 +295,7 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 			'property "prev" has to be a string or null, "' . gettype($input) . '" given.'
 		);
 
-		$link = new DocumentLink($object, $this->manager);
+		$link = new DocumentLink($object, $this->manager, $this->parent);
 	}
 
 	/**
@@ -303,7 +312,7 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 		// Input must be null or string
 		if ( gettype($input) === 'string' )
 		{
-			$link = new DocumentLink($object, $this->manager);
+			$link = new DocumentLink($object, $this->manager, $this->parent);
 			$this->assertSame($link->getKeys(), array('self', 'next'));
 
 			$this->assertTrue($link->has('next'));
@@ -313,7 +322,7 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 		}
 		elseif ( gettype($input) === 'NULL' )
 		{
-			$link = new DocumentLink($object, $this->manager);
+			$link = new DocumentLink($object, $this->manager, $this->parent);
 			$this->assertSame($link->getKeys(), array('self'));
 
 			$this->assertFalse($link->has('next'));
@@ -326,7 +335,7 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 			'property "next" has to be a string or null, "' . gettype($input) . '" given.'
 		);
 
-		$link = new DocumentLink($object, $this->manager);
+		$link = new DocumentLink($object, $this->manager, $this->parent);
 	}
 
 	/**
@@ -337,7 +346,7 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->self = 'http://example.org/self';
 
-		$link = new DocumentLink($object, $this->manager);
+		$link = new DocumentLink($object, $this->manager, $this->parent);
 
 		$this->assertFalse($link->has('something'));
 
