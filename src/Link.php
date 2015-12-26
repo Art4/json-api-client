@@ -47,6 +47,11 @@ final class Link implements LinkInterface
 			throw new ValidationException('Link has to be an object, "' . gettype($object) . '" given.');
 		}
 
+		if ( ! array_key_exists('href', $object) )
+		{
+			throw new ValidationException('Link must habe a "href" attribute.');
+		}
+
 		$this->parent = $parent;
 
 		$this->manager = $manager;
