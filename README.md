@@ -12,7 +12,7 @@ Format: [JSON API 1.0](http://jsonapi.org/format/1.0/)
 
 #### Attention
 
-Version 0.5 and below interprets the pagination links wrong. Make sure you are using the latest version of JsonApiClient. See [issue #19](https://github.com/Art4/json-api-client/issues/19) for more information.
+Version 0.6 and below interprets the pagination links wrong. Make sure you are using the latest version of JsonApiClient. See [#19](https://github.com/Art4/json-api-client/issues/19) and [#23](https://github.com/Art4/json-api-client/pull/23) for more information.
 
 ### WIP: Goals for 1.0
 

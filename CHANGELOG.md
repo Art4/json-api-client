@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.6.1] - 2015-12-28
+
 ### Added
 
 - New `Resource\ItemLink` object; was seperated from `Link` object
@@ -86,6 +88,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Full test coverage
 
 [Unreleased]: https://github.com/Art4/json-api-client/compare/0.6...HEAD
+[0.6.1]: https://github.com/Art4/json-api-client/compare/0.6...0.6.1
 [0.6]: https://github.com/Art4/json-api-client/compare/0.5...0.6
 [0.5]: https://github.com/Art4/json-api-client/compare/0.4...0.5
 [0.4]: https://github.com/Art4/json-api-client/compare/0.3...0.4
