@@ -1,12 +1,12 @@
-# DocumentLink
+# ResourceItemLink
 [Back to Navigation](README.md)
 
 ## Description
 
-The `DocumentLink` represents a [links object inside the top level document](http://jsonapi.org/format/#document-top-level).
+The `ResourceItemLink` object represents a [links object inside a resource](http://jsonapi.org/format/#document-links).
 
 Property of:
-- [Document object](objects-document.md)
+- [Resource Item object](objects-resource-item.md)
 
 ### Properties
 
@@ -16,8 +16,4 @@ _[Symbols definition](objects-introduction.md#symbols)_
 --- | ---- | ----- | ----
 ? | self | `string` |
 ? | related | - `string`<br />- [Link object](objects-link.md) |
-? | first | - `null`<br />- `string` |
-? | last | - `null`<br />- `string` |
-? | prev | - `null`<br />- `string` |
-? | next | - `null`<br />- `string` |
 * | `string` | - `string`<br />- [Link object](objects-link.md) |

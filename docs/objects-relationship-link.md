@@ -20,5 +20,4 @@ _[Symbols definition](objects-introduction.md#symbols)_
 ? | last | - `null`<br />- `string` | Only exists if the parent relationship object represents a to-many relationship |
 ? | prev | - `null`<br />- `string` | Only exists if the parent relationship object represents a to-many relationship |
 ? | next | - `null`<br />- `string` | Only exists if the parent relationship object represents a to-many relationship |
-? | meta | [Meta object](objects-meta.md) |
 * | `string` | - `string`<br />- [Link object](objects-link.md) |

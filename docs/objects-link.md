@@ -6,8 +6,9 @@
 The `Link` object represents a [links object](http://jsonapi.org/format/#document-links).
 
 Property of:
-- [Resource Item object](objects-resource-item.md)
-- [Link object](objects-link.md)
+- [Document Link object](objects-document-link.md)
+- [Resource Item Link object](objects-resource-item-link.md)
+- [Relationship Link object](objects-relationship-link.md)
 - [Error Link object](objects-error-link.md)
 
 ### Properties
@@ -16,6 +17,5 @@ _[Symbols definition](objects-introduction.md#symbols)_
 
     | Key | Value | Note
 --- | ---- | ----- | ----
-* | `string` | - `string`<br />- [Link object](objects-link.md) |
-? | href | `string` |
+1 | href | `string` |
 ? | meta | [Meta object](objects-meta.md) |

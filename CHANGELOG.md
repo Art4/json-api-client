@@ -5,6 +5,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- New `Resource\ItemLink` object; was seperated from `Link` object
+
+### Fixed
+
+- links and pagination are now parsed spec conform, see [#23](https://github.com/Art4/json-api-client/pull/23)
+
 ## [0.6] - 2015-11-06
 
 ### Added

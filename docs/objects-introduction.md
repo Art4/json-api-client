@@ -32,6 +32,7 @@ All possible objects and their hierarchical structure are listet below.
 1. [Error Source object](objects-error-source.md)
 1. [Link object](objects-link.md)
 1. [Document Link object](objects-document-link.md)
+1. [Resource Item Link object](objects-resource-item-link.md)
 1. [Relationship Link object](objects-relationship-link.md)
 1. [Error Link object](objects-error-link.md)
 1. [Jsonapi object](objects-jsonapi.md)
