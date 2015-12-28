@@ -185,7 +185,7 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 			->method('has')
 			->with($this->equalTo('data'))
 			->will($this->returnValue(true));
-		
+
 		// Mock identifier item
 		$data = $this->getMockBuilder('Art4\JsonApiClient\Resource\IdentifierInterface')
 			->getMock();
@@ -231,6 +231,31 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$link = new RelationshipLink($input, $this->manager, $this->relationship);
+	}
+
+	/**
+	 * @dataProvider jsonValuesProvider
+	 *
+	 * test create without object or string attribute throws exception
+	 */
+	public function testCreateWithoutObjectOrStringAttributeThrowsException($input)
+	{
+		// Input must be an object
+		if ( gettype($input) === 'string' or gettype($input) === 'object' )
+		{
+			return;
+		}
+
+		$object = new \stdClass();
+		$object->self = 'http://example.org/self';
+		$object->input = $input;
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'Link attribute has to be an object or string, "' . gettype($input) . '" given.'
+		);
+
+		$link = new RelationshipLink($object, $this->manager, $this->relationship);
 	}
 
 	/**

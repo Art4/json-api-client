@@ -54,14 +54,7 @@ final class ItemLink implements ItemLinkInterface
 
 		$this->container = new DataContainer();
 
-		$object_vars = get_object_vars($object);
-
-		if ( count($object_vars) === 0 )
-		{
-			return $this;
-		}
-
-		foreach ($object_vars as $name => $value)
+		foreach (get_object_vars($object) as $name => $value)
 		{
 			$this->set($name, $value);
 		}
@@ -102,7 +95,7 @@ final class ItemLink implements ItemLinkInterface
 		// - an object ("link object") which can contain the following members:
 		if ( ! is_object($link) and ! is_string($link) )
 		{
-			throw new ValidationException('Link has to be an object or string, "' . gettype($link) . '" given.');
+			throw new ValidationException('Link attribute has to be an object or string, "' . gettype($link) . '" given.');
 		}
 
 		if ( is_string($link) )

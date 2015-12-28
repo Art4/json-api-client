@@ -117,6 +117,31 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @dataProvider jsonValuesProvider
 	 *
+	 * test create without object or string attribute throws exception
+	 */
+	public function testCreateWithoutObjectOrStringAttributeThrowsException($input)
+	{
+		// Input must be an object
+		if ( gettype($input) === 'string' or gettype($input) === 'object' )
+		{
+			return;
+		}
+
+		$object = new \stdClass();
+		$object->self = 'http://example.org/self';
+		$object->input = $input;
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'Link attribute has to be an object or string, "' . gettype($input) . '" given.'
+		);
+
+		$link = new DocumentLink($object, $this->manager, $this->parent);
+	}
+
+	/**
+	 * @dataProvider jsonValuesProvider
+	 *
 	 * self: the link that generated the current response document.
 	 */
 	public function testSelfMustBeAString($input)

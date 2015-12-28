@@ -173,7 +173,7 @@ final class DocumentLink implements DocumentLinkInterface
 	{
 		if ( ! is_string($link) and ! is_object($link) )
 		{
-			throw new ValidationException('Link has to be an object or string, "' . gettype($link) . '" given.');
+			throw new ValidationException('Link attribute has to be an object or string, "' . gettype($link) . '" given.');
 		}
 
 		if ( is_string($link) )

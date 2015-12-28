@@ -73,6 +73,30 @@ class ItemLinkTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * @dataProvider jsonValuesProvider
+	 *
+	 * test create without object or string attribute throws exception
+	 */
+	public function testCreateWithoutObjectOrStringAttributeThrowsException($input)
+	{
+		// Input must be an object
+		if ( gettype($input) === 'string' or gettype($input) === 'object' )
+		{
+			return;
+		}
+
+		$object = new \stdClass();
+		$object->input = $input;
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'Link attribute has to be an object or string, "' . gettype($input) . '" given.'
+		);
+
+		$link = new ItemLink($object, $this->manager, $this->parent);
+	}
+
+	/**
 	 * @test
 	 */
 	public function testGetOnANonExistingKeyThrowsException()

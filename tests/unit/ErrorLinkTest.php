@@ -119,6 +119,31 @@ class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @dataProvider jsonValuesProvider
 	 *
+	 * test create without object or string attribute throws exception
+	 */
+	public function testCreateWithoutObjectOrStringAttributeThrowsException($input)
+	{
+		// Input must be an object
+		if ( gettype($input) === 'string' or gettype($input) === 'object' )
+		{
+			return;
+		}
+
+		$object = new \stdClass();
+		$object->about = 'http://example.org/about';
+		$object->input = $input;
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'Link attribute has to be an object or string, "' . gettype($input) . '" given.'
+		);
+
+		$link = new ErrorLink($object, $this->manager);
+	}
+
+	/**
+	 * @dataProvider jsonValuesProvider
+	 *
 	 * The value of the about member MUST be an object (a "links object") or a string.
 	 */
 	public function testAboutWithDataproviderThrowsException($input)
