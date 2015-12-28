@@ -1,8 +1,9 @@
 <?php
 
-namespace Art4\JsonApiClient;
+namespace Art4\JsonApiClient\Resource;
 
-use Art4\JsonApiClient\Resource\ItemInterface;
+use Art4\JsonApiClient\AccessInterface;
+use Art4\JsonApiClient\Resource\ItemLinkInterface;
 use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Utils\DataContainer;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
@@ -10,11 +11,11 @@ use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
- * Link Object
+ * ItemLink Object
  *
  * @see http://jsonapi.org/format/#document-links
  */
-final class Link implements LinkInterface
+final class ItemLink implements ItemLinkInterface
 {
 	use AccessTrait;
 
@@ -44,12 +45,7 @@ final class Link implements LinkInterface
 	{
 		if ( ! is_object($object) )
 		{
-			throw new ValidationException('Link has to be an object or string, "' . gettype($object) . '" given.');
-		}
-
-		if ( ! array_key_exists('href', $object) )
-		{
-			throw new ValidationException('Link must have a "href" attribute.');
+			throw new ValidationException('ItemLink has to be an object, "' . gettype($object) . '" given.');
 		}
 
 		$this->parent = $parent;
@@ -94,23 +90,26 @@ final class Link implements LinkInterface
 	 */
 	protected function set($name, $link)
 	{
-		if ( $name === 'meta' )
+		// from spec: aA link MUST be represented as either:
+		// - a string containing the link's URL.
+		// - an object ("link object") which can contain the following members:
+		if ( ! is_object($link) and ! is_string($link) )
 		{
-			$this->container->set($name, $this->manager->getFactory()->make(
-				'Meta',
-				[$link, $this->manager]
-			));
+			throw new ValidationException('Link attribute has to be an object or string, "' . gettype($link) . '" given.');
+		}
+
+		if ( is_string($link) )
+		{
+			$this->container->set($name, strval($link));
 
 			return $this;
 		}
 
-		// every link must be an URL
-		if ( ! is_string($link) )
-		{
-			throw new ValidationException('Every link attribute has to be a string, "' . gettype($link) . '" given.');
-		}
-
-		$this->container->set($name, strval($link));
+		// Now $link can only be an object
+		$this->container->set($name, $this->manager->getFactory()->make(
+			'Link',
+			[$link, $this->manager, $this]
+		));
 
 		return $this;
 	}

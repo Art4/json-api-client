@@ -50,14 +50,6 @@ final class Relationship implements RelationshipInterface
 
 		$this->container = new DataContainer();
 
-		if ( property_exists($object, 'links') )
-		{
-			$this->container->set('links', $this->manager->getFactory()->make(
-				'RelationshipLink',
-				[$object->links, $this->manager]
-			));
-		}
-
 		if ( property_exists($object, 'data') )
 		{
 			$this->container->set('data', $this->parseData($object->data));
@@ -68,6 +60,15 @@ final class Relationship implements RelationshipInterface
 			$this->container->set('meta', $this->manager->getFactory()->make(
 				'Meta',
 				[$object->meta, $this->manager]
+			));
+		}
+
+		// Parse 'links' after 'data'
+		if ( property_exists($object, 'links') )
+		{
+			$this->container->set('links', $this->manager->getFactory()->make(
+				'RelationshipLink',
+				[$object->links, $this->manager, $this]
 			));
 		}
 

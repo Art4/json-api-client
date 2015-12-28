@@ -2,6 +2,7 @@
 
 namespace Art4\JsonApiClient;
 
+use Art4\JsonApiClient\Resource\IdentifierCollectionInterface;
 use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Utils\DataContainer;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
@@ -43,7 +44,7 @@ final class RelationshipLink implements RelationshipLinkInterface
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($object, FactoryManagerInterface $manager)
+	public function __construct($object, FactoryManagerInterface $manager, RelationshipInterface $relationship)
 	{
 		if ( ! is_object($object) )
 		{
@@ -59,78 +60,68 @@ final class RelationshipLink implements RelationshipLinkInterface
 
 		$this->container = new DataContainer();
 
-		if ( property_exists($object, 'self') )
+		$links = get_object_vars($object);
+
+		if ( array_key_exists('self', $links) )
 		{
-			if ( ! is_string($object->self) )
+			if ( ! is_string($links['self']) )
 			{
-				throw new ValidationException('property "self" has to be a string, "' . gettype($object->self) . '" given.');
+				throw new ValidationException('property "self" has to be a string, "' . gettype($links['self']) . '" given.');
 			}
 
-			$this->container->set('self', strval($object->self));
+			$this->container->set('self', strval($links['self']));
+
+			unset($links['self']);
 		}
 
-		if ( property_exists($object, 'related') )
+		if ( array_key_exists('related', $links) )
 		{
-			if ( ! is_string($object->related) )
+			if ( ! is_string($links['related']) and ! is_object($links['related']) )
 			{
-				throw new ValidationException('property "related" has to be a string, "' . gettype($object->related) . '" given.');
+				throw new ValidationException('property "related" has to be a string or object, "' . gettype($links['related']) . '" given.');
 			}
 
-			$this->container->set('related', strval($object->related));
+			$this->setLink('related', $links['related']);
+
+			unset($links['related']);
 		}
 
 		// Pagination links
-
-		if ( property_exists($object, 'first') )
+		if ( $relationship->has('data') and $relationship->get('data') instanceof IdentifierCollectionInterface )
 		{
-			if ( ! is_string($object->first) and ! is_null($object->first) )
+			if ( array_key_exists('first', $links) )
 			{
-		throw new ValidationException('property "first" has to be a string or null, "' . gettype($object->first) . '" given.');
+				$this->setPaginationLink('first', $links['first']);
+
+				unset($links['first']);
 			}
 
-			if ( ! is_null($object->first) )
+			if ( array_key_exists('last', $links) )
 			{
-				$this->container->set('first', strval($object->first));
+				$this->setPaginationLink('last', $links['last']);
+
+				unset($links['last']);
+			}
+
+			if ( array_key_exists('prev', $links) )
+			{
+				$this->setPaginationLink('prev', $links['prev']);
+
+				unset($links['prev']);
+			}
+
+			if ( array_key_exists('next', $links) )
+			{
+				$this->setPaginationLink('next', $links['next']);
+
+				unset($links['next']);
 			}
 		}
 
-		if ( property_exists($object, 'last') )
+		// custom links
+		foreach ($links as $name => $value)
 		{
-			if ( ! is_string($object->last) and ! is_null($object->last) )
-			{
-				throw new ValidationException('property "last" has to be a string or null, "' . gettype($object->last) . '" given.');
-			}
-
-			if ( ! is_null($object->last) )
-			{
-				$this->container->set('last', strval($object->last));
-			}
-		}
-
-		if ( property_exists($object, 'prev') )
-		{
-			if ( ! is_string($object->prev) and ! is_null($object->prev) )
-			{
-				throw new ValidationException('property "prev" has to be a string or null, "' . gettype($object->prev) . '" given.');
-			}
-
-			if ( ! is_null($object->prev) )
-			{
-				$this->container->set('prev', strval($object->prev));
-			}
-		}
-
-		if ( property_exists($object, 'next') )
-		{
-			if ( ! is_string($object->next) and ! is_null($object->next) )
-			{
-				throw new ValidationException('property "next" has to be a string or null, "' . gettype($object->next) . '" given.');
-			}
-
-			if ( ! is_null($object->next) )
-			{
-				$this->container->set('next', strval($object->next));
-			}
+			$this->setLink($name, $value);
 		}
 	}
 
@@ -150,5 +141,57 @@ final class RelationshipLink implements RelationshipLinkInterface
 		{
 			throw new AccessException('"' . $key . '" doesn\'t exist in this object.');
 		}
+	}
+
+	/**
+	 * Set a pagination link
+	 *
+	 * @param string $name The name of the link
+	 * @param string $value The link
+	 * @return self
+	 */
+	private function setPaginationLink($name, $value)
+	{
+		if ( ! is_string($value) and ! is_null($value) )
+		{
+			throw new ValidationException('property "' . $name . '" has to be a string or null, "' . gettype($value) . '" given.');
+		}
+
+		if ( ! is_null($value) )
+		{
+			$this->container->set($name, strval($value));
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Set a link
+	 *
+	 * @param string $name The name of the link
+	 * @param string $link The link
+	 * @return self
+	 */
+	private function setLink($name, $link)
+	{
+		if ( ! is_string($link) and ! is_object($link) )
+		{
+			throw new ValidationException('Link attribute has to be an object or string, "' . gettype($link) . '" given.');
+		}
+
+		if ( is_string($link) )
+		{
+			$this->container->set($name, strval($link));
+
+			return $this;
+		}
+
+		// Now $link can only be an object
+		$this->container->set($name, $this->manager->getFactory()->make(
+			'Link',
+			[$link, $this->manager, $this]
+		));
+
+		return $this;
 	}
 }

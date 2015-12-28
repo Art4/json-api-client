@@ -15,8 +15,10 @@ _[Symbols definition](objects-introduction.md#symbols)_
     | Key | Value | Note
 --- | ---- | ----- | ----
 ? | self | `string` |
-? | related | `string` |
+? | related | - `string`<br />- [Link object](objects-link.md) |
 ? | first | - `null`<br />- `string` |
 ? | last | - `null`<br />- `string` |
 ? | prev | - `null`<br />- `string` |
 ? | next | - `null`<br />- `string` |
+? | meta | [Meta object](objects-meta.md) |
+* | `string` | - `string`<br />- [Link object](objects-link.md) |

@@ -18,13 +18,13 @@ class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @test only 'about' property' can exist
+	 * @test all properties can exist
 	 *
 	 * An error object MAY have the following members:
 	 * - links: a links object containing the following members:
 	 *   - about: a link that leads to further details about this particular occurrence of the problem.
 	 */
-	public function testOnlyAboutPropertyExists()
+	public function testAllPropertiesExists()
 	{
 		$object = new \stdClass();
 		$object->meta = new \stdClass();
@@ -35,21 +35,23 @@ class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ErrorLink', $link);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $link);
-		$this->assertSame($link->getKeys(), array('about'));
+		$this->assertSame($link->getKeys(), array('about', 'meta', 'href'));
 
-		$this->assertFalse($link->has('href'));
-		$this->assertFalse($link->has('meta'));
+		$this->assertTrue($link->has('href'));
+		$this->assertSame($link->get('href'), 'http://example.org/href');
+		$this->assertTrue($link->has('meta'));
+		$this->assertInstanceOf('Art4\JsonApiClient\LinkInterface', $link->get('meta'));
 		$this->assertTrue($link->has('about'));
 		$this->assertSame($link->get('about'), 'http://example.org/about');
 
 		$this->assertSame($link->asArray(), array(
 			'about' => $link->get('about'),
+			'meta' => $link->get('meta'),
+			'href' => $link->get('href'),
 		));
 
-		// Test full array
-		$this->assertSame($link->asArray(true), array(
-			'about' => $link->get('about'),
-		));
+		// TODO: Test full array
+
 	}
 
 	/**
@@ -112,6 +114,31 @@ class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$link = new ErrorLink($input, $this->manager);
+	}
+
+	/**
+	 * @dataProvider jsonValuesProvider
+	 *
+	 * test create without object or string attribute throws exception
+	 */
+	public function testCreateWithoutObjectOrStringAttributeThrowsException($input)
+	{
+		// Input must be an object
+		if ( gettype($input) === 'string' or gettype($input) === 'object' )
+		{
+			return;
+		}
+
+		$object = new \stdClass();
+		$object->about = 'http://example.org/about';
+		$object->input = $input;
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'Link attribute has to be an object or string, "' . gettype($input) . '" given.'
+		);
+
+		$link = new ErrorLink($object, $this->manager);
 	}
 
 	/**
