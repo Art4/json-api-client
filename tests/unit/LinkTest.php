@@ -87,7 +87,29 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'Every link attribute has to be a string, "' . gettype($input) . '" given.'
+		);
+
+		$link = new Link($object, $this->manager, $this->parent_link);
+	}
+
+	/**
+	 * @test href attribute must be set
+	 *
+	 * - an object ("link object") which can contain the following members:
+	 *   - href: a string containing the link's URL.
+	 */
+	public function testHrefAttributeMustBeSet()
+	{
+		$object = new \stdClass();
+		$object->related = 'http://example.org/related';
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'Link must have a "href" attribute.'
+		);
 
 		$link = new Link($object, $this->manager, $this->parent_link);
 	}
@@ -95,15 +117,11 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @test meta attribute will be parsed as Meta object inside Link
 	 */
-	public function testMetaIsParsedAsMetaInsideItem()
+	public function testMetaIsParsedAsObject()
 	{
 		$object = new \stdClass();
 		$object->meta = new \stdClass();
 		$object->href = 'http://example.org/href';
-
-		// Mock parent link
-		$this->parent_link = $this->getMockBuilder('Art4\JsonApiClient\LinkInterface')
-			->getMock();
 
 		$link = new Link($object, $this->manager, $this->parent_link);
 
@@ -118,7 +136,7 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreateWithDataprovider($input)
 	{
-		// A link object could be empty
+		// A link object must be an object
 		if ( gettype($input) === 'object' )
 		{
 			return;
@@ -126,7 +144,7 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
-			'Link has to be an object, "' . gettype($input) . '" given.'
+			'Link has to be an object or string, "' . gettype($input) . '" given.'
 		);
 
 		$link = new Link($input, $this->manager, $this->parent_link);

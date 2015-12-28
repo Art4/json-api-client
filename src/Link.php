@@ -44,12 +44,12 @@ final class Link implements LinkInterface
 	{
 		if ( ! is_object($object) )
 		{
-			throw new ValidationException('Link has to be an object, "' . gettype($object) . '" given.');
+			throw new ValidationException('Link has to be an object or string, "' . gettype($object) . '" given.');
 		}
 
 		if ( ! array_key_exists('href', $object) )
 		{
-			throw new ValidationException('Link must habe a "href" attribute.');
+			throw new ValidationException('Link must have a "href" attribute.');
 		}
 
 		$this->parent = $parent;
@@ -58,14 +58,7 @@ final class Link implements LinkInterface
 
 		$this->container = new DataContainer();
 
-		$object_vars = get_object_vars($object);
-
-		if ( count($object_vars) === 0 )
-		{
-			return $this;
-		}
-
-		foreach ($object_vars as $name => $value)
+		foreach (get_object_vars($object) as $name => $value)
 		{
 			$this->set($name, $value);
 		}
@@ -101,7 +94,7 @@ final class Link implements LinkInterface
 	 */
 	protected function set($name, $link)
 	{
-		if ( $name === 'meta' and ! $this->parent instanceof ItemInterface )
+		if ( $name === 'meta' )
 		{
 			$this->container->set($name, $this->manager->getFactory()->make(
 				'Meta',
@@ -111,29 +104,13 @@ final class Link implements LinkInterface
 			return $this;
 		}
 
-		// from spec: an object ("link object") which can contain the following members:
-		// - href: a string containing the link's URL.
-		if ( $name === 'href' or ! is_object($link) )
+		// every link must be an URL
+		if ( ! is_string($link) )
 		{
-			if ( ! is_string($link) )
-			{
-				throw new ValidationException('Link has to be an object or string, "' . gettype($link) . '" given.');
-			}
-
-			$this->container->set($name, strval($link));
-
-			return $this;
+			throw new ValidationException('Every link attribute has to be a string, "' . gettype($link) . '" given.');
 		}
 
-		// Now $link can only be an object
-		// Create Link object if needed
-		if ( ! ($link instanceof LinkInterface) )
-		{
-			$this->container->set($name, $this->manager->getFactory()->make(
-				'Link',
-				[$link, $this->manager, $this]
-			));
-		}
+		$this->container->set($name, strval($link));
 
 		return $this;
 	}
