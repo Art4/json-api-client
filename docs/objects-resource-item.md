@@ -20,4 +20,4 @@ _[Symbols definition](objects-introduction.md#symbols)_
 ? | meta | [Meta object](objects-meta.md) |
 ? | attributes | [Attributes object](objects-attributes.md) |
 ? | relationships | [Relationship Collection object](objects-relationship-collection.md) |
-? | links | [Link object](objects-link.md) |
+? | links | [Resource Item Link object](objects-resource-item-link.md) |
