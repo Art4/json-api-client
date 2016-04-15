@@ -1,0 +1,48 @@
+{
+  "data": [
+    {
+      "type": "party",
+      "id": "1",
+      "attributes": {
+        "legal_name": "Littel, Hickle and Wunsch",
+        "legal_name_fetched": "2015-08-20 07:50:39",
+        "nationality": "SE",
+        "national_identifier": "5562404176",
+        "created_at": "2016-04-13 13:39:25",
+        "updated_at": "2016-04-13 13:39:25",
+        "deleted_at": null
+      },
+      "links": {
+        "self": {
+          "href": "http://parties.api/v1/parties/1"
+        }
+      }
+    }
+  ],
+  "included": [],
+  "links": {
+    "self": {
+      "href": "?page[number]=1&page[size]=10"
+    },
+    "first": {
+      "href": "?page[number]=1&page[size]=10"
+    },
+    "next": {
+      "href": "?page[number]=2&page[size]=10"
+    },
+    "last": {
+      "href": "?page[number]=11&page[size]=10"
+    }
+  },
+  "meta": {
+    "page": {
+      "total": 106,
+      "last": 11,
+      "number": 1,
+      "size": 10
+    }
+  },
+  "jsonapi": {
+    "version": "1.0"
+  }
+}

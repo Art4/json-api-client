@@ -144,10 +144,10 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * self: the link that generated the current response document.
 	 */
-	public function testSelfMustBeAString($input)
+	public function testSelfMustBeAStringOrObject($input)
 	{
 		// Input must be a string
-		if ( gettype($input) === 'string' )
+		if ( gettype($input) === 'string' or gettype($input) === 'object' )
 		{
 			return;
 		}
@@ -157,7 +157,7 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
-			'property "self" has to be a string, "' . gettype($input) . '" given.'
+			'property "self" has to be a string or object, "' . gettype($input) . '" given.'
 		);
 
 		$link = new DocumentLink($object, $this->manager, $this->parent);
@@ -208,7 +208,7 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 	 *
 	 * Keys MUST either be omitted or have a null value to indicate that a particular link is unavailable.
 	 */
-	public function testFirstCanBeAStringOrNull($input)
+	public function testFirstCanBeAnObjectOrStringOrNull($input)
 	{
 		$object = new \stdClass();
 		$object->self = 'https://example.org/self';
@@ -234,10 +234,20 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 
 			return;
 		}
+		elseif ( gettype($input) === 'object' )
+		{
+			$link = new DocumentLink($object, $this->manager, $this->parent);
+			$this->assertSame($link->getKeys(), array('self', 'first'));
+
+			$this->assertTrue($link->has('first'));
+			$this->assertInstanceOf('Art4\JsonApiClient\LinkInterface', $link->get('first'));
+
+			return;
+		}
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
-			'property "first" has to be a string or null, "' . gettype($input) . '" given.'
+			'property "first" has to be an object, a string or null, "' . gettype($input) . '" given.'
 		);
 
 		$link = new DocumentLink($object, $this->manager, $this->parent);
@@ -274,10 +284,20 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 
 			return;
 		}
+		elseif ( gettype($input) === 'object' )
+		{
+			$link = new DocumentLink($object, $this->manager, $this->parent);
+			$this->assertSame($link->getKeys(), array('self', 'last'));
+
+			$this->assertTrue($link->has('last'));
+			$this->assertInstanceOf('Art4\JsonApiClient\LinkInterface', $link->get('last'));
+
+			return;
+		}
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
-			'property "last" has to be a string or null, "' . gettype($input) . '" given.'
+			'property "last" has to be an object, a string or null, "' . gettype($input) . '" given.'
 		);
 
 		$link = new DocumentLink($object, $this->manager, $this->parent);
@@ -314,10 +334,20 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 
 			return;
 		}
+		elseif ( gettype($input) === 'object' )
+		{
+			$link = new DocumentLink($object, $this->manager, $this->parent);
+			$this->assertSame($link->getKeys(), array('self', 'prev'));
+
+			$this->assertTrue($link->has('prev'));
+			$this->assertInstanceOf('Art4\JsonApiClient\LinkInterface', $link->get('prev'));
+
+			return;
+		}
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
-			'property "prev" has to be a string or null, "' . gettype($input) . '" given.'
+			'property "prev" has to be an object, a string or null, "' . gettype($input) . '" given.'
 		);
 
 		$link = new DocumentLink($object, $this->manager, $this->parent);
@@ -354,10 +384,20 @@ class DocumentLinkTest extends \PHPUnit_Framework_TestCase
 
 			return;
 		}
+		elseif ( gettype($input) === 'object' )
+		{
+			$link = new DocumentLink($object, $this->manager, $this->parent);
+			$this->assertSame($link->getKeys(), array('self', 'next'));
+
+			$this->assertTrue($link->has('next'));
+			$this->assertInstanceOf('Art4\JsonApiClient\LinkInterface', $link->get('next'));
+
+			return;
+		}
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
-			'property "next" has to be a string or null, "' . gettype($input) . '" given.'
+			'property "next" has to be an object, a string or null, "' . gettype($input) . '" given.'
 		);
 
 		$link = new DocumentLink($object, $this->manager, $this->parent);

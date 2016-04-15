@@ -425,4 +425,41 @@ class ParsingTest extends \PHPUnit_Framework_TestCase
 		// Test full array
 		$this->assertEquals(json_decode($string, true), $document->asArray(true));
 	}
+
+	/**
+	 * @test
+	 */
+	public function testParseObjectLinksExample()
+	{
+		$string = $this->getJsonString('08_object_links.json');
+		$document = Helper::parse($string);
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
+		$this->assertTrue($document->has('links'));
+
+		$this->assertInstanceOf('Art4\JsonApiClient\DocumentLinkInterface', $document->get('links'));
+		$this->assertTrue($document->has('links.self'));
+		$this->assertTrue($document->has('links.first'));
+		$this->assertTrue($document->has('links.next'));
+		$this->assertTrue($document->has('links.last'));
+
+		$this->assertInstanceOf('Art4\JsonApiClient\LinkInterface', $document->get('links.self'));
+		$this->assertTrue($document->has('links.self.href'));
+		$this->assertSame('?page[number]=1&page[size]=10', $document->get('links.self.href'));
+
+		$this->assertInstanceOf('Art4\JsonApiClient\LinkInterface', $document->get('links.first'));
+		$this->assertTrue($document->has('links.first.href'));
+		$this->assertSame('?page[number]=1&page[size]=10', $document->get('links.first.href'));
+
+		$this->assertInstanceOf('Art4\JsonApiClient\LinkInterface', $document->get('links.next'));
+		$this->assertTrue($document->has('links.next.href'));
+		$this->assertSame('?page[number]=2&page[size]=10', $document->get('links.next.href'));
+
+		$this->assertInstanceOf('Art4\JsonApiClient\LinkInterface', $document->get('links.last'));
+		$this->assertTrue($document->has('links.last.href'));
+		$this->assertSame('?page[number]=11&page[size]=10', $document->get('links.last.href'));
+
+		// Test full array
+		$this->assertEquals(json_decode($string, true), $document->asArray(true));
+	}
 }

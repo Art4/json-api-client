@@ -61,12 +61,12 @@ final class DocumentLink implements DocumentLinkInterface
 
 		if ( array_key_exists('self', $links) )
 		{
-			if ( ! is_string($links['self']) )
+			if ( ! is_string($links['self']) and ! is_object($links['self']) )
 			{
-				throw new ValidationException('property "self" has to be a string, "' . gettype($links['self']) . '" given.');
+				throw new ValidationException('property "self" has to be a string or object, "' . gettype($links['self']) . '" given.');
 			}
 
-			$this->container->set('self', $links['self']);
+			$this->setLink('self', $links['self']);
 
 			unset($links['self']);
 		}
@@ -149,14 +149,18 @@ final class DocumentLink implements DocumentLinkInterface
 	 */
 	private function setPaginationLink($name, $value)
 	{
-		if ( ! is_string($value) and ! is_null($value) )
+		if ( ! is_object($value) and ! is_string($value) and ! is_null($value) )
 		{
-			throw new ValidationException('property "' . $name . '" has to be a string or null, "' . gettype($value) . '" given.');
+			throw new ValidationException('property "' . $name . '" has to be an object, a string or null, "' . gettype($value) . '" given.');
 		}
 
-		if ( ! is_null($value) )
+		if ( is_string($value) )
 		{
 			$this->container->set($name, strval($value));
+		}
+		elseif ( is_object($value) )
+		{
+			$this->setLink($name, $value);
 		}
 
 		return $this;
