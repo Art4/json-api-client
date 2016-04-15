@@ -5,6 +5,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.6.2] - 2016-04-15
+
+### Fixed
+
+- links in document object can contain objects, see [#26](https://github.com/Art4/json-api-client/pull/26)
+
 ## [0.6.1] - 2015-12-28
 
 ### Added
@@ -87,7 +93,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Validator fits nearly 100% specification
 - Full test coverage
 
-[Unreleased]: https://github.com/Art4/json-api-client/compare/0.6...HEAD
+[Unreleased]: https://github.com/Art4/json-api-client/compare/0.6.2...HEAD
+[0.6.2]: https://github.com/Art4/json-api-client/compare/0.6.1...0.6.2
 [0.6.1]: https://github.com/Art4/json-api-client/compare/0.6...0.6.1
 [0.6]: https://github.com/Art4/json-api-client/compare/0.5...0.6
 [0.5]: https://github.com/Art4/json-api-client/compare/0.4...0.5
