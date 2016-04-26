@@ -5,6 +5,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.6.3] - 2016-04-26
+
+### Fixed
+
+- Prevent PHP bug in json_decode(), if option JSON_BIGINT_AS_STRING is not implemented, see [#28](https://github.com/Art4/json-api-client/issues/28)
+
 ## [0.6.2] - 2016-04-15
 
 ### Fixed
@@ -93,7 +99,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Validator fits nearly 100% specification
 - Full test coverage
 
-[Unreleased]: https://github.com/Art4/json-api-client/compare/0.6.2...HEAD
+[Unreleased]: https://github.com/Art4/json-api-client/compare/0.6.3...HEAD
+[0.6.3]: https://github.com/Art4/json-api-client/compare/0.6.2...0.6.3
 [0.6.2]: https://github.com/Art4/json-api-client/compare/0.6.1...0.6.2
 [0.6.1]: https://github.com/Art4/json-api-client/compare/0.6...0.6.1
 [0.6]: https://github.com/Art4/json-api-client/compare/0.5...0.6

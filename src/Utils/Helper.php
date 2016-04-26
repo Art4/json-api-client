@@ -72,7 +72,9 @@ final class Helper
 			JSON_ERROR_UTF8 => 'JSON_ERROR_UTF8 - Malformed UTF-8 characters, possibly incorrectly encoded'
 		);
 
-		$data = json_decode($json_string, false, 512, JSON_BIGINT_AS_STRING);
+		// Can we use JSON_BIGINT_AS_STRING?
+		$options = ( version_compare(PHP_VERSION, '5.4.0', '>=') and ! (defined('JSON_C_VERSION') and PHP_INT_SIZE > 4) ) ? JSON_BIGINT_AS_STRING : 0;
+		$data = json_decode($json_string, false, 512, $options);
 
 		if ( json_last_error() !== JSON_ERROR_NONE )
 		{
