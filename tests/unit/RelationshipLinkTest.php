@@ -59,7 +59,8 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 		$object->custom = 'http://example.org/custom';
 		$object->meta = 'http://example.org/meta';
 
-		$link = new RelationshipLink($object, $this->manager, $this->relationship);
+		$link = new RelationshipLink($this->manager, $this->relationship);
+		$link->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipLink', $link);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $link);
@@ -119,12 +120,14 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 		$object->prev = new \stdClass();
 		$object->next = new \stdClass();
 
+		$link = new RelationshipLink($this->manager, $this->relationship);
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
 			'property "first" has to be a string or null, "object" given.'
 		);
 
-		$link = new RelationshipLink($object, $this->manager, $this->relationship);
+		$link->parse($object);
 	}
 
 	/**
@@ -148,7 +151,8 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 			->with($this->equalTo('data'))
 			->will($this->returnValue(false));
 
-		$link = new RelationshipLink($object, $this->manager, $relationship);
+		$link = new RelationshipLink($this->manager, $relationship);
+		$link->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipLink', $link);
 		$this->assertSame($link->getKeys(), array('self', 'first', 'last', 'prev', 'next'));
@@ -195,7 +199,8 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 			->with($this->equalTo('data'))
 			->will($this->returnValue($data));
 
-		$link = new RelationshipLink($object, $this->manager, $relationship);
+		$link = new RelationshipLink($this->manager, $relationship);
+		$link->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipLink', $link);
 		$this->assertSame($link->getKeys(), array('self', 'first', 'last', 'prev', 'next'));
@@ -225,12 +230,14 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
+		$link = new RelationshipLink($this->manager, $this->relationship);
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
 			'RelationshipLink has to be an object, "' . gettype($input) . '" given.'
 		);
 
-		$link = new RelationshipLink($input, $this->manager, $this->relationship);
+		$link->parse($input);
 	}
 
 	/**
@@ -250,12 +257,14 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 		$object->self = 'http://example.org/self';
 		$object->input = $input;
 
+		$link = new RelationshipLink($this->manager, $this->relationship);
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
 			'Link attribute has to be an object or string, "' . gettype($input) . '" given.'
 		);
 
-		$link = new RelationshipLink($object, $this->manager, $this->relationship);
+		$link->parse($object);
 	}
 
 	/**
@@ -263,16 +272,18 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreateWithoutSelfAndRelatedPropertiesThrowsException()
 	{
+		$object = new \stdClass();
+		$object->first = 'http://example.org/first';
+		$object->next = 'http://example.org/next';
+
+		$link = new RelationshipLink($this->manager, $this->relationship);
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
 			'RelationshipLink has to be at least a "self" or "related" link'
 		);
 
-		$object = new \stdClass();
-		$object->first = 'http://example.org/first';
-		$object->next = 'http://example.org/next';
-
-		$link = new RelationshipLink($object, $this->manager, $this->relationship);
+		$link->parse($object);
 	}
 
 	/**
@@ -291,12 +302,14 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->self = $input;
 
+		$link = new RelationshipLink($this->manager, $this->relationship);
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
 			'property "self" has to be a string, "' . gettype($input) . '" given.'
 		);
 
-		$link = new RelationshipLink($object, $this->manager, $this->relationship);
+		$link->parse($object);
 	}
 
 	/**
@@ -310,10 +323,12 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->related = $input;
 
+		$link = new RelationshipLink($this->manager, $this->relationship);
+
 		// Input must be a string or object
 		if ( gettype($input) === 'string' or gettype($input) === 'object' )
 		{
-			$link = new RelationshipLink($object, $this->manager, $this->relationship);
+			$link->parse($object);
 
 			$this->assertTrue($link->has('related'));
 
@@ -325,7 +340,7 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 			'property "related" has to be a string or object, "' . gettype($input) . '" given.'
 		);
 
-		$link = new RelationshipLink($object, $this->manager, $this->relationship);
+		$link->parse($object);
 	}
 
 	/**
@@ -339,10 +354,13 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 		$object->self = 'https://example.org/self';
 		$object->first = $input;
 
+		$link = new RelationshipLink($this->manager, $this->relationship);
+
 		// Input must be null or string
 		if ( gettype($input) === 'string' )
 		{
-			$link = new RelationshipLink($object, $this->manager, $this->relationship);
+			$link->parse($object);
+
 			$this->assertSame($link->getKeys(), array('self', 'first'));
 
 			$this->assertTrue($link->has('first'));
@@ -352,7 +370,8 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 		}
 		elseif ( gettype($input) === 'NULL' )
 		{
-			$link = new RelationshipLink($object, $this->manager, $this->relationship);
+			$link->parse($object);
+
 			$this->assertSame($link->getKeys(), array('self'));
 
 			$this->assertFalse($link->has('first'));
@@ -365,7 +384,7 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 			'property "first" has to be a string or null, "' . gettype($input) . '" given.'
 		);
 
-		$link = new RelationshipLink($object, $this->manager, $this->relationship);
+		$link->parse($object);
 	}
 
 	/**
@@ -379,10 +398,13 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 		$object->self = 'https://example.org/self';
 		$object->last = $input;
 
+		$link = new RelationshipLink($this->manager, $this->relationship);
+
 		// Input must be null or string
 		if ( gettype($input) === 'string' )
 		{
-			$link = new RelationshipLink($object, $this->manager, $this->relationship);
+			$link->parse($object);
+
 			$this->assertSame($link->getKeys(), array('self', 'last'));
 
 			$this->assertTrue($link->has('last'));
@@ -392,7 +414,8 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 		}
 		elseif ( gettype($input) === 'NULL' )
 		{
-			$link = new RelationshipLink($object, $this->manager, $this->relationship);
+			$link->parse($object);
+
 			$this->assertSame($link->getKeys(), array('self'));
 
 			$this->assertFalse($link->has('last'));
@@ -405,7 +428,7 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 			'property "last" has to be a string or null, "' . gettype($input) . '" given.'
 		);
 
-		$link = new RelationshipLink($object, $this->manager, $this->relationship);
+		$link->parse($object);
 	}
 
 	/**
@@ -419,10 +442,13 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 		$object->self = 'https://example.org/self';
 		$object->prev = $input;
 
+		$link = new RelationshipLink($this->manager, $this->relationship);
+
 		// Input must be null or string
 		if ( gettype($input) === 'string' )
 		{
-			$link = new RelationshipLink($object, $this->manager, $this->relationship);
+			$link->parse($object);
+
 			$this->assertSame($link->getKeys(), array('self', 'prev'));
 
 			$this->assertTrue($link->has('prev'));
@@ -432,7 +458,8 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 		}
 		elseif ( gettype($input) === 'NULL' )
 		{
-			$link = new RelationshipLink($object, $this->manager, $this->relationship);
+			$link->parse($object);
+
 			$this->assertSame($link->getKeys(), array('self'));
 
 			$this->assertFalse($link->has('prev'));
@@ -445,7 +472,7 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 			'property "prev" has to be a string or null, "' . gettype($input) . '" given.'
 		);
 
-		$link = new RelationshipLink($object, $this->manager, $this->relationship);
+		$link->parse($object);
 	}
 
 	/**
@@ -459,10 +486,13 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 		$object->self = 'https://example.org/self';
 		$object->next = $input;
 
+		$link = new RelationshipLink($this->manager, $this->relationship);
+
 		// Input must be null or string
 		if ( gettype($input) === 'string' )
 		{
-			$link = new RelationshipLink($object, $this->manager, $this->relationship);
+			$link->parse($object);
+
 			$this->assertSame($link->getKeys(), array('self', 'next'));
 
 			$this->assertTrue($link->has('next'));
@@ -472,7 +502,8 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 		}
 		elseif ( gettype($input) === 'NULL' )
 		{
-			$link = new RelationshipLink($object, $this->manager, $this->relationship);
+			$link->parse($object);
+
 			$this->assertSame($link->getKeys(), array('self'));
 
 			$this->assertFalse($link->has('next'));
@@ -485,7 +516,7 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 			'property "next" has to be a string or null, "' . gettype($input) . '" given.'
 		);
 
-		$link = new RelationshipLink($object, $this->manager, $this->relationship);
+		$link->parse($object);
 	}
 
 	/**
@@ -497,7 +528,8 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 		$object->self = 'http://example.org/self';
 		$object->related = 'http://example.org/related';
 
-		$link = new RelationshipLink($object, $this->manager, $this->relationship);
+		$link = new RelationshipLink($this->manager, $this->relationship);
+		$link->parse($object);
 
 		$this->assertFalse($link->has('something'));
 

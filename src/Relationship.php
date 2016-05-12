@@ -66,10 +66,13 @@ final class Relationship implements RelationshipInterface
 		// Parse 'links' after 'data'
 		if ( property_exists($object, 'links') )
 		{
-			$this->container->set('links', $this->manager->getFactory()->make(
+			$link = $this->manager->getFactory()->make(
 				'RelationshipLink',
-				[$object->links, $this->manager, $this]
-			));
+				[$this->manager, $this]
+			);
+			$link->parse($object->links);
+
+			$this->container->set('links', $link);
 		}
 
 		return $this;
