@@ -133,9 +133,12 @@ final class Relationship implements RelationshipInterface
 			return $collection;
 		}
 
-		return $this->manager->getFactory()->make(
+		$identifier = $this->manager->getFactory()->make(
 			'Resource\Identifier',
-			[$data, $this->manager]
+			[$this->manager, $this]
 		);
+		$identifier->parse($data);
+
+		return $identifier;
 	}
 }

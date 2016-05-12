@@ -2,6 +2,7 @@
 
 namespace Art4\JsonApiClient\Resource;
 
+use Art4\JsonApiClient\AccessInterface;
 use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Utils\DataContainer;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
@@ -34,7 +35,21 @@ final class Identifier implements IdentifierInterface, ResourceInterface
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($object, FactoryManagerInterface $manager)
+	public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
+	{
+		$this->manager = $manager;
+
+		$this->container = new DataContainer();
+	}
+
+	/**
+	 * @param object $object The error object
+	 *
+	 * @return self
+	 *
+	 * @throws ValidationException
+	 */
+	public function parse($object)
 	{
 		if ( ! is_object($object) )
 		{
@@ -61,19 +76,18 @@ final class Identifier implements IdentifierInterface, ResourceInterface
 			throw new ValidationException('Resource Id cannot be an array or object');
 		}
 
-		$this->manager = $manager;
-
-		$this->container = new DataContainer();
-
 		$this->container->set('type', strval($object->type));
 		$this->container->set('id', strval($object->id));
 
 		if ( property_exists($object, 'meta') )
 		{
-			$this->container->set('meta', $this->manager->getFactory()->make(
+			$meta = $this->manager->getFactory()->make(
 				'Meta',
-				[$object->meta, $this->manager]
-			));
+				[$this->manager, $this]
+			);
+			$meta->parse($object->meta);
+
+			$this->container->set('meta', $meta);
 		}
 
 		return $this;

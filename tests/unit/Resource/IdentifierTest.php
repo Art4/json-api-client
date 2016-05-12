@@ -26,7 +26,8 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
 		$object->type = 'type';
 		$object->id = 789;
 
-		$identifier = new Identifier($object, $this->manager);
+		$identifier = new Identifier($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$identifier->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $identifier);
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $identifier);
@@ -62,7 +63,8 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
 		$object->id = 159;
 		$object->meta = new \stdClass();
 
-		$identifier = new Identifier($object, $this->manager);
+		$identifier = new Identifier($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$identifier->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $identifier);
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $identifier);
@@ -93,7 +95,8 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
 			);
 		}
 
-		$identifier = new Identifier($object, $this->manager);
+		$identifier = new Identifier($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$identifier->parse($object);
 
 		$this->assertTrue(is_string($identifier->get('type')));
 	}
@@ -109,6 +112,8 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
 		$object->type = 'posts';
 		$object->id = $input;
 
+		$identifier = new Identifier($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		if ( gettype($input) === 'object' or gettype($input) === 'array' )
 		{
 			$this->setExpectedException(
@@ -117,7 +122,7 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
 			);
 		}
 
-		$identifier = new Identifier($object, $this->manager);
+		$identifier->parse($object);
 
 		$this->assertTrue(is_string($identifier->get('id')));
 	}
@@ -135,38 +140,50 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
+		$identifier = new Identifier($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
 			'Resource has to be an object, "' . gettype($input) . '" given.'
 		);
 
-		$identifier = new Identifier($input, $this->manager);
+		$identifier->parse($input);
 	}
 
 	/**
-	 * @expectedException Art4\JsonApiClient\Exception\ValidationException
-	*
-	 * A "resource identifier object" MUST contain type and id members.
+	 * @test A "resource identifier object" MUST contain type and id members.
 	 */
 	public function testCreateWithObjectWithoutTypeThrowsException()
 	{
 		$object = new \stdClass();
 		$object->id = 123;
 
-		$identifier = new Identifier($object, $this->manager);
+		$identifier = new Identifier($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'A resource object MUST contain a type'
+		);
+
+		$identifier->parse($object);
 	}
 
 	/**
-	 * @expectedException Art4\JsonApiClient\Exception\ValidationException
-	*
-	 * A "resource identifier object" MUST contain type and id members.
+	 * @test A "resource identifier object" MUST contain type and id members.
 	 */
 	public function testCreateWithObjectWithoutIdThrowsException()
 	{
 		$object = new \stdClass();
 		$object->type = 'type';
 
-		$identifier = new Identifier($object, $this->manager);
+		$identifier = new Identifier($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			'A resource object MUST contain an id'
+		);
+
+		$identifier->parse($object);
 	}
 
 	/**
@@ -178,7 +195,9 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
 		$object->type = 'posts';
 		$object->id = 9;
 
-		$identifier = new Identifier($object, $this->manager);
+		$identifier = new Identifier($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$identifier->parse($object);
+
 		$this->assertFalse($identifier->has('foobar'));
 
 		$this->setExpectedException(

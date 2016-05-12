@@ -462,4 +462,33 @@ class ParsingTest extends \PHPUnit_Framework_TestCase
 		// Test full array
 		$this->assertEquals(json_decode($string, true), $document->asArray(true));
 	}
+
+	/**
+	 * @test
+	 */
+	public function testParseResourceIdentifierWithMeta()
+	{
+		$string = $this->getJsonString('11_resource_identifier_with_meta.json');
+		$document = Helper::parse($string);
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
+		$this->assertFalse($document->has('errors'));
+		$this->assertFalse($document->has('meta'));
+		$this->assertFalse($document->has('jsonapi'));
+		$this->assertFalse($document->has('links'));
+		$this->assertFalse($document->has('included'));
+		$this->assertTrue($document->has('data'));
+
+		$resource = $document->get('data');
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $resource);
+		$this->assertTrue($resource->has('meta'));
+		$this->assertTrue($resource->has('meta.foo'));
+		$this->assertSame($resource->get('meta.foo'), 'bar');
+		$this->assertSame($resource->get('type'), 'articles');
+		$this->assertSame($resource->get('id'), '2');
+
+		// Test full array
+		$this->assertEquals(json_decode($string, true), $document->asArray(true));
+	}
 }

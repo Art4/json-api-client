@@ -187,21 +187,15 @@ final class Document implements DocumentInterface
 
 		$object_vars = get_object_vars($data);
 
-		// the properties must be type and id
-		if ( count($object_vars) === 2 )
-		{
-			$resource = $this->manager->getFactory()->make(
-				'Resource\Identifier',
-				[$data, $this->manager]
-			);
-		}
+		// the properties must be type and id or
 		// the 3 properties must be type, id and meta
-		elseif ( count($object_vars) === 3 and property_exists($data, 'meta') )
+		if ( count($object_vars) === 2 or (count($object_vars) === 3 and property_exists($data, 'meta')) )
 		{
 			$resource = $this->manager->getFactory()->make(
 				'Resource\Identifier',
-				[$data, $this->manager]
+				[$this->manager, $this]
 			);
+			$resource->parse($data);
 		}
 		else
 		{

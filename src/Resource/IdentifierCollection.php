@@ -94,10 +94,13 @@ final class IdentifierCollection implements IdentifierCollectionInterface, Resou
 	 */
 	protected function parseResource($data)
 	{
-		return $resource = $this->manager->getFactory()->make(
+		$identifier = $resource = $this->manager->getFactory()->make(
 			'Resource\Identifier',
-			[$data, $this->manager]
+			[$this->manager, $this]
 		);
+		$identifier->parse($data);
+
+		return $identifier;
 	}
 
 	/**
