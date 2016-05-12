@@ -124,10 +124,13 @@ final class Relationship implements RelationshipInterface
 
 		if ( is_array($data) )
 		{
-			return $this->manager->getFactory()->make(
+			$collection = $this->manager->getFactory()->make(
 				'Resource\IdentifierCollection',
-				[$data, $this->manager]
+				[$this->manager, $this]
 			);
+			$collection->parse($data);
+
+			return $collection;
 		}
 
 		return $this->manager->getFactory()->make(
