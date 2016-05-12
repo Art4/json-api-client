@@ -34,7 +34,21 @@ final class Document implements DocumentInterface
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($object, FactoryManagerInterface $manager)
+	public function __construct(FactoryManagerInterface $manager, AccessInterface $parent = null)
+	{
+		$this->manager = $manager;
+
+		$this->container = new DataContainer();
+	}
+
+	/**
+	 * @param object $object The document body
+	 *
+	 * @return Document
+	 *
+	 * @throws ValidationException
+	 */
+	public function parse($object)
 	{
 		if ( ! is_object($object) )
 		{
@@ -50,10 +64,6 @@ final class Document implements DocumentInterface
 		{
 			throw new ValidationException('The properties `data` and `errors` MUST NOT coexist in Document.');
 		}
-
-		$this->manager = $manager;
-
-		$this->container = new DataContainer();
 
 		if ( property_exists($object, 'data') )
 		{

@@ -27,7 +27,8 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$object->meta = new \stdClass();
 		$object->ignore = 'this property must be ignored';
 
-		$document = new Document($object, $this->manager);
+		$document = new Document($this->manager);
+		$document->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $document);
@@ -68,7 +69,8 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$object->meta = new \stdClass();
 		$object->ignore = 'this property must be ignored';
 
-		$document = new Document($object, $this->manager);
+		$document = new Document($this->manager);
+		$document->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertSame($document->getKeys(), array('data', 'meta', 'included', 'jsonapi', 'links'));
@@ -95,7 +97,8 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		}
 
 		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
-		$document = new Document($input, $this->manager);
+		$document = new Document($this->manager);
+		$document->parse($input);
 	}
 
 	/**
@@ -112,7 +115,8 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 			'Document MUST contain at least one of the following properties: data, errors, meta'
 		);
 
-		$document = new Document($object, $this->manager);
+		$document = new Document($this->manager);
+		$document->parse($object);
 	}
 
 	/**
@@ -132,7 +136,8 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->data = $data;
 
-		$document = new Document($object, $this->manager);
+		$document = new Document($this->manager);
+		$document->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertTrue($document->has('data'));
@@ -153,7 +158,8 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->data = $data;
 
-		$document = new Document($object, $this->manager);
+		$document = new Document($this->manager);
+		$document->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 
@@ -175,7 +181,8 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->data = $data;
 
-		$document = new Document($object, $this->manager);
+		$document = new Document($this->manager);
+		$document->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertTrue($document->has('data'));
@@ -195,7 +202,8 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->data = array($data_obj);
 
-		$document = new Document($object, $this->manager);
+		$document = new Document($this->manager);
+		$document->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertTrue($document->has('data'));
@@ -217,7 +225,8 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->data = array($data_obj);
 
-		$document = new Document($object, $this->manager);
+		$document = new Document($this->manager);
+		$document->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertTrue($document->has('data'));
@@ -244,7 +253,8 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 			$object = new \stdClass();
 			$object->data = $input;
 
-			$document = new Document($object, $this->manager);
+			$document = new Document($this->manager);
+			$document->parse($object);
 
 			$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 			$this->assertTrue($document->has('data'));
@@ -262,7 +272,8 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 			$object = new \stdClass();
 			$object->data = $input;
 
-			$document = new Document($object, $this->manager);
+			$document = new Document($this->manager);
+			$document->parse($object);
 
 			$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 			$this->assertTrue($document->has('data'));
@@ -280,7 +291,8 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->data = $input;
 
-		$document = new Document($object, $this->manager);
+		$document = new Document($this->manager);
+		$document->parse($object);
 	}
 
 	/**
@@ -294,7 +306,8 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 			new \stdClass(),
 		);
 
-		$document = new Document($object, $this->manager);
+		$document = new Document($this->manager);
+		$document->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertSame($document->getKeys(), array('errors'));
@@ -317,7 +330,8 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 			'The properties `data` and `errors` MUST NOT coexist in Document.'
 		);
 
-		$document = new Document($object, $this->manager);
+		$document = new Document($this->manager);
+		$document->parse($object);
 	}
 
 	/**
@@ -328,7 +342,8 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->meta = new \stdClass();
 
-		$document = new Document($object, $this->manager);
+		$document = new Document($this->manager);
+		$document->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertTrue($document->has('meta'));
@@ -346,7 +361,8 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$object->meta = new \stdClass();
 		$object->jsonapi = new \stdClass();
 
-		$document = new Document($object, $this->manager);
+		$document = new Document($this->manager);
+		$document->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertTrue($document->has('jsonapi'));
@@ -364,7 +380,8 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$object->meta = new \stdClass();
 		$object->links = new \stdClass();
 
-		$document = new Document($object, $this->manager);
+		$document = new Document($this->manager);
+		$document->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertTrue($document->has('links'));
@@ -388,7 +405,8 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 			$data,
 		);
 
-		$document = new Document($object, $this->manager);
+		$document = new Document($this->manager);
+		$document->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertTrue($document->has('included'));
@@ -412,7 +430,8 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 			'If Document does not contain a `data` property, the `included` property MUST NOT be present either.'
 		);
 
-		$document = new Document($object, $this->manager);
+		$document = new Document($this->manager);
+		$document->parse($object);
 	}
 
 	/**
@@ -423,7 +442,8 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->meta = new \stdClass();
 
-		$document = new Document($object, $this->manager);
+		$document = new Document($this->manager);
+		$document->parse($object);
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\AccessException',
