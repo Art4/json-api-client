@@ -73,10 +73,13 @@ final class Item implements ItemInterface, ResourceInterface
 
 		if ( property_exists($object, 'attributes') )
 		{
-			$this->container->set('attributes', $this->manager->getFactory()->make(
+			$attributes = $this->manager->getFactory()->make(
 				'Attributes',
-				[$object->attributes, $this->manager]
-			));
+				[$this->manager]
+			);
+			$attributes->parse($object->attributes);
+
+			$this->container->set('attributes', $attributes);
 		}
 
 		if ( property_exists($object, 'relationships') )
