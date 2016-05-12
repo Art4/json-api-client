@@ -33,7 +33,8 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 		$object->source = new \stdClass();
 		$object->meta = new \stdClass();
 
-		$error = new Error($object, $this->manager);
+		$error = new Error($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$error->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Error', $error);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $error);
@@ -101,12 +102,14 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
+		$error = new Error($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
 			'Error has to be an object, "' . gettype($input) . '" given.'
 		);
 
-		$error = new Error($input, $this->manager);
+		$error->parse($input);
 	}
 
 	/**
@@ -123,12 +126,14 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->id = $input;
 
+		$error = new Error($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
 			'property "id" has to be a string, "' . gettype($input) . '" given.'
 		);
 
-		$error = new Error($object, $this->manager);
+		$error->parse($object);
 	}
 
 	/**
@@ -145,12 +150,14 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->status = $input;
 
+		$error = new Error($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
 			'property "status" has to be a string, "' . gettype($input) . '" given.'
 		);
 
-		$error = new Error($object, $this->manager);
+		$error->parse($object);
 	}
 
 	/**
@@ -167,12 +174,14 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->code = $input;
 
+		$error = new Error($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
 			'property "code" has to be a string, "' . gettype($input) . '" given.'
 		);
 
-		$error = new Error($object, $this->manager);
+		$error->parse($object);
 	}
 
 	/**
@@ -189,12 +198,14 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->title = $input;
 
+		$error = new Error($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
 			'property "title" has to be a string, "' . gettype($input) . '" given.'
 		);
 
-		$error = new Error($object, $this->manager);
+		$error->parse($object);
 	}
 
 	/**
@@ -211,11 +222,13 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->detail = $input;
 
+		$error = new Error($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
 			'property "detail" has to be a string, "' . gettype($input) . '" given.'
 		);
 
-		$error = new Error($object, $this->manager);
+		$error->parse($object);
 	}
 }

@@ -61,12 +61,15 @@ final class ErrorCollection implements ErrorCollectionInterface
 			throw new ValidationException('Errors array cannot be empty and MUST have at least one object');
 		}
 
-		foreach ($errors as $error)
+		foreach ($errors as $err)
 		{
-			$this->container->set('', $this->manager->getFactory()->make(
+			$error = $this->manager->getFactory()->make(
 				'Error',
-				[$error, $this->manager]
-			));
+				[$this->manager, $this]
+			);
+			$error->parse($err);
+
+			$this->container->set('', $error);
 		}
 
 		return $this;
