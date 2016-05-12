@@ -107,10 +107,13 @@ final class Link implements LinkInterface
 	{
 		if ( $name === 'meta' )
 		{
-			$this->container->set($name, $this->manager->getFactory()->make(
+			$meta = $this->manager->getFactory()->make(
 				'Meta',
-				[$link, $this->manager]
-			));
+				[$this->manager, $this]
+			);
+			$meta->parse($link);
+
+			$this->container->set($name, $meta);
 
 			return $this;
 		}

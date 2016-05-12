@@ -5,4 +5,4 @@ namespace Art4\JsonApiClient;
 /**
  * Meta Interface
  */
-interface MetaInterface extends AccessInterface { }
+interface MetaInterface extends ElementInterface { }
