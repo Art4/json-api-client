@@ -57,10 +57,13 @@ final class Error implements ErrorInterface
 
 		if ( property_exists($object, 'links') )
 		{
-			$this->container->set('links', $this->manager->getFactory()->make(
+			$links = $this->manager->getFactory()->make(
 				'ErrorLink',
-				[$object->links, $this->manager]
-			));
+				[$this->manager, $this]
+			);
+			$links->parse($object->links);
+
+			$this->container->set('links', $links);
 		}
 
 		if ( property_exists($object, 'status') )

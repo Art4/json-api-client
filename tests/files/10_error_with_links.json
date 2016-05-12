@@ -1,0 +1,15 @@
+{
+  "errors": [
+    {
+      "code":   "123",
+      "source": { "pointer": "/data/attributes/first-name" },
+      "title":  "Value is too short",
+      "links": {
+        "about": "http://example.org/errors/123"
+      }
+    }
+  ],
+  "jsonapi": {
+    "version": "1.0"
+  }
+}

@@ -81,4 +81,47 @@ class ErrorParsingTest extends \PHPUnit_Framework_TestCase
 		// Test full array
 		$this->assertEquals(json_decode($string, true), $document->asArray(true));
 	}
+	/**
+	 * @test
+	 */
+	public function testParseErrorWithLinks()
+	{
+		$string = $this->getJsonString('10_error_with_links.json');
+		$document = Helper::parse($string);
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
+		$this->assertTrue($document->has('errors'));
+		$this->assertFalse($document->has('meta'));
+		$this->assertTrue($document->has('jsonapi'));
+		$this->assertFalse($document->has('links'));
+		$this->assertFalse($document->has('included'));
+		$this->assertFalse($document->has('data'));
+
+		$errors = $document->get('errors');
+		$this->assertInstanceOf('Art4\JsonApiClient\ErrorCollectionInterface', $errors);
+		$this->assertCount(1, $errors->getKeys());
+
+		$this->assertTrue($errors->has('0'));
+		$error0 = $errors->get('0');
+
+		$this->assertInstanceOf('Art4\JsonApiClient\ErrorInterface', $error0);
+		$this->assertCount(4, $error0->getKeys());
+		$this->assertTrue($error0->has('code'));
+		$this->assertSame('123', $error0->get('code'));
+		$this->assertTrue($error0->has('source'));
+		$this->assertInstanceOf('Art4\JsonApiClient\ErrorSourceInterface', $error0->get('source'));
+		$this->assertTrue($error0->has('source.pointer'));
+		$this->assertSame('/data/attributes/first-name', $error0->get('source.pointer'));
+		$this->assertTrue($error0->has('title'));
+		$this->assertSame('Value is too short', $error0->get('title'));
+		$this->assertTrue($error0->has('links'));
+		$this->assertInstanceOf('Art4\JsonApiClient\ErrorLinkInterface', $error0->get('links'));
+		$this->assertTrue($error0->has('links.about'));
+		$this->assertSame('http://example.org/errors/123', $error0->get('links.about'));
+
+		$this->assertFalse($errors->has('1'));
+
+		// Test full array
+		$this->assertEquals(json_decode($string, true), $document->asArray(true));
+	}
 }
