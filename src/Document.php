@@ -104,10 +104,13 @@ final class Document implements DocumentInterface
 
 		if ( property_exists($object, 'jsonapi') )
 		{
-			$this->container->set('jsonapi', $this->manager->getFactory()->make(
+			$jsonapi = $this->manager->getFactory()->make(
 				'Jsonapi',
-				[$object->jsonapi, $this->manager]
-			));
+				[$this->manager, $this]
+			);
+			$jsonapi->parse($object->jsonapi);
+
+			$this->container->set('jsonapi', $jsonapi);
 		}
 
 		if ( property_exists($object, 'links') )
