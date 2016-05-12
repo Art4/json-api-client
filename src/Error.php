@@ -108,10 +108,13 @@ final class Error implements ErrorInterface
 
 		if ( property_exists($object, 'source') )
 		{
-			$this->container->set('source', $this->manager->getFactory()->make(
+			$source = $this->manager->getFactory()->make(
 				'ErrorSource',
-				[$object->source, $this->manager]
-			));
+				[$this->manager, $this]
+			);
+			$source->parse($object->source);
+
+			$this->container->set('source', $source);
 		}
 
 		if ( property_exists($object, 'meta') )

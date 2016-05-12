@@ -31,7 +31,8 @@ class ErrorSourceTest extends \PHPUnit_Framework_TestCase
 		$object->parameter = 'parameter';
 		$object->ignore = 'must be ignored';
 
-		$source = new ErrorSource($object, $this->manager);
+		$source = new ErrorSource($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$source->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ErrorSource', $source);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $source);
@@ -78,12 +79,14 @@ class ErrorSourceTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
+		$source = new ErrorSource($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
 			'ErrorSource has to be an object, "' . gettype($input) . '" given.'
 		);
 
-		$source = new ErrorSource($input, $this->manager);
+		$source->parse($input);
 	}
 
 	/**
@@ -102,12 +105,14 @@ class ErrorSourceTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->pointer = $input;
 
+		$source = new ErrorSource($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
 			'property "pointer" has to be a string, "' . gettype($input) . '" given.'
 		);
 
-		$source = new ErrorSource($object, $this->manager);
+		$source->parse($object);
 	}
 
 	/**
@@ -126,11 +131,13 @@ class ErrorSourceTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->parameter = $input;
 
+		$source = new ErrorSource($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
 			'property "parameter" has to be a string, "' . gettype($input) . '" given.'
 		);
 
-		$source = new ErrorSource($object, $this->manager);
+		$source->parse($object);
 	}
 }
