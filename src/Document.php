@@ -99,10 +99,13 @@ final class Document implements DocumentInterface
 				throw new ValidationException('If Document does not contain a `data` property, the `included` property MUST NOT be present either.');
 			}
 
-			$this->container->set('included', $this->manager->getFactory()->make(
+			$collection = $this->manager->getFactory()->make(
 				'Resource\Collection',
-				[$object->included, $this->manager]
-			));
+				[$this->manager, $this]
+			);
+			$collection->parse($object->included);
+
+			$this->container->set('included', $collection);
 		}
 
 		if ( property_exists($object, 'jsonapi') )
@@ -168,10 +171,13 @@ final class Document implements DocumentInterface
 
 		if ( is_array($data) )
 		{
-			return $this->manager->getFactory()->make(
+			$collection =  $this->manager->getFactory()->make(
 				'Resource\Collection',
-				[$data, $this->manager]
+				[$this->manager, $this]
 			);
+			$collection->parse($data);
+
+			return $collection;
 		}
 
 		if ( ! is_object($data) )

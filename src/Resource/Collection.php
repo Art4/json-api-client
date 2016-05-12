@@ -2,6 +2,7 @@
 
 namespace Art4\JsonApiClient\Resource;
 
+use Art4\JsonApiClient\AccessInterface;
 use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Utils\DataContainer;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
@@ -28,26 +29,37 @@ final class Collection implements CollectionInterface, ResourceInterface
 	protected $manager;
 
 	/**
-	 * @param array $resources The resources as array
+	 * Sets the manager and parent
+	 *
+	 * @param FactoryManagerInterface $manager The manager
+	 * @param AccessInterface $parent The parent
+	 */
+	public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
+	{
+		$this->manager = $manager;
+
+		$this->container = new DataContainer();
+	}
+
+	/**
+	 * Parses the data for this element
+	 *
+	 * @param mixed $object The data
 	 *
 	 * @return self
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($resources, FactoryManagerInterface $manager)
+	public function parse($object)
 	{
-		if ( ! is_array($resources) )
+		if ( ! is_array($object) )
 		{
-			throw new ValidationException('Resources for a collection has to be in an array, "' . gettype($resources) . '" given.');
+			throw new ValidationException('Resources for a collection has to be in an array, "' . gettype($object) . '" given.');
 		}
 
-		$this->manager = $manager;
-
-		$this->container = new DataContainer();
-
-		if ( count($resources) > 0 )
+		if ( count($object) > 0 )
 		{
-			foreach ($resources as $resource)
+			foreach ($object as $resource)
 			{
 				$this->container->set('', $this->parseResource($resource));
 			}
