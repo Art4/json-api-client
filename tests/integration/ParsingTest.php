@@ -18,7 +18,7 @@ class ParsingTest extends \PHPUnit_Framework_TestCase
 		$document = Helper::parse($string);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
-		$this->assertFalse($document->has('error'));
+		$this->assertFalse($document->has('errors'));
 		$this->assertFalse($document->has('meta'));
 		$this->assertFalse($document->has('jsonapi'));
 		$this->assertFalse($document->has('links'));

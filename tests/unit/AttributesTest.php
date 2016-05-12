@@ -32,9 +32,7 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 		$object->false = false;
 		$object->null = null;
 
-		$parent = $this->getMock('Art4\JsonApiClient\AccessInterface');
-
-		$attributes = new Attributes($this->manager, $parent);
+		$attributes = new Attributes($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 		$attributes->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Attributes', $attributes);
@@ -86,9 +84,7 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreateWithDataProvider($input)
 	{
-		$parent = $this->getMock('Art4\JsonApiClient\AccessInterface');
-
-		$attributes = new Attributes($this->manager, $parent);
+		$attributes = new Attributes($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 
 		// Input must be an object
 		if ( gettype($input) === 'object' )
@@ -116,9 +112,7 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->type = 'posts';
 
-		$parent = $this->getMock('Art4\JsonApiClient\AccessInterface');
-
-		$attributes = new Attributes($this->manager, $parent);
+		$attributes = new Attributes($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
@@ -138,9 +132,7 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->id = '5';
 
-		$parent = $this->getMock('Art4\JsonApiClient\AccessInterface');
-
-		$attributes = new Attributes($this->manager, $parent);
+		$attributes = new Attributes($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
@@ -160,9 +152,7 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->relationships = new \stdClass();
 
-		$parent = $this->getMock('Art4\JsonApiClient\AccessInterface');
-
-		$attributes = new Attributes($this->manager, $parent);
+		$attributes = new Attributes($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
@@ -182,9 +172,7 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->links = new \stdClass();
 
-		$parent = $this->getMock('Art4\JsonApiClient\AccessInterface');
-
-		$attributes = new Attributes($this->manager, $parent);
+		$attributes = new Attributes($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
@@ -202,9 +190,7 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->pages = '1126';
 
-		$parent = $this->getMock('Art4\JsonApiClient\AccessInterface');
-
-		$attributes = new Attributes($this->manager, $parent);
+		$attributes = new Attributes($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 
 		$attributes->parse($object);
 

@@ -28,13 +28,28 @@ final class ErrorCollection implements ErrorCollectionInterface
 	protected $manager;
 
 	/**
-	 * @param array $resources The resources as array
+	 * Sets the manager and parent
+	 *
+	 * @param FactoryManagerInterface $manager The manager
+	 * @param AccessInterface $parent The parent
+	 */
+	public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
+	{
+		$this->manager = $manager;
+
+		$this->container = new DataContainer();
+	}
+
+	/**
+	 * Parses the data for this element
+	 *
+	 * @param mixed $object The data
 	 *
 	 * @return self
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($errors, FactoryManagerInterface $manager)
+	public function parse($errors)
 	{
 		if ( ! is_array($errors) )
 		{
@@ -45,10 +60,6 @@ final class ErrorCollection implements ErrorCollectionInterface
 		{
 			throw new ValidationException('Errors array cannot be empty and MUST have at least one object');
 		}
-
-		$this->manager = $manager;
-
-		$this->container = new DataContainer();
 
 		foreach ($errors as $error)
 		{

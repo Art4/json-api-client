@@ -80,10 +80,13 @@ final class Document implements DocumentInterface
 
 		if ( property_exists($object, 'errors') )
 		{
-			$this->container->set('errors', $this->manager->getFactory()->make(
+			$errors = $this->manager->getFactory()->make(
 				'ErrorCollection',
-				[$object->errors, $this->manager]
-			));
+				[$this->manager, $this]
+			);
+			$errors->parse($object->errors);
+
+			$this->container->set('errors', $errors);
 		}
 
 		if ( property_exists($object, 'included') )
