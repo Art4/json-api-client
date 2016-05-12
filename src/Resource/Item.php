@@ -84,10 +84,13 @@ final class Item implements ItemInterface, ResourceInterface
 
 		if ( property_exists($object, 'relationships') )
 		{
-			$this->container->set('relationships', $this->manager->getFactory()->make(
+			$relationships = $this->manager->getFactory()->make(
 				'RelationshipCollection',
-				[$object->relationships, $this->manager, $this]
-			));
+				[$this->manager, $this]
+			);
+			$relationships->parse($object->relationships);
+
+			$this->container->set('relationships', $relationships);
 		}
 
 		if ( property_exists($object, 'links') )

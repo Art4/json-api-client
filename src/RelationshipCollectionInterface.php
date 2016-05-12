@@ -5,4 +5,4 @@ namespace Art4\JsonApiClient;
 /**
  * RelationshipCollection Interface
  */
-interface RelationshipCollectionInterface extends AccessInterface { }
+interface RelationshipCollectionInterface extends ElementInterface { }
