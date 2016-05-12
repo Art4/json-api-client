@@ -109,10 +109,13 @@ final class Document implements DocumentInterface
 
 		if ( property_exists($object, 'links') )
 		{
-			$this->container->set('links', $this->manager->getFactory()->make(
+			$links = $this->manager->getFactory()->make(
 				'DocumentLink',
-				[$object->links, $this->manager, $this]
-			));
+				[$this->manager, $this]
+			);
+			$links->parse($object->links);
+
+			$this->container->set('links', $links);
 		}
 
 		return $this;
