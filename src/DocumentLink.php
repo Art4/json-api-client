@@ -199,10 +199,13 @@ final class DocumentLink implements DocumentLinkInterface
 		}
 
 		// Now $link can only be an object
-		$this->container->set($name, $this->manager->getFactory()->make(
+		$link_object = $this->manager->getFactory()->make(
 			'Link',
-			[$link, $this->manager, $this]
-		));
+			[$this->manager, $this]
+		);
+		$link_object->parse($link);
+
+		$this->container->set($name, $link_object);
 
 		return $this;
 	}

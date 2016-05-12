@@ -34,13 +34,30 @@ final class Link implements LinkInterface
 	protected $manager;
 
 	/**
-	 * @param object $object The error object
+	 * Sets the manager and parent
+	 *
+	 * @param FactoryManagerInterface $manager The manager
+	 * @param AccessInterface $parent The parent
+	 */
+	public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
+	{
+		$this->parent = $parent;
+
+		$this->manager = $manager;
+
+		$this->container = new DataContainer();
+	}
+
+	/**
+	 * Parses the data for this element
+	 *
+	 * @param mixed $object The data
 	 *
 	 * @return self
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($object, FactoryManagerInterface $manager, AccessInterface $parent)
+	public function parse($object)
 	{
 		if ( ! is_object($object) )
 		{
@@ -51,12 +68,6 @@ final class Link implements LinkInterface
 		{
 			throw new ValidationException('Link must have a "href" attribute.');
 		}
-
-		$this->parent = $parent;
-
-		$this->manager = $manager;
-
-		$this->container = new DataContainer();
 
 		foreach (get_object_vars($object) as $name => $value)
 		{
