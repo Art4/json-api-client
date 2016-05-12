@@ -28,13 +28,28 @@ final class Relationship implements RelationshipInterface
 	protected $manager;
 
 	/**
-	 * @param object $object The relationship object
+	 * Sets the manager and parent
 	 *
-	 * @return Relationship
+	 * @param FactoryManagerInterface $manager The manager
+	 * @param AccessInterface $parent The parent
+	 */
+	public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
+	{
+		$this->manager = $manager;
+
+		$this->container = new DataContainer();
+	}
+
+	/**
+	 * Parses the data for this element
+	 *
+	 * @param mixed $object The data
+	 *
+	 * @return self
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($object, FactoryManagerInterface $manager)
+	public function parse($object)
 	{
 		if ( ! is_object($object) )
 		{
@@ -45,10 +60,6 @@ final class Relationship implements RelationshipInterface
 		{
 			throw new ValidationException('A Relationship object MUST contain at least one of the following properties: links, data, meta');
 		}
-
-		$this->manager = $manager;
-
-		$this->container = new DataContainer();
 
 		if ( property_exists($object, 'data') )
 		{

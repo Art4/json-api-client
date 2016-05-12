@@ -82,10 +82,13 @@ final class RelationshipCollection implements RelationshipCollectionInterface
 				throw new ValidationException('"' . $name . '" property cannot be set because it exists already in parents Resource object.');
 			}
 
-			$this->container->set($name, $this->manager->getFactory()->make(
+			$relationship = $this->manager->getFactory()->make(
 				'Relationship',
-				[$value, $this->manager]
-			));
+				[$this->manager, $this]
+			);
+			$relationship->parse($value);
+
+			$this->container->set($name, $relationship);
 		}
 
 		return $this;
