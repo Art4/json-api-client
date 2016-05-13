@@ -31,7 +31,8 @@ class ItemLinkTest extends \PHPUnit_Framework_TestCase
 		$object->custom = 'http://example.org/custom';
 		$object->related = new \stdClass();
 
-		$link = new ItemLink($object, $this->manager, $this->parent);
+		$link = new ItemLink($this->manager, $this->parent);
+		$link->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ItemLink', $link);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $link);
@@ -64,12 +65,14 @@ class ItemLinkTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
+		$link = new ItemLink($this->manager, $this->parent);
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
 			'ItemLink has to be an object, "' . gettype($input) . '" given.'
 		);
 
-		$link = new ItemLink($input, $this->manager, $this->parent);
+		$link->parse($input);
 	}
 
 	/**
@@ -88,12 +91,14 @@ class ItemLinkTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->input = $input;
 
+		$link = new ItemLink($this->manager, $this->parent);
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
 			'Link attribute has to be an object or string, "' . gettype($input) . '" given.'
 		);
 
-		$link = new ItemLink($object, $this->manager, $this->parent);
+		$link->parse($object);
 	}
 
 	/**
@@ -104,7 +109,8 @@ class ItemLinkTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->self = 'http://example.org/self';
 
-		$link = new ItemLink($object, $this->manager, $this->parent);
+		$link = new ItemLink($this->manager, $this->parent);
+		$link->parse($object);
 
 		$this->assertFalse($link->has('something'));
 
