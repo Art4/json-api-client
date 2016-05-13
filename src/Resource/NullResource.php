@@ -2,7 +2,9 @@
 
 namespace Art4\JsonApiClient\Resource;
 
+use Art4\JsonApiClient\AccessInterface;
 use Art4\JsonApiClient\Exception\AccessException;
+use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 
 /**
  * Null Resource
@@ -11,8 +13,25 @@ final class NullResource implements NullResourceInterface, ResourceInterface
 {
 	/**
 	 * Constructor need for mocking
+	 *
+	 * @param FactoryManagerInterface $manager The manager
+	 * @param AccessInterface $parent The parent
 	 */
-	public function __construct() { }
+	public function __construct(FactoryManagerInterface $manager, AccessInterface $parent) { }
+
+	/**
+	 * Parses the data for this element
+	 *
+	 * @param mixed $object The data
+	 *
+	 * @return self
+	 *
+	 * @throws ValidationException
+	 */
+	public function parse($object)
+	{
+		return $this;
+	}
 
 	/**
 	 * Check if a value exists in this resource

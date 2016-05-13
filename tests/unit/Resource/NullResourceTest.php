@@ -22,7 +22,8 @@ class NullTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreateWithDataProvider($input)
 	{
-		$resource = new NullResource($input, $this->manager);
+		$resource = new NullResource($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$resource->parse($input);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $resource);
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\NullResource', $resource);
@@ -47,12 +48,14 @@ class NullTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetThrowsException()
 	{
+		$resource = new NullResource($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$resource->parse(null);
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\AccessException',
 			'A NullResource has no values.'
 		);
 
-		$resource = new NullResource(null, $this->manager);
 		$resource->get('something');
 	}
 }
