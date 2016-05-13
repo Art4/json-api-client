@@ -2,6 +2,7 @@
 
 namespace Art4\JsonApiClient\Resource;
 
+use Art4\JsonApiClient\AccessInterface;
 use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Utils\DataContainer;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
@@ -23,13 +24,28 @@ final class Item implements ItemInterface, ResourceInterface
 	protected $container;
 
 	/**
-	 * @param object $object The error object
+	 * Sets the manager and parent
+	 *
+	 * @param FactoryManagerInterface $manager The manager
+	 * @param AccessInterface $parent The parent
+	 */
+	public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
+	{
+		$this->manager = $manager;
+
+		$this->container = new DataContainer();
+	}
+
+	/**
+	 * Parses the data for this element
+	 *
+	 * @param mixed $object The data
 	 *
 	 * @return self
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($object, FactoryManagerInterface $manager)
+	public function parse($object)
 	{
 		if ( ! is_object($object) )
 		{
@@ -55,10 +71,6 @@ final class Item implements ItemInterface, ResourceInterface
 		{
 			throw new ValidationException('Resource id cannot be an array or object');
 		}
-
-		$this->manager = $manager;
-
-		$this->container = new DataContainer();
 
 		$this->container->set('type', strval($object->type));
 		$this->container->set('id', strval($object->id));

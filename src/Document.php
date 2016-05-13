@@ -201,8 +201,9 @@ final class Document implements DocumentInterface
 		{
 			$resource = $this->manager->getFactory()->make(
 				'Resource\Item',
-				[$data, $this->manager]
+				[$this->manager, $this]
 			);
+			$resource->parse($data);
 		}
 
 		return $resource;

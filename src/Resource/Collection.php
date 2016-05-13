@@ -114,8 +114,9 @@ final class Collection implements CollectionInterface, ResourceInterface
 		{
 			$resource = $this->manager->getFactory()->make(
 				'Resource\Item',
-				[$data, $this->manager]
+				[$this->manager, $this]
 			);
+			$resource->parse($data);
 		}
 
 		return $resource;
