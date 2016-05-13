@@ -1,7 +1,7 @@
 # JsonApiClient
 
 [![Latest Version](https://img.shields.io/github/release/Art4/json-api-client.svg)](https://github.com/Art4/json-api-client/releases)
-[![Software License](https://img.shields.io/badge/license-GPL2-brightgreen.svg)](LICENSE)
+[![Software License](https://img.shields.io/badge/license-GPL3-brightgreen.svg)](LICENSE)
 [![Build Status](https://travis-ci.org/Art4/json-api-client.svg?branch=master)](https://travis-ci.org/Art4/json-api-client)
 [![Coverage Status](https://coveralls.io/repos/Art4/json-api-client/badge.svg?branch=master&service=github)](https://coveralls.io/github/Art4/json-api-client?branch=master)
 [![Total Downloads](https://img.shields.io/packagist/dt/art4/json-api-client.svg)](https://packagist.org/packages/art4/json-api-client)
@@ -102,4 +102,4 @@ Please feel free to fork and sending Pull Requests. This project follows [Semant
 
 ## License
 
-GPL2. Please see [License File](LICENSE) for more information.
+GPL3. Please see [License File](LICENSE) for more information.
