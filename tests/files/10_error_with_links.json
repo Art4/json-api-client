@@ -7,6 +7,17 @@
       "links": {
         "about": "http://example.org/errors/123"
       }
+  },
+    {
+      "code":   "124",
+      "links": {
+        "about": {
+          "href": "http://example.org/errors/124"
+        },
+        "meta": {
+          "href": "http://example.org/meta"
+        }
+      }
     }
   ],
   "jsonapi": {

@@ -107,8 +107,9 @@ final class Collection implements CollectionInterface, ResourceInterface
 		{
 			$resource = $this->manager->getFactory()->make(
 				'Resource\Identifier',
-				[$data, $this->manager]
+				[$this->manager, $this]
 			);
+			$resource->parse($data);
 		}
 		else
 		{

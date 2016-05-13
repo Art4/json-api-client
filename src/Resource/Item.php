@@ -77,10 +77,13 @@ final class Item implements ItemInterface, ResourceInterface
 
 		if ( property_exists($object, 'meta') )
 		{
-			$this->container->set('meta', $this->manager->getFactory()->make(
+			$meta = $this->manager->getFactory()->make(
 				'Meta',
-				[$object->meta, $this->manager]
-			));
+				[$this->manager, $this]
+			);
+			$meta->parse($object->meta);
+
+			$this->container->set('meta', $meta);
 		}
 
 		if ( property_exists($object, 'attributes') )

@@ -4,7 +4,10 @@
       "code":   "123",
       "source": { "pointer": "/data/attributes/first-name" },
       "title":  "Value is too short",
-      "detail": "First name must contain at least three characters."
+      "detail": "First name must contain at least three characters.",
+      "meta": {
+        "foo": "bar"
+      }
     },
     {
       "code":   "225",

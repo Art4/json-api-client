@@ -33,7 +33,7 @@ class ErrorParsingTest extends \PHPUnit_Framework_TestCase
 		$error0 = $errors->get('0');
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ErrorInterface', $error0);
-		$this->assertCount(4, $error0->getKeys());
+		$this->assertCount(5, $error0->getKeys());
 		$this->assertTrue($error0->has('code'));
 		$this->assertSame('123', $error0->get('code'));
 		$this->assertTrue($error0->has('source'));
@@ -44,6 +44,9 @@ class ErrorParsingTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame('Value is too short', $error0->get('title'));
 		$this->assertTrue($error0->has('detail'));
 		$this->assertSame('First name must contain at least three characters.', $error0->get('detail'));
+		$this->assertTrue($error0->has('meta'));
+		$this->assertInstanceOf('Art4\JsonApiClient\MetaInterface', $error0->get('meta'));
+		$this->assertSame('bar', $error0->get('meta.foo'));
 
 		$this->assertTrue($errors->has('1'));
 		$error1 = $errors->get('1');
@@ -99,7 +102,7 @@ class ErrorParsingTest extends \PHPUnit_Framework_TestCase
 
 		$errors = $document->get('errors');
 		$this->assertInstanceOf('Art4\JsonApiClient\ErrorCollectionInterface', $errors);
-		$this->assertCount(1, $errors->getKeys());
+		$this->assertCount(2, $errors->getKeys());
 
 		$this->assertTrue($errors->has('0'));
 		$error0 = $errors->get('0');
@@ -119,7 +122,25 @@ class ErrorParsingTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue($error0->has('links.about'));
 		$this->assertSame('http://example.org/errors/123', $error0->get('links.about'));
 
-		$this->assertFalse($errors->has('1'));
+		$this->assertTrue($errors->has('1'));
+		$error1 = $errors->get('1');
+
+		$this->assertInstanceOf('Art4\JsonApiClient\ErrorInterface', $error1);
+		$this->assertCount(2, $error1->getKeys());
+		$this->assertTrue($error1->has('code'));
+		$this->assertSame('124', $error1->get('code'));
+		$this->assertTrue($error1->has('links'));
+		$this->assertInstanceOf('Art4\JsonApiClient\ErrorLinkInterface', $error1->get('links'));
+		$this->assertTrue($error1->has('links.about'));
+		$this->assertInstanceOf('Art4\JsonApiClient\LinkInterface', $error1->get('links.about'));
+		$this->assertTrue($error1->has('links.about.href'));
+		$this->assertSame('http://example.org/errors/124', $error1->get('links.about.href'));
+		$this->assertTrue($error1->has('links.meta'));
+		$this->assertInstanceOf('Art4\JsonApiClient\LinkInterface', $error1->get('links.meta'));
+		$this->assertTrue($error1->has('links.meta.href'));
+		$this->assertSame('http://example.org/meta', $error1->get('links.meta.href'));
+
+		$this->assertFalse($errors->has('2'));
 
 		// Test full array
 		$this->assertEquals(json_decode($string, true), $document->asArray(true));

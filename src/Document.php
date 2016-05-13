@@ -163,10 +163,13 @@ final class Document implements DocumentInterface
 	{
 		if ( $data === null )
 		{
-			return $this->manager->getFactory()->make(
+			$resource = $this->manager->getFactory()->make(
 				'Resource\NullResource',
-				[$data, $this->manager]
+				[$this->manager, $this]
 			);
+			$resource->parse($data);
+
+			return $resource;
 		}
 
 		if ( is_array($data) )

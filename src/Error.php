@@ -130,10 +130,13 @@ final class Error implements ErrorInterface
 
 		if ( property_exists($object, 'meta') )
 		{
-			$this->container->set('meta', $this->manager->getFactory()->make(
+			$meta = $this->manager->getFactory()->make(
 				'Meta',
-				[$object->meta, $this->manager]
-			));
+				[$this->manager, $this]
+			);
+			$meta->parse($object->meta);
+
+			$this->container->set('meta', $meta);
 		}
 
 		return $this;

@@ -86,11 +86,17 @@ class ParsingTest extends \PHPUnit_Framework_TestCase
 		$resource = $document->get('data');
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $resource);
-		$this->assertFalse($resource->has('meta'));
+		$this->assertTrue($resource->has('meta'));
 		$this->assertSame($resource->get('type'), 'articles');
 		$this->assertSame($resource->get('id'), '1');
 		$this->assertTrue($resource->has('attributes'));
 		$this->assertTrue($resource->has('relationships'));
+
+		$meta = $resource->get('meta');
+
+		$this->assertInstanceOf('Art4\JsonApiClient\MetaInterface', $meta);
+		$this->assertTrue($meta->has('foo'));
+		$this->assertSame($meta->get('foo'), 'bar');
 
 		$attributes = $resource->get('attributes');
 
@@ -117,6 +123,11 @@ class ParsingTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue($links->has('related'));
 		$this->assertSame($links->get('related'), '/articles/1/author');
 
+		$data = $author->get('data');
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $data);
+		$this->assertSame($data->get('type'), 'people');
+		$this->assertSame($data->get('id'), '9');
 		$data = $author->get('data');
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $data);
@@ -393,6 +404,12 @@ class ParsingTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertTrue($document->has('data.0.relationships.comments'));
 		$this->assertInstanceOf('Art4\JsonApiClient\Relationship', $document->get('data.0.relationships.comments'));
+		$this->assertCount(2, $document->get('data.0.relationships.comments')->getKeys());
+
+		$this->assertTrue($document->has('data.0.relationships.comments.meta'));
+		$this->assertInstanceOf('Art4\JsonApiClient\MetaInterface', $document->get('data.0.relationships.comments.meta'));
+		$this->assertTrue($document->has('data.0.relationships.comments.meta.foo'));
+		$this->assertSame($document->get('data.0.relationships.comments.meta.foo'), 'bar');
 
 		$this->assertTrue($document->has('data.0.relationships.comments.links'));
 		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipLink', $document->get('data.0.relationships.comments.links'));
@@ -459,6 +476,15 @@ class ParsingTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue($document->has('links.last.href'));
 		$this->assertSame('?page[number]=11&page[size]=10', $document->get('links.last.href'));
 
+		$this->assertTrue($document->has('jsonapi'));
+		$this->assertInstanceOf('Art4\JsonApiClient\JsonapiInterface', $document->get('jsonapi'));
+		$this->assertTrue($document->has('jsonapi.version'));
+		$this->assertSame('1.0', $document->get('jsonapi.version'));
+		$this->assertTrue($document->has('jsonapi.meta'));
+		$this->assertInstanceOf('Art4\JsonApiClient\MetaInterface', $document->get('jsonapi.meta'));
+		$this->assertTrue($document->has('jsonapi.meta.foo'));
+		$this->assertSame('bar', $document->get('jsonapi.meta.foo'));
+
 		// Test full array
 		$this->assertEquals(json_decode($string, true), $document->asArray(true));
 	}
@@ -487,6 +513,70 @@ class ParsingTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($resource->get('meta.foo'), 'bar');
 		$this->assertSame($resource->get('type'), 'articles');
 		$this->assertSame($resource->get('id'), '2');
+
+		// Test full array
+		$this->assertEquals(json_decode($string, true), $document->asArray(true));
+	}
+
+	/**
+	 * @test
+	 */
+	public function testParseNullResource()
+	{
+		$string = $this->getJsonString('12_null_resource.json');
+		$document = Helper::parse($string);
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
+		$this->assertFalse($document->has('errors'));
+		$this->assertFalse($document->has('meta'));
+		$this->assertFalse($document->has('jsonapi'));
+		$this->assertFalse($document->has('links'));
+		$this->assertFalse($document->has('included'));
+		$this->assertTrue($document->has('data'));
+
+		$resource = $document->get('data');
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\NullResourceInterface', $resource);
+
+		// Test full array
+		$this->assertEquals(json_decode($string, true), $document->asArray(true));
+	}
+
+	/**
+	 * @test
+	 */
+	public function testParseResourceIdentifierCollectionWithMeta()
+	{
+		$string = $this->getJsonString('13_collection_with_resource_identifier_with_meta.json');
+		$document = Helper::parse($string);
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
+		$this->assertFalse($document->has('errors'));
+		$this->assertFalse($document->has('meta'));
+		$this->assertFalse($document->has('jsonapi'));
+		$this->assertFalse($document->has('links'));
+		$this->assertFalse($document->has('included'));
+		$this->assertTrue($document->has('data'));
+
+		$collection = $document->get('data');
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $collection);
+
+		$this->assertTrue($collection->has('0'));
+		$resource0 = $collection->get('0');
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $resource0);
+		$this->assertSame($resource0->get('type'), 'articles');
+		$this->assertSame($resource0->get('id'), '1');
+
+		$this->assertTrue($collection->has('1'));
+		$resource1 = $collection->get('1');
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $resource1);
+		$this->assertTrue($resource1->has('meta'));
+		$this->assertTrue($resource1->has('meta.foo'));
+		$this->assertSame($resource1->get('meta.foo'), 'bar');
+		$this->assertSame($resource1->get('type'), 'articles');
+		$this->assertSame($resource1->get('id'), '2');
 
 		// Test full array
 		$this->assertEquals(json_decode($string, true), $document->asArray(true));
