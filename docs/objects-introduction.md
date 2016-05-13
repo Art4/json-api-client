@@ -3,7 +3,7 @@
 
 ## Object Structure
 
-All possible objects and their hierarchical structure are listet below.
+All possible objects and their hierarchical structure are listed below.
 
 ### Symbols
 
