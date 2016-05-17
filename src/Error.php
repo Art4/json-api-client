@@ -45,22 +45,33 @@ final class Error implements ErrorInterface
 	protected $manager;
 
 	/**
-	 * @param object $object The error object
+	 * Sets the manager and parent
+	 *
+	 * @param FactoryManagerInterface $manager The manager
+	 * @param AccessInterface $parent The parent
+	 */
+	public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
+	{
+		$this->manager = $manager;
+
+		$this->container = new DataContainer();
+	}
+
+	/**
+	 * Parses the data for this element
+	 *
+	 * @param mixed $object The data
 	 *
 	 * @return self
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($object, FactoryManagerInterface $manager)
+	public function parse($object)
 	{
 		if ( ! is_object($object) )
 		{
 			throw new ValidationException('Error has to be an object, "' . gettype($object) . '" given.');
 		}
-
-		$this->manager = $manager;
-
-		$this->container = new DataContainer();
 
 		if ( property_exists($object, 'id') )
 		{
@@ -74,10 +85,13 @@ final class Error implements ErrorInterface
 
 		if ( property_exists($object, 'links') )
 		{
-			$this->container->set('links', $this->manager->getFactory()->make(
+			$links = $this->manager->getFactory()->make(
 				'ErrorLink',
-				[$object->links, $this->manager]
-			));
+				[$this->manager, $this]
+			);
+			$links->parse($object->links);
+
+			$this->container->set('links', $links);
 		}
 
 		if ( property_exists($object, 'status') )
@@ -122,18 +136,24 @@ final class Error implements ErrorInterface
 
 		if ( property_exists($object, 'source') )
 		{
-			$this->container->set('source', $this->manager->getFactory()->make(
+			$source = $this->manager->getFactory()->make(
 				'ErrorSource',
-				[$object->source, $this->manager]
-			));
+				[$this->manager, $this]
+			);
+			$source->parse($object->source);
+
+			$this->container->set('source', $source);
 		}
 
 		if ( property_exists($object, 'meta') )
 		{
-			$this->container->set('meta', $this->manager->getFactory()->make(
+			$meta = $this->manager->getFactory()->make(
 				'Meta',
-				[$object->meta, $this->manager]
-			));
+				[$this->manager, $this]
+			);
+			$meta->parse($object->meta);
+
+			$this->container->set('meta', $meta);
 		}
 
 		return $this;

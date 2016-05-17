@@ -1,0 +1,26 @@
+{
+  "errors": [
+    {
+      "code":   "123",
+      "source": { "pointer": "/data/attributes/first-name" },
+      "title":  "Value is too short",
+      "links": {
+        "about": "http://example.org/errors/123"
+      }
+  },
+    {
+      "code":   "124",
+      "links": {
+        "about": {
+          "href": "http://example.org/errors/124"
+        },
+        "meta": {
+          "href": "http://example.org/meta"
+        }
+      }
+    }
+  ],
+  "jsonapi": {
+    "version": "1.0"
+  }
+}

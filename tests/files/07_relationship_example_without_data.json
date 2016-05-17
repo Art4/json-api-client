@@ -20,6 +20,9 @@
           "last": "http://example.com/articles/1/comments?page=10",
           "prev": "http://example.com/articles/1/comments?page=1",
           "next": "http://example.com/articles/1/comments?page=2"
+        },
+        "meta": {
+          "foo": "bar"
         }
       }
     }

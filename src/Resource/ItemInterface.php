@@ -19,9 +19,9 @@
 
 namespace Art4\JsonApiClient\Resource;
 
-use Art4\JsonApiClient\AccessInterface;
+use Art4\JsonApiClient\ElementInterface;
 
 /**
  * Resource\Item  Interface
  */
-interface ItemInterface extends AccessInterface { }
+interface ItemInterface extends ElementInterface { }

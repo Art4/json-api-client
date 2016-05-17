@@ -1,0 +1,27 @@
+{
+  "errors": [
+    {
+      "code":   "123",
+      "source": { "pointer": "/data/attributes/first-name" },
+      "title":  "Value is too short",
+      "detail": "First name must contain at least three characters.",
+      "meta": {
+        "foo": "bar"
+      }
+    },
+    {
+      "code":   "225",
+      "source": { "pointer": "/data/attributes/password" },
+      "title": "Passwords must contain a letter, number, and punctuation character.",
+      "detail": "The password provided is missing a punctuation character."
+    },
+    {
+      "code":   "226",
+      "source": { "pointer": "/data/attributes/password" },
+      "title": "Password and password confirmation do not match."
+    }
+  ],
+  "jsonapi": {
+    "version": "1.0"
+  }
+}

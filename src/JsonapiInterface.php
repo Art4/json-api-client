@@ -22,4 +22,4 @@ namespace Art4\JsonApiClient;
 /**
  * Jsonapi Interface
  */
-interface JsonapiInterface extends AccessInterface { }
+interface JsonapiInterface extends ElementInterface { }

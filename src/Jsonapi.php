@@ -45,22 +45,33 @@ final class Jsonapi implements JsonapiInterface
 	protected $manager;
 
 	/**
-	 * @param object $object The error object
+	 * Sets the manager and parent
+	 *
+	 * @param FactoryManagerInterface $manager The manager
+	 * @param AccessInterface $parent The parent
+	 */
+	public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
+	{
+		$this->manager = $manager;
+
+		$this->container = new DataContainer();
+	}
+
+	/**
+	 * Parses the data for this element
+	 *
+	 * @param mixed $object The data
 	 *
 	 * @return self
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($object, FactoryManagerInterface $manager)
+	public function parse($object)
 	{
 		if ( ! is_object($object) )
 		{
 			throw new ValidationException('Jsonapi has to be an object, "' . gettype($object) . '" given.');
 		}
-
-		$this->manager = $manager;
-
-		$this->container = new DataContainer();
 
 		if ( property_exists($object, 'version') )
 		{
@@ -74,10 +85,13 @@ final class Jsonapi implements JsonapiInterface
 
 		if ( property_exists($object, 'meta') )
 		{
-			$this->container->set('meta', $this->manager->getFactory()->make(
+			$meta = $this->manager->getFactory()->make(
 				'Meta',
-				[$object->meta, $this->manager]
-			));
+				[$this->manager, $this]
+			);
+			$meta->parse($object->meta);
+
+			$this->container->set('meta', $meta);
 		}
 
 		return $this;

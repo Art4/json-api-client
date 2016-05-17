@@ -49,7 +49,8 @@ class JsonapiTest extends \PHPUnit_Framework_TestCase
 		$object->testobj = new \stdClass();
 		$object->teststring = 'http://example.org/link';
 
-		$jsonapi = new Jsonapi($object, $this->manager);
+		$jsonapi = new Jsonapi($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$jsonapi->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Jsonapi', $jsonapi);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $jsonapi);
@@ -91,10 +92,12 @@ class JsonapiTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreateWithDataprovider($input)
 	{
+		$jsonapi = new Jsonapi($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		// Input must be an object
 		if ( gettype($input) === 'object' )
 		{
-			$this->assertInstanceOf('Art4\JsonApiClient\Jsonapi', new Jsonapi($input, $this->manager));
+			$this->assertInstanceOf('Art4\JsonApiClient\Jsonapi', $jsonapi->parse($input));
 			return;
 		}
 
@@ -103,7 +106,7 @@ class JsonapiTest extends \PHPUnit_Framework_TestCase
 			'Jsonapi has to be an object, "' . gettype($input) . '" given.'
 		);
 
-		$jsonapi = new Jsonapi($input, $this->manager);
+		$jsonapi->parse($input);
 	}
 
 	/**
@@ -116,6 +119,8 @@ class JsonapiTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->version = $input;
 
+		$jsonapi = new Jsonapi($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		if ( gettype($input) === 'object' or gettype($input) === 'array' )
 		{
 			$this->setExpectedException(
@@ -123,11 +128,12 @@ class JsonapiTest extends \PHPUnit_Framework_TestCase
 				'property "version" cannot be an object or array, "' . gettype($input) . '" given.'
 			);
 
-			$jsonapi = new Jsonapi($object, $this->manager);
+			$jsonapi->parse($object);
+
 			return;
 		}
 
-		$jsonapi = new Jsonapi($object, $this->manager);
+		$jsonapi->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Jsonapi', $jsonapi);
 		$this->assertSame($jsonapi->getKeys(), array('version'));

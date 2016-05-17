@@ -51,7 +51,21 @@ final class Document implements DocumentInterface
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($object, FactoryManagerInterface $manager)
+	public function __construct(FactoryManagerInterface $manager, AccessInterface $parent = null)
+	{
+		$this->manager = $manager;
+
+		$this->container = new DataContainer();
+	}
+
+	/**
+	 * @param object $object The document body
+	 *
+	 * @return Document
+	 *
+	 * @throws ValidationException
+	 */
+	public function parse($object)
 	{
 		if ( ! is_object($object) )
 		{
@@ -68,10 +82,6 @@ final class Document implements DocumentInterface
 			throw new ValidationException('The properties `data` and `errors` MUST NOT coexist in Document.');
 		}
 
-		$this->manager = $manager;
-
-		$this->container = new DataContainer();
-
 		if ( property_exists($object, 'data') )
 		{
 			$this->container->set('data', $this->parseData($object->data));
@@ -79,18 +89,24 @@ final class Document implements DocumentInterface
 
 		if ( property_exists($object, 'meta') )
 		{
-			$this->container->set('meta', $this->manager->getFactory()->make(
+			$meta = $this->manager->getFactory()->make(
 				'Meta',
-				[$object->meta, $this->manager]
-			));
+				[$this->manager, $this]
+			);
+			$meta->parse($object->meta);
+
+			$this->container->set('meta', $meta);
 		}
 
 		if ( property_exists($object, 'errors') )
 		{
-			$this->container->set('errors', $this->manager->getFactory()->make(
+			$errors = $this->manager->getFactory()->make(
 				'ErrorCollection',
-				[$object->errors, $this->manager]
-			));
+				[$this->manager, $this]
+			);
+			$errors->parse($object->errors);
+
+			$this->container->set('errors', $errors);
 		}
 
 		if ( property_exists($object, 'included') )
@@ -100,26 +116,35 @@ final class Document implements DocumentInterface
 				throw new ValidationException('If Document does not contain a `data` property, the `included` property MUST NOT be present either.');
 			}
 
-			$this->container->set('included', $this->manager->getFactory()->make(
+			$collection = $this->manager->getFactory()->make(
 				'Resource\Collection',
-				[$object->included, $this->manager]
-			));
+				[$this->manager, $this]
+			);
+			$collection->parse($object->included);
+
+			$this->container->set('included', $collection);
 		}
 
 		if ( property_exists($object, 'jsonapi') )
 		{
-			$this->container->set('jsonapi', $this->manager->getFactory()->make(
+			$jsonapi = $this->manager->getFactory()->make(
 				'Jsonapi',
-				[$object->jsonapi, $this->manager]
-			));
+				[$this->manager, $this]
+			);
+			$jsonapi->parse($object->jsonapi);
+
+			$this->container->set('jsonapi', $jsonapi);
 		}
 
 		if ( property_exists($object, 'links') )
 		{
-			$this->container->set('links', $this->manager->getFactory()->make(
+			$links = $this->manager->getFactory()->make(
 				'DocumentLink',
-				[$object->links, $this->manager, $this]
-			));
+				[$this->manager, $this]
+			);
+			$links->parse($object->links);
+
+			$this->container->set('links', $links);
 		}
 
 		return $this;
@@ -155,18 +180,24 @@ final class Document implements DocumentInterface
 	{
 		if ( $data === null )
 		{
-			return $this->manager->getFactory()->make(
+			$resource = $this->manager->getFactory()->make(
 				'Resource\NullResource',
-				[$data, $this->manager]
+				[$this->manager, $this]
 			);
+			$resource->parse($data);
+
+			return $resource;
 		}
 
 		if ( is_array($data) )
 		{
-			return $this->manager->getFactory()->make(
+			$collection =  $this->manager->getFactory()->make(
 				'Resource\Collection',
-				[$data, $this->manager]
+				[$this->manager, $this]
 			);
+			$collection->parse($data);
+
+			return $collection;
 		}
 
 		if ( ! is_object($data) )
@@ -176,28 +207,23 @@ final class Document implements DocumentInterface
 
 		$object_vars = get_object_vars($data);
 
-		// the properties must be type and id
-		if ( count($object_vars) === 2 )
-		{
-			$resource = $this->manager->getFactory()->make(
-				'Resource\Identifier',
-				[$data, $this->manager]
-			);
-		}
+		// the properties must be type and id or
 		// the 3 properties must be type, id and meta
-		elseif ( count($object_vars) === 3 and property_exists($data, 'meta') )
+		if ( count($object_vars) === 2 or (count($object_vars) === 3 and property_exists($data, 'meta')) )
 		{
 			$resource = $this->manager->getFactory()->make(
 				'Resource\Identifier',
-				[$data, $this->manager]
+				[$this->manager, $this]
 			);
+			$resource->parse($data);
 		}
 		else
 		{
 			$resource = $this->manager->getFactory()->make(
 				'Resource\Item',
-				[$data, $this->manager]
+				[$this->manager, $this]
 			);
+			$resource->parse($data);
 		}
 
 		return $resource;

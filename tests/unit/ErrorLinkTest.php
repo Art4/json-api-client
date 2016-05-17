@@ -48,7 +48,8 @@ class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 		$object->href = 'http://example.org/href';
 		$object->about = 'http://example.org/about';
 
-		$link = new ErrorLink($object, $this->manager);
+		$link = new ErrorLink($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$link->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ErrorLink', $link);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $link);
@@ -83,12 +84,14 @@ class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->foobar = new \stdClass();
 
+		$link = new ErrorLink($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
 			'ErrorLink MUST contain these properties: about'
 		);
 
-		$link = new ErrorLink($object, $this->manager);
+		$link->parse($object);
 	}
 
 	/**
@@ -103,7 +106,8 @@ class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->about = new \stdClass();
 
-		$link = new ErrorLink($object, $this->manager);
+		$link = new ErrorLink($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$link->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ErrorLink', $link);
 		$this->assertSame($link->getKeys(), array('about'));
@@ -125,12 +129,14 @@ class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
+		$link = new ErrorLink($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
 			'Link has to be an object, "' . gettype($input) . '" given.'
 		);
 
-		$link = new ErrorLink($input, $this->manager);
+		$link->parse($input);
 	}
 
 	/**
@@ -150,12 +156,14 @@ class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 		$object->about = 'http://example.org/about';
 		$object->input = $input;
 
+		$link = new ErrorLink($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
 			'Link attribute has to be an object or string, "' . gettype($input) . '" given.'
 		);
 
-		$link = new ErrorLink($object, $this->manager);
+		$link->parse($object);
 	}
 
 	/**
@@ -174,12 +182,14 @@ class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass;
 		$object->about = $input;
 
+		$link = new ErrorLink($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
 			'Link has to be an object or string, "' . gettype($input) . '" given.'
 		);
 
-		$link = new ErrorLink($object, $this->manager);
+		$link->parse($object);
 	}
 
 	/**
@@ -190,7 +200,8 @@ class ErrorLinkTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->about = 'http://example.org/about';
 
-		$link = new ErrorLink($object, $this->manager);
+		$link = new ErrorLink($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$link->parse($object);
 
 		$this->assertFalse($link->has('something'));
 

@@ -49,7 +49,8 @@ class MetaTest extends \PHPUnit_Framework_TestCase
 		$object->false = false;
 		$object->null = null;
 
-		$meta = new Meta($object, $this->manager);
+		$meta = new Meta($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$meta->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Meta', $meta);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $meta);
@@ -103,10 +104,12 @@ class MetaTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreateWithoutObjectThrowsException($input)
 	{
+		$meta = new Meta($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		// Input must be an object
 		if ( gettype($input) === 'object' )
 		{
-			$this->assertInstanceOf('Art4\JsonApiClient\Meta', new Meta($input, $this->manager));
+			$this->assertInstanceOf('Art4\JsonApiClient\Meta', $meta->parse($input));
 
 			return;
 		}
@@ -116,7 +119,7 @@ class MetaTest extends \PHPUnit_Framework_TestCase
 			'Meta has to be an object, "' . gettype($input) . '" given.'
 		);
 
-		$link = new Meta($input, $this->manager);
+		$meta->parse($input);
 	}
 
 	/**
@@ -126,7 +129,8 @@ class MetaTest extends \PHPUnit_Framework_TestCase
 	{
 		$object = new \stdClass();
 
-		$meta = new Meta($object, $this->manager);
+		$meta = new Meta($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$meta->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Meta', $meta);
 

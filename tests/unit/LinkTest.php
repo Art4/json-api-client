@@ -48,7 +48,8 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 		$object->href = 'http://example.org/href';
 		$object->link = 'http://example.org/link';
 
-		$link = new Link($object, $this->manager, $this->parent_link);
+		$link = new Link($this->manager, $this->parent_link);
+		$link->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Link', $link);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $link);
@@ -95,9 +96,11 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->href = $input;
 
+		$link = new Link($this->manager, $this->parent_link);
+
 		if ( gettype($input) === 'string' )
 		{
-			$link = new Link($object, $this->manager, $this->parent_link);
+			$link->parse($object);
 
 			$this->assertTrue(is_string($link->get('href')));
 
@@ -109,7 +112,7 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 			'Every link attribute has to be a string, "' . gettype($input) . '" given.'
 		);
 
-		$link = new Link($object, $this->manager, $this->parent_link);
+		$link->parse($object);
 	}
 
 	/**
@@ -123,12 +126,14 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->related = 'http://example.org/related';
 
+		$link = new Link($this->manager, $this->parent_link);
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
 			'Link must have a "href" attribute.'
 		);
 
-		$link = new Link($object, $this->manager, $this->parent_link);
+		$link->parse($object);
 	}
 
 	/**
@@ -140,7 +145,8 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 		$object->meta = new \stdClass();
 		$object->href = 'http://example.org/href';
 
-		$link = new Link($object, $this->manager, $this->parent_link);
+		$link = new Link($this->manager, $this->parent_link);
+		$link->parse($object);
 
 		$this->assertTrue($link->has('meta'));
 		$this->assertInstanceOf('Art4\JsonApiClient\MetaInterface', $link->get('meta'));
@@ -159,11 +165,13 @@ class LinkTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
+		$link = new Link($this->manager, $this->parent_link);
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
 			'Link has to be an object or string, "' . gettype($input) . '" given.'
 		);
 
-		$link = new Link($input, $this->manager, $this->parent_link);
+		$link->parse($input);
 	}
 }

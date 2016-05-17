@@ -44,7 +44,8 @@ class ErrorCollectionTest extends \PHPUnit_Framework_TestCase
 			new \stdClass(),
 		);
 
-		$collection = new ErrorCollection($errors, $this->manager);
+		$collection = new ErrorCollection($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$collection->parse($errors);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ErrorCollection', $collection);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $collection);
@@ -99,7 +100,8 @@ class ErrorCollectionTest extends \PHPUnit_Framework_TestCase
 			);
 		}
 
-		$collection = new ErrorCollection($input, $this->manager);
+		$collection = new ErrorCollection($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$collection->parse($input);
 	}
 
 	/**
@@ -111,7 +113,8 @@ class ErrorCollectionTest extends \PHPUnit_Framework_TestCase
 			new \stdClass(),
 		);
 
-		$collection = new ErrorCollection($errors, $this->manager);
+		$collection = new ErrorCollection($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$collection->parse($errors);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ErrorCollection', $collection);
 

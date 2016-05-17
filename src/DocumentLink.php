@@ -55,24 +55,35 @@ final class DocumentLink implements DocumentLinkInterface
 	protected $parent;
 
 	/**
-	 * @param object $object The link object
+	 * Sets the manager and parent
 	 *
-	 * @return self
-	 *
-	 * @throws ValidationException
+	 * @param FactoryManagerInterface $manager The manager
+	 * @param AccessInterface $parent The parent
 	 */
-	public function __construct($object, FactoryManagerInterface $manager, AccessInterface $parent)
+	public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
 	{
-		if ( ! is_object($object) )
-		{
-			throw new ValidationException('DocumentLink has to be an object, "' . gettype($object) . '" given.');
-		}
-
 		$this->manager = $manager;
 
 		$this->parent = $parent;
 
 		$this->container = new DataContainer();
+	}
+
+	/**
+	 * Parses the data for this element
+	 *
+	 * @param mixed $object The data
+	 *
+	 * @return self
+	 *
+	 * @throws ValidationException
+	 */
+	public function parse($object)
+	{
+		if ( ! is_object($object) )
+		{
+			throw new ValidationException('DocumentLink has to be an object, "' . gettype($object) . '" given.');
+		}
 
 		$links = get_object_vars($object);
 
@@ -101,7 +112,7 @@ final class DocumentLink implements DocumentLinkInterface
 		}
 
 		// Pagination links, if data in parent attributes exists
-		if ( $parent->has('data') )
+		if ( $this->parent->has('data') )
 		{
 			if ( array_key_exists('first', $links) )
 			{
@@ -205,10 +216,13 @@ final class DocumentLink implements DocumentLinkInterface
 		}
 
 		// Now $link can only be an object
-		$this->container->set($name, $this->manager->getFactory()->make(
+		$link_object = $this->manager->getFactory()->make(
 			'Link',
-			[$link, $this->manager, $this]
-		));
+			[$this->manager, $this]
+		);
+		$link_object->parse($link);
+
+		$this->container->set($name, $link_object);
 
 		return $this;
 	}

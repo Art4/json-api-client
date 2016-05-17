@@ -49,7 +49,8 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 		$object->false = false;
 		$object->null = null;
 
-		$attributes = new Attributes($object, $this->manager);
+		$attributes = new Attributes($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$attributes->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Attributes', $attributes);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $attributes);
@@ -100,10 +101,12 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreateWithDataProvider($input)
 	{
+		$attributes = new Attributes($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		// Input must be an object
 		if ( gettype($input) === 'object' )
 		{
-			$this->assertInstanceOf('Art4\JsonApiClient\Attributes', new Attributes($input, $this->manager));
+			$this->assertInstanceOf('Art4\JsonApiClient\Attributes', $attributes->parse($input));
 
 			return;
 		}
@@ -113,7 +116,7 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 			'Attributes has to be an object, "' . gettype($input) . '" given.'
 		);
 
-		$error = new Attributes($input, $this->manager);
+		$attributes->parse($input);
 	}
 
 	/**
@@ -126,12 +129,14 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->type = 'posts';
 
+		$attributes = new Attributes($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
 			'These properties are not allowed in attributes: `type`, `id`, `relationships`, `links`'
 		);
 
-		$attributes = new Attributes($object, $this->manager);
+		$attributes->parse($object);
 	}
 
 	/**
@@ -144,12 +149,14 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->id = '5';
 
+		$attributes = new Attributes($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
 			'These properties are not allowed in attributes: `type`, `id`, `relationships`, `links`'
 		);
 
-		$attributes = new Attributes($object, $this->manager);
+		$attributes->parse($object);
 	}
 
 	/**
@@ -162,12 +169,14 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->relationships = new \stdClass();
 
+		$attributes = new Attributes($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
 			'These properties are not allowed in attributes: `type`, `id`, `relationships`, `links`'
 		);
 
-		$attributes = new Attributes($object, $this->manager);
+		$attributes->parse($object);
 	}
 
 	/**
@@ -180,12 +189,14 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->links = new \stdClass();
 
+		$attributes = new Attributes($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
 			'These properties are not allowed in attributes: `type`, `id`, `relationships`, `links`'
 		);
 
-		$attributes = new Attributes($object, $this->manager);
+		$attributes->parse($object);
 	}
 
 	/**
@@ -196,7 +207,9 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->pages = '1126';
 
-		$attributes = new Attributes($object, $this->manager);
+		$attributes = new Attributes($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
+		$attributes->parse($object);
 
 		$this->assertFalse($attributes->has('foobar'));
 

@@ -45,13 +45,28 @@ final class Attributes implements AttributesInterface
 	protected $manager;
 
 	/**
-	 * @param object $object The object
+	 * Sets the manager and parent
+	 *
+	 * @param FactoryManagerInterface $manager The manager
+	 * @param AccessInterface $parent The parent
+	 */
+	public function __construct(FactoryManagerInterface $manager, AccessInterface $parent = null)
+	{
+		$this->manager = $manager;
+
+		$this->container = new DataContainer();
+	}
+
+	/**
+	 * Parses the data for this element
+	 *
+	 * @param mixed $object The data
 	 *
 	 * @return self
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($object, FactoryManagerInterface $manager)
+	public function parse($object)
 	{
 		if ( ! is_object($object) )
 		{
@@ -62,10 +77,6 @@ final class Attributes implements AttributesInterface
 		{
 			throw new ValidationException('These properties are not allowed in attributes: `type`, `id`, `relationships`, `links`');
 		}
-
-		$this->manager = $manager;
-
-		$this->container = new DataContainer();
 
 		$object_vars = get_object_vars($object);
 

@@ -49,13 +49,28 @@ final class ErrorLink implements ErrorLinkInterface
 	protected $manager;
 
 	/**
-	 * @param object $object The link object
+	 * Sets the manager and parent
+	 *
+	 * @param FactoryManagerInterface $manager The manager
+	 * @param AccessInterface $parent The parent
+	 */
+	public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
+	{
+		$this->manager = $manager;
+
+		$this->container = new DataContainer();
+	}
+
+	/**
+	 * Parses the data for this element
+	 *
+	 * @param mixed $object The data
 	 *
 	 * @return self
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($object, FactoryManagerInterface $manager)
+	public function parse($object)
 	{
 		if ( ! is_object($object) )
 		{
@@ -74,20 +89,19 @@ final class ErrorLink implements ErrorLinkInterface
 			throw new ValidationException('Link has to be an object or string, "' . gettype($links['about']) . '" given.');
 		}
 
-		$this->manager = $manager;
-
-		$this->container = new DataContainer();
-
 		if ( is_string($links['about']) )
 		{
 			$this->container->set('about', strval($links['about']));
 		}
 		else
 		{
-			$this->container->set('about', $this->manager->getFactory()->make(
+			$link = $this->manager->getFactory()->make(
 				'Link',
-				[$links['about'], $this->manager, $this]
-			));
+				[$this->manager, $this]
+			);
+			$link->parse($links['about']);
+
+			$this->container->set('about', $link);
 		}
 
 		unset($links['about']);
@@ -138,10 +152,13 @@ final class ErrorLink implements ErrorLinkInterface
 		}
 
 		// Now $link can only be an object
-		$this->container->set($name, $this->manager->getFactory()->make(
+		$link_object = $this->manager->getFactory()->make(
 			'Link',
-			[$link, $this->manager, $this]
-		));
+			[$this->manager, $this]
+		);
+		$link_object->parse($link);
+
+		$this->container->set($name, $link_object);
 
 		return $this;
 	}

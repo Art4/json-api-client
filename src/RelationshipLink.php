@@ -55,13 +55,35 @@ final class RelationshipLink implements RelationshipLinkInterface
 	protected $manager;
 
 	/**
-	 * @param object $object The link object
+	 * @var AccessInterface
+	 */
+	protected $parent;
+
+	/**
+	 * Sets the manager and parent
+	 *
+	 * @param FactoryManagerInterface $manager The manager
+	 * @param AccessInterface $parent The parent
+	 */
+	public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
+	{
+		$this->manager = $manager;
+
+		$this->parent = $parent;
+
+		$this->container = new DataContainer();
+	}
+
+	/**
+	 * Parses the data for this element
+	 *
+	 * @param mixed $object The data
 	 *
 	 * @return self
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($object, FactoryManagerInterface $manager, RelationshipInterface $relationship)
+	public function parse($object)
 	{
 		if ( ! is_object($object) )
 		{
@@ -72,10 +94,6 @@ final class RelationshipLink implements RelationshipLinkInterface
 		{
 			throw new ValidationException('RelationshipLink has to be at least a "self" or "related" link');
 		}
-
-		$this->manager = $manager;
-
-		$this->container = new DataContainer();
 
 		$links = get_object_vars($object);
 
@@ -104,7 +122,7 @@ final class RelationshipLink implements RelationshipLinkInterface
 		}
 
 		// Pagination links
-		if ( $relationship->has('data') and $relationship->get('data') instanceof IdentifierCollectionInterface )
+		if ( $this->parent->has('data') and $this->parent->get('data') instanceof IdentifierCollectionInterface )
 		{
 			if ( array_key_exists('first', $links) )
 			{
@@ -204,10 +222,13 @@ final class RelationshipLink implements RelationshipLinkInterface
 		}
 
 		// Now $link can only be an object
-		$this->container->set($name, $this->manager->getFactory()->make(
+		$link_object = $this->manager->getFactory()->make(
 			'Link',
-			[$link, $this->manager, $this]
-		));
+			[$this->manager, $this]
+		);
+		$link_object->parse($link);
+
+		$this->container->set($name, $link_object);
 
 		return $this;
 	}

@@ -78,9 +78,12 @@ final class Manager implements ManagerInterface, FactoryManagerInterface
 	{
 		$object = Helper::decodeJson($string);
 
-		return $this->getFactory()->make('Document', [
-			$object,
+		$document = $this->getFactory()->make('Document', [
 			$this,
 		]);
+
+		$document->parse($object);
+
+		return $document;
 	}
 }

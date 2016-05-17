@@ -50,7 +50,8 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 			->with($this->equalTo('attributes.author'))
 			->willReturn(false);
 
-		$collection = new RelationshipCollection($object, $this->manager, $item);
+		$collection = new RelationshipCollection($this->manager, $item);
+		$collection->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipCollection', $collection);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $collection);
@@ -84,16 +85,19 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreateWithEmptyObject()
 	{
-		$mock = $this->getMockBuilder('Art4\JsonApiClient\Resource\ItemInterface')
+		$item = $this->getMockBuilder('Art4\JsonApiClient\Resource\ItemInterface')
 			->getMock();
 
-		$mock->method('has')
+		$item->method('has')
 			->with($this->equalTo('attributes'))
 			->willReturn(false);
 
 		$object = new \stdClass();
 
-		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipCollection', new RelationshipCollection($object, $this->manager, $mock));
+		$collection = new RelationshipCollection($this->manager, $item);
+		$collection->parse($object);
+
+		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipCollection', $collection);
 	}
 
 	/**
@@ -103,10 +107,10 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreateWithTypePropertyThrowsException()
 	{
-		$mock = $this->getMockBuilder('Art4\JsonApiClient\Resource\ItemInterface')
+		$item = $this->getMockBuilder('Art4\JsonApiClient\Resource\ItemInterface')
 			->getMock();
 
-		$mock->expects($this->any())
+		$item->expects($this->any())
 			->method('has')
 			->with($this->equalTo('attributes'))
 			->willReturn(false);
@@ -114,12 +118,14 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->type = 'posts';
 
+		$collection = new RelationshipCollection($this->manager, $item);
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
 			'These properties are not allowed in attributes: `type`, `id`'
 		);
 
-		$collection = new RelationshipCollection($object, $this->manager, $mock);
+		$collection->parse($object);
 	}
 
 	/**
@@ -129,10 +135,10 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreateWithIdPropertyThrowsException()
 	{
-		$mock = $this->getMockBuilder('Art4\JsonApiClient\Resource\ItemInterface')
+		$item = $this->getMockBuilder('Art4\JsonApiClient\Resource\ItemInterface')
 			->getMock();
 
-		$mock->expects($this->any())
+		$item->expects($this->any())
 			->method('has')
 			->with($this->equalTo('attributes'))
 			->will($this->returnValue(false));
@@ -140,12 +146,14 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->id = '5';
 
+		$collection = new RelationshipCollection($this->manager, $item);
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
 			'These properties are not allowed in attributes: `type`, `id`'
 		);
 
-		$collection = new RelationshipCollection($object, $this->manager, $mock);
+		$collection->parse($object);
 	}
 
 	/**
@@ -157,6 +165,7 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 	{
 		$item = $this->getMockBuilder('Art4\JsonApiClient\Resource\ItemInterface')
 			->getMock();
+
 		$item->expects($this->any())
 			->method('has')
 			->with($this->equalTo('attributes.author'))
@@ -165,12 +174,14 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->author = new \stdClass();
 
+		$collection = new RelationshipCollection($this->manager, $item);
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
 			'"author" property cannot be set because it exists already in parents Resource object.'
 		);
 
-		$collection = new RelationshipCollection($object, $this->manager, $item);
+		$collection->parse($object);
 	}
 
 	/**
@@ -184,13 +195,16 @@ class RelationshipCollectionTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
-		$mock = $this->getMockBuilder('Art4\JsonApiClient\Resource\ItemInterface')
+		$item = $this->getMockBuilder('Art4\JsonApiClient\Resource\ItemInterface')
 			->getMock();
+
+		$collection = new RelationshipCollection($this->manager, $item);
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
 			'Relationships has to be an object, "' . gettype($input) . '" given.'
 		);
-		$document = new RelationshipCollection($input, $this->manager, $mock);
+
+		$collection->parse($input);
 	}
 }

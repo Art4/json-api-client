@@ -43,33 +43,34 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 		$object->type = 'type';
 		$object->id = 789;
 
-		$resource = new Item($object, $this->manager);
+		$item = new Item($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$item->parse($object);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $resource);
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $resource);
-		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $resource);
-		$this->assertSame($resource->getKeys(), array('type', 'id'));
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $item);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $item);
+		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $item);
+		$this->assertSame($item->getKeys(), array('type', 'id'));
 
-		$this->assertSame($resource->get('type'), 'type');
-		$this->assertSame($resource->get('id'), '789');
-		$this->assertFalse($resource->has('meta'));
-		$this->assertFalse($resource->has('attributes'));
-		$this->assertFalse($resource->has('relationships'));
-		$this->assertFalse($resource->has('links'));
-		$this->assertFalse($resource->isNull());
-		$this->assertFalse($resource->isIdentifier());
-		$this->assertTrue($resource->isItem());
-		$this->assertFalse($resource->isCollection());
+		$this->assertSame($item->get('type'), 'type');
+		$this->assertSame($item->get('id'), '789');
+		$this->assertFalse($item->has('meta'));
+		$this->assertFalse($item->has('attributes'));
+		$this->assertFalse($item->has('relationships'));
+		$this->assertFalse($item->has('links'));
+		$this->assertFalse($item->isNull());
+		$this->assertFalse($item->isIdentifier());
+		$this->assertTrue($item->isItem());
+		$this->assertFalse($item->isCollection());
 
 		// test get() with not existing key throws an exception
-		$this->assertFalse($resource->has('something'));
+		$this->assertFalse($item->has('something'));
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\AccessException',
 			'"something" doesn\'t exist in this resource.'
 		);
 
-		$resource->get('something');
+		$item->get('something');
 	}
 
 	/**
@@ -85,40 +86,41 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 		$object->relationships = new \stdClass();
 		$object->links = new \stdClass();
 
-		$resource = new Item($object, $this->manager);
+		$item = new Item($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$item->parse($object);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $resource);
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $resource);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $item);
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $item);
 
-		$this->assertSame($resource->get('type'), 'type');
-		$this->assertSame($resource->get('id'), '789');
-		$this->assertTrue($resource->has('meta'));
-		$this->assertInstanceOf('Art4\JsonApiClient\MetaInterface', $resource->get('meta'));
-		$this->assertTrue($resource->has('attributes'));
-		$this->assertInstanceOf('Art4\JsonApiClient\AttributesInterface', $resource->get('attributes'));
-		$this->assertTrue($resource->has('relationships'));
-		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipCollectionInterface', $resource->get('relationships'));
-		$this->assertTrue($resource->has('links'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ItemLinkInterface', $resource->get('links'));
-		$this->assertSame($resource->getKeys(), array('type', 'id', 'meta', 'attributes', 'relationships', 'links'));
+		$this->assertSame($item->get('type'), 'type');
+		$this->assertSame($item->get('id'), '789');
+		$this->assertTrue($item->has('meta'));
+		$this->assertInstanceOf('Art4\JsonApiClient\MetaInterface', $item->get('meta'));
+		$this->assertTrue($item->has('attributes'));
+		$this->assertInstanceOf('Art4\JsonApiClient\AttributesInterface', $item->get('attributes'));
+		$this->assertTrue($item->has('relationships'));
+		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipCollectionInterface', $item->get('relationships'));
+		$this->assertTrue($item->has('links'));
+		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ItemLinkInterface', $item->get('links'));
+		$this->assertSame($item->getKeys(), array('type', 'id', 'meta', 'attributes', 'relationships', 'links'));
 
-		$this->assertSame($resource->asArray(), array(
-			'type' => $resource->get('type'),
-			'id' => $resource->get('id'),
-			'meta' => $resource->get('meta'),
-			'attributes' => $resource->get('attributes'),
-			'relationships' => $resource->get('relationships'),
-			'links' => $resource->get('links'),
+		$this->assertSame($item->asArray(), array(
+			'type' => $item->get('type'),
+			'id' => $item->get('id'),
+			'meta' => $item->get('meta'),
+			'attributes' => $item->get('attributes'),
+			'relationships' => $item->get('relationships'),
+			'links' => $item->get('links'),
 		));
 
 		// Test full array
-		$this->assertSame($resource->asArray(true), array(
-			'type' => $resource->get('type'),
-			'id' => $resource->get('id'),
-			'meta' => $resource->get('meta')->asArray(true),
-			'attributes' => $resource->get('attributes')->asArray(true),
-			'relationships' => $resource->get('relationships')->asArray(true),
-			'links' => $resource->get('links')->asArray(true),
+		$this->assertSame($item->asArray(true), array(
+			'type' => $item->get('type'),
+			'id' => $item->get('id'),
+			'meta' => $item->get('meta')->asArray(true),
+			'attributes' => $item->get('attributes')->asArray(true),
+			'relationships' => $item->get('relationships')->asArray(true),
+			'links' => $item->get('links')->asArray(true),
 		));
 	}
 
@@ -133,6 +135,8 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 		$object->type = $input;
 		$object->id = '753';
 
+		$item = new Item($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		if ( gettype($input) === 'object' or gettype($input) === 'array' )
 		{
 			$this->setExpectedException(
@@ -141,7 +145,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 			);
 		}
 
-		$item = new Item($object, $this->manager);
+		$item->parse($object);
 
 		$this->assertTrue(is_string($item->get('type')));
 	}
@@ -157,6 +161,8 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 		$object->type = 'posts';
 		$object->id = $input;
 
+		$item = new Item($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		if ( gettype($input) === 'object' or gettype($input) === 'array' )
 		{
 			$this->setExpectedException(
@@ -165,7 +171,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 			);
 		}
 
-		$item = new Item($object, $this->manager);
+		$item->parse($object);
 
 		$this->assertTrue(is_string($item->get('id')));
 	}
@@ -183,12 +189,14 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
+		$item = new Item($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
 			'Resource has to be an object, "' . gettype($input) . '" given.'
 		);
 
-		$item = new Item($input, $this->manager);
+		$item->parse($input);
 	}
 
 	/**
@@ -199,12 +207,14 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->id = 123;
 
+		$item = new Item($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
 			'A resource object MUST contain a type'
 		);
 
-		$item = new Item($object, $this->manager);
+		$item->parse($object);
 	}
 
 	/**
@@ -215,11 +225,13 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->type = 'type';
 
+		$item = new Item($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
 			'A resource object MUST contain an id'
 		);
 
-		$item = new Item($object, $this->manager);
+		$item->parse($object);
 	}
 }

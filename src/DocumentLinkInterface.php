@@ -22,4 +22,4 @@ namespace Art4\JsonApiClient;
 /**
  * DocumentLink Interface
  */
-interface DocumentLinkInterface extends AccessInterface { }
+interface DocumentLinkInterface extends ElementInterface { }

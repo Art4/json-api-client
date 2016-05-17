@@ -13,6 +13,9 @@
         },
         "data": { "type": "people", "id": "9" }
       }
+  },
+  "meta": {
+      "foo": "bar"
     }
   }
 }

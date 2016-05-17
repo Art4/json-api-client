@@ -19,6 +19,7 @@
 
 namespace Art4\JsonApiClient\Resource;
 
+use Art4\JsonApiClient\AccessInterface;
 use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Utils\DataContainer;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
@@ -40,13 +41,28 @@ final class Item implements ItemInterface, ResourceInterface
 	protected $container;
 
 	/**
-	 * @param object $object The error object
+	 * Sets the manager and parent
+	 *
+	 * @param FactoryManagerInterface $manager The manager
+	 * @param AccessInterface $parent The parent
+	 */
+	public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
+	{
+		$this->manager = $manager;
+
+		$this->container = new DataContainer();
+	}
+
+	/**
+	 * Parses the data for this element
+	 *
+	 * @param mixed $object The data
 	 *
 	 * @return self
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($object, FactoryManagerInterface $manager)
+	public function parse($object)
 	{
 		if ( ! is_object($object) )
 		{
@@ -73,43 +89,51 @@ final class Item implements ItemInterface, ResourceInterface
 			throw new ValidationException('Resource id cannot be an array or object');
 		}
 
-		$this->manager = $manager;
-
-		$this->container = new DataContainer();
-
 		$this->container->set('type', strval($object->type));
 		$this->container->set('id', strval($object->id));
 
 		if ( property_exists($object, 'meta') )
 		{
-			$this->container->set('meta', $this->manager->getFactory()->make(
+			$meta = $this->manager->getFactory()->make(
 				'Meta',
-				[$object->meta, $this->manager]
-			));
+				[$this->manager, $this]
+			);
+			$meta->parse($object->meta);
+
+			$this->container->set('meta', $meta);
 		}
 
 		if ( property_exists($object, 'attributes') )
 		{
-			$this->container->set('attributes', $this->manager->getFactory()->make(
+			$attributes = $this->manager->getFactory()->make(
 				'Attributes',
-				[$object->attributes, $this->manager]
-			));
+				[$this->manager]
+			);
+			$attributes->parse($object->attributes);
+
+			$this->container->set('attributes', $attributes);
 		}
 
 		if ( property_exists($object, 'relationships') )
 		{
-			$this->container->set('relationships', $this->manager->getFactory()->make(
+			$relationships = $this->manager->getFactory()->make(
 				'RelationshipCollection',
-				[$object->relationships, $this->manager, $this]
-			));
+				[$this->manager, $this]
+			);
+			$relationships->parse($object->relationships);
+
+			$this->container->set('relationships', $relationships);
 		}
 
 		if ( property_exists($object, 'links') )
 		{
-			$this->container->set('links', $this->manager->getFactory()->make(
+			$link = $this->manager->getFactory()->make(
 				'Resource\ItemLink',
-				[$object->links, $this->manager, $this]
-			));
+				[$this->manager, $this]
+			);
+			$link->parse($object->links);
+
+			$this->container->set('links', $link);
 		}
 
 		return $this;

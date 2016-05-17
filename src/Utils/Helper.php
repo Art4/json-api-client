@@ -44,10 +44,13 @@ final class Helper
 
 		$manager = new Manager();
 
-		return $manager->getFactory()->make(
+		$document = $manager->getFactory()->make(
 			'Document',
-			[$data, $manager]
+			[$manager]
 		);
+		$document->parse($data);
+
+		return $document;
 	}
 
 	/**

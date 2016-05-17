@@ -45,13 +45,35 @@ final class RelationshipCollection implements RelationshipCollectionInterface
 	protected $manager;
 
 	/**
-	 * @param object $object The object
+	 * @var AccessInterface
+	 */
+	protected $parent;
+
+	/**
+	 * Sets the manager and parent
+	 *
+	 * @param FactoryManagerInterface $manager The manager
+	 * @param AccessInterface $parent The parent
+	 */
+	public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
+	{
+		$this->manager = $manager;
+
+		$this->parent = $parent;
+
+		$this->container = new DataContainer();
+	}
+
+	/**
+	 * Parses the data for this element
+	 *
+	 * @param mixed $object The data
 	 *
 	 * @return self
 	 *
 	 * @throws ValidationException
 	 */
-	public function __construct($object, FactoryManagerInterface $manager, AccessInterface $resource)
+	public function parse($object)
 	{
 		if ( ! is_object($object) )
 		{
@@ -63,10 +85,6 @@ final class RelationshipCollection implements RelationshipCollectionInterface
 			throw new ValidationException('These properties are not allowed in attributes: `type`, `id`');
 		}
 
-		$this->manager = $manager;
-
-		$this->container = new DataContainer();
-
 		$object_vars = get_object_vars($object);
 
 		if ( count($object_vars) === 0 )
@@ -76,16 +94,18 @@ final class RelationshipCollection implements RelationshipCollectionInterface
 
 		foreach ($object_vars as $name => $value)
 		{
-			// #FIXME: Work here with parent strategy
-			if ( $resource->has('attributes.' . $name) )
+			if ( $this->parent->has('attributes.' . $name) )
 			{
 				throw new ValidationException('"' . $name . '" property cannot be set because it exists already in parents Resource object.');
 			}
 
-			$this->container->set($name, $this->manager->getFactory()->make(
+			$relationship = $this->manager->getFactory()->make(
 				'Relationship',
-				[$value, $this->manager]
-			));
+				[$this->manager, $this]
+			);
+			$relationship->parse($value);
+
+			$this->container->set($name, $relationship);
 		}
 
 		return $this;

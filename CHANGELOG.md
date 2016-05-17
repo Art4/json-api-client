@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- **BREAKING**: Introducing the `ElementInterface` to seperate the parsing from the constructor
+
 ## [0.6.3] - 2016-04-26
 
 ### Fixed
