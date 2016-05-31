@@ -19,6 +19,7 @@
 
 namespace Art4\JsonApiClient\Utils;
 
+use Art4\JsonApiClient\Document;
 use Art4\JsonApiClient\Exception\Exception;
 use Art4\JsonApiClient\Exception\ValidationException;
 
@@ -63,7 +64,7 @@ final class Helper
 	{
 		try
 		{
-			$document = static::parse($json_string);
+			static::parse($json_string);
 		}
 		catch ( Exception $e )
 		{
