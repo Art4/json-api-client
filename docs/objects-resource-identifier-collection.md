@@ -1,9 +1,9 @@
-# Resource\IdentifierCollection
+# ResourceIdentifierCollection
 [Back to Navigation](README.md)
 
 ## Description
 
-The `Resource\IdentifierCollection` is a [Resource Collection object](objects-resource-collection.md) that is either empty or holds only [Resource Identifier object](objects-resource-identifier.md)s.
+The `ResourceIdentifierCollection` is a [Resource Collection object](objects-resource-collection.md) that is either empty or holds only [Resource Identifier object](objects-resource-identifier.md)s.
 
 Property of:
 - [Relationship object](objects-relationship.md)

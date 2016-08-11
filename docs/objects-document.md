@@ -13,7 +13,7 @@ _[Symbols definition](objects-introduction.md#symbols)_
 
     | Key | Value | Note
 --- | ---- | ----- | ----
-# | data | - [Resource NullResource object](objects-resource-nullresource.md)<br />- [Resource Identifier object](objects-resource-identifier.md)<br />- [Resource Item object](objects-resource-item.md)<br />- [Resource Collection object](objects-resource-collection.md) | not allowed, if 'errors' exists
+# | data | - [Resource Null object](objects-resource-null.md)<br />- [Resource Identifier object](objects-resource-identifier.md)<br />- [Resource Item object](objects-resource-item.md)<br />- [Resource Collection object](objects-resource-collection.md) | not allowed, if 'errors' exists
 # | errors | [Error Collection object](objects-error-collection.md) | not allowed, if 'data' exists
 # | meta | [Meta object](objects-meta.md) |
 ? | jsonapi | [Jsonapi object](objects-jsonapi.md) |

@@ -3,7 +3,7 @@
 ### Objects:
 * [Introduction](objects-introduction.md)
 * [Document object](objects-document.md)
-* [Resource NullResource object](objects-resource-nullresource.md)
+* [Resource Null object](objects-resource-null.md)
 * [Resource Identifier object](objects-resource-identifier.md)
 * [Resource Item object](objects-resource-item.md)
 * [Resource Collection object](objects-resource-collection.md)

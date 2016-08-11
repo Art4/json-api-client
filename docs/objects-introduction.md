@@ -19,7 +19,7 @@ All possible objects and their hierarchical structure are listed below.
 ### All objects
 
 1. [Document object](objects-document.md)
-1. [Resource NullResource object](objects-resource-nullresource.md)
+1. [Resource Null object](objects-resource-null.md)
 1. [Resource Identifier object](objects-resource-identifier.md)
 1. [Resource Item object](objects-resource-item.md)
 1. [Resource Collection object](objects-resource-collection.md)

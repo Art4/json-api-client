@@ -1,9 +1,9 @@
-# Resource\ItemLink
+# ResourceItemLink
 [Back to Navigation](README.md)
 
 ## Description
 
-The `Resource\ItemLink` object represents a [links object inside a resource](http://jsonapi.org/format/#document-links).
+The `ResourceItemLink` object represents a [links object inside a resource](http://jsonapi.org/format/#document-links).
 
 Property of:
 - [Resource Item object](objects-resource-item.md)

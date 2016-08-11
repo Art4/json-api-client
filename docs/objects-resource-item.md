@@ -1,9 +1,9 @@
-# Resource\Item
+# ResourceItem
 [Back to Navigation](README.md)
 
 ## Description
 
-The `Resource\Item` represents a [resource object](http://jsonapi.org/format/#document-resource-objects).
+The `ResourceItem` represents a [resource object](http://jsonapi.org/format/#document-resource-objects).
 
 Property of:
 - [Document object](objects-document.md)

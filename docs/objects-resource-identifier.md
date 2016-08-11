@@ -1,9 +1,9 @@
-# Resource\Identifier
+# ResourceIdentifier
 [Back to Navigation](README.md)
 
 ## Description
 
-The `Resource\Identifier` represents a [resource identifier object](http://jsonapi.org/format/#document-resource-identifier-objects).
+The `ResourceIdentifier` represents a [resource identifier object](http://jsonapi.org/format/#document-resource-identifier-objects).
 
 Property of:
 - [Document object](objects-document.md)
