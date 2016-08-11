@@ -174,7 +174,6 @@ class ParsingTest extends \PHPUnit_Framework_TestCase
 		$resources = $document->get('data');
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $resources);
-		$this->assertTrue($resources->isCollection());
 
 		$this->assertTrue(count($resources->asArray()) === 1);
 		$this->assertSame($resources->getKeys(), array(0));

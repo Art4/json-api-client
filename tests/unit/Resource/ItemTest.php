@@ -46,7 +46,6 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 		$item = new Item($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 		$item->parse($object);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $item);
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $item);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $item);
 		$this->assertSame($item->getKeys(), array('type', 'id'));
@@ -57,10 +56,6 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 		$this->assertFalse($item->has('attributes'));
 		$this->assertFalse($item->has('relationships'));
 		$this->assertFalse($item->has('links'));
-		$this->assertFalse($item->isNull());
-		$this->assertFalse($item->isIdentifier());
-		$this->assertTrue($item->isItem());
-		$this->assertFalse($item->isCollection());
 
 		// test get() with not existing key throws an exception
 		$this->assertFalse($item->has('something'));
@@ -89,7 +84,6 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 		$item = new Item($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 		$item->parse($object);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $item);
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $item);
 
 		$this->assertSame($item->get('type'), 'type');

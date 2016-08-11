@@ -174,7 +174,7 @@ final class Document implements DocumentInterface
 	 * @throws ValidationException If $data isn't null or an object
 	 *
 	 * @param null|object $data Data value
-	 * @return ResourceInterface The parsed data
+	 * @return ElementInterface The parsed data
 	 */
 	protected function parseData($data)
 	{

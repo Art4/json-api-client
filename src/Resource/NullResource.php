@@ -26,7 +26,7 @@ use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 /**
  * Null Resource
  */
-final class NullResource implements NullResourceInterface, ResourceInterface
+final class NullResource implements NullResourceInterface
 {
 	/**
 	 * Constructor need for mocking
@@ -90,45 +90,5 @@ final class NullResource implements NullResourceInterface, ResourceInterface
 	{
 		// Null can't converted into an array, because it has no keys
 		return null;
-	}
-
-	/**
-	 * Is this Resource a null resource?
-	 *
-	 * @return boolean true
-	 */
-	public function isNull()
-	{
-		return true;
-	}
-
-	/**
-	 * Is this Resource an identifier?
-	 *
-	 * @return boolean false
-	 */
-	public function isIdentifier()
-	{
-		return false;
-	}
-
-	/**
-	 * Is this Resource an item?
-	 *
-	 * @return boolean false
-	 */
-	public function isItem()
-	{
-		return false;
-	}
-
-	/**
-	 * Is this Resource a collection?
-	 *
-	 * @return boolean true
-	 */
-	public function isCollection()
-	{
-		return false;
 	}
 }

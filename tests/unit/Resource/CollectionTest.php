@@ -45,10 +45,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $collection);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $collection);
 
-		$this->assertFalse($collection->isNull());
-		$this->assertFalse($collection->isIdentifier());
-		$this->assertFalse($collection->isItem());
-		$this->assertTrue($collection->isCollection());
 		$this->assertTrue(count($collection->asArray()) === 0);
 		$this->assertSame($collection->getKeys(), array());
 		$this->assertFalse($collection->has(0));
@@ -73,7 +69,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $collection);
 
-		$this->assertTrue($collection->isCollection());
 		$this->assertCount(1, $collection->asArray());
 		$this->assertSame($collection->getKeys(), array(0));
 
@@ -106,7 +101,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $collection);
 
-		$this->assertTrue($collection->isCollection());
 		$this->assertTrue( count($collection->asArray()) === 3);
 		$this->assertSame($collection->getKeys(), array(0, 1, 2));
 
@@ -155,7 +149,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $collection);
 
-		$this->assertTrue($collection->isCollection());
 		$this->assertTrue( count($collection->asArray()) === 1);
 		$this->assertSame($collection->getKeys(), array(0));
 		$this->assertTrue($collection->has(0));

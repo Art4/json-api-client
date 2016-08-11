@@ -31,7 +31,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-resource-objects
  */
-final class IdentifierCollection implements IdentifierCollectionInterface, ResourceInterface
+final class IdentifierCollection implements IdentifierCollectionInterface
 {
 	use AccessTrait;
 
@@ -107,7 +107,7 @@ final class IdentifierCollection implements IdentifierCollectionInterface, Resou
 	 * Generate a new resource from an object
 	 *
 	 * @param object $data The resource data
-	 * @return ResourceInterface The resource
+	 * @return ElementInterface The resource
 	 */
 	protected function parseResource($data)
 	{
@@ -118,45 +118,5 @@ final class IdentifierCollection implements IdentifierCollectionInterface, Resou
 		$identifier->parse($data);
 
 		return $identifier;
-	}
-
-	/**
-	 * Is this Resource a null resource?
-	 *
-	 * @return boolean false
-	 */
-	public function isNull()
-	{
-		return false;
-	}
-
-	/**
-	 * Is this Resource an identifier?
-	 *
-	 * @return boolean false
-	 */
-	public function isIdentifier()
-	{
-		return false;
-	}
-
-	/**
-	 * Is this Resource an item?
-	 *
-	 * @return boolean false
-	 */
-	public function isItem()
-	{
-		return false;
-	}
-
-	/**
-	 * Is this Resource a collection?
-	 *
-	 * @return boolean true
-	 */
-	public function isCollection()
-	{
-		return true;
 	}
 }

@@ -46,7 +46,6 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
 		$identifier = new Identifier($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 		$identifier->parse($object);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $identifier);
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $identifier);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $identifier);
 		$this->assertSame($identifier->getKeys(), array('type', 'id'));
@@ -54,10 +53,6 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($identifier->get('type'), 'type');
 		$this->assertSame($identifier->get('id'), '789');
 		$this->assertFalse($identifier->has('meta'));
-		$this->assertFalse($identifier->isNull());
-		$this->assertTrue($identifier->isIdentifier());
-		$this->assertFalse($identifier->isItem());
-		$this->assertFalse($identifier->isCollection());
 
 		$this->assertSame($identifier->asArray(), array(
 			'type' => $identifier->get('type'),
@@ -83,7 +78,6 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
 		$identifier = new Identifier($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 		$identifier->parse($object);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ResourceInterface', $identifier);
 		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $identifier);
 
 		$this->assertSame($identifier->get('type'), 'types');

@@ -31,7 +31,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-resource-identifier-objects
  */
-final class Identifier implements IdentifierInterface, ResourceInterface
+final class Identifier implements IdentifierInterface
 {
 	use AccessTrait;
 
@@ -126,45 +126,5 @@ final class Identifier implements IdentifierInterface, ResourceInterface
 		{
 			throw new AccessException('"' . $key . '" doesn\'t exist in this identifier.');
 		}
-	}
-
-	/**
-	 * Is this Resource a null resource?
-	 *
-	 * @return boolean false
-	 */
-	public function isNull()
-	{
-		return false;
-	}
-
-	/**
-	 * Is this Resource an identifier?
-	 *
-	 * @return boolean true
-	 */
-	public function isIdentifier()
-	{
-		return true;
-	}
-
-	/**
-	 * Is this Resource an item?
-	 *
-	 * @return boolean false
-	 */
-	public function isItem()
-	{
-		return false;
-	}
-
-	/**
-	 * Is this Resource a collection?
-	 *
-	 * @return boolean false
-	 */
-	public function isCollection()
-	{
-		return false;
 	}
 }
