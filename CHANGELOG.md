@@ -8,10 +8,22 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Update license to GPLv3
 - **BREAKING**: Introducing the `ElementInterface` to seperate the parsing from the constructor
+- **BREAKING**: Rename `Art4\JsonApiClient\Resource\Collection` to `Art4\JsonApiClient\ResourceCollection`
+- **BREAKING**: Rename `Art4\JsonApiClient\Resource\CollectionInterface` to `Art4\JsonApiClient\ResourceCollectionInterface`
+- **BREAKING**: Rename `Art4\JsonApiClient\Resource\Identifier` to `Art4\JsonApiClient\ResourceIdentifier`
+- **BREAKING**: Rename `Art4\JsonApiClient\Resource\IdentifierInterface` to `Art4\JsonApiClient\ResourceIdentifierInterface`
+- **BREAKING**: Rename `Art4\JsonApiClient\Resource\IdentifierCollection` to `Art4\JsonApiClient\ResourceIdentifierCollection`
+- **BREAKING**: Rename `Art4\JsonApiClient\Resource\IdentifierCollectionInterface` to `Art4\JsonApiClient\ResourceIdentifierCollectionInterface`
+- **BREAKING**: Rename `Art4\JsonApiClient\Resource\Item` to `Art4\JsonApiClient\ResourceItem`
+- **BREAKING**: Rename `Art4\JsonApiClient\Resource\ItemInterface` to `Art4\JsonApiClient\ResourceItemInterface`
+- **BREAKING**: Rename `Art4\JsonApiClient\Resource\ItemLink` to `Art4\JsonApiClient\ResourceItemLink`
+- **BREAKING**: Rename `Art4\JsonApiClient\Resource\ItemLinkInterface` to `Art4\JsonApiClient\ResourceItemLinkInterface`
+- **BREAKING**: Rename `Art4\JsonApiClient\Resource\NullResource` to `Art4\JsonApiClient\ResourceNull`
+- **BREAKING**: Rename `Art4\JsonApiClient\Resource\NullResourceInterface` to `Art4\JsonApiClient\ResourceNullInterface`
 
 ### Removed
 
-- **BREAKING**: The `Resource\ResourceInterface` and its methods were removed
+- **BREAKING**: Remove the `Resource\ResourceInterface` and its methods
 
 ## [0.6.3] - 2016-04-26
 
