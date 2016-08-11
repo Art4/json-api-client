@@ -6,8 +6,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 ### Changed
-
+- Update license to GPLv3
 - **BREAKING**: Introducing the `ElementInterface` to seperate the parsing from the constructor
+
+### Removed
+
+- **BREAKING**: The `Resource\ResourceInterface` and its methods were removed
 
 ## [0.6.3] - 2016-04-26
 
