@@ -17,16 +17,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient\Resource;
+namespace Art4\JsonApiClient;
 
-use Art4\JsonApiClient\AccessInterface;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 
 /**
  * Null Resource
  */
-final class NullResource implements NullResourceInterface
+final class ResourceNull implements ResourceNullInterface
 {
 	/**
 	 * Constructor need for mocking
@@ -78,7 +77,7 @@ final class NullResource implements NullResourceInterface
 	 */
 	public function get($key)
 	{
-		throw new AccessException('A NullResource has no values.');
+		throw new AccessException('A ResourceNull has no values.');
 	}
 
 	/**

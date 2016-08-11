@@ -17,9 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient\Resource;
+namespace Art4\JsonApiClient;
 
-use Art4\JsonApiClient\AccessInterface;
 use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Utils\DataContainer;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
@@ -31,7 +30,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-resource-objects
  */
-final class Item implements ItemInterface
+final class ResourceIdentifierCollection implements ResourceIdentifierCollectionInterface
 {
 	use AccessTrait;
 
@@ -39,6 +38,11 @@ final class Item implements ItemInterface
 	 * @var DataContainerInterface
 	 */
 	protected $container;
+
+	/**
+	 * @var FactoryManagerInterface
+	 */
+	protected $manager;
 
 	/**
 	 * Sets the manager and parent
@@ -64,83 +68,24 @@ final class Item implements ItemInterface
 	 */
 	public function parse($object)
 	{
-		if ( ! is_object($object) )
+		if ( ! is_array($object) )
 		{
-			throw new ValidationException('Resource has to be an object, "' . gettype($object) . '" given.');
+			throw new ValidationException('Resources for a collection has to be in an array, "' . gettype($object) . '" given.');
 		}
 
-		if ( ! property_exists($object, 'type') )
+		if ( count($object) > 0 )
 		{
-			throw new ValidationException('A resource object MUST contain a type');
-		}
-
-		if ( ! property_exists($object, 'id') )
-		{
-			throw new ValidationException('A resource object MUST contain an id');
-		}
-
-		if ( is_object($object->type) or is_array($object->type)  )
-		{
-			throw new ValidationException('Resource type cannot be an array or object');
-		}
-
-		if ( is_object($object->id) or is_array($object->id)  )
-		{
-			throw new ValidationException('Resource id cannot be an array or object');
-		}
-
-		$this->container->set('type', strval($object->type));
-		$this->container->set('id', strval($object->id));
-
-		if ( property_exists($object, 'meta') )
-		{
-			$meta = $this->manager->getFactory()->make(
-				'Meta',
-				[$this->manager, $this]
-			);
-			$meta->parse($object->meta);
-
-			$this->container->set('meta', $meta);
-		}
-
-		if ( property_exists($object, 'attributes') )
-		{
-			$attributes = $this->manager->getFactory()->make(
-				'Attributes',
-				[$this->manager]
-			);
-			$attributes->parse($object->attributes);
-
-			$this->container->set('attributes', $attributes);
-		}
-
-		if ( property_exists($object, 'relationships') )
-		{
-			$relationships = $this->manager->getFactory()->make(
-				'RelationshipCollection',
-				[$this->manager, $this]
-			);
-			$relationships->parse($object->relationships);
-
-			$this->container->set('relationships', $relationships);
-		}
-
-		if ( property_exists($object, 'links') )
-		{
-			$link = $this->manager->getFactory()->make(
-				'Resource\ItemLink',
-				[$this->manager, $this]
-			);
-			$link->parse($object->links);
-
-			$this->container->set('links', $link);
+			foreach ($object as $resource)
+			{
+				$this->container->set('', $this->parseResource($resource));
+			}
 		}
 
 		return $this;
 	}
 
 	/**
-	 * Get a value by the key of this object
+	 * Get a value by the key of this document
 	 *
 	 * @param string $key The key of the value
 	 * @return mixed The value
@@ -155,5 +100,22 @@ final class Item implements ItemInterface
 		{
 			throw new AccessException('"' . $key . '" doesn\'t exist in this resource.');
 		}
+	}
+
+	/**
+	 * Generate a new resource from an object
+	 *
+	 * @param object $data The resource data
+	 * @return ElementInterface The resource
+	 */
+	protected function parseResource($data)
+	{
+		$identifier = $resource = $this->manager->getFactory()->make(
+			'ResourceIdentifier',
+			[$this->manager, $this]
+		);
+		$identifier->parse($data);
+
+		return $identifier;
 	}
 }

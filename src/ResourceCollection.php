@@ -17,9 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient\Resource;
+namespace Art4\JsonApiClient;
 
-use Art4\JsonApiClient\AccessInterface;
 use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Utils\DataContainer;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
@@ -31,7 +30,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-resource-objects
  */
-final class Collection implements CollectionInterface
+final class ResourceCollection implements ResourceCollectionInterface
 {
 	use AccessTrait;
 
@@ -123,7 +122,7 @@ final class Collection implements CollectionInterface
 		if ( count($object_vars) === 2 or ( count($object_vars) === 3 and property_exists($data, 'meta') ) )
 		{
 			$resource = $this->manager->getFactory()->make(
-				'Resource\Identifier',
+				'ResourceIdentifier',
 				[$this->manager, $this]
 			);
 			$resource->parse($data);
@@ -131,7 +130,7 @@ final class Collection implements CollectionInterface
 		else
 		{
 			$resource = $this->manager->getFactory()->make(
-				'Resource\Item',
+				'ResourceItem',
 				[$this->manager, $this]
 			);
 			$resource->parse($data);

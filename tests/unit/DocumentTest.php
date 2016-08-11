@@ -159,7 +159,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertTrue($document->has('data'));
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\IdentifierInterface', $document->get('data'));
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifierInterface', $document->get('data'));
 	}
 
 	/**
@@ -181,7 +181,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 
 		$this->assertTrue($document->has('data'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\IdentifierInterface', $document->get('data'));
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifierInterface', $document->get('data'));
 	}
 
 	/**
@@ -204,7 +204,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertTrue($document->has('data'));
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ItemInterface', $document->get('data'));
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceItemInterface', $document->get('data'));
 	}
 
 	/**
@@ -225,7 +225,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertTrue($document->has('data'));
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\CollectionInterface', $document->get('data'));
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceCollectionInterface', $document->get('data'));
 	}
 
 	/**
@@ -248,7 +248,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertTrue($document->has('data'));
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\CollectionInterface', $document->get('data'));
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceCollectionInterface', $document->get('data'));
 	}
 
 	/**
@@ -278,7 +278,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 
 			$collection = $document->get('data');
 
-			$this->assertInstanceOf('Art4\JsonApiClient\Resource\CollectionInterface', $collection);
+			$this->assertInstanceOf('Art4\JsonApiClient\ResourceCollectionInterface', $collection);
 
 			return;
 		}
@@ -295,7 +295,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 			$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 			$this->assertTrue($document->has('data'));
 
-			$this->assertInstanceOf('Art4\JsonApiClient\Resource\NullResourceInterface', $document->get('data'));
+			$this->assertInstanceOf('Art4\JsonApiClient\ResourceNullInterface', $document->get('data'));
 
 			return;
 		}
@@ -430,7 +430,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 
 		$resources = $document->get('included');
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\CollectionInterface', $resources);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceCollectionInterface', $resources);
 	}
 
 	/**

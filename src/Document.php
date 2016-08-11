@@ -117,7 +117,7 @@ final class Document implements DocumentInterface
 			}
 
 			$collection = $this->manager->getFactory()->make(
-				'Resource\Collection',
+				'ResourceCollection',
 				[$this->manager, $this]
 			);
 			$collection->parse($object->included);
@@ -181,7 +181,7 @@ final class Document implements DocumentInterface
 		if ( $data === null )
 		{
 			$resource = $this->manager->getFactory()->make(
-				'Resource\NullResource',
+				'ResourceNull',
 				[$this->manager, $this]
 			);
 			$resource->parse($data);
@@ -192,7 +192,7 @@ final class Document implements DocumentInterface
 		if ( is_array($data) )
 		{
 			$collection =  $this->manager->getFactory()->make(
-				'Resource\Collection',
+				'ResourceCollection',
 				[$this->manager, $this]
 			);
 			$collection->parse($data);
@@ -212,7 +212,7 @@ final class Document implements DocumentInterface
 		if ( count($object_vars) === 2 or (count($object_vars) === 3 and property_exists($data, 'meta')) )
 		{
 			$resource = $this->manager->getFactory()->make(
-				'Resource\Identifier',
+				'ResourceIdentifier',
 				[$this->manager, $this]
 			);
 			$resource->parse($data);
@@ -220,7 +220,7 @@ final class Document implements DocumentInterface
 		else
 		{
 			$resource = $this->manager->getFactory()->make(
-				'Resource\Item',
+				'ResourceItem',
 				[$this->manager, $this]
 			);
 			$resource->parse($data);

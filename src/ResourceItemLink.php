@@ -17,10 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient\Resource;
+namespace Art4\JsonApiClient;
 
-use Art4\JsonApiClient\AccessInterface;
-use Art4\JsonApiClient\Resource\ItemLinkInterface;
 use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Utils\DataContainer;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
@@ -32,7 +30,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-links
  */
-final class ItemLink implements ItemLinkInterface
+final class ResourceItemLink implements ResourceItemLinkInterface
 {
 	use AccessTrait;
 

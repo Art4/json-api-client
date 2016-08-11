@@ -17,9 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient\Resource;
+namespace Art4\JsonApiClient;
 
-use Art4\JsonApiClient\AccessInterface;
 use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Utils\DataContainer;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
@@ -27,11 +26,11 @@ use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
- * Resource Object
+ * Resource Identifier Object
  *
- * @see http://jsonapi.org/format/#document-resource-objects
+ * @see http://jsonapi.org/format/#document-resource-identifier-objects
  */
-final class IdentifierCollection implements IdentifierCollectionInterface
+final class ResourceIdentifier implements ResourceIdentifierInterface
 {
 	use AccessTrait;
 
@@ -46,10 +45,11 @@ final class IdentifierCollection implements IdentifierCollectionInterface
 	protected $manager;
 
 	/**
-	 * Sets the manager and parent
+	 * @param object $object The error object
 	 *
-	 * @param FactoryManagerInterface $manager The manager
-	 * @param AccessInterface $parent The parent
+	 * @return self
+	 *
+	 * @throws ValidationException
 	 */
 	public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
 	{
@@ -59,9 +59,7 @@ final class IdentifierCollection implements IdentifierCollectionInterface
 	}
 
 	/**
-	 * Parses the data for this element
-	 *
-	 * @param mixed $object The data
+	 * @param object $object The error object
 	 *
 	 * @return self
 	 *
@@ -69,24 +67,50 @@ final class IdentifierCollection implements IdentifierCollectionInterface
 	 */
 	public function parse($object)
 	{
-		if ( ! is_array($object) )
+		if ( ! is_object($object) )
 		{
-			throw new ValidationException('Resources for a collection has to be in an array, "' . gettype($object) . '" given.');
+			throw new ValidationException('Resource has to be an object, "' . gettype($object) . '" given.');
 		}
 
-		if ( count($object) > 0 )
+		if ( ! property_exists($object, 'type') )
 		{
-			foreach ($object as $resource)
-			{
-				$this->container->set('', $this->parseResource($resource));
-			}
+			throw new ValidationException('A resource object MUST contain a type');
+		}
+
+		if ( ! property_exists($object, 'id') )
+		{
+			throw new ValidationException('A resource object MUST contain an id');
+		}
+
+		if ( is_object($object->type) or is_array($object->type)  )
+		{
+			throw new ValidationException('Resource type cannot be an array or object');
+		}
+
+		if ( is_object($object->id) or is_array($object->id)  )
+		{
+			throw new ValidationException('Resource Id cannot be an array or object');
+		}
+
+		$this->container->set('type', strval($object->type));
+		$this->container->set('id', strval($object->id));
+
+		if ( property_exists($object, 'meta') )
+		{
+			$meta = $this->manager->getFactory()->make(
+				'Meta',
+				[$this->manager, $this]
+			);
+			$meta->parse($object->meta);
+
+			$this->container->set('meta', $meta);
 		}
 
 		return $this;
 	}
 
 	/**
-	 * Get a value by the key of this document
+	 * Get a value by the key of this object
 	 *
 	 * @param string $key The key of the value
 	 * @return mixed The value
@@ -99,24 +123,7 @@ final class IdentifierCollection implements IdentifierCollectionInterface
 		}
 		catch (AccessException $e)
 		{
-			throw new AccessException('"' . $key . '" doesn\'t exist in this resource.');
+			throw new AccessException('"' . $key . '" doesn\'t exist in this identifier.');
 		}
-	}
-
-	/**
-	 * Generate a new resource from an object
-	 *
-	 * @param object $data The resource data
-	 * @return ElementInterface The resource
-	 */
-	protected function parseResource($data)
-	{
-		$identifier = $resource = $this->manager->getFactory()->make(
-			'Resource\Identifier',
-			[$this->manager, $this]
-		);
-		$identifier->parse($data);
-
-		return $identifier;
 	}
 }

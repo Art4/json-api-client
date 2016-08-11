@@ -17,12 +17,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient\Resource\Tests;
+namespace Art4\JsonApiClient\Tests;
 
-use Art4\JsonApiClient\Resource\Item;
+use Art4\JsonApiClient\ResourceItem;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 
-class ItemTest extends \PHPUnit_Framework_TestCase
+class ResourceItemTest extends \PHPUnit_Framework_TestCase
 {
 	use HelperTrait;
 
@@ -43,10 +43,10 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 		$object->type = 'type';
 		$object->id = 789;
 
-		$item = new Item($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$item = new ResourceItem($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 		$item->parse($object);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $item);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceItem', $item);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $item);
 		$this->assertSame($item->getKeys(), array('type', 'id'));
 
@@ -81,10 +81,10 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 		$object->relationships = new \stdClass();
 		$object->links = new \stdClass();
 
-		$item = new Item($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$item = new ResourceItem($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 		$item->parse($object);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $item);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceItem', $item);
 
 		$this->assertSame($item->get('type'), 'type');
 		$this->assertSame($item->get('id'), '789');
@@ -95,7 +95,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue($item->has('relationships'));
 		$this->assertInstanceOf('Art4\JsonApiClient\RelationshipCollectionInterface', $item->get('relationships'));
 		$this->assertTrue($item->has('links'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ItemLinkInterface', $item->get('links'));
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceItemLinkInterface', $item->get('links'));
 		$this->assertSame($item->getKeys(), array('type', 'id', 'meta', 'attributes', 'relationships', 'links'));
 
 		$this->assertSame($item->asArray(), array(
@@ -129,7 +129,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 		$object->type = $input;
 		$object->id = '753';
 
-		$item = new Item($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$item = new ResourceItem($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 
 		if ( gettype($input) === 'object' or gettype($input) === 'array' )
 		{
@@ -155,7 +155,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 		$object->type = 'posts';
 		$object->id = $input;
 
-		$item = new Item($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$item = new ResourceItem($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 
 		if ( gettype($input) === 'object' or gettype($input) === 'array' )
 		{
@@ -183,7 +183,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
-		$item = new Item($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$item = new ResourceItem($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
@@ -201,7 +201,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->id = 123;
 
-		$item = new Item($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$item = new ResourceItem($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
@@ -219,7 +219,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->type = 'type';
 
-		$item = new Item($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$item = new ResourceItem($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',

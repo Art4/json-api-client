@@ -17,9 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient\Resource;
+namespace Art4\JsonApiClient;
 
-use Art4\JsonApiClient\AccessInterface;
 use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Utils\DataContainer;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
@@ -27,11 +26,11 @@ use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
- * Resource Identifier Object
+ * Resource Object
  *
- * @see http://jsonapi.org/format/#document-resource-identifier-objects
+ * @see http://jsonapi.org/format/#document-resource-objects
  */
-final class Identifier implements IdentifierInterface
+final class ResourceItem implements ResourceItemInterface
 {
 	use AccessTrait;
 
@@ -41,16 +40,10 @@ final class Identifier implements IdentifierInterface
 	protected $container;
 
 	/**
-	 * @var FactoryManagerInterface
-	 */
-	protected $manager;
-
-	/**
-	 * @param object $object The error object
+	 * Sets the manager and parent
 	 *
-	 * @return self
-	 *
-	 * @throws ValidationException
+	 * @param FactoryManagerInterface $manager The manager
+	 * @param AccessInterface $parent The parent
 	 */
 	public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
 	{
@@ -60,7 +53,9 @@ final class Identifier implements IdentifierInterface
 	}
 
 	/**
-	 * @param object $object The error object
+	 * Parses the data for this element
+	 *
+	 * @param mixed $object The data
 	 *
 	 * @return self
 	 *
@@ -90,7 +85,7 @@ final class Identifier implements IdentifierInterface
 
 		if ( is_object($object->id) or is_array($object->id)  )
 		{
-			throw new ValidationException('Resource Id cannot be an array or object');
+			throw new ValidationException('Resource id cannot be an array or object');
 		}
 
 		$this->container->set('type', strval($object->type));
@@ -105,6 +100,39 @@ final class Identifier implements IdentifierInterface
 			$meta->parse($object->meta);
 
 			$this->container->set('meta', $meta);
+		}
+
+		if ( property_exists($object, 'attributes') )
+		{
+			$attributes = $this->manager->getFactory()->make(
+				'Attributes',
+				[$this->manager]
+			);
+			$attributes->parse($object->attributes);
+
+			$this->container->set('attributes', $attributes);
+		}
+
+		if ( property_exists($object, 'relationships') )
+		{
+			$relationships = $this->manager->getFactory()->make(
+				'RelationshipCollection',
+				[$this->manager, $this]
+			);
+			$relationships->parse($object->relationships);
+
+			$this->container->set('relationships', $relationships);
+		}
+
+		if ( property_exists($object, 'links') )
+		{
+			$link = $this->manager->getFactory()->make(
+				'ResourceItemLink',
+				[$this->manager, $this]
+			);
+			$link->parse($object->links);
+
+			$this->container->set('links', $link);
 		}
 
 		return $this;
@@ -124,7 +152,7 @@ final class Identifier implements IdentifierInterface
 		}
 		catch (AccessException $e)
 		{
-			throw new AccessException('"' . $key . '" doesn\'t exist in this identifier.');
+			throw new AccessException('"' . $key . '" doesn\'t exist in this resource.');
 		}
 	}
 }

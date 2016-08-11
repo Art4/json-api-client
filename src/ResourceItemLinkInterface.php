@@ -17,11 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient\Resource;
-
-use Art4\JsonApiClient\ElementInterface;
+namespace Art4\JsonApiClient;
 
 /**
- * Resource\ItemLink Interface
+ * ResourceItemLink Interface
  */
-interface ItemLinkInterface extends ElementInterface { }
+interface ResourceItemLinkInterface extends ElementInterface { }

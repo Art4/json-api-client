@@ -34,7 +34,7 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 		$this->manager = $this->buildManagerMock();
 
 		// Mock identifier collection
-		$collection = $this->getMockBuilder('Art4\JsonApiClient\Resource\IdentifierCollectionInterface')
+		$collection = $this->getMockBuilder('Art4\JsonApiClient\ResourceIdentifierCollectionInterface')
 			->getMock();
 
 		// Mock Relationship with data
@@ -208,7 +208,7 @@ class RelationshipLinkTest extends \PHPUnit_Framework_TestCase
 			->will($this->returnValue(true));
 
 		// Mock identifier item
-		$data = $this->getMockBuilder('Art4\JsonApiClient\Resource\IdentifierInterface')
+		$data = $this->getMockBuilder('Art4\JsonApiClient\ResourceIdentifierInterface')
 			->getMock();
 
 		$relationship->expects($this->any())

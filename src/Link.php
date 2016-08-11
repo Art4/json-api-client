@@ -19,7 +19,6 @@
 
 namespace Art4\JsonApiClient;
 
-use Art4\JsonApiClient\Resource\ItemInterface;
 use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Utils\DataContainer;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;

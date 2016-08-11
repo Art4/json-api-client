@@ -133,7 +133,7 @@ final class Relationship implements RelationshipInterface
 	 * @throws ValidationException If $data isn't null or an object
 	 *
 	 * @param null|array|object $data Data value
-	 * @return null|Resource\Identifier|Resource\IdentifierCollection The parsed data
+	 * @return null|ResourceIdentifier|ResourceIdentifierCollection The parsed data
 	 */
 	protected function parseData($data)
 	{
@@ -145,7 +145,7 @@ final class Relationship implements RelationshipInterface
 		if ( is_array($data) )
 		{
 			$collection = $this->manager->getFactory()->make(
-				'Resource\IdentifierCollection',
+				'ResourceIdentifierCollection',
 				[$this->manager, $this]
 			);
 			$collection->parse($data);
@@ -154,7 +154,7 @@ final class Relationship implements RelationshipInterface
 		}
 
 		$identifier = $this->manager->getFactory()->make(
-			'Resource\Identifier',
+			'ResourceIdentifier',
 			[$this->manager, $this]
 		);
 		$identifier->parse($data);

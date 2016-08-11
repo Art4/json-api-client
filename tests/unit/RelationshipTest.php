@@ -158,7 +158,7 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($relationship->getKeys(), array('data'));
 		$this->assertTrue($relationship->has('data'));
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\IdentifierInterface', $relationship->get('data'));
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifierInterface', $relationship->get('data'));
 	}
 
 	/**
@@ -200,7 +200,7 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase
 
 		$resources = $relationship->get('data');
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\IdentifierCollectionInterface', $resources);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifierCollectionInterface', $resources);
 	}
 
 	/**
@@ -220,7 +220,7 @@ class RelationshipTest extends \PHPUnit_Framework_TestCase
 
 		$resources = $relationship->get('data');
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\IdentifierCollectionInterface', $resources);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifierCollectionInterface', $resources);
 	}
 
 	/**

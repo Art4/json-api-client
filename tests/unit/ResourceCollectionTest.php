@@ -17,12 +17,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient\Resource\Tests;
+namespace Art4\JsonApiClient\Tests;
 
-use Art4\JsonApiClient\Resource\Collection;
+use Art4\JsonApiClient\ResourceCollection;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 
-class CollectionTest extends \PHPUnit_Framework_TestCase
+class ResourceCollectionTest extends \PHPUnit_Framework_TestCase
 {
 	use HelperTrait;
 
@@ -39,10 +39,10 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreateWithEmptyArray()
 	{
-		$collection = new Collection($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$collection = new ResourceCollection($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 		$collection->parse(array());
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $collection);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceCollection', $collection);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $collection);
 
 		$this->assertTrue(count($collection->asArray()) === 0);
@@ -64,10 +64,10 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 		$object->type = 'type';
 		$object->id = 789;
 
-		$collection = new Collection($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$collection = new ResourceCollection($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 		$collection->parse(array($object));
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $collection);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceCollection', $collection);
 
 		$this->assertCount(1, $collection->asArray());
 		$this->assertSame($collection->getKeys(), array(0));
@@ -75,7 +75,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue($collection->has(0));
 		$resource = $collection->get(0);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\IdentifierInterface', $resource);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifierInterface', $resource);
 
 		$this->assertSame($collection->asArray(), array(
 			$collection->get(0),
@@ -96,10 +96,10 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 		$object->id = 789;
 		$object->meta = new \stdClass();
 
-		$collection = new Collection($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$collection = new ResourceCollection($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 		$collection->parse(array($object, $object, $object));
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $collection);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceCollection', $collection);
 
 		$this->assertTrue( count($collection->asArray()) === 3);
 		$this->assertSame($collection->getKeys(), array(0, 1, 2));
@@ -107,17 +107,17 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue($collection->has(0));
 		$resource = $collection->get(0);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\IdentifierInterface', $resource);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifierInterface', $resource);
 
 		$this->assertTrue($collection->has(1));
 		$resource = $collection->get(1);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\IdentifierInterface', $resource);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifierInterface', $resource);
 
 		$this->assertTrue($collection->has(2));
 		$resource = $collection->get(2);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\IdentifierInterface', $resource);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifierInterface', $resource);
 
 		$this->assertSame($collection->asArray(), array(
 			$collection->get(0),
@@ -144,10 +144,10 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 		$object->relationships = new \stdClass();
 		$object->links = new \stdClass();
 
-		$collection = new Collection($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$collection = new ResourceCollection($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 		$collection->parse(array($object));
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $collection);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceCollection', $collection);
 
 		$this->assertTrue( count($collection->asArray()) === 1);
 		$this->assertSame($collection->getKeys(), array(0));
@@ -155,7 +155,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
 		$resource = $collection->get(0);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ItemInterface', $resource);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceItemInterface', $resource);
 	}
 
 	/**
@@ -163,12 +163,12 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreateWithoutArrayThrowsException($input)
 	{
-		$collection = new Collection($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$collection = new ResourceCollection($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 
 		// Input must be an array
 		if ( gettype($input) === 'array' )
 		{
-			$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $collection->parse($input));
+			$this->assertInstanceOf('Art4\JsonApiClient\ResourceCollection', $collection->parse($input));
 
 			return;
 		}
@@ -192,7 +192,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
-		$collection = new Collection($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$collection = new ResourceCollection($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
@@ -207,10 +207,10 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetResourcesWithEmptyCollectionThrowsException()
 	{
-		$collection = new Collection($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$collection = new ResourceCollection($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 		$collection->parse(array());
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $collection);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceCollection', $collection);
 
 		$this->assertFalse($collection->has(0));
 

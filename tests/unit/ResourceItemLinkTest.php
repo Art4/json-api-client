@@ -17,12 +17,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient\Resource\Tests;
+namespace Art4\JsonApiClient\Tests;
 
-use Art4\JsonApiClient\Resource\ItemLink;
+use Art4\JsonApiClient\ResourceItemLink;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 
-class ItemLinkTest extends \PHPUnit_Framework_TestCase
+class ResourceItemLinkTest extends \PHPUnit_Framework_TestCase
 {
 	use HelperTrait;
 
@@ -48,10 +48,10 @@ class ItemLinkTest extends \PHPUnit_Framework_TestCase
 		$object->custom = 'http://example.org/custom';
 		$object->related = new \stdClass();
 
-		$link = new ItemLink($this->manager, $this->parent);
+		$link = new ResourceItemLink($this->manager, $this->parent);
 		$link->parse($object);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ItemLink', $link);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceItemLink', $link);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $link);
 		$this->assertSame($link->getKeys(), array('self', 'custom', 'related'));
 
@@ -82,7 +82,7 @@ class ItemLinkTest extends \PHPUnit_Framework_TestCase
 			return;
 		}
 
-		$link = new ItemLink($this->manager, $this->parent);
+		$link = new ResourceItemLink($this->manager, $this->parent);
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
@@ -108,7 +108,7 @@ class ItemLinkTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->input = $input;
 
-		$link = new ItemLink($this->manager, $this->parent);
+		$link = new ResourceItemLink($this->manager, $this->parent);
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
@@ -126,7 +126,7 @@ class ItemLinkTest extends \PHPUnit_Framework_TestCase
 		$object = new \stdClass();
 		$object->self = 'http://example.org/self';
 
-		$link = new ItemLink($this->manager, $this->parent);
+		$link = new ResourceItemLink($this->manager, $this->parent);
 		$link->parse($object);
 
 		$this->assertFalse($link->has('something'));

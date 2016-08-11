@@ -17,12 +17,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient\Resource\Tests;
+namespace Art4\JsonApiClient\Tests;
 
-use Art4\JsonApiClient\Resource\NullResource;
+use Art4\JsonApiClient\ResourceNull;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 
-class NullTest extends \PHPUnit_Framework_TestCase
+class ResourceNullTest extends \PHPUnit_Framework_TestCase
 {
 	use HelperTrait;
 
@@ -39,10 +39,10 @@ class NullTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreateWithDataProvider($input)
 	{
-		$resource = new NullResource($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$resource = new ResourceNull($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 		$resource->parse($input);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\NullResource', $resource);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceNull', $resource);
 		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $resource);
 
 		$this->assertFalse($resource->has('something'));
@@ -59,12 +59,12 @@ class NullTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetThrowsException()
 	{
-		$resource = new NullResource($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$resource = new ResourceNull($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 		$resource->parse(null);
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\AccessException',
-			'A NullResource has no values.'
+			'A ResourceNull has no values.'
 		);
 
 		$resource->get('something');

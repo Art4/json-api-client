@@ -44,7 +44,7 @@ class ParsingTest extends \PHPUnit_Framework_TestCase
 
 		$resource = $document->get('data');
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $resource);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceItem', $resource);
 		$this->assertFalse($resource->has('meta'));
 		$this->assertSame($resource->get('type'), 'articles');
 		$this->assertSame($resource->get('id'), '1');
@@ -75,7 +75,7 @@ class ParsingTest extends \PHPUnit_Framework_TestCase
 
 		$resource = $document->get('data');
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $resource);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $resource);
 		$this->assertFalse($resource->has('meta'));
 		$this->assertSame($resource->get('type'), 'articles');
 		$this->assertSame($resource->get('id'), '1');
@@ -102,7 +102,7 @@ class ParsingTest extends \PHPUnit_Framework_TestCase
 
 		$resource = $document->get('data');
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $resource);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceItem', $resource);
 		$this->assertTrue($resource->has('meta'));
 		$this->assertSame($resource->get('type'), 'articles');
 		$this->assertSame($resource->get('id'), '1');
@@ -142,12 +142,12 @@ class ParsingTest extends \PHPUnit_Framework_TestCase
 
 		$data = $author->get('data');
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $data);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $data);
 		$this->assertSame($data->get('type'), 'people');
 		$this->assertSame($data->get('id'), '9');
 		$data = $author->get('data');
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $data);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $data);
 		$this->assertSame($data->get('type'), 'people');
 		$this->assertSame($data->get('id'), '9');
 
@@ -173,7 +173,7 @@ class ParsingTest extends \PHPUnit_Framework_TestCase
 
 		$resources = $document->get('data');
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $resources);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceCollection', $resources);
 
 		$this->assertTrue(count($resources->asArray()) === 1);
 		$this->assertSame($resources->getKeys(), array(0));
@@ -216,7 +216,7 @@ class ParsingTest extends \PHPUnit_Framework_TestCase
 
 		$data = $author->get('data');
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $data);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $data);
 		$this->assertSame($data->get('type'), 'people');
 		$this->assertSame($data->get('id'), '9');
 
@@ -236,36 +236,36 @@ class ParsingTest extends \PHPUnit_Framework_TestCase
 
 		$data_array = $comments->get('data');
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\IdentifierCollection', $data_array);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifierCollection', $data_array);
 		$this->assertCount(2, $data_array->getKeys());
 
 		$identifier = $data_array->get(0);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $identifier);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $identifier);
 		$this->assertSame($identifier->get('type'), 'comments');
 		$this->assertSame($identifier->get('id'), '5');
 
 		$identifier = $data_array->get(1);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $identifier);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $identifier);
 		$this->assertSame($identifier->get('type'), 'comments');
 		$this->assertSame($identifier->get('id'), '12');
 
 		$links = $resource->get('links');
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ItemLink', $links);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceItemLink', $links);
 		$this->assertTrue($links->has('self'));
 		$this->assertSame($links->get('self'), 'http://example.com/articles/1');
 
 		$includes = $document->get('included');
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $includes);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceCollection', $includes);
 		$this->assertSame($includes->getKeys(), array(0, 1, 2));
 
 		$this->assertTrue($includes->has(0));
 		$include = $includes->get(0);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $include);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceItem', $include);
 		$this->assertSame($include->get('type'), 'people');
 		$this->assertSame($include->get('id'), '9');
 		$this->assertTrue($include->has('attributes'));
@@ -283,14 +283,14 @@ class ParsingTest extends \PHPUnit_Framework_TestCase
 
 		$links = $include->get('links');
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ItemLink', $links);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceItemLink', $links);
 		$this->assertTrue($links->has('self'));
 		$this->assertSame($links->get('self'), 'http://example.com/people/9');
 
 		$this->assertTrue($includes->has(1));
 		$include = $includes->get(1);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $include);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceItem', $include);
 		$this->assertSame($include->get('type'), 'comments');
 		$this->assertSame($include->get('id'), '5');
 		$this->assertTrue($include->has('attributes'));
@@ -304,14 +304,14 @@ class ParsingTest extends \PHPUnit_Framework_TestCase
 
 		$links = $include->get('links');
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ItemLink', $links);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceItemLink', $links);
 		$this->assertTrue($links->has('self'));
 		$this->assertSame($links->get('self'), 'http://example.com/comments/5');
 
 		$this->assertTrue($includes->has(2));
 		$include = $includes->get(2);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $include);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceItem', $include);
 		$this->assertSame($include->get('type'), 'comments');
 		$this->assertSame($include->get('id'), '12');
 		$this->assertTrue($include->has('attributes'));
@@ -325,7 +325,7 @@ class ParsingTest extends \PHPUnit_Framework_TestCase
 
 		$links = $include->get('links');
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ItemLink', $links);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceItemLink', $links);
 		$this->assertTrue($links->has('self'));
 		$this->assertSame($links->get('self'), 'http://example.com/comments/12');
 
@@ -348,13 +348,13 @@ class ParsingTest extends \PHPUnit_Framework_TestCase
 
 		$resource_collection = $document->get('data');
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $resource_collection);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceCollection', $resource_collection);
 		$this->assertTrue($resource_collection->has(0));
 		$this->assertFalse($resource_collection->has(1));
 
 		$resource = $resource_collection->get(0);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $resource);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceItem', $resource);
 		$this->assertFalse($resource->has('meta'));
 		$this->assertSame($resource->get('type'), 'articles');
 		$this->assertSame($resource->get('id'), '3');
@@ -401,11 +401,11 @@ class ParsingTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertTrue($document->has('data'));
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $document->get('data'));
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceCollection', $document->get('data'));
 		$this->assertTrue($document->has('data.0'));
 		$this->assertFalse($document->has('data.1'));
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $document->get('data.0'));
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceItem', $document->get('data.0'));
 		$this->assertFalse($document->has('data.0.meta'));
 		$this->assertSame($document->get('data.0.type'), 'articles');
 		$this->assertSame($document->get('data.0.id'), '1');
@@ -523,7 +523,7 @@ class ParsingTest extends \PHPUnit_Framework_TestCase
 
 		$resource = $document->get('data');
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $resource);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $resource);
 		$this->assertTrue($resource->has('meta'));
 		$this->assertTrue($resource->has('meta.foo'));
 		$this->assertSame($resource->get('meta.foo'), 'bar');
@@ -552,7 +552,7 @@ class ParsingTest extends \PHPUnit_Framework_TestCase
 
 		$resource = $document->get('data');
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\NullResourceInterface', $resource);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceNullInterface', $resource);
 
 		// Test full array
 		$this->assertEquals(json_decode($string, true), $document->asArray(true));
@@ -575,19 +575,19 @@ class ParsingTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue($document->has('data'));
 
 		$collection = $document->get('data');
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $collection);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceCollection', $collection);
 
 		$this->assertTrue($collection->has('0'));
 		$resource0 = $collection->get('0');
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $resource0);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $resource0);
 		$this->assertSame($resource0->get('type'), 'articles');
 		$this->assertSame($resource0->get('id'), '1');
 
 		$this->assertTrue($collection->has('1'));
 		$resource1 = $collection->get('1');
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $resource1);
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $resource1);
 		$this->assertTrue($resource1->has('meta'));
 		$this->assertTrue($resource1->has('meta.foo'));
 		$this->assertSame($resource1->get('meta.foo'), 'bar');

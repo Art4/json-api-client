@@ -37,10 +37,10 @@ class DotNotationTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 
 		$this->assertTrue($document->has('data'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $document->get('data'));
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceCollection', $document->get('data'));
 
 		$this->assertTrue($document->has('data.0'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $document->get('data.0'));
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceItem', $document->get('data.0'));
 		$this->assertFalse($document->has('data.1'));
 
 		$this->assertTrue($document->has('data.0.type'));
@@ -56,7 +56,7 @@ class DotNotationTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($document->get('data.0.attributes.title'), 'JSON API paints my bikeshed!');
 
 		$this->assertTrue($document->has('data.0.links'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ItemLink', $document->get('data.0.links'));
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceItemLink', $document->get('data.0.links'));
 
 		$this->assertTrue($document->has('data.0.links.self'));
 		$this->assertSame($document->get('data.0.links.self'), 'http://example.com/articles/1');
@@ -77,7 +77,7 @@ class DotNotationTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($document->get('data.0.relationships.author.links.related'), 'http://example.com/articles/1/author');
 
 		$this->assertTrue($document->has('data.0.relationships.author.data'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $document->get('data.0.relationships.author.data'));
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $document->get('data.0.relationships.author.data'));
 
 		$this->assertTrue($document->has('data.0.relationships.author.data.type'));
 		$this->assertSame($document->get('data.0.relationships.author.data.type'), 'people');
@@ -98,10 +98,10 @@ class DotNotationTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($document->get('data.0.relationships.comments.links.related'), 'http://example.com/articles/1/comments');
 
 		$this->assertTrue($document->has('data.0.relationships.comments.data'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\IdentifierCollection', $document->get('data.0.relationships.comments.data'));
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifierCollection', $document->get('data.0.relationships.comments.data'));
 
 		$this->assertTrue($document->has('data.0.relationships.comments.data.0'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $document->get('data.0.relationships.comments.data.0'));
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $document->get('data.0.relationships.comments.data.0'));
 
 		$this->assertTrue($document->has('data.0.relationships.comments.data.0.type'));
 		$this->assertSame($document->get('data.0.relationships.comments.data.0.type'), 'comments');
@@ -110,7 +110,7 @@ class DotNotationTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($document->get('data.0.relationships.comments.data.0.id'), '5');
 
 		$this->assertTrue($document->has('data.0.relationships.comments.data.1'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Identifier', $document->get('data.0.relationships.comments.data.1'));
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $document->get('data.0.relationships.comments.data.1'));
 
 		$this->assertTrue($document->has('data.0.relationships.comments.data.1.type'));
 		$this->assertSame($document->get('data.0.relationships.comments.data.1.type'), 'comments');
@@ -119,10 +119,10 @@ class DotNotationTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($document->get('data.0.relationships.comments.data.1.id'), '12');
 
 		$this->assertTrue($document->has('included'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Collection', $document->get('included'));
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceCollection', $document->get('included'));
 
 		$this->assertTrue($document->has('included.0'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $document->get('included.0'));
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceItem', $document->get('included.0'));
 
 		$this->assertTrue($document->has('included.0.type'));
 		$this->assertSame($document->get('included.0.type'), 'people');
@@ -143,13 +143,13 @@ class DotNotationTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($document->get('included.0.attributes.twitter'), 'dgeb');
 
 		$this->assertTrue($document->has('included.0.links'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ItemLink', $document->get('included.0.links'));
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceItemLink', $document->get('included.0.links'));
 
 		$this->assertTrue($document->has('included.0.links.self'));
 		$this->assertSame($document->get('included.0.links.self'), 'http://example.com/people/9');
 
 		$this->assertTrue($document->has('included.1'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $document->get('included.1'));
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceItem', $document->get('included.1'));
 
 		$this->assertTrue($document->has('included.1.type'));
 		$this->assertSame($document->get('included.1.type'), 'comments');
@@ -164,13 +164,13 @@ class DotNotationTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($document->get('included.1.attributes.body'), 'First!');
 
 		$this->assertTrue($document->has('included.1.links'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ItemLink', $document->get('included.1.links'));
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceItemLink', $document->get('included.1.links'));
 
 		$this->assertTrue($document->has('included.1.links.self'));
 		$this->assertSame($document->get('included.1.links.self'), 'http://example.com/comments/5');
 
 		$this->assertTrue($document->has('included.2'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\Item', $document->get('included.2'));
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceItem', $document->get('included.2'));
 
 		$this->assertTrue($document->has('included.2.type'));
 		$this->assertSame($document->get('included.2.type'), 'comments');
@@ -185,7 +185,7 @@ class DotNotationTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($document->get('included.2.attributes.body'), 'I like XML better');
 
 		$this->assertTrue($document->has('included.2.links'));
-		$this->assertInstanceOf('Art4\JsonApiClient\Resource\ItemLink', $document->get('included.2.links'));
+		$this->assertInstanceOf('Art4\JsonApiClient\ResourceItemLink', $document->get('included.2.links'));
 
 		$this->assertTrue($document->has('included.2.links.self'));
 		$this->assertSame($document->get('included.2.links.self'), 'http://example.com/comments/12');

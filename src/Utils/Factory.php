@@ -40,12 +40,12 @@ final class Factory implements FactoryInterface
 		'Relationship'                  => 'Art4\JsonApiClient\Relationship',
 		'RelationshipCollection'        => 'Art4\JsonApiClient\RelationshipCollection',
 		'RelationshipLink'              => 'Art4\JsonApiClient\RelationshipLink',
-		'Resource\Collection'           => 'Art4\JsonApiClient\Resource\Collection',
-		'Resource\Identifier'           => 'Art4\JsonApiClient\Resource\Identifier',
-		'Resource\IdentifierCollection' => 'Art4\JsonApiClient\Resource\IdentifierCollection',
-		'Resource\Item'                 => 'Art4\JsonApiClient\Resource\Item',
-		'Resource\ItemLink'             => 'Art4\JsonApiClient\Resource\ItemLink',
-		'Resource\NullResource'         => 'Art4\JsonApiClient\Resource\NullResource',
+		'ResourceCollection'            => 'Art4\JsonApiClient\ResourceCollection',
+		'ResourceIdentifier'            => 'Art4\JsonApiClient\ResourceIdentifier',
+		'ResourceIdentifierCollection'  => 'Art4\JsonApiClient\ResourceIdentifierCollection',
+		'ResourceItem'                  => 'Art4\JsonApiClient\ResourceItem',
+		'ResourceItemLink'              => 'Art4\JsonApiClient\ResourceItemLink',
+		'ResourceNull'                  => 'Art4\JsonApiClient\ResourceNull',
 	];
 
 	/**
