@@ -3,7 +3,7 @@
 
 ## Description
 
-The `Resource\Identifier` represents a [resource identifier object](http://jsonapi.org/format/#document-resource-identifier-objects). It implements the `Resource\ResourceInterface`.
+The `Resource\Identifier` represents a [resource identifier object](http://jsonapi.org/format/#document-resource-identifier-objects).
 
 Property of:
 - [Document object](objects-document.md)

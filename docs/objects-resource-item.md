@@ -3,7 +3,7 @@
 
 ## Description
 
-The `Resource\Item` represents a [resource object](http://jsonapi.org/format/#document-resource-objects). It implements the `Resource\ResourceInterface`.
+The `Resource\Item` represents a [resource object](http://jsonapi.org/format/#document-resource-objects).
 
 Property of:
 - [Document object](objects-document.md)
