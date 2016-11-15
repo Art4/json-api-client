@@ -26,6 +26,10 @@ final class Manager implements ManagerInterface, FactoryManagerInterface
 	 */
 	public $factory = null;
 
+	private $config = [
+		'optional_item_id' => false,
+	];
+
 	/**
 	 * @param  FactoryInterface $factory
 	 * @return object
@@ -85,5 +89,44 @@ final class Manager implements ManagerInterface, FactoryManagerInterface
 		$document->parse($object);
 
 		return $document;
+	}
+
+	/**
+	 * Get a config by key
+	 *
+	 * @param string $key
+	 * @return mixed
+	 *
+	 * @throws  \InvalidArgumentException If $key is not a valid config key
+	 */
+	public function getConfig($key)
+	{
+		if ( ! array_key_exists($key, $this->config) )
+		{
+			throw new \InvalidArgumentException;
+		}
+
+		return $this->config[$key];
+	}
+
+	/**
+	 * Set a config
+	 *
+	 * @param   string $key
+	 * @param   mixed $value
+	 * @return  self
+	 *
+	 * @throws  \InvalidArgumentException If $key is not a valid config key
+	 */
+	public function setConfig($key, $value)
+	{
+		if ( ! array_key_exists($key, $this->config) )
+		{
+			throw new \InvalidArgumentException;
+		}
+
+		$this->config[$key] = $value;
+
+		return $this;
 	}
 }

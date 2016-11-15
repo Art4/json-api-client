@@ -38,4 +38,25 @@ interface FactoryManagerInterface
 	 * @return FactoryInterface
 	 */
 	public function getFactory();
+
+	/**
+	 * Get a config by key
+	 *
+	 * @param string $key
+	 * @return mixed
+	 *
+	 * @throws  \InvalidArgumentException If $key is not a valid config key
+	 */
+	public function getConfig($key);
+
+	/**
+	 * Set a config
+	 *
+	 * @param   string $key
+	 * @param   mixed $value
+	 * @return  self
+	 *
+	 * @throws  \InvalidArgumentException If $key is not a valid config key
+	 */
+	public function setConfig($key, $value);
 }
