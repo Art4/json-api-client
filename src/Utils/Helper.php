@@ -1,7 +1,7 @@
 <?php
 /*
  * A PHP Library to handle a JSON API body in an OOP way.
- * Copyright (C) 2015-2016  Artur Weigandt  https://wlabs.de/kontakt
+ * Copyright (C) 2015-2017  Artur Weigandt  https://wlabs.de/kontakt
 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
