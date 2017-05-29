@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.7] - 2016-11-24
+
 ### Changed
 - Update license to GPLv3
 - **BREAKING**: Introducing the `ElementInterface` to seperate the parsing from the constructor
@@ -119,7 +121,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Validator fits nearly 100% specification
 - Full test coverage
 
-[Unreleased]: https://github.com/Art4/json-api-client/compare/0.6.3...HEAD
+[Unreleased]: https://github.com/Art4/json-api-client/compare/0.7...HEAD
+[0.7]: https://github.com/Art4/json-api-client/compare/0.6.3...0.7
 [0.6.3]: https://github.com/Art4/json-api-client/compare/0.6.2...0.6.3
 [0.6.2]: https://github.com/Art4/json-api-client/compare/0.6.1...0.6.2
 [0.6.1]: https://github.com/Art4/json-api-client/compare/0.6...0.6.1
