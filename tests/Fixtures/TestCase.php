@@ -53,7 +53,7 @@ class TestCase extends \PHPUnit\Framework\TestCase
 	 * @return PHPUnit_Framework_MockObject_MockObject
 	 * @throws Exception
 	 */
-	protected function getMock($originalClassName)
+	public function getMock($originalClassName)
 	{
 		if (is_callable('parent::getMock'))
 		{
