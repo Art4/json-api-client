@@ -86,14 +86,11 @@ final class ResourceItem implements ResourceItemInterface
 
 		$this->container->set('type', strval($object->type));
 
-		if ( $this->manager->getConfig('optional_item_id') !== true or ! $this->parent instanceOf DocumentInterface )
+		if ( $this->manager->getConfig('optional_item_id') === false or ! $this->parent instanceOf DocumentInterface )
 		{
 			if ( ! property_exists($object, 'id') )
 			{
-				if ( $this->manager->getConfig('optional_item_id') !== true or ! $this->parent instanceOf DocumentInterface )
-				{
-					throw new ValidationException('A resource object MUST contain an id');
-				}
+				throw new ValidationException('A resource object MUST contain an id');
 			}
 
 			if ( is_object($object->id) or is_array($object->id)  )
