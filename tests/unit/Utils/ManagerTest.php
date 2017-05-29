@@ -97,4 +97,54 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $manager->parse($jsonapi_string));
 	}
+
+	/**
+	 * @test
+	 */
+	public function testGetConfigReturnsValue()
+	{
+		$manager = new Manager;
+
+		$this->assertSame(false, $manager->getConfig('optional_item_id'));
+	}
+
+	/**
+	 * @test
+	 */
+	public function testGetInvalidConfigThrowsException()
+	{
+		$manager = new Manager;
+
+		$this->setExpectedException(
+			'InvalidArgumentException',
+			''
+		);
+
+		$manager->getConfig('invalid_key');
+	}
+
+	/**
+	 * @test
+	 */
+	public function testSetConfigReturnsSelf()
+	{
+		$manager = new Manager;
+
+		$this->assertSame($manager, $manager->setConfig('optional_item_id', true));
+	}
+
+	/**
+	 * @test
+	 */
+	public function testSetInvalidConfigThrowsException()
+	{
+		$manager = new Manager;
+
+		$this->setExpectedException(
+			'InvalidArgumentException',
+			''
+		);
+
+		$manager->setConfig('invalid_key', 'value');
+	}
 }
