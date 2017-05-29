@@ -23,7 +23,7 @@ use Art4\JsonApiClient\Document;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 use Art4\JsonApiClient\Tests\Fixtures\Factory;
 
-class DocumentTest extends \PHPUnit_Framework_TestCase
+class DocumentTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 {
 	use HelperTrait;
 

@@ -22,7 +22,7 @@ namespace Art4\JsonApiClient\Tests\Unit;
 use Art4\JsonApiClient\DocumentLink;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 
-class DocumentLinkTest extends \PHPUnit_Framework_TestCase
+class DocumentLinkTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 {
 	use HelperTrait;
 

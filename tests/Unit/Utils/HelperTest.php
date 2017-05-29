@@ -21,7 +21,7 @@ namespace Art4\JsonApiClient\Utils\Tests;
 
 use Art4\JsonApiClient\Utils\Helper;
 
-class HelperTest extends \PHPUnit_Framework_TestCase
+class HelperTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 {
 	/**
 	 * @test parse() with valid JSON API returns Document Object

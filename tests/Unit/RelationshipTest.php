@@ -22,7 +22,7 @@ namespace Art4\JsonApiClient\Tests\Unit;
 use Art4\JsonApiClient\Relationship;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 
-class RelationshipTest extends \PHPUnit_Framework_TestCase
+class RelationshipTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 {
 	use HelperTrait;
 

@@ -22,7 +22,7 @@ namespace Art4\JsonApiClient\Tests\Unit;
 use Art4\JsonApiClient\ErrorCollection;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 
-class ErrorCollectionTest extends \PHPUnit_Framework_TestCase
+class ErrorCollectionTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 {
 	use HelperTrait;
 

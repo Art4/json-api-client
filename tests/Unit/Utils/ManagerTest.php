@@ -21,7 +21,7 @@ namespace Art4\JsonApiClient\Utils\Tests;
 
 use Art4\JsonApiClient\Utils\Manager;
 
-class ManagerTest extends \PHPUnit_Framework_TestCase
+class ManagerTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 {
 	/**
 	 * @test

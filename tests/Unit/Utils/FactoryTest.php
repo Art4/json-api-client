@@ -21,7 +21,7 @@ namespace Art4\JsonApiClient\Utils\Tests;
 
 use Art4\JsonApiClient\Utils\Factory;
 
-class FactoryTest extends \PHPUnit_Framework_TestCase
+class FactoryTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 {
 	/**
 	 * @test
