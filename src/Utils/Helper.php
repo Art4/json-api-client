@@ -55,6 +55,29 @@ final class Helper
 	}
 
 	/**
+	 * @param string $json_string
+	 *
+	 * @return Document
+	 *
+	 * @throws ValidationException
+	 */
+	public static function parseRequestBody($json_string)
+	{
+		$data = static::decodeJson($json_string);
+
+		$manager = new Manager();
+		$manager->setConfig('optional_item_id', true);
+
+		$document = $manager->getFactory()->make(
+			'Document',
+			[$manager]
+		);
+		$document->parse($data);
+
+		return $document;
+	}
+
+	/**
 	 * Checks if a string is a valid JSON API
 	 *
 	 * @param string $json_string

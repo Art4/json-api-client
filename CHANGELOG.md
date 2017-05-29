@@ -5,9 +5,19 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- New method `Utils\Helper::parseRequestBody()` to parse JSON API with optional item id
+
+### Changed
+
+- **BREAKING**: New method `Utils\ManagerInterface::getConfig()` to get a config value
+- **BREAKING**: New method `Utils\ManagerInterface::setConfig()` to set a config value
+
 ## [0.7] - 2016-11-24
 
 ### Changed
+
 - Update license to GPLv3
 - **BREAKING**: Introducing the `ElementInterface` to seperate the parsing from the constructor
 - **BREAKING**: Rename `Art4\JsonApiClient\Resource\Collection` to `Art4\JsonApiClient\ResourceCollection`

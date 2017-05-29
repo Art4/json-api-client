@@ -61,6 +61,11 @@ trait HelperTrait
 			->method('getFactory')
 			->will($this->returnValue($factory));
 
+		$manager->expects($this->any())
+			->method('getConfig')
+			->with('optional_item_id')
+			->willReturn(false);
+
 		return $manager;
 	}
 

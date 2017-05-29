@@ -40,6 +40,11 @@ final class ResourceItem implements ResourceItemInterface
 	protected $container;
 
 	/**
+	 * @var AccessInterface
+	 */
+	protected $parent;
+
+	/**
 	 * Sets the manager and parent
 	 *
 	 * @param FactoryManagerInterface $manager The manager
@@ -48,6 +53,7 @@ final class ResourceItem implements ResourceItemInterface
 	public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
 	{
 		$this->manager = $manager;
+		$this->parent = $parent;
 
 		$this->container = new DataContainer();
 	}
@@ -73,23 +79,28 @@ final class ResourceItem implements ResourceItemInterface
 			throw new ValidationException('A resource object MUST contain a type');
 		}
 
-		if ( ! property_exists($object, 'id') )
-		{
-			throw new ValidationException('A resource object MUST contain an id');
-		}
-
 		if ( is_object($object->type) or is_array($object->type)  )
 		{
 			throw new ValidationException('Resource type cannot be an array or object');
 		}
 
-		if ( is_object($object->id) or is_array($object->id)  )
+		$this->container->set('type', strval($object->type));
+
+		if ( $this->manager->getConfig('optional_item_id') === false or ! $this->parent instanceOf DocumentInterface )
 		{
-			throw new ValidationException('Resource id cannot be an array or object');
+			if ( ! property_exists($object, 'id') )
+			{
+				throw new ValidationException('A resource object MUST contain an id');
+			}
+
+			if ( is_object($object->id) or is_array($object->id)  )
+			{
+				throw new ValidationException('Resource id cannot be an array or object');
+			}
+
+			$this->container->set('id', strval($object->id));
 		}
 
-		$this->container->set('type', strval($object->type));
-		$this->container->set('id', strval($object->id));
 
 		if ( property_exists($object, 'meta') )
 		{

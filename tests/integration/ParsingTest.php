@@ -597,4 +597,19 @@ class ParsingTest extends \PHPUnit_Framework_TestCase
 		// Test full array
 		$this->assertEquals(json_decode($string, true), $document->asArray(true));
 	}
+
+	/**
+	 * @test
+	 */
+	public function testParseCreateResourceWithoutId()
+	{
+		$string = $this->getJsonString('14_create_resource_without_id.json');
+		$document = Helper::parseRequestBody($string);
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
+		$this->assertSame(['data'], $document->getKeys());
+
+		// Test full array
+		$this->assertEquals(json_decode($string, true), $document->asArray(true));
+	}
 }
