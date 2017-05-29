@@ -159,13 +159,15 @@ class LinkTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testCreateWithDataprovider($input)
 	{
+		$link = new Link($this->manager, $this->parent_link);
+
 		// A link object must be an object
 		if ( gettype($input) === 'object' )
 		{
+			$this->assertInstanceOf('Art4\JsonApiClient\Link', $link);
+
 			return;
 		}
-
-		$link = new Link($this->manager, $this->parent_link);
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',

@@ -189,16 +189,18 @@ class RelationshipCollectionTest extends \Art4\JsonApiClient\Tests\Fixtures\Test
 	 */
 	public function testCreateWithoutObjectThrowsException($input)
 	{
+		$item = $this->getMockBuilder('Art4\JsonApiClient\ResourceItemInterface')
+		->getMock();
+
+		$collection = new RelationshipCollection($this->manager, $item);
+
 		// Skip if $input is an object
 		if ( gettype($input) === 'object' )
 		{
+			$this->assertInstanceOf('Art4\JsonApiClient\RelationshipCollection', $collection);
+
 			return;
 		}
-
-		$item = $this->getMockBuilder('Art4\JsonApiClient\ResourceItemInterface')
-			->getMock();
-
-		$collection = new RelationshipCollection($this->manager, $item);
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',

@@ -75,13 +75,15 @@ class RelationshipTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testCreateWithoutObjectThrowsException($input)
 	{
+		$relationship = new Relationship($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		// Skip if $input is an object
 		if ( gettype($input) === 'object' )
 		{
+			$this->assertInstanceOf('Art4\JsonApiClient\Relationship', $relationship);
+
 			return;
 		}
-
-		$relationship = new Relationship($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',

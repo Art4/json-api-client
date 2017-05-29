@@ -186,13 +186,15 @@ class ResourceCollectionTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testCreateWithoutObjectInArrayThrowsException($input)
 	{
+		$collection = new ResourceCollection($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		// Input must be an object
 		if ( gettype($input) === 'object' )
 		{
+			$this->assertInstanceOf('Art4\JsonApiClient\ResourceCollection', $collection);
+
 			return;
 		}
-
-		$collection = new ResourceCollection($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',

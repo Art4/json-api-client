@@ -123,13 +123,15 @@ class ErrorLinkTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testCreateWithDataprovider($input)
 	{
+		$link = new ErrorLink($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		// Input must be an object
 		if ( gettype($input) === 'object' )
 		{
+			$this->assertInstanceOf('Art4\JsonApiClient\ErrorLink', $link);
+
 			return;
 		}
-
-		$link = new ErrorLink($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
@@ -146,17 +148,19 @@ class ErrorLinkTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testCreateWithoutObjectOrStringAttributeThrowsException($input)
 	{
+		$link = new ErrorLink($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		// Input must be an object
 		if ( gettype($input) === 'string' or gettype($input) === 'object' )
 		{
+			$this->assertInstanceOf('Art4\JsonApiClient\ErrorLink', $link);
+
 			return;
 		}
 
 		$object = new \stdClass();
 		$object->about = 'http://example.org/about';
 		$object->input = $input;
-
-		$link = new ErrorLink($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
@@ -173,16 +177,18 @@ class ErrorLinkTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testAboutWithDataproviderThrowsException($input)
 	{
-		// Aabout must be string or object
+		$link = new ErrorLink($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
+		// Input must be string or object
 		if ( gettype($input) === 'string' or gettype($input) === 'object' )
 		{
+			$this->assertInstanceOf('Art4\JsonApiClient\ErrorLink', $link);
+
 			return;
 		}
 
 		$object = new \stdClass;
 		$object->about = $input;
-
-		$link = new ErrorLink($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',

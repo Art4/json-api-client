@@ -178,12 +178,14 @@ class ResourceItemTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testCreateWithDataproviderThrowsException($input)
 	{
+		$item = new ResourceItem($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		if ( gettype($input) === 'object' )
 		{
+			$this->assertInstanceOf('Art4\JsonApiClient\ResourceItem', $item);
+
 			return;
 		}
-
-		$item = new ResourceItem($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',

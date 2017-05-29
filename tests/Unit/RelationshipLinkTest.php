@@ -241,13 +241,15 @@ class RelationshipLinkTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testCreateWithoutObjectThrowsException($input)
 	{
+		$link = new RelationshipLink($this->manager, $this->relationship);
+
 		// Input must be an object
 		if ( gettype($input) === 'object' )
 		{
+			$this->assertInstanceOf('Art4\JsonApiClient\RelationshipLink', $link);
+
 			return;
 		}
-
-		$link = new RelationshipLink($this->manager, $this->relationship);
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
@@ -264,17 +266,19 @@ class RelationshipLinkTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testCreateWithoutObjectOrStringAttributeThrowsException($input)
 	{
+		$link = new RelationshipLink($this->manager, $this->relationship);
+
 		// Input must be an object
 		if ( gettype($input) === 'string' or gettype($input) === 'object' )
 		{
+			$this->assertInstanceOf('Art4\JsonApiClient\RelationshipLink', $link);
+
 			return;
 		}
 
 		$object = new \stdClass();
 		$object->self = 'http://example.org/self';
 		$object->input = $input;
-
-		$link = new RelationshipLink($this->manager, $this->relationship);
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
@@ -310,16 +314,18 @@ class RelationshipLinkTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testSelfMustBeAString($input)
 	{
+		$link = new RelationshipLink($this->manager, $this->relationship);
+
 		// Input must be a string
 		if ( gettype($input) === 'string' )
 		{
+			$this->assertInstanceOf('Art4\JsonApiClient\RelationshipLink', $link);
+
 			return;
 		}
 
 		$object = new \stdClass();
 		$object->self = $input;
-
-		$link = new RelationshipLink($this->manager, $this->relationship);
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',

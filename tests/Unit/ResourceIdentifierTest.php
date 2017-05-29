@@ -146,12 +146,14 @@ class ResourceIdentifierTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testCreateWithDataproviderThrowsException($input)
 	{
+		$identifier = new ResourceIdentifier($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		if ( gettype($input) === 'object' )
 		{
+			$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $identifier);
+
 			return;
 		}
-
-		$identifier = new ResourceIdentifier($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',

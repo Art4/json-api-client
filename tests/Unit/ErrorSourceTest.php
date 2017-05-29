@@ -90,13 +90,15 @@ class ErrorSourceTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testCreateWithoutObjectThrowsException($input)
 	{
+		$source = new ErrorSource($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		// Input must be an object
 		if ( gettype($input) === 'object' )
 		{
+			$this->assertInstanceOf('Art4\JsonApiClient\ErrorSource', $source);
+
 			return;
 		}
-
-		$source = new ErrorSource($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
@@ -113,16 +115,18 @@ class ErrorSourceTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testPointerMustBeAString($input)
 	{
+		$source = new ErrorSource($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		// Input must be a string
 		if ( gettype($input) === 'string' )
 		{
+			$this->assertInstanceOf('Art4\JsonApiClient\ErrorSource', $source);
+
 			return;
 		}
 
 		$object = new \stdClass();
 		$object->pointer = $input;
-
-		$source = new ErrorSource($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
@@ -139,16 +143,18 @@ class ErrorSourceTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testParameterMustBeAString($input)
 	{
+		$source = new ErrorSource($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+
 		// Input must be a string
 		if ( gettype($input) === 'string' )
 		{
+			$this->assertInstanceOf('Art4\JsonApiClient\ErrorSource', $source);
+
 			return;
 		}
 
 		$object = new \stdClass();
 		$object->parameter = $input;
-
-		$source = new ErrorSource($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',

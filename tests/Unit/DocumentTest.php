@@ -107,14 +107,17 @@ class DocumentTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testCreateWithDataproviderThrowsException($input)
 	{
+		$document = new Document($this->manager);
+
 		// Skip if $input is an object
 		if ( gettype($input) === 'object' )
 		{
+			$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
+
 			return;
 		}
 
 		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
-		$document = new Document($this->manager);
 		$document->parse($input);
 	}
 
@@ -258,9 +261,13 @@ class DocumentTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testCreateWithDataproviderInValue($input)
 	{
+		$document = new Document($this->manager);
+
 		// Skip if $input is an object
 		if ( gettype($input) === 'object' )
 		{
+			$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
+
 			return;
 		}
 
@@ -270,7 +277,6 @@ class DocumentTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 			$object = new \stdClass();
 			$object->data = $input;
 
-			$document = new Document($this->manager);
 			$document->parse($object);
 
 			$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
@@ -289,7 +295,6 @@ class DocumentTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 			$object = new \stdClass();
 			$object->data = $input;
 
-			$document = new Document($this->manager);
 			$document->parse($object);
 
 			$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
@@ -308,7 +313,6 @@ class DocumentTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 		$object = new \stdClass();
 		$object->data = $input;
 
-		$document = new Document($this->manager);
 		$document->parse($object);
 	}
 

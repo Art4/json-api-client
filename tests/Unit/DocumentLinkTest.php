@@ -118,13 +118,15 @@ class DocumentLinkTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testCreateWithoutObjectThrowsException($input)
 	{
+		$link = new DocumentLink($this->manager, $this->parent);
+
 		// Input must be an object
 		if ( gettype($input) === 'object' )
 		{
+			$this->assertInstanceOf('Art4\JsonApiClient\DocumentLink', $link);
+
 			return;
 		}
-
-		$link = new DocumentLink($this->manager, $this->parent);
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
@@ -141,17 +143,19 @@ class DocumentLinkTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testCreateWithoutObjectOrStringAttributeThrowsException($input)
 	{
+		$link = new DocumentLink($this->manager, $this->parent);
+
 		// Input must be an object
 		if ( gettype($input) === 'string' or gettype($input) === 'object' )
 		{
+			$this->assertInstanceOf('Art4\JsonApiClient\DocumentLink', $link);
+
 			return;
 		}
 
 		$object = new \stdClass();
 		$object->self = 'http://example.org/self';
 		$object->input = $input;
-
-		$link = new DocumentLink($this->manager, $this->parent);
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
@@ -168,16 +172,18 @@ class DocumentLinkTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testSelfMustBeAStringOrObject($input)
 	{
+		$link = new DocumentLink($this->manager, $this->parent);
+
 		// Input must be a string
 		if ( gettype($input) === 'string' or gettype($input) === 'object' )
 		{
+			$this->assertInstanceOf('Art4\JsonApiClient\DocumentLink', $link);
+
 			return;
 		}
 
 		$object = new \stdClass();
 		$object->self = $input;
-
-		$link = new DocumentLink($this->manager, $this->parent);
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
