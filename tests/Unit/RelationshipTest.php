@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient\Tests;
+namespace Art4\JsonApiClient\Tests\Unit;
 
 use Art4\JsonApiClient\Relationship;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;

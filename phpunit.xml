@@ -12,7 +12,7 @@
          stopOnError="false"
          stopOnIncomplete="false"
          stopOnSkipped="false"
-         bootstrap="tests/Bootstrap.php"
+         bootstrap="vendor/autoload.php"
 >
     <testsuites>
         <testsuite name="all">
