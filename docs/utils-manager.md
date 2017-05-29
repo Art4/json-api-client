@@ -21,6 +21,27 @@ This returns a [Document](objects-document.md) object which provided all content
 
 > **Note:** If `$jsonapi_string` contains not valid JSON or JSON API a [Exception\ValidationException](exception-introduction.md#exceptionvalidationexception) will be thrown.
 
+### Parse a JSON API string for creating a new resource
+
+Assuming you have get a request for creating a new resource. In this case the `id` in the resource item can be missed and you have to tell the Manager about this case.
+
+```php
+
+// The request body from a client
+$jsonapi_string = '{"data":{"type":"posts","attributes":{"title":"Post Title"}}}';
+
+$manager = new \Art4\JsonApiClient\Utils\Manager();
+
+// Set this to `true`
+$manager->setConfig('optional_item_id', true);
+
+$document = $manager->parse($jsonapi_string);
+```
+
+This returns a [Document](objects-document.md) object which provided all contents.
+
+> **Note:** If `$jsonapi_string` contains not valid JSON or JSON API a [Exception\ValidationException](exception-introduction.md#exceptionvalidationexception) will be thrown.
+
 ### Working with a factory
 
 You can set a custom [Factory](utils->factory.md) to the manager through `setFactory()` or the constructor.

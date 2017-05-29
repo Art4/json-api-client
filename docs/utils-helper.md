@@ -21,6 +21,24 @@ This returns a [Document](objects-document.md) object which provided all content
 >
 > See more about Exceptions in the [Exception section](exception-introduction.md).
 
+### Parse a JSON API request body
+
+Assuming you have get a request for creating a new resource. In this case the `id` in the resource item can be missed and you have to tell the Manager about this case. Use `parseRequestBody()` to work with the data.
+
+```php
+
+// The requst body from a client
+$jsonapi_string = '{"data":{"type":"posts","attributes":{"title":"Post Title"}}}';
+
+$document = \Art4\JsonApiClient\Utils\Helper::parseRequestBody($jsonapi_string);
+```
+
+This returns a [Document](objects-document.md) object which provided all contents.
+
+> **Note:** If `$jsonapi_string` contains not valid JSON or JSON API a [Exception\ValidationException](exception-introduction.md#exceptionvalidationexception) will be thrown.
+>
+> See more about Exceptions in the [Exception section](exception-introduction.md).
+
 ### Validate a JSON API response body
 
 JsonApiClient can be used as a validator:

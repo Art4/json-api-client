@@ -21,7 +21,7 @@ Version 0.6.1 and below interprets the pagination links wrong. Make sure you are
 * [x] Offer an easy way to retrieve the data
 * [x] Be extendable and allow injection of classes/models
 * [ ] Offer access to included resources through identifier
-* [ ] Handle/validate a client request body
+* [x] Handle/validate a client request body
 
 ## Install
 
@@ -42,6 +42,9 @@ See the [documentation](docs/README.md).
 $jsonapi_string = '{"meta":{"info":"Testing the JsonApiClient library."}}';
 
 $manager = new \Art4\JsonApiClient\Utils\Manager();
+
+// Set this if you expect a resource creating request
+$manager->setConfig('optional_item_id', true);
 
 $document = $manager->parse($jsonapi_string);
 
