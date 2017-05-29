@@ -8,11 +8,16 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 - New method `Utils\Helper::parseRequestBody()` to parse JSON API with optional item id
+- Run tests with Travis in PHP 7.1
 
 ### Changed
 
 - **BREAKING**: New method `Utils\ManagerInterface::getConfig()` to get a config value
 - **BREAKING**: New method `Utils\ManagerInterface::setConfig()` to set a config value
+
+### Removed
+
+- **BREAKING**: Drop support for PHP 5.4
 
 ## [0.7] - 2016-11-24
 
