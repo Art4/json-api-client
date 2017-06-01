@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.8.1] - 2017-06-01
+
+### Fixed
+
+- Fixed a bug in the decission if a `data` attribute is a `ResourceItem` or `ResourceIdentifier`
+
 ## [0.8] - 2017-05-29
 
 ### Added
@@ -136,7 +142,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Validator fits nearly 100% specification
 - Full test coverage
 
-[Unreleased]: https://github.com/Art4/json-api-client/compare/0.8...HEAD
+[Unreleased]: https://github.com/Art4/json-api-client/compare/0.8.1...HEAD
+[0.8.1]: https://github.com/Art4/json-api-client/compare/0.8...0.8.1
 [0.8]: https://github.com/Art4/json-api-client/compare/0.7...0.8
 [0.7]: https://github.com/Art4/json-api-client/compare/0.6.3...0.7
 [0.6.3]: https://github.com/Art4/json-api-client/compare/0.6.2...0.6.3
