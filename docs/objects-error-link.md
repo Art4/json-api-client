@@ -12,7 +12,7 @@ Property of:
 
 _[Symbols definition](objects-introduction.md#symbols)_
 
-    | Key | Value | Note
---- | ---- | ----- | ----
-1 | about | - `string`<br />- [Link object](objects-link.md) |
-* | `string` | - `string`<br />- [Link object](objects-link.md) |
+|     | Key | Value | Note |
+| --- | --- | ----- | ---- |
+| 1   | about | - `string`<br />- [Link object](objects-link.md) | |
+| *   | `string` | - `string`<br />- [Link object](objects-link.md) | |

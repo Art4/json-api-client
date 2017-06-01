@@ -12,8 +12,8 @@ Property of:
 
 _[Symbols definition](objects-introduction.md#symbols)_
 
-    | Key | Value | Note
---- | ---- | ----- | ----
-? | self | `string` |
-? | related | - `string`<br />- [Link object](objects-link.md) |
-* | `string` | - `string`<br />- [Link object](objects-link.md) |
+|     | Key | Value | Note |
+| --- | --- | ----- | ---- |
+| ?   | self | `string` | |
+| ?   | related | - `string`<br />- [Link object](objects-link.md) | |
+| *   | `string` | - `string`<br />- [Link object](objects-link.md) | |

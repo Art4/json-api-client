@@ -12,7 +12,7 @@ Property of:
 
 _[Symbols definition](objects-introduction.md#symbols)_
 
-    | Key | Value | Note
---- | ---- | ----- | ----
-? | version | `string` | Default: `"1.0"`
-? | meta | [Meta object](objects-meta.md) |
+|     | Key | Value | Note |
+| --- | --- | ----- | ---- |
+| ?   | version | `string` | Default: `"1.0"` |
+| ?   | meta | [Meta object](objects-meta.md) | |

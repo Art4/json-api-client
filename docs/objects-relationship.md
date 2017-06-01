@@ -12,8 +12,8 @@ Property of:
 
 _[Symbols definition](objects-introduction.md#symbols)_
 
-    | Key | Value | Note
---- | ---- | ----- | ----
-# | links | [Relationship Link object](objects-relationship-link.md) |
-# | data | - [Resource Null object](objects-resource-null.md)<br />- [Resource Identifier object](objects-resource-identifier.md)<br />- [Resource Identifier Collection object](objects-resource-identifier-collection.md) |
-# | meta | [Meta object](objects-meta.md) |
+|     | Key | Value | Note |
+| --- | --- | ----- | ---- |
+| #   | links | [Relationship Link object](objects-relationship-link.md) | |
+| #   | data | - [Resource Null object](objects-resource-null.md)<br />- [Resource Identifier object](objects-resource-identifier.md)<br />- [Resource Identifier Collection object](objects-resource-identifier-collection.md) | |
+| #   | meta | [Meta object](objects-meta.md) | |

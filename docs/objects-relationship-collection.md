@@ -12,8 +12,8 @@ Property of:
 
 _[Symbols definition](objects-introduction.md#symbols)_
 
-    | Key | Value | Note
---- | ---- | ----- | ----
-* | `string` | [Relationship object](objects-relationship.md) | not allowed, if already used in parents [Attributes object](objects-attributes.md) property)
-! | type |   | already used in [Resource Item object](objects-resource-item.md)
-! | id |   | already used in [Resource Item object](objects-resource-item.md)
+|     | Key | Value | Note |
+| --- | --- | ----- | ---- |
+| *   | `string` | [Relationship object](objects-relationship.md) | not allowed, if already used in parents [Attributes object](objects-attributes.md) property) |
+| !   | type |   | already used in [Resource Item object](objects-resource-item.md) |
+| !   | id |   | already used in [Resource Item object](objects-resource-item.md) |
