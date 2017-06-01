@@ -205,11 +205,12 @@ final class Document implements DocumentInterface
 			throw new ValidationException('Data value has to be null or an object, "' . gettype($data) . '" given.');
 		}
 
-		$object_vars = get_object_vars($data);
+		$object_keys = array_keys(get_object_vars($data));
+		sort($object_keys);
 
 		// the properties must be type and id or
 		// the 3 properties must be type, id and meta
-		if ( count($object_vars) === 2 or (count($object_vars) === 3 and property_exists($data, 'meta')) )
+		if ( $object_keys === ['id', 'type'] or $object_keys === ['id', 'meta', 'type'] )
 		{
 			$resource = $this->manager->getFactory()->make(
 				'ResourceIdentifier',

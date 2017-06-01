@@ -612,4 +612,19 @@ class ParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 		// Test full array
 		$this->assertEquals(json_decode($string, true), $document->asArray(true));
 	}
+
+	/**
+	 * @test
+	 */
+	public function testParseCreateShortResourceWithoutId()
+	{
+		$string = $this->getJsonString('15_create_resource_without_id.json');
+		$document = Helper::parseRequestBody($string);
+
+		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
+		$this->assertSame(['data'], $document->getKeys());
+
+		// Test full array
+		$this->assertEquals(json_decode($string, true), $document->asArray(true));
+	}
 }
