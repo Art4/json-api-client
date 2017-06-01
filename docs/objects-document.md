@@ -11,14 +11,14 @@ Property of: _none_
 
 _[Symbols definition](objects-introduction.md#symbols)_
 
-    | Key | Value | Note
---- | ---- | ----- | ----
-# | data | - [Resource Null object](objects-resource-null.md)<br />- [Resource Identifier object](objects-resource-identifier.md)<br />- [Resource Item object](objects-resource-item.md)<br />- [Resource Collection object](objects-resource-collection.md) | not allowed, if 'errors' exists
-# | errors | [Error Collection object](objects-error-collection.md) | not allowed, if 'data' exists
-# | meta | [Meta object](objects-meta.md) |
-? | jsonapi | [Jsonapi object](objects-jsonapi.md) |
-? | links | [Document Link object](objects-document-link.md) |
-? | included | [Resource Collection object](objects-resource-collection.md) | not allowed, if 'data' doesn't exist
+|     | Key | Value | Note |
+| --- | --- | ----- | ---- |
+| #   | data | - [Resource Null object](objects-resource-null.md)<br />- [Resource Identifier object](objects-resource-identifier.md)<br />- [Resource Item object](objects-resource-item.md)<br />- [Resource Collection object](objects-resource-collection.md) | not allowed, if 'errors' exists |
+| #   | errors | [Error Collection object](objects-error-collection.md) | not allowed, if 'data' exists |
+| #   | meta | [Meta object](objects-meta.md) | |
+| ?   | jsonapi | [Jsonapi object](objects-jsonapi.md) | |
+| ?   | links | [Document Link object](objects-document-link.md) | |
+| ?   | included | [Resource Collection object](objects-resource-collection.md) | not allowed, if 'data' doesn't exist |
 
 ## Usage
 

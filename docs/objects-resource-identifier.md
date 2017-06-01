@@ -14,8 +14,8 @@ Property of:
 
 _[Symbols definition](objects-introduction.md#symbols)_
 
-    | Key | Value | Note
---- | ---- | ----- | ----
-1 | type | `string` |
-1 | id | `string` |
-? | meta | [Meta object](objects-meta.md) |
+|     | Key | Value | Note |
+| --- | --- | ----- | ---- |
+| 1   | type | `string` | |
+| 1   | id | `string` | |
+| ?   | meta | [Meta object](objects-meta.md) | |

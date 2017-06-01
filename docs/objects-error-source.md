@@ -12,7 +12,7 @@ Property of:
 
 _[Symbols definition](objects-introduction.md#symbols)_
 
-    | Key | Value | Note
---- | ---- | ----- | ----
-? | pointer | `string` |
-? | parameter | `string` |
+|     | Key | Value | Note |
+| --- | --- | ----- | ---- |
+| ?   | pointer | `string` | |
+| ?   | parameter | `string` | |

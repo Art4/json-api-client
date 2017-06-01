@@ -12,13 +12,13 @@ Property of:
 
 _[Symbols definition](objects-introduction.md#symbols)_
 
-    | Key | Value | Note
---- | ---- | ----- | ----
-? | id | `string` |
-? | links | [Error Link object](objects-error-link.md) |
-? | status | `string` |
-? | code | `string` |
-? | title | `string` |
-? | detail | `string` |
-? | source | [Error Source object](objects-error-source.md) |
-? | meta | [Meta object](objects-meta.md) |
+|     | Key | Value | Note |
+| --- | --- | ----- | ---- |
+| ?   | id | `string` | |
+| ?   | links | [Error Link object](objects-error-link.md) | |
+| ?   | status | `string` | |
+| ?   | code | `string` | |
+| ?   | title | `string` | |
+| ?   | detail | `string` | |
+| ?   | source | [Error Source object](objects-error-source.md) | |
+| ?   | meta | [Meta object](objects-meta.md) | |

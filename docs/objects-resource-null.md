@@ -13,6 +13,6 @@ Property of:
 
 _[Symbols definition](objects-introduction.md#symbols)_
 
-    | Key | Value | Note
---- | ---- | ----- | ----
-_This object has no properties._
+|     | Key | Value | Note |
+| --- | --- | ----- | ---- |
+| !   |     |       | _This object has no properties._ |

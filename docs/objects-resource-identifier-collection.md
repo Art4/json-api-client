@@ -12,6 +12,6 @@ Property of:
 
 _[Symbols definition](objects-introduction.md#symbols)_
 
-    | Key | Value | Note
---- | ---- | ----- | ----
-* | `integer` | [Resource Identifier object](objects-resource-identifier.md)
+|     | Key | Value | Note |
+| --- | --- | ----- | ---- |
+| *   | `integer` | [Resource Identifier object](objects-resource-identifier.md) | |

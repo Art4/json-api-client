@@ -12,12 +12,12 @@ Property of:
 
 _[Symbols definition](objects-introduction.md#symbols)_
 
-    | Key | Value | Note
---- | ---- | ----- | ----
-# | self | `string` |
-# | related | - `string`<br />- [Link object](objects-link.md) |
-? | first | - `null`<br />- `string` | Only exists if the parent relationship object represents a to-many relationship |
-? | last | - `null`<br />- `string` | Only exists if the parent relationship object represents a to-many relationship |
-? | prev | - `null`<br />- `string` | Only exists if the parent relationship object represents a to-many relationship |
-? | next | - `null`<br />- `string` | Only exists if the parent relationship object represents a to-many relationship |
-* | `string` | - `string`<br />- [Link object](objects-link.md) |
+|     | Key | Value | Note |
+| --- | --- | ----- | ---- |
+| #   | self | `string` | |
+| #   | related | - `string`<br />- [Link object](objects-link.md) | |
+| ?   | first | - `null`<br />- `string` | Only exists if the parent relationship object represents a to-many relationship |
+| ?   | last | - `null`<br />- `string` | Only exists if the parent relationship object represents a to-many relationship |
+| ?   | prev | - `null`<br />- `string` | Only exists if the parent relationship object represents a to-many relationship |
+| ?   | next | - `null`<br />- `string` | Only exists if the parent relationship object represents a to-many relationship |
+| *   | `string` | - `string`<br />- [Link object](objects-link.md) | |

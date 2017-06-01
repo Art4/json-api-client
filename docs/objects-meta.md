@@ -17,6 +17,6 @@ Property of:
 
 _[Symbols definition](objects-introduction.md#symbols)_
 
-    | Key | Value | Note
---- | ---- | ----- | ----
-* | `string` | `mixed` |
+|     | Key | Value | Note |
+| --- | --- | ----- | ---- |
+| *   | `string` | `mixed` | |

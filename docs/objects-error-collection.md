@@ -12,6 +12,6 @@ Property of:
 
 _[Symbols definition](objects-introduction.md#symbols)_
 
-    | Key | Value | Note
---- | ---- | ----- | ----
-+ | `integer` | [Error object](objects-error.md) |
+|     | Key | Value | Note |
+| --- | --- | ----- | ---- |
+| +   | `integer` | [Error object](objects-error.md) | |
