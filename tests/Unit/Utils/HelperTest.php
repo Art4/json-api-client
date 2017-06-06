@@ -161,7 +161,7 @@ class HelperTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	{
 		$jsonapi = '{"meta":{}}';
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Document', Helper::parseResponseBody($jsonapi));
+		$this->assertInstanceOf('Art4\JsonApiClient\Document', Helper::parse($jsonapi));
 	}
 
 	/**
@@ -173,7 +173,7 @@ class HelperTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	{
 		$invalid_jsonapi = '["This is valid JSON", "but invalid JSON API"]';
 
-		$output = Helper::parseResponseBody($invalid_jsonapi);
+		$output = Helper::parse($invalid_jsonapi);
 	}
 
 	/**
@@ -185,7 +185,7 @@ class HelperTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	{
 		$invalid_json = 'invalid_json_string';
 
-		$output = Helper::parseResponseBody($invalid_json);
+		$output = Helper::parse($invalid_json);
 	}
 
 	/**

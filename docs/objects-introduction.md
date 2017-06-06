@@ -54,7 +54,7 @@ You can check for all possible values using the `has()` method.
 ```php
 $jsonapi_string = '{"meta":{"info":"Testing the JsonApiClient library."}}';
 
-$document = \Art4\JsonApiClient\Utils\Helper::parse($jsonapi_string);
+$document = \Art4\JsonApiClient\Utils\Helper::parseResponseBody($jsonapi_string);
 
 var_dump($document->has('meta'));
 ```
