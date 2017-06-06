@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- New method `Utils\Helper::parseResponseBody()` to parse a JSON API response body
+- New method `Utils\Helper::isValidResponseBody()` to validate a JSON API response body
+- New method `Utils\Helper::isValidRequestBody()` to validate a JSON API request body with optional item id
+
+### Deprecated
+
+- `Utils\Helper::parse()` will be removed in v1.0, use `Utils\Helper::parseResponseBody()` instead
+- `Utils\Helper::isValid()` will be removed in v1.0, use `Utils\Helper::isValidResponseBody()` instead
+
 ## [0.8.1] - 2017-06-01
 
 ### Fixed

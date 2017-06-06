@@ -32,7 +32,7 @@ class DotNotationTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	public function testCompleteResourceObjectWithMultipleRelationships()
 	{
 		$string = $this->getJsonString('04_complete_document_with_multiple_relationships.json');
-		$document = Helper::parse($string);
+		$document = Helper::parseResponseBody($string);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 
@@ -197,7 +197,7 @@ class DotNotationTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	public function testGetNotExistentValueThrowsException()
 	{
 		$string = $this->getJsonString('05_simple_meta_object.json');
-		$document = Helper::parse($string);
+		$document = Helper::parseResponseBody($string);
 
 		// Test 3 segments, segment 2 don't exists
 		$this->assertFalse($document->has('meta.foobar.zap'));

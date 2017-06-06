@@ -32,7 +32,7 @@ class ParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	public function testParseSimpleResource()
 	{
 		$string = $this->getJsonString('01_simple_resource.json');
-		$document = Helper::parse($string);
+		$document = Helper::parseResponseBody($string);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertFalse($document->has('errors'));
@@ -63,7 +63,7 @@ class ParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	public function testParseSimpleResourceIdentifier()
 	{
 		$string = $this->getJsonString('02_simple_resource_identifier.json');
-		$document = Helper::parse($string);
+		$document = Helper::parseResponseBody($string);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertFalse($document->has('errors'));
@@ -90,7 +90,7 @@ class ParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	public function testParseResourceObject()
 	{
 		$string = $this->getJsonString('03_resource_object.json');
-		$document = Helper::parse($string);
+		$document = Helper::parseResponseBody($string);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertFalse($document->has('errors'));
@@ -161,7 +161,7 @@ class ParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	public function testParseCompleteResourceObjectWithMultipleRelationships()
 	{
 		$string = $this->getJsonString('04_complete_document_with_multiple_relationships.json');
-		$document = Helper::parse($string);
+		$document = Helper::parseResponseBody($string);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertFalse($document->has('errors'));
@@ -339,7 +339,7 @@ class ParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	public function testParsePaginationExample()
 	{
 		$string = $this->getJsonString('06_pagination_example.json');
-		$document = Helper::parse($string);
+		$document = Helper::parseResponseBody($string);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertTrue($document->has('data'));
@@ -396,7 +396,7 @@ class ParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	public function testParseRelationshipExample()
 	{
 		$string = $this->getJsonString('07_relationship_example_without_data.json');
-		$document = Helper::parse($string);
+		$document = Helper::parseResponseBody($string);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertTrue($document->has('data'));
@@ -465,7 +465,7 @@ class ParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	public function testParseObjectLinksExample()
 	{
 		$string = $this->getJsonString('08_object_links.json');
-		$document = Helper::parse($string);
+		$document = Helper::parseResponseBody($string);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertTrue($document->has('links'));
@@ -511,7 +511,7 @@ class ParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	public function testParseResourceIdentifierWithMeta()
 	{
 		$string = $this->getJsonString('11_resource_identifier_with_meta.json');
-		$document = Helper::parse($string);
+		$document = Helper::parseResponseBody($string);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertFalse($document->has('errors'));
@@ -540,7 +540,7 @@ class ParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	public function testParseNullResource()
 	{
 		$string = $this->getJsonString('12_null_resource.json');
-		$document = Helper::parse($string);
+		$document = Helper::parseResponseBody($string);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertFalse($document->has('errors'));
@@ -564,7 +564,7 @@ class ParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	public function testParseResourceIdentifierCollectionWithMeta()
 	{
 		$string = $this->getJsonString('13_collection_with_resource_identifier_with_meta.json');
-		$document = Helper::parse($string);
+		$document = Helper::parseResponseBody($string);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertFalse($document->has('errors'));
