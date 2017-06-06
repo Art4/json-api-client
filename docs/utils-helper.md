@@ -3,9 +3,9 @@
 
 The `Utils\Helper` provides some useful methods to deal with JSON.
 
-### Parse a JSON API body
+### Parse a JSON API response body
 
-Assuming you have get a response from a JSON API server. Use `parse()` to work with the data.
+Assuming you have get a response from a JSON API server. Use `parseResponseBody()` to work with the data.
 
 ```php
 
@@ -41,7 +41,7 @@ This returns a [Document](objects-document.md) object which provided all content
 
 ### Validate a JSON API response body
 
-JsonApiClient can be used as a validator:
+JsonApiClient can be used as a validator for a response body:
 
 ```php
 $wrong_jsonapi = '{"data":{},"meta":{"info":"This is wrong JSON API. `data` has to be `null` or containing at least `type` and `id`."}}';
@@ -56,4 +56,23 @@ else
 }
 
 // echos 'string is invalid json api!'
+```
+
+### Validate a JSON API request body
+
+JsonApiClient can also be used as a validator for a request body:
+
+```php
+$wrong_jsonapi = '{"data":{"type":"post","attributes":{"body":"The post body"}}}';
+
+if ( \Art4\JsonApiClient\Utils\Helper::isValidRequestBody($wrong_jsonapi) )
+{
+	echo 'string is valid.';
+}
+else
+{
+	echo 'string is invalid json api!';
+}
+
+// echos 'string is valid.'
 ```
