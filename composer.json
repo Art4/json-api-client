@@ -3,20 +3,20 @@
     "type": "library",
     "description": "JSON API client",
     "homepage": "https://github.com/Art4/json-api-client",
-    "keywords": ["json", "api", "json-api", "client", "reader", "validator"],
-    "license": "GPL2",
+    "keywords": ["json", "api", "json-api", "client", "reader", "validator", "parser"],
+    "license": "GPL3",
     "authors": [
         {
             "name": "Artur Weigandt",
             "email": "art4@wlabs.de",
-            "homepage": "http://wlabs.de"
+            "homepage": "https://wlabs.de"
         }
     ],
     "require": {
         "php": "^5.5 || ^7.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^4.8.35 || ^6.0"
+        "phpunit/phpunit": "^4.8.35 || ^5.4.3 || ^6.0"
     },
     "autoload": {
         "psr-4": {
@@ -27,5 +27,11 @@
         "psr-4": {
             "Art4\\JsonApiClient\\Tests\\": "tests"
         }
+    },
+    "config": {
+        "//platform": {
+            "php": "5.5"
+        },
+        "sort-packages": true
     }
 }

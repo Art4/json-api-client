@@ -68,7 +68,7 @@ JsonApiClient can be used as a validator for JSON API contents:
 ```php
 $wrong_jsonapi = '{"data":{},"meta":{"info":"This is wrong JSON API. `data` has to be `null` or containing at least `type` and `id`."}}';
 
-if ( \Art4\JsonApiClient\Utils\Helper::isValid($wrong_jsonapi) )
+if ( \Art4\JsonApiClient\Utils\Helper::isValidResponseBody($wrong_jsonapi) )
 {
 	echo 'string is valid.';
 }

@@ -113,4 +113,19 @@ class TestCase extends \PHPUnit\Framework\TestCase
 			$this->expectExceptionCode($exceptionCode);
 		}
 	}
+
+	/**
+	 * Shim for PHPUnit 4
+	 *
+	 * @param mixed  $exceptionName
+	 */
+	public function expectException($exceptionName)
+	{
+		if (is_callable('parent::expectException'))
+		{
+			return parent::expectException($exceptionName);
+		}
+
+		$this->setExpectedException($exceptionName);
+	}
 }

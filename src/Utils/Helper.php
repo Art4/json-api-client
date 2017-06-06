@@ -39,7 +39,7 @@ final class Helper
 	 *
 	 * @throws ValidationException
 	 */
-	public static function parse($json_string)
+	public static function parseResponseBody($json_string)
 	{
 		$data = static::decodeJson($json_string);
 
@@ -78,16 +78,33 @@ final class Helper
 	}
 
 	/**
-	 * Checks if a string is a valid JSON API
+	 *
+	 * @deprecated since version 0.9, to be removed in 1.0. Use parseResponseBody() instead
+	 *
+	 * @param string $json_string
+	 *
+	 * @return Document
+	 *
+	 * @throws ValidationException
+	 */
+	public static function parse($json_string)
+	{
+		@trigger_error(__METHOD__ . ' is deprecated since version 0.9 and will be removed in 1.0. Use parseResponseBody() instead', E_USER_DEPRECATED);
+
+		return static::parseResponseBody($json_string);
+	}
+
+	/**
+	 * Checks if a string is a valid JSON API response body
 	 *
 	 * @param string $json_string
 	 * @return bool true, if $json_string contains valid JSON API, else false
 	 */
-	public static function isValid($json_string)
+	public static function isValidResponseBody($json_string)
 	{
 		try
 		{
-			static::parse($json_string);
+			static::parseResponseBody($json_string);
 		}
 		catch ( Exception $e )
 		{
@@ -95,6 +112,41 @@ final class Helper
 		}
 
 		return true;
+	}
+
+	/**
+	 * Checks if a string is a valid JSON API request body
+	 *
+	 * @param string $json_string
+	 * @return bool true, if $json_string contains valid JSON API, else false
+	 */
+	public static function isValidRequestBody($json_string)
+	{
+		try
+		{
+			static::parseRequestBody($json_string);
+		}
+		catch ( Exception $e )
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Checks if a string is a valid JSON API
+	 *
+	 * @deprecated since version 0.9, to be removed in 1.0. Use isValidResponseBody() instead
+	 *
+	 * @param string $json_string
+	 * @return bool true, if $json_string contains valid JSON API, else false
+	 */
+	public static function isValid($json_string)
+	{
+		@trigger_error(__METHOD__ . ' is deprecated since version 0.9 and will be removed in 1.0. Use parseResponseBody() instead', E_USER_DEPRECATED);
+
+		return static::isValidResponseBody($json_string);
 	}
 
 	/**

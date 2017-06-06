@@ -23,7 +23,7 @@ $wrong_jsonapi = '{"data":{},"meta":{"info":"This is wrong JSON API. `data` has 
 
 try
 {
-	$document = \Art4\JsonApiClient\Utils\Helper::parse($wrong_jsonapi);
+	$document = \Art4\JsonApiClient\Utils\Helper::parseResponseBody($wrong_jsonapi);
 }
 catch (\Art4\JsonApiClient\Exception\ValidationException $e)
 {

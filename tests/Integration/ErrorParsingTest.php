@@ -32,7 +32,7 @@ class ErrorParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	public function testParseErrors()
 	{
 		$string = $this->getJsonString('09_errors.json');
-		$document = Helper::parse($string);
+		$document = Helper::parseResponseBody($string);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertTrue($document->has('errors'));
@@ -107,7 +107,7 @@ class ErrorParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	public function testParseErrorWithLinks()
 	{
 		$string = $this->getJsonString('10_error_with_links.json');
-		$document = Helper::parse($string);
+		$document = Helper::parseResponseBody($string);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
 		$this->assertTrue($document->has('errors'));
