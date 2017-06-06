@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [0.9] - 2017-06-06
 
 ### Added
 
@@ -134,7 +134,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - `Document::get('error')` returns a `ErrorCollection` object
 - `Document::get('included')` returns a `Resource\Collection` object
 - `\Art4\JsonApiClient\Exception\ValidationException` will be thrown instead of `InvalidArgumentException`
-- `\Art4\JsonApiClient\Exception\AccessException` will be thrown instead of `RuntimetException`
+- `\Art4\JsonApiClient\Exception\AccessException` will be thrown instead of `RuntimeException`
 
 ## [0.2] - 2015-08-12
 
@@ -155,7 +155,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Validator fits nearly 100% specification
 - Full test coverage
 
-[Unreleased]: https://github.com/Art4/json-api-client/compare/0.8.1...HEAD
+[Unreleased]: https://github.com/Art4/json-api-client/compare/0.9...HEAD
+[0.9]: https://github.com/Art4/json-api-client/compare/0.8.1...0.9
 [0.8.1]: https://github.com/Art4/json-api-client/compare/0.8...0.8.1
 [0.8]: https://github.com/Art4/json-api-client/compare/0.7...0.8
 [0.7]: https://github.com/Art4/json-api-client/compare/0.6.3...0.7

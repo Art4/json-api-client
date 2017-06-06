@@ -20,8 +20,8 @@ Version 0.6.1 and below interprets the pagination links wrong. Make sure you are
 * [x] Handle/validate a server response body
 * [x] Offer an easy way to retrieve the data
 * [x] Be extendable and allow injection of classes/models
-* [ ] Offer access to included resources through identifier
 * [x] Handle/validate a client request body
+* [ ] Refactore and remove the deprecated code
 
 ## Install
 
