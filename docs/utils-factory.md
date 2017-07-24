@@ -5,7 +5,7 @@ The `Utils\Factory` provides a simple way to override [all objects](objects-intr
 
 ### Override the classes
 
-All used classes are listet [in the source code](../src/Utils/Factory.php#L12). You can inject your own clasess by passing them to the factory constructor.
+All used classes are listed [in the source code](../src/Utils/Factory.php#L12). You can inject your own classes by passing them to the factory constructor.
 
 ```php
 $factory = new \Art4\JsonApiClient\Utils\Factory([
