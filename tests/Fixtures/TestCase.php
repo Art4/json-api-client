@@ -22,6 +22,76 @@ namespace Art4\JsonApiClient\Tests\Fixtures;
 class TestCase extends \PHPUnit\Framework\TestCase
 {
     /**
+     * Returns a test double for the specified class.
+     *
+     * Shim for PHPUnit 4
+     *
+     * @param string $originalClassName
+     *
+     * @throws Exception
+     *
+     * @return PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function createMock($originalClassName)
+    {
+        if (is_callable('parent::createMock')) {
+            return parent::createMock($originalClassName);
+        }
+
+        return $this->getMockBuilder($originalClassName)
+            ->disableOriginalConstructor()
+            ->disableOriginalClone()
+            ->disableArgumentCloning()
+            ->getMock();
+    }
+
+    /**
+     * Returns a mock object for the specified class.
+     *
+     * Shim for PHPUnit 6
+     *
+     * @param string     $originalClassName       name of the class to mock
+     * @param array|null $methods                 When provided, only methods whose names are in the array
+     *                                            are replaced with a configurable test double. The behavior
+     *                                            of the other methods is not changed.
+     *                                            Providing null means that no methods will be replaced.
+     * @param array      $arguments               parameters to pass to the original class' constructor
+     * @param string     $mockClassName           class name for the generated test double class
+     * @param bool       $callOriginalConstructor can be used to disable the call to the original class' constructor
+     * @param bool       $callOriginalClone       can be used to disable the call to the original class' clone constructor
+     * @param bool       $callAutoload            can be used to disable __autoload() during the generation of the test double class
+     * @param bool       $cloneArguments
+     * @param bool       $callOriginalMethods
+     * @param object     $proxyTarget
+     *
+     * @throws PHPUnit_Framework_Exception
+     *
+     * @return PHPUnit_Framework_MockObject_MockObject
+     *
+     * @since  Method available since Release 3.0.0
+     */
+    public function getMock($originalClassName, $methods = [], array $arguments = [], $mockClassName = '', $callOriginalConstructor = true, $callOriginalClone = true, $callAutoload = true, $cloneArguments = false, $callOriginalMethods = false, $proxyTarget = null)
+    {
+        if (is_callable('parent::getMock')) {
+            return parent::getMock(
+                $originalClassName,
+                $methods,
+                $arguments,
+                $mockClassName,
+                $callOriginalConstructor,
+                $callOriginalClone,
+                $callAutoload,
+                $cloneArguments,
+                $callOriginalMethods,
+                $proxyTarget
+            );
+        }
+
+        return $this->getMockBuilder($originalClassName)
+            ->getMock();
+    }
+
+    /**
      * Shim for PHPUnit 6
      *
      * @param mixed  $exceptionName
@@ -40,5 +110,19 @@ class TestCase extends \PHPUnit\Framework\TestCase
         if ($exceptionCode !== null) {
             $this->expectExceptionCode($exceptionCode);
         }
+    }
+
+    /**
+     * Shim for PHPUnit 4
+     *
+     * @param mixed $exceptionName
+     */
+    public function expectException($exceptionName)
+    {
+        if (is_callable('parent::expectException')) {
+            return parent::expectException($exceptionName);
+        }
+
+        $this->setExpectedException($exceptionName);
     }
 }
