@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 
 - Change Code Style to PSR-2
+- Support for PHP 5.5 dropped, PHP >=5.6 is now required
 - Tests in Travis for PHP 7.2 and nightly added
 
 ## [0.9] - 2017-06-06
