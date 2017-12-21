@@ -48,7 +48,7 @@ class ErrorLinkTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 		$object->href = 'http://example.org/href';
 		$object->about = 'http://example.org/about';
 
-		$link = new ErrorLink($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$link = new ErrorLink($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 		$link->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ErrorLink', $link);
@@ -84,7 +84,7 @@ class ErrorLinkTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 		$object = new \stdClass();
 		$object->foobar = new \stdClass();
 
-		$link = new ErrorLink($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$link = new ErrorLink($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
@@ -106,7 +106,7 @@ class ErrorLinkTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 		$object = new \stdClass();
 		$object->about = new \stdClass();
 
-		$link = new ErrorLink($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$link = new ErrorLink($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 		$link->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ErrorLink', $link);
@@ -123,7 +123,7 @@ class ErrorLinkTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testCreateWithDataprovider($input)
 	{
-		$link = new ErrorLink($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$link = new ErrorLink($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
 		// Input must be an object
 		if ( gettype($input) === 'object' )
@@ -148,7 +148,7 @@ class ErrorLinkTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testCreateWithoutObjectOrStringAttributeThrowsException($input)
 	{
-		$link = new ErrorLink($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$link = new ErrorLink($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
 		// Input must be an object
 		if ( gettype($input) === 'string' or gettype($input) === 'object' )
@@ -177,7 +177,7 @@ class ErrorLinkTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testAboutWithDataproviderThrowsException($input)
 	{
-		$link = new ErrorLink($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$link = new ErrorLink($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
 		// Input must be string or object
 		if ( gettype($input) === 'string' or gettype($input) === 'object' )
@@ -206,7 +206,7 @@ class ErrorLinkTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 		$object = new \stdClass();
 		$object->about = 'http://example.org/about';
 
-		$link = new ErrorLink($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$link = new ErrorLink($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 		$link->parse($object);
 
 		$this->assertFalse($link->has('something'));

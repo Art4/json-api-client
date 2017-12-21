@@ -39,7 +39,7 @@ class ResourceIdentifierCollectionTest extends \Art4\JsonApiClient\Tests\Fixture
 	 */
 	public function testCreateWithEmptyArray()
 	{
-		$collection = new ResourceIdentifierCollection($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$collection = new ResourceIdentifierCollection($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 		$collection->parse(array());
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifierCollection', $collection);
@@ -61,7 +61,7 @@ class ResourceIdentifierCollectionTest extends \Art4\JsonApiClient\Tests\Fixture
 		$object->id = 789;
 		$object->meta = new \stdClass();
 
-		$collection = new ResourceIdentifierCollection($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$collection = new ResourceIdentifierCollection($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 		$collection->parse(array($object, $object, $object));
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifierCollection', $collection);
@@ -99,7 +99,7 @@ class ResourceIdentifierCollectionTest extends \Art4\JsonApiClient\Tests\Fixture
 		$object->relationships = new \stdClass();
 		$object->links = new \stdClass();
 
-		$collection = new ResourceIdentifierCollection($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$collection = new ResourceIdentifierCollection($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 		$collection->parse(array($object));
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifierCollection', $collection);
@@ -119,7 +119,7 @@ class ResourceIdentifierCollectionTest extends \Art4\JsonApiClient\Tests\Fixture
 	 */
 	public function testCreateWithoutArrayThrowsException($input)
 	{
-		$collection = new ResourceIdentifierCollection($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$collection = new ResourceIdentifierCollection($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
 		// Input must be an array
 		if ( gettype($input) === 'array' )
@@ -142,7 +142,7 @@ class ResourceIdentifierCollectionTest extends \Art4\JsonApiClient\Tests\Fixture
 	 */
 	public function testGetResourcesWithEmptyCollectionThrowsException()
 	{
-		$collection = new ResourceIdentifierCollection($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$collection = new ResourceIdentifierCollection($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 		$collection->parse(array());
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifierCollection', $collection);

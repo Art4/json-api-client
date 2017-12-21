@@ -117,7 +117,11 @@ class DocumentTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 			return;
 		}
 
-		$this->setExpectedException('Art4\JsonApiClient\Exception\ValidationException');
+		$this->setExpectedException(
+			'Art4\JsonApiClient\Exception\ValidationException',
+			sprintf('Document has to be an object, "%s" given.', gettype($input))
+		);
+
 		$document->parse($input);
 	}
 

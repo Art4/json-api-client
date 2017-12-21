@@ -49,7 +49,7 @@ class JsonapiTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 		$object->testobj = new \stdClass();
 		$object->teststring = 'http://example.org/link';
 
-		$jsonapi = new Jsonapi($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$jsonapi = new Jsonapi($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 		$jsonapi->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Jsonapi', $jsonapi);
@@ -92,7 +92,7 @@ class JsonapiTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testCreateWithDataprovider($input)
 	{
-		$jsonapi = new Jsonapi($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$jsonapi = new Jsonapi($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
 		// Input must be an object
 		if ( gettype($input) === 'object' )
@@ -119,7 +119,7 @@ class JsonapiTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 		$object = new \stdClass();
 		$object->version = $input;
 
-		$jsonapi = new Jsonapi($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$jsonapi = new Jsonapi($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
 		if ( gettype($input) === 'object' or gettype($input) === 'array' )
 		{

@@ -43,7 +43,7 @@ class ResourceItemTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 		$object->type = 'type';
 		$object->id = 789;
 
-		$item = new ResourceItem($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$item = new ResourceItem($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 		$item->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ResourceItem', $item);
@@ -81,7 +81,7 @@ class ResourceItemTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 		$object->relationships = new \stdClass();
 		$object->links = new \stdClass();
 
-		$item = new ResourceItem($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$item = new ResourceItem($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 		$item->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ResourceItem', $item);
@@ -129,7 +129,7 @@ class ResourceItemTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 		$object->type = $input;
 		$object->id = '753';
 
-		$item = new ResourceItem($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$item = new ResourceItem($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
 		if ( gettype($input) === 'object' or gettype($input) === 'array' )
 		{
@@ -155,7 +155,7 @@ class ResourceItemTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 		$object->type = 'posts';
 		$object->id = $input;
 
-		$item = new ResourceItem($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$item = new ResourceItem($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
 		if ( gettype($input) === 'object' or gettype($input) === 'array' )
 		{
@@ -178,7 +178,7 @@ class ResourceItemTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testCreateWithDataproviderThrowsException($input)
 	{
-		$item = new ResourceItem($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$item = new ResourceItem($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
 		if ( gettype($input) === 'object' )
 		{
@@ -203,7 +203,7 @@ class ResourceItemTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 		$object = new \stdClass();
 		$object->id = 123;
 
-		$item = new ResourceItem($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$item = new ResourceItem($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
@@ -221,7 +221,7 @@ class ResourceItemTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 		$object = new \stdClass();
 		$object->type = 'type';
 
-		$item = new ResourceItem($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$item = new ResourceItem($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',

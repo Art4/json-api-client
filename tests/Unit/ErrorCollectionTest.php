@@ -44,7 +44,7 @@ class ErrorCollectionTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 			new \stdClass(),
 		);
 
-		$collection = new ErrorCollection($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$collection = new ErrorCollection($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 		$collection->parse($errors);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ErrorCollection', $collection);
@@ -100,7 +100,7 @@ class ErrorCollectionTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 			);
 		}
 
-		$collection = new ErrorCollection($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$collection = new ErrorCollection($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 		$collection->parse($input);
 	}
 
@@ -113,7 +113,7 @@ class ErrorCollectionTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 			new \stdClass(),
 		);
 
-		$collection = new ErrorCollection($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$collection = new ErrorCollection($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 		$collection->parse($errors);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ErrorCollection', $collection);

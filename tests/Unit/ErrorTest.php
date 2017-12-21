@@ -50,7 +50,7 @@ class ErrorTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 		$object->source = new \stdClass();
 		$object->meta = new \stdClass();
 
-		$error = new Error($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$error = new Error($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 		$error->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Error', $error);
@@ -113,7 +113,7 @@ class ErrorTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testCreateWithoutObjectThrowsException($input)
 	{
-		$error = new Error($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$error = new Error($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
 		// Input must be an object
 		if ( gettype($input) === 'object' )
@@ -136,7 +136,7 @@ class ErrorTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testCreateIdWithoutStringThrowsException($input)
 	{
-		$error = new Error($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$error = new Error($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
 		// Input must be a string
 		if ( gettype($input) === 'string' )
@@ -162,7 +162,7 @@ class ErrorTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testCreateStatusWithoutStringThrowsException($input)
 	{
-		$error = new Error($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$error = new Error($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
 		// Input must be a string
 		if ( gettype($input) === 'string' )
@@ -188,7 +188,7 @@ class ErrorTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testCreateCodeWithoutStringThrowsException($input)
 	{
-		$error = new Error($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$error = new Error($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
 		// Input must be a string
 		if ( gettype($input) === 'string' )
@@ -214,7 +214,7 @@ class ErrorTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testCreateTitleWithoutStringThrowsException($input)
 	{
-		$error = new Error($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$error = new Error($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
 		// Input must be a string
 		if ( gettype($input) === 'string' )
@@ -240,7 +240,7 @@ class ErrorTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testCreateDetailWithoutStringThrowsException($input)
 	{
-		$error = new Error($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$error = new Error($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
 		// Input must be a string
 		if ( gettype($input) === 'string' )

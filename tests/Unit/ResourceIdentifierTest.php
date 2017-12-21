@@ -43,7 +43,7 @@ class ResourceIdentifierTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 		$object->type = 'type';
 		$object->id = 789;
 
-		$identifier = new ResourceIdentifier($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$identifier = new ResourceIdentifier($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 		$identifier->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $identifier);
@@ -75,7 +75,7 @@ class ResourceIdentifierTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 		$object->id = 159;
 		$object->meta = new \stdClass();
 
-		$identifier = new ResourceIdentifier($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$identifier = new ResourceIdentifier($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 		$identifier->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $identifier);
@@ -106,7 +106,7 @@ class ResourceIdentifierTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 			);
 		}
 
-		$identifier = new ResourceIdentifier($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$identifier = new ResourceIdentifier($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 		$identifier->parse($object);
 
 		$this->assertTrue(is_string($identifier->get('type')));
@@ -123,7 +123,7 @@ class ResourceIdentifierTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 		$object->type = 'posts';
 		$object->id = $input;
 
-		$identifier = new ResourceIdentifier($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$identifier = new ResourceIdentifier($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
 		if ( gettype($input) === 'object' or gettype($input) === 'array' )
 		{
@@ -146,7 +146,7 @@ class ResourceIdentifierTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testCreateWithDataproviderThrowsException($input)
 	{
-		$identifier = new ResourceIdentifier($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$identifier = new ResourceIdentifier($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
 		if ( gettype($input) === 'object' )
 		{
@@ -171,7 +171,7 @@ class ResourceIdentifierTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 		$object = new \stdClass();
 		$object->id = 123;
 
-		$identifier = new ResourceIdentifier($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$identifier = new ResourceIdentifier($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
@@ -189,7 +189,7 @@ class ResourceIdentifierTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 		$object = new \stdClass();
 		$object->type = 'type';
 
-		$identifier = new ResourceIdentifier($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$identifier = new ResourceIdentifier($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
@@ -208,7 +208,7 @@ class ResourceIdentifierTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 		$object->type = 'posts';
 		$object->id = 9;
 
-		$identifier = new ResourceIdentifier($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$identifier = new ResourceIdentifier($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 		$identifier->parse($object);
 
 		$this->assertFalse($identifier->has('foobar'));

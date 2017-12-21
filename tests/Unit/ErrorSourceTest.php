@@ -48,7 +48,7 @@ class ErrorSourceTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 		$object->parameter = 'parameter';
 		$object->ignore = 'must be ignored';
 
-		$source = new ErrorSource($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$source = new ErrorSource($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 		$source->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ErrorSource', $source);
@@ -90,7 +90,7 @@ class ErrorSourceTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testCreateWithoutObjectThrowsException($input)
 	{
-		$source = new ErrorSource($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$source = new ErrorSource($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
 		// Input must be an object
 		if ( gettype($input) === 'object' )
@@ -115,7 +115,7 @@ class ErrorSourceTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testPointerMustBeAString($input)
 	{
-		$source = new ErrorSource($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$source = new ErrorSource($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
 		// Input must be a string
 		if ( gettype($input) === 'string' )
@@ -143,7 +143,7 @@ class ErrorSourceTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testParameterMustBeAString($input)
 	{
-		$source = new ErrorSource($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$source = new ErrorSource($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
 		// Input must be a string
 		if ( gettype($input) === 'string' )

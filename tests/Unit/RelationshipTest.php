@@ -42,7 +42,7 @@ class RelationshipTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 		$object = new \stdClass();
 		$object->meta = new \stdClass();
 
-		$relationship = new Relationship($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$relationship = new Relationship($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 		$relationship->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Relationship', $relationship);
@@ -75,7 +75,7 @@ class RelationshipTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testCreateWithoutObjectThrowsException($input)
 	{
-		$relationship = new Relationship($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$relationship = new Relationship($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
 		// Skip if $input is an object
 		if ( gettype($input) === 'object' )
@@ -103,7 +103,7 @@ class RelationshipTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 		$object = new \stdClass();
 		$object->foo = 'bar';
 
-		$relationship = new Relationship($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$relationship = new Relationship($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
 		$this->setExpectedException(
 			'Art4\JsonApiClient\Exception\ValidationException',
@@ -122,7 +122,7 @@ class RelationshipTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 		$object->links = new \stdClass();
 		$object->links->self = 'http://example.org/self';
 
-		$relationship = new Relationship($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$relationship = new Relationship($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 		$relationship->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Relationship', $relationship);
@@ -153,7 +153,7 @@ class RelationshipTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 		$object = new \stdClass();
 		$object->data = $data;
 
-		$relationship = new Relationship($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$relationship = new Relationship($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 		$relationship->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Relationship', $relationship);
@@ -171,7 +171,7 @@ class RelationshipTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 		$object = new \stdClass();
 		$object->data = null;
 
-		$relationship = new Relationship($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$relationship = new Relationship($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 		$relationship->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Relationship', $relationship);
@@ -193,7 +193,7 @@ class RelationshipTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 		$object = new \stdClass();
 		$object->data = array($data_obj);
 
-		$relationship = new Relationship($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$relationship = new Relationship($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 		$relationship->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Relationship', $relationship);
@@ -213,7 +213,7 @@ class RelationshipTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 		$object = new \stdClass();
 		$object->data = array();
 
-		$relationship = new Relationship($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$relationship = new Relationship($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 		$relationship->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Relationship', $relationship);
@@ -233,7 +233,7 @@ class RelationshipTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 		$object = new \stdClass();
 		$object->meta = new \stdClass();
 
-		$relationship = new Relationship($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$relationship = new Relationship($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 		$relationship->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Relationship', $relationship);

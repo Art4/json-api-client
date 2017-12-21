@@ -39,7 +39,7 @@ class ResourceNullTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testCreateWithDataProvider($input)
 	{
-		$resource = new ResourceNull($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$resource = new ResourceNull($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 		$resource->parse($input);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\ResourceNull', $resource);
@@ -59,7 +59,7 @@ class ResourceNullTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testGetThrowsException()
 	{
-		$resource = new ResourceNull($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$resource = new ResourceNull($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 		$resource->parse(null);
 
 		$this->setExpectedException(

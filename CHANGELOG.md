@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- Support for PHP 5.5 dropped, PHP >=5.6 is now required
+- Tests in Travis for PHP 7.2 and nightly added
+
 ## [0.9] - 2017-06-06
 
 ### Added

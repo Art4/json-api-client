@@ -49,7 +49,7 @@ class MetaTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 		$object->false = false;
 		$object->null = null;
 
-		$meta = new Meta($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$meta = new Meta($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 		$meta->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Meta', $meta);
@@ -104,7 +104,7 @@ class MetaTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	 */
 	public function testCreateWithoutObjectThrowsException($input)
 	{
-		$meta = new Meta($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$meta = new Meta($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
 		// Input must be an object
 		if ( gettype($input) === 'object' )
@@ -129,7 +129,7 @@ class MetaTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 	{
 		$object = new \stdClass();
 
-		$meta = new Meta($this->manager, $this->getMock('Art4\JsonApiClient\AccessInterface'));
+		$meta = new Meta($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 		$meta->parse($object);
 
 		$this->assertInstanceOf('Art4\JsonApiClient\Meta', $meta);
