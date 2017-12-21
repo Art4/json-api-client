@@ -26,13 +26,13 @@ use Art4\JsonApiClient\AccessInterface;
  */
 interface DataContainerInterface extends AccessInterface
 {
-	/**
-	 * Set a value
-	 *
-	 * @param string $key The Key
-	 * @param mixed $value The Value
-	 *
-	 * @return self
-	 */
-	public function set($key, $value);
+    /**
+     * Set a value
+     *
+     * @param string $key   The Key
+     * @param mixed  $value The Value
+     *
+     * @return self
+     */
+    public function set($key, $value);
 }

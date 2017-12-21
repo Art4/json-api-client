@@ -21,112 +21,113 @@ namespace Art4\JsonApiClient\Utils;
 
 final class Manager implements ManagerInterface, FactoryManagerInterface
 {
-	/**
-	 * @var FactoryInterface
-	 */
-	public $factory = null;
+    /**
+     * @var FactoryInterface
+     */
+    public $factory = null;
 
-	private $config = [
-		'optional_item_id' => false,
-	];
+    private $config = [
+        'optional_item_id' => false,
+    ];
 
-	/**
-	 * @param  FactoryInterface $factory
-	 * @return object
-	 */
-	public function __construct($factory = null)
-	{
-		if ( ! is_null($factory) )
-		{
-			$this->setFactory($factory);
-		}
-	}
+    /**
+     * @param FactoryInterface $factory
+     *
+     * @return object
+     */
+    public function __construct($factory = null)
+    {
+        if (! is_null($factory)) {
+            $this->setFactory($factory);
+        }
+    }
 
-	/**
-	 * Set a factory into the manager
-	 *
-	 * @param  FactoryInterface $factory
-	 * @return object
-	 */
-	public function setFactory(FactoryInterface $factory)
-	{
-		$this->factory = $factory;
+    /**
+     * Set a factory into the manager
+     *
+     * @param FactoryInterface $factory
+     *
+     * @return object
+     */
+    public function setFactory(FactoryInterface $factory)
+    {
+        $this->factory = $factory;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Get a factory from the manager
-	 *
-	 * @return FactoryInterface
-	 */
-	public function getFactory()
-	{
-		if ( is_null($this->factory) )
-		{
-			$this->setFactory(new Factory);
-		}
+    /**
+     * Get a factory from the manager
+     *
+     * @return FactoryInterface
+     */
+    public function getFactory()
+    {
+        if (is_null($this->factory)) {
+            $this->setFactory(new Factory);
+        }
 
-		return $this->factory;
-	}
+        return $this->factory;
+    }
 
-	/**
-	 * Parse a JSON API string into an object
-	 *
-	 * @param   string $string The JSON API string
-	 * @return  Art4\JsonApiClient\AccessInterface
-	 *
-	 * @throws  Art4\JsonApiClient\Exception\ValidationException If $string is not valid JSON API
-	 */
-	public function parse($string)
-	{
-		$object = Helper::decodeJson($string);
+    /**
+     * Parse a JSON API string into an object
+     *
+     * @param string $string The JSON API string
+     *
+     * @throws Art4\JsonApiClient\Exception\ValidationException If $string is not valid JSON API
+     *
+     * @return Art4\JsonApiClient\AccessInterface
+     */
+    public function parse($string)
+    {
+        $object = Helper::decodeJson($string);
 
-		$document = $this->getFactory()->make('Document', [
-			$this,
-		]);
+        $document = $this->getFactory()->make('Document', [
+            $this,
+        ]);
 
-		$document->parse($object);
+        $document->parse($object);
 
-		return $document;
-	}
+        return $document;
+    }
 
-	/**
-	 * Get a config by key
-	 *
-	 * @param string $key
-	 * @return mixed
-	 *
-	 * @throws  \InvalidArgumentException If $key is not a valid config key
-	 */
-	public function getConfig($key)
-	{
-		if ( ! array_key_exists($key, $this->config) )
-		{
-			throw new \InvalidArgumentException;
-		}
+    /**
+     * Get a config by key
+     *
+     * @param string $key
+     *
+     * @throws \InvalidArgumentException If $key is not a valid config key
+     *
+     * @return mixed
+     */
+    public function getConfig($key)
+    {
+        if (! array_key_exists($key, $this->config)) {
+            throw new \InvalidArgumentException;
+        }
 
-		return $this->config[$key];
-	}
+        return $this->config[$key];
+    }
 
-	/**
-	 * Set a config
-	 *
-	 * @param   string $key
-	 * @param   mixed $value
-	 * @return  self
-	 *
-	 * @throws  \InvalidArgumentException If $key is not a valid config key
-	 */
-	public function setConfig($key, $value)
-	{
-		if ( ! array_key_exists($key, $this->config) )
-		{
-			throw new \InvalidArgumentException;
-		}
+    /**
+     * Set a config
+     *
+     * @param string $key
+     * @param mixed  $value
+     *
+     * @throws \InvalidArgumentException If $key is not a valid config key
+     *
+     * @return self
+     */
+    public function setConfig($key, $value)
+    {
+        if (! array_key_exists($key, $this->config)) {
+            throw new \InvalidArgumentException;
+        }
 
-		$this->config[$key] = $value;
+        $this->config[$key] = $value;
 
-		return $this;
-	}
+        return $this;
+    }
 }

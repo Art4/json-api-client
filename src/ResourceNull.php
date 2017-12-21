@@ -27,67 +27,68 @@ use Art4\JsonApiClient\Utils\FactoryManagerInterface;
  */
 final class ResourceNull implements ResourceNullInterface
 {
-	/**
-	 * Constructor need for mocking
-	 *
-	 * @param FactoryManagerInterface $manager The manager
-	 * @param AccessInterface $parent The parent
-	 */
-	public function __construct(FactoryManagerInterface $manager, AccessInterface $parent) { }
+    /**
+     * Constructor need for mocking
+     *
+     * @param FactoryManagerInterface $manager The manager
+     * @param AccessInterface         $parent  The parent
+     */
+    public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
+    {
+    }
 
-	/**
-	 * Parses the data for this element
-	 *
-	 * @param mixed $object The data
-	 *
-	 * @return self
-	 *
-	 * @throws ValidationException
-	 */
-	public function parse($object)
-	{
-		return $this;
-	}
+    /**
+     * Parses the data for this element
+     *
+     * @param mixed $object The data
+     *
+     * @throws ValidationException
+     *
+     * @return self
+     */
+    public function parse($object)
+    {
+        return $this;
+    }
 
-	/**
-	 * Check if a value exists in this resource
-	 *
-	 * @param string $key The key of the value
-	 * @return bool false
-	 */
-	public function has($key)
-	{
-		return false;
-	}
+    /**
+     * Check if a value exists in this resource
+     *
+     * @param string $key The key of the value
+     *
+     * @return bool false
+     */
+    public function has($key)
+    {
+        return false;
+    }
 
-	/**
-	 * Returns the keys of all setted values in this resource
-	 *
-	 * @return array Keys of all setted values
-	 */
-	public function getKeys()
-	{
-		return array();
-	}
+    /**
+     * Returns the keys of all setted values in this resource
+     *
+     * @return array Keys of all setted values
+     */
+    public function getKeys()
+    {
+        return [];
+    }
 
-	/**
-	 * Get a value by the key of this identifier
-	 *
-	 * @param string $key The key of the value
-	 */
-	public function get($key)
-	{
-		throw new AccessException('A ResourceNull has no values.');
-	}
+    /**
+     * Get a value by the key of this identifier
+     *
+     * @param string $key The key of the value
+     */
+    public function get($key)
+    {
+        throw new AccessException('A ResourceNull has no values.');
+    }
 
-	/**
-	 * Convert this object in an array
-	 *
-	 * @return null
-	 */
-	public function asArray()
-	{
-		// Null can't converted into an array, because it has no keys
-		return null;
-	}
+    /**
+     * Convert this object in an array
+     */
+    public function asArray()
+    {
+        // Null can't converted into an array, because it has no keys
+        return null;
+    }
 }

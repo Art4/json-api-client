@@ -24,49 +24,51 @@ use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 
 class ResourceNullTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 {
-	use HelperTrait;
+    use HelperTrait;
 
-	/**
-	 * @setup
-	 */
-	public function setUp()
-	{
-		$this->manager = $this->buildManagerMock();
-	}
+    /**
+     * @setup
+     */
+    public function setUp()
+    {
+        $this->manager = $this->buildManagerMock();
+    }
 
-	/**
-	 * @dataProvider jsonValuesProvider
-	 */
-	public function testCreateWithDataProvider($input)
-	{
-		$resource = new ResourceNull($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
-		$resource->parse($input);
+    /**
+     * @dataProvider jsonValuesProvider
+     *
+     * @param mixed $input
+     */
+    public function testCreateWithDataProvider($input)
+    {
+        $resource = new ResourceNull($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
+        $resource->parse($input);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\ResourceNull', $resource);
-		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $resource);
+        $this->assertInstanceOf('Art4\JsonApiClient\ResourceNull', $resource);
+        $this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $resource);
 
-		$this->assertFalse($resource->has('something'));
-		$this->assertSame($resource->getKeys(), array());
+        $this->assertFalse($resource->has('something'));
+        $this->assertSame($resource->getKeys(), []);
 
-		$this->assertSame($resource->asArray(), null);
+        $this->assertSame($resource->asArray(), null);
 
-		// Test full array
-		$this->assertSame($resource->asArray(true), null);
-	}
+        // Test full array
+        $this->assertSame($resource->asArray(true), null);
+    }
 
-	/**
-	 * @test get throws Exception
-	 */
-	public function testGetThrowsException()
-	{
-		$resource = new ResourceNull($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
-		$resource->parse(null);
+    /**
+     * @test get throws Exception
+     */
+    public function testGetThrowsException()
+    {
+        $resource = new ResourceNull($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
+        $resource->parse(null);
 
-		$this->setExpectedException(
-			'Art4\JsonApiClient\Exception\AccessException',
-			'A ResourceNull has no values.'
-		);
+        $this->setExpectedException(
+            'Art4\JsonApiClient\Exception\AccessException',
+            'A ResourceNull has no values.'
+        );
 
-		$resource->get('something');
-	}
+        $resource->get('something');
+    }
 }

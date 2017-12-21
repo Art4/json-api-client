@@ -23,128 +23,128 @@ use Art4\JsonApiClient\Utils\Manager;
 
 class ManagerTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 {
-	/**
-	 * @test
-	 */
-	public function testCreateReturnsSelf()
-	{
-		$manager = new Manager;
+    /**
+     * @test
+     */
+    public function testCreateReturnsSelf()
+    {
+        $manager = new Manager;
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Utils\ManagerInterface', $manager);
-		$this->assertInstanceOf('Art4\JsonApiClient\Utils\FactoryManagerInterface', $manager);
-	}
+        $this->assertInstanceOf('Art4\JsonApiClient\Utils\ManagerInterface', $manager);
+        $this->assertInstanceOf('Art4\JsonApiClient\Utils\FactoryManagerInterface', $manager);
+    }
 
-	/**
-	 * @test
-	 */
-	public function testCreateWithConstructorReturnsSelf()
-	{
-		$factory = $this->getMockBuilder('Art4\JsonApiClient\Utils\FactoryInterface')
-			->getMock();
+    /**
+     * @test
+     */
+    public function testCreateWithConstructorReturnsSelf()
+    {
+        $factory = $this->getMockBuilder('Art4\JsonApiClient\Utils\FactoryInterface')
+            ->getMock();
 
-		$manager = new Manager($factory);
+        $manager = new Manager($factory);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Utils\ManagerInterface', $manager);
-		$this->assertInstanceOf('Art4\JsonApiClient\Utils\FactoryManagerInterface', $manager);
+        $this->assertInstanceOf('Art4\JsonApiClient\Utils\ManagerInterface', $manager);
+        $this->assertInstanceOf('Art4\JsonApiClient\Utils\FactoryManagerInterface', $manager);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Utils\FactoryInterface', $manager->getFactory());
-	}
+        $this->assertInstanceOf('Art4\JsonApiClient\Utils\FactoryInterface', $manager->getFactory());
+    }
 
-	/**
-	 * @test
-	 */
-	public function testSetFactoryReturnsSelf()
-	{
-		$factory = $this->getMockBuilder('Art4\JsonApiClient\Utils\FactoryInterface')
-			->getMock();
+    /**
+     * @test
+     */
+    public function testSetFactoryReturnsSelf()
+    {
+        $factory = $this->getMockBuilder('Art4\JsonApiClient\Utils\FactoryInterface')
+            ->getMock();
 
-		$manager = new Manager;
+        $manager = new Manager;
 
-		$this->assertSame($manager, $manager->setFactory($factory));
-	}
+        $this->assertSame($manager, $manager->setFactory($factory));
+    }
 
-	/**
-	 * @test
-	 */
-	public function testGetFactoryReturnsFactoryInterface()
-	{
-		$factory = $this->getMockBuilder('Art4\JsonApiClient\Utils\FactoryInterface')
-			->getMock();
+    /**
+     * @test
+     */
+    public function testGetFactoryReturnsFactoryInterface()
+    {
+        $factory = $this->getMockBuilder('Art4\JsonApiClient\Utils\FactoryInterface')
+            ->getMock();
 
-		$manager = (new Manager)->setFactory($factory);
+        $manager = (new Manager)->setFactory($factory);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Utils\FactoryInterface', $manager->getFactory());
-	}
+        $this->assertInstanceOf('Art4\JsonApiClient\Utils\FactoryInterface', $manager->getFactory());
+    }
 
-	/**
-	 * @test
-	 */
-	public function testGetFactoryWitoutSetReturnsFactoryInterface()
-	{
-		$manager = new Manager;
+    /**
+     * @test
+     */
+    public function testGetFactoryWitoutSetReturnsFactoryInterface()
+    {
+        $manager = new Manager;
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Utils\FactoryInterface', $manager->getFactory());
-	}
+        $this->assertInstanceOf('Art4\JsonApiClient\Utils\FactoryInterface', $manager->getFactory());
+    }
 
-	/**
-	 * @test
-	 */
-	public function testParseReturnsDocument()
-	{
-		$manager = new Manager;
+    /**
+     * @test
+     */
+    public function testParseReturnsDocument()
+    {
+        $manager = new Manager;
 
-		$jsonapi_string = '{"meta":{}}';
+        $jsonapi_string = '{"meta":{}}';
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Document', $manager->parse($jsonapi_string));
-	}
+        $this->assertInstanceOf('Art4\JsonApiClient\Document', $manager->parse($jsonapi_string));
+    }
 
-	/**
-	 * @test
-	 */
-	public function testGetConfigReturnsValue()
-	{
-		$manager = new Manager;
+    /**
+     * @test
+     */
+    public function testGetConfigReturnsValue()
+    {
+        $manager = new Manager;
 
-		$this->assertSame(false, $manager->getConfig('optional_item_id'));
-	}
+        $this->assertSame(false, $manager->getConfig('optional_item_id'));
+    }
 
-	/**
-	 * @test
-	 */
-	public function testGetInvalidConfigThrowsException()
-	{
-		$manager = new Manager;
+    /**
+     * @test
+     */
+    public function testGetInvalidConfigThrowsException()
+    {
+        $manager = new Manager;
 
-		$this->setExpectedException(
-			'InvalidArgumentException',
-			''
-		);
+        $this->setExpectedException(
+            'InvalidArgumentException',
+            ''
+        );
 
-		$manager->getConfig('invalid_key');
-	}
+        $manager->getConfig('invalid_key');
+    }
 
-	/**
-	 * @test
-	 */
-	public function testSetConfigReturnsSelf()
-	{
-		$manager = new Manager;
+    /**
+     * @test
+     */
+    public function testSetConfigReturnsSelf()
+    {
+        $manager = new Manager;
 
-		$this->assertSame($manager, $manager->setConfig('optional_item_id', true));
-	}
+        $this->assertSame($manager, $manager->setConfig('optional_item_id', true));
+    }
 
-	/**
-	 * @test
-	 */
-	public function testSetInvalidConfigThrowsException()
-	{
-		$manager = new Manager;
+    /**
+     * @test
+     */
+    public function testSetInvalidConfigThrowsException()
+    {
+        $manager = new Manager;
 
-		$this->setExpectedException(
-			'InvalidArgumentException',
-			''
-		);
+        $this->setExpectedException(
+            'InvalidArgumentException',
+            ''
+        );
 
-		$manager->setConfig('invalid_key', 'value');
-	}
+        $manager->setConfig('invalid_key', 'value');
+    }
 }

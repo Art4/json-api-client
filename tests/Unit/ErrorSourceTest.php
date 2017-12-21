@@ -24,143 +24,146 @@ use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 
 class ErrorSourceTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 {
-	use HelperTrait;
+    use HelperTrait;
 
-	/**
-	 * @setup
-	 */
-	public function setUp()
-	{
-		$this->manager = $this->buildManagerMock();
-	}
+    /**
+     * @setup
+     */
+    public function setUp()
+    {
+        $this->manager = $this->buildManagerMock();
+    }
 
-	/**
-	 * @test only 'about' property' can exist
-	 *
-	 * source: an object containing references to the source of the error, optionally including any of the following members:
-	 * - pointer: a JSON Pointer [RFC6901] to the associated entity in the request document [e.g. "/data" for a primary data object, or "/data/attributes/title" for a specific attribute].
-	 * - parameter: a string indicating which query parameter caused the error.
-	 */
-	public function testOnlyPointerParameterPropertiesExists()
-	{
-		$object = new \stdClass();
-		$object->pointer = '/pointer';
-		$object->parameter = 'parameter';
-		$object->ignore = 'must be ignored';
+    /**
+     * @test only 'about' property' can exist
+     *
+     * source: an object containing references to the source of the error, optionally including any of the following members:
+     * - pointer: a JSON Pointer [RFC6901] to the associated entity in the request document [e.g. "/data" for a primary data object, or "/data/attributes/title" for a specific attribute].
+     * - parameter: a string indicating which query parameter caused the error.
+     */
+    public function testOnlyPointerParameterPropertiesExists()
+    {
+        $object = new \stdClass();
+        $object->pointer = '/pointer';
+        $object->parameter = 'parameter';
+        $object->ignore = 'must be ignored';
 
-		$source = new ErrorSource($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
-		$source->parse($object);
+        $source = new ErrorSource($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
+        $source->parse($object);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\ErrorSource', $source);
-		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $source);
-		$this->assertSame($source->getKeys(), array('pointer', 'parameter'));
+        $this->assertInstanceOf('Art4\JsonApiClient\ErrorSource', $source);
+        $this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $source);
+        $this->assertSame($source->getKeys(), ['pointer', 'parameter']);
 
-		$this->assertFalse($source->has('ignore'));
-		$this->assertTrue($source->has('pointer'));
-		$this->assertSame($source->get('pointer'), '/pointer');
-		$this->assertTrue($source->has('parameter'));
-		$this->assertSame($source->get('parameter'), 'parameter');
+        $this->assertFalse($source->has('ignore'));
+        $this->assertTrue($source->has('pointer'));
+        $this->assertSame($source->get('pointer'), '/pointer');
+        $this->assertTrue($source->has('parameter'));
+        $this->assertSame($source->get('parameter'), 'parameter');
 
-		$this->assertSame($source->asArray(), array(
-			'pointer' => $source->get('pointer'),
-			'parameter' => $source->get('parameter'),
-		));
+        $this->assertSame($source->asArray(), [
+            'pointer' => $source->get('pointer'),
+            'parameter' => $source->get('parameter'),
+        ]);
 
-		// Test full array
-		$this->assertSame($source->asArray(true), array(
-			'pointer' => $source->get('pointer'),
-			'parameter' => $source->get('parameter'),
-		));
+        // Test full array
+        $this->assertSame($source->asArray(true), [
+            'pointer' => $source->get('pointer'),
+            'parameter' => $source->get('parameter'),
+        ]);
 
-		// test get() with not existing key throws an exception
-		$this->assertFalse($source->has('something'));
+        // test get() with not existing key throws an exception
+        $this->assertFalse($source->has('something'));
 
-		$this->setExpectedException(
-			'Art4\JsonApiClient\Exception\AccessException',
-			'"something" doesn\'t exist in this error source.'
-		);
+        $this->setExpectedException(
+            'Art4\JsonApiClient\Exception\AccessException',
+            '"something" doesn\'t exist in this error source.'
+        );
 
-		$source->get('something');
-	}
+        $source->get('something');
+    }
 
-	/**
-	 * @dataProvider jsonValuesProvider
-	 *
-	 * source: an object containing references to ...
-	 */
-	public function testCreateWithoutObjectThrowsException($input)
-	{
-		$source = new ErrorSource($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
+    /**
+     * @dataProvider jsonValuesProvider
+     *
+     * source: an object containing references to ...
+     *
+     * @param mixed $input
+     */
+    public function testCreateWithoutObjectThrowsException($input)
+    {
+        $source = new ErrorSource($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
-		// Input must be an object
-		if ( gettype($input) === 'object' )
-		{
-			$this->assertInstanceOf('Art4\JsonApiClient\ErrorSource', $source);
+        // Input must be an object
+        if (gettype($input) === 'object') {
+            $this->assertInstanceOf('Art4\JsonApiClient\ErrorSource', $source);
 
-			return;
-		}
+            return;
+        }
 
-		$this->setExpectedException(
-			'Art4\JsonApiClient\Exception\ValidationException',
-			'ErrorSource has to be an object, "' . gettype($input) . '" given.'
-		);
+        $this->setExpectedException(
+            'Art4\JsonApiClient\Exception\ValidationException',
+            'ErrorSource has to be an object, "' . gettype($input) . '" given.'
+        );
 
-		$source->parse($input);
-	}
+        $source->parse($input);
+    }
 
-	/**
-	 * @dataProvider jsonValuesProvider
-	 *
-	 * pointer: a JSON Pointer [RFC6901] to the associated entity in the request document [e.g. "/data" for a primary data object, or "/data/attributes/title" for a specific attribute].
-	 */
-	public function testPointerMustBeAString($input)
-	{
-		$source = new ErrorSource($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
+    /**
+     * @dataProvider jsonValuesProvider
+     *
+     * pointer: a JSON Pointer [RFC6901] to the associated entity in the request document [e.g. "/data" for a primary data object, or "/data/attributes/title" for a specific attribute].
+     *
+     * @param mixed $input
+     */
+    public function testPointerMustBeAString($input)
+    {
+        $source = new ErrorSource($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
-		// Input must be a string
-		if ( gettype($input) === 'string' )
-		{
-			$this->assertInstanceOf('Art4\JsonApiClient\ErrorSource', $source);
+        // Input must be a string
+        if (gettype($input) === 'string') {
+            $this->assertInstanceOf('Art4\JsonApiClient\ErrorSource', $source);
 
-			return;
-		}
+            return;
+        }
 
-		$object = new \stdClass();
-		$object->pointer = $input;
+        $object = new \stdClass();
+        $object->pointer = $input;
 
-		$this->setExpectedException(
-			'Art4\JsonApiClient\Exception\ValidationException',
-			'property "pointer" has to be a string, "' . gettype($input) . '" given.'
-		);
+        $this->setExpectedException(
+            'Art4\JsonApiClient\Exception\ValidationException',
+            'property "pointer" has to be a string, "' . gettype($input) . '" given.'
+        );
 
-		$source->parse($object);
-	}
+        $source->parse($object);
+    }
 
-	/**
-	 * @dataProvider jsonValuesProvider
-	 *
-	 * parameter: a string indicating which query parameter caused the error.
-	 */
-	public function testParameterMustBeAString($input)
-	{
-		$source = new ErrorSource($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
+    /**
+     * @dataProvider jsonValuesProvider
+     *
+     * parameter: a string indicating which query parameter caused the error.
+     *
+     * @param mixed $input
+     */
+    public function testParameterMustBeAString($input)
+    {
+        $source = new ErrorSource($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
-		// Input must be a string
-		if ( gettype($input) === 'string' )
-		{
-			$this->assertInstanceOf('Art4\JsonApiClient\ErrorSource', $source);
+        // Input must be a string
+        if (gettype($input) === 'string') {
+            $this->assertInstanceOf('Art4\JsonApiClient\ErrorSource', $source);
 
-			return;
-		}
+            return;
+        }
 
-		$object = new \stdClass();
-		$object->parameter = $input;
+        $object = new \stdClass();
+        $object->parameter = $input;
 
-		$this->setExpectedException(
-			'Art4\JsonApiClient\Exception\ValidationException',
-			'property "parameter" has to be a string, "' . gettype($input) . '" given.'
-		);
+        $this->setExpectedException(
+            'Art4\JsonApiClient\Exception\ValidationException',
+            'property "parameter" has to be a string, "' . gettype($input) . '" given.'
+        );
 
-		$source->parse($object);
-	}
+        $source->parse($object);
+    }
 }

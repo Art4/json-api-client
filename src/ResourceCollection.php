@@ -32,110 +32,102 @@ use Art4\JsonApiClient\Exception\ValidationException;
  */
 final class ResourceCollection implements ResourceCollectionInterface
 {
-	use AccessTrait;
+    use AccessTrait;
 
-	/**
-	 * @var DataContainerInterface
-	 */
-	protected $container;
+    /**
+     * @var DataContainerInterface
+     */
+    protected $container;
 
-	/**
-	 * @var FactoryManagerInterface
-	 */
-	protected $manager;
+    /**
+     * @var FactoryManagerInterface
+     */
+    protected $manager;
 
-	/**
-	 * Sets the manager and parent
-	 *
-	 * @param FactoryManagerInterface $manager The manager
-	 * @param AccessInterface $parent The parent
-	 */
-	public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
-	{
-		$this->manager = $manager;
+    /**
+     * Sets the manager and parent
+     *
+     * @param FactoryManagerInterface $manager The manager
+     * @param AccessInterface         $parent  The parent
+     */
+    public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
+    {
+        $this->manager = $manager;
 
-		$this->container = new DataContainer();
-	}
+        $this->container = new DataContainer();
+    }
 
-	/**
-	 * Parses the data for this element
-	 *
-	 * @param mixed $object The data
-	 *
-	 * @return self
-	 *
-	 * @throws ValidationException
-	 */
-	public function parse($object)
-	{
-		if ( ! is_array($object) )
-		{
-			throw new ValidationException('Resources for a collection has to be in an array, "' . gettype($object) . '" given.');
-		}
+    /**
+     * Parses the data for this element
+     *
+     * @param mixed $object The data
+     *
+     * @throws ValidationException
+     *
+     * @return self
+     */
+    public function parse($object)
+    {
+        if (! is_array($object)) {
+            throw new ValidationException('Resources for a collection has to be in an array, "' . gettype($object) . '" given.');
+        }
 
-		if ( count($object) > 0 )
-		{
-			foreach ($object as $resource)
-			{
-				$this->container->set('', $this->parseResource($resource));
-			}
-		}
+        if (count($object) > 0) {
+            foreach ($object as $resource) {
+                $this->container->set('', $this->parseResource($resource));
+            }
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Get a value by the key of this document
-	 *
-	 * @param string $key The key of the value
-	 * @return mixed The value
-	 */
-	public function get($key)
-	{
-		try
-		{
-			return $this->container->get($key);
-		}
-		catch (AccessException $e)
-		{
-			throw new AccessException('"' . $key . '" doesn\'t exist in this resource.');
-		}
-	}
+    /**
+     * Get a value by the key of this document
+     *
+     * @param string $key The key of the value
+     *
+     * @return mixed The value
+     */
+    public function get($key)
+    {
+        try {
+            return $this->container->get($key);
+        } catch (AccessException $e) {
+            throw new AccessException('"' . $key . '" doesn\'t exist in this resource.');
+        }
+    }
 
-	/**
-	 * Generate a new resource from an object
-	 *
-	 * @param object $data The resource data
-	 * @return ElementInterface The resource
-	 */
-	protected function parseResource($data)
-	{
-		if ( ! is_object($data) )
-		{
-			throw new ValidationException('Resources inside a collection MUST be objects, "' . gettype($data) . '" given.');
-		}
+    /**
+     * Generate a new resource from an object
+     *
+     * @param object $data The resource data
+     *
+     * @return ElementInterface The resource
+     */
+    protected function parseResource($data)
+    {
+        if (! is_object($data)) {
+            throw new ValidationException('Resources inside a collection MUST be objects, "' . gettype($data) . '" given.');
+        }
 
-		$object_vars = get_object_vars($data);
+        $object_vars = get_object_vars($data);
 
-		// the 2 properties must be type and id
-		// or the 3 properties must be type, id and meta
-		if ( count($object_vars) === 2 or ( count($object_vars) === 3 and property_exists($data, 'meta') ) )
-		{
-			$resource = $this->manager->getFactory()->make(
-				'ResourceIdentifier',
-				[$this->manager, $this]
-			);
-			$resource->parse($data);
-		}
-		else
-		{
-			$resource = $this->manager->getFactory()->make(
-				'ResourceItem',
-				[$this->manager, $this]
-			);
-			$resource->parse($data);
-		}
+        // the 2 properties must be type and id
+        // or the 3 properties must be type, id and meta
+        if (count($object_vars) === 2 or (count($object_vars) === 3 and property_exists($data, 'meta'))) {
+            $resource = $this->manager->getFactory()->make(
+                'ResourceIdentifier',
+                [$this->manager, $this]
+            );
+            $resource->parse($data);
+        } else {
+            $resource = $this->manager->getFactory()->make(
+                'ResourceItem',
+                [$this->manager, $this]
+            );
+            $resource->parse($data);
+        }
 
-		return $resource;
-	}
+        return $resource;
+    }
 }

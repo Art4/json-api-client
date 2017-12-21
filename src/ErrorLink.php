@@ -36,130 +36,121 @@ use Art4\JsonApiClient\Exception\ValidationException;
  */
 final class ErrorLink implements ErrorLinkInterface
 {
-	use AccessTrait;
+    use AccessTrait;
 
-	/**
-	 * @var DataContainerInterface
-	 */
-	protected $container;
+    /**
+     * @var DataContainerInterface
+     */
+    protected $container;
 
-	/**
-	 * @var FactoryManagerInterface
-	 */
-	protected $manager;
+    /**
+     * @var FactoryManagerInterface
+     */
+    protected $manager;
 
-	/**
-	 * Sets the manager and parent
-	 *
-	 * @param FactoryManagerInterface $manager The manager
-	 * @param AccessInterface $parent The parent
-	 */
-	public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
-	{
-		$this->manager = $manager;
+    /**
+     * Sets the manager and parent
+     *
+     * @param FactoryManagerInterface $manager The manager
+     * @param AccessInterface         $parent  The parent
+     */
+    public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
+    {
+        $this->manager = $manager;
 
-		$this->container = new DataContainer();
-	}
+        $this->container = new DataContainer();
+    }
 
-	/**
-	 * Parses the data for this element
-	 *
-	 * @param mixed $object The data
-	 *
-	 * @return self
-	 *
-	 * @throws ValidationException
-	 */
-	public function parse($object)
-	{
-		if ( ! is_object($object) )
-		{
-			throw new ValidationException('Link has to be an object, "' . gettype($object) . '" given.');
-		}
+    /**
+     * Parses the data for this element
+     *
+     * @param mixed $object The data
+     *
+     * @throws ValidationException
+     *
+     * @return self
+     */
+    public function parse($object)
+    {
+        if (! is_object($object)) {
+            throw new ValidationException('Link has to be an object, "' . gettype($object) . '" given.');
+        }
 
-		$links = get_object_vars($object);
+        $links = get_object_vars($object);
 
-		if ( ! array_key_exists('about', $links) )
-		{
-			throw new ValidationException('ErrorLink MUST contain these properties: about');
-		}
+        if (! array_key_exists('about', $links)) {
+            throw new ValidationException('ErrorLink MUST contain these properties: about');
+        }
 
-		if ( ! is_string($links['about']) and ! is_object($links['about']) )
-		{
-			throw new ValidationException('Link has to be an object or string, "' . gettype($links['about']) . '" given.');
-		}
+        if (! is_string($links['about']) and ! is_object($links['about'])) {
+            throw new ValidationException('Link has to be an object or string, "' . gettype($links['about']) . '" given.');
+        }
 
-		if ( is_string($links['about']) )
-		{
-			$this->container->set('about', strval($links['about']));
-		}
-		else
-		{
-			$link = $this->manager->getFactory()->make(
-				'Link',
-				[$this->manager, $this]
-			);
-			$link->parse($links['about']);
+        if (is_string($links['about'])) {
+            $this->container->set('about', strval($links['about']));
+        } else {
+            $link = $this->manager->getFactory()->make(
+                'Link',
+                [$this->manager, $this]
+            );
+            $link->parse($links['about']);
 
-			$this->container->set('about', $link);
-		}
+            $this->container->set('about', $link);
+        }
 
-		unset($links['about']);
+        unset($links['about']);
 
-		// custom links
-		foreach ($links as $name => $value)
-		{
-			$this->setLink($name, $value);
-		}
-	}
+        // custom links
+        foreach ($links as $name => $value) {
+            $this->setLink($name, $value);
+        }
+    }
 
-	/**
-	 * Get a value by the key of this object
-	 *
-	 * @param string $key The key of the value
-	 * @return mixed The value
-	 */
-	public function get($key)
-	{
-		try
-		{
-			return $this->container->get($key);
-		}
-		catch (AccessException $e)
-		{
-			throw new AccessException('"' . $key . '" doesn\'t exist in this object.');
-		}
-	}
-	/**
-	 * Set a link
-	 *
-	 * @param string $name The name of the link
-	 * @param string $link The link
-	 * @return self
-	 */
-	private function setLink($name, $link)
-	{
-		if ( ! is_string($link) and ! is_object($link) )
-		{
-			throw new ValidationException('Link attribute has to be an object or string, "' . gettype($link) . '" given.');
-		}
+    /**
+     * Get a value by the key of this object
+     *
+     * @param string $key The key of the value
+     *
+     * @return mixed The value
+     */
+    public function get($key)
+    {
+        try {
+            return $this->container->get($key);
+        } catch (AccessException $e) {
+            throw new AccessException('"' . $key . '" doesn\'t exist in this object.');
+        }
+    }
 
-		if ( is_string($link) )
-		{
-			$this->container->set($name, strval($link));
+    /**
+     * Set a link
+     *
+     * @param string $name The name of the link
+     * @param string $link The link
+     *
+     * @return self
+     */
+    private function setLink($name, $link)
+    {
+        if (! is_string($link) and ! is_object($link)) {
+            throw new ValidationException('Link attribute has to be an object or string, "' . gettype($link) . '" given.');
+        }
 
-			return $this;
-		}
+        if (is_string($link)) {
+            $this->container->set($name, strval($link));
 
-		// Now $link can only be an object
-		$link_object = $this->manager->getFactory()->make(
-			'Link',
-			[$this->manager, $this]
-		);
-		$link_object->parse($link);
+            return $this;
+        }
 
-		$this->container->set($name, $link_object);
+        // Now $link can only be an object
+        $link_object = $this->manager->getFactory()->make(
+            'Link',
+            [$this->manager, $this]
+        );
+        $link_object->parse($link);
 
-		return $this;
-	}
+        $this->container->set($name, $link_object);
+
+        return $this;
+    }
 }

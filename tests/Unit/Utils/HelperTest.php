@@ -24,197 +24,197 @@ use Art4\JsonApiClient\Exception\ValidationException;
 
 class HelperTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 {
-	/**
-	 * @test parseResponseBody() with valid JSON API returns Document Object
-	 */
-	public function testParseResponseBodyWithValidJsonapiReturnsDocument()
-	{
-		$jsonapi = '{"meta":{}}';
+    /**
+     * @test parseResponseBody() with valid JSON API returns Document Object
+     */
+    public function testParseResponseBodyWithValidJsonapiReturnsDocument()
+    {
+        $jsonapi = '{"meta":{}}';
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Document', Helper::parseResponseBody($jsonapi));
-	}
+        $this->assertInstanceOf('Art4\JsonApiClient\Document', Helper::parseResponseBody($jsonapi));
+    }
 
-	/**
-	 * @test parseResponseBody throw Exception if input is invalid jsonapi
-	 */
-	public function testParseResponseBodyWithInvalidJsonapiThrowsException()
-	{
-		$invalid_jsonapi = '["This is valid JSON", "but invalid JSON API"]';
+    /**
+     * @test parseResponseBody throw Exception if input is invalid jsonapi
+     */
+    public function testParseResponseBodyWithInvalidJsonapiThrowsException()
+    {
+        $invalid_jsonapi = '["This is valid JSON", "but invalid JSON API"]';
 
-		$this->expectException(ValidationException::class);
+        $this->expectException(ValidationException::class);
 
-		$output = Helper::parseResponseBody($invalid_jsonapi);
-	}
+        $output = Helper::parseResponseBody($invalid_jsonapi);
+    }
 
-	/**
-	 * JSON API documents are defined in JavaScript Object Notation (JSON) [RFC4627].
-	 */
-	public function testParseResponseBodyWithInvalidJsonThrowsException()
-	{
-		$invalid_json = 'invalid_json_string';
+    /**
+     * JSON API documents are defined in JavaScript Object Notation (JSON) [RFC4627].
+     */
+    public function testParseResponseBodyWithInvalidJsonThrowsException()
+    {
+        $invalid_json = 'invalid_json_string';
 
-		$this->expectException(ValidationException::class);
+        $this->expectException(ValidationException::class);
 
-		$output = Helper::parseResponseBody($invalid_json);
-	}
+        $output = Helper::parseResponseBody($invalid_json);
+    }
 
-	/**
-	 * @test isValidResponseBody() with valid JSON API returns true
-	 */
-	public function testIsValidResponseBodyWithValidJsonapi()
-	{
-		$jsonapi = '{"meta":{}}';
+    /**
+     * @test isValidResponseBody() with valid JSON API returns true
+     */
+    public function testIsValidResponseBodyWithValidJsonapi()
+    {
+        $jsonapi = '{"meta":{}}';
 
-		$this->assertTrue(Helper::isValidResponseBody($jsonapi));
-	}
+        $this->assertTrue(Helper::isValidResponseBody($jsonapi));
+    }
 
-	/**
-	 * @test isValidResponseBody() with invalid jsonapi
-	 */
-	public function testIsValidResponseBodyWithInvalidJsonapi()
-	{
-		$invalid_jsonapi = '["This is valid JSON", "but invalid JSON API"]';
+    /**
+     * @test isValidResponseBody() with invalid jsonapi
+     */
+    public function testIsValidResponseBodyWithInvalidJsonapi()
+    {
+        $invalid_jsonapi = '["This is valid JSON", "but invalid JSON API"]';
 
-		$this->assertFalse(Helper::isValidResponseBody($invalid_jsonapi));
-	}
+        $this->assertFalse(Helper::isValidResponseBody($invalid_jsonapi));
+    }
 
-	/**
-	 * @test isValidResponseBody() with invalid json
-	 */
-	public function testIsValidResponseBodyWithInvalidJson()
-	{
-		$invalid_json = 'invalid_json_string';
+    /**
+     * @test isValidResponseBody() with invalid json
+     */
+    public function testIsValidResponseBodyWithInvalidJson()
+    {
+        $invalid_json = 'invalid_json_string';
 
-		$this->assertFalse(Helper::isValidResponseBody($invalid_json));
-	}
+        $this->assertFalse(Helper::isValidResponseBody($invalid_json));
+    }
 
-	/**
-	 * @test parseRequestBody() with valid JSON API returns Document Object
-	 */
-	public function testParseRequestBodyWithValidJsonapiReturnsDocument()
-	{
-		$jsonapi = '{"meta":{}}';
+    /**
+     * @test parseRequestBody() with valid JSON API returns Document Object
+     */
+    public function testParseRequestBodyWithValidJsonapiReturnsDocument()
+    {
+        $jsonapi = '{"meta":{}}';
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Document', Helper::parseRequestBody($jsonapi));
-	}
+        $this->assertInstanceOf('Art4\JsonApiClient\Document', Helper::parseRequestBody($jsonapi));
+    }
 
-	/**
-	 * @test parseRequestBody() throw Exception if input is invalid jsonapi
-	 */
-	public function testParseRequestBodyWithInvalidJsonapiThrowsException()
-	{
-		$invalid_jsonapi = '["This is valid JSON", "but invalid JSON API"]';
+    /**
+     * @test parseRequestBody() throw Exception if input is invalid jsonapi
+     */
+    public function testParseRequestBodyWithInvalidJsonapiThrowsException()
+    {
+        $invalid_jsonapi = '["This is valid JSON", "but invalid JSON API"]';
 
-		$this->expectException(ValidationException::class);
+        $this->expectException(ValidationException::class);
 
-		$output = Helper::parseRequestBody($invalid_jsonapi);
-	}
+        $output = Helper::parseRequestBody($invalid_jsonapi);
+    }
 
-	/**
-	 * JSON API documents are defined in JavaScript Object Notation (JSON) [RFC4627].
-	 */
-	public function testParseRequestBodyWithInvalidJsonThrowsException()
-	{
-		$invalid_json = 'invalid_json_string';
+    /**
+     * JSON API documents are defined in JavaScript Object Notation (JSON) [RFC4627].
+     */
+    public function testParseRequestBodyWithInvalidJsonThrowsException()
+    {
+        $invalid_json = 'invalid_json_string';
 
-		$this->expectException(ValidationException::class);
+        $this->expectException(ValidationException::class);
 
-		$output = Helper::parseRequestBody($invalid_json);
-	}
+        $output = Helper::parseRequestBody($invalid_json);
+    }
 
-	/**
-	 * @test isValidRequestBody() with valid JSON API returns true
-	 */
-	public function testIsValidRequestBodyWithValidJsonapi()
-	{
-		$jsonapi = '{"meta":{}}';
+    /**
+     * @test isValidRequestBody() with valid JSON API returns true
+     */
+    public function testIsValidRequestBodyWithValidJsonapi()
+    {
+        $jsonapi = '{"meta":{}}';
 
-		$this->assertTrue(Helper::isValidRequestBody($jsonapi));
-	}
+        $this->assertTrue(Helper::isValidRequestBody($jsonapi));
+    }
 
-	/**
-	 * @test isValidRequestBody() with invalid jsonapi
-	 */
-	public function testIsValidRequestBodyWithInvalidJsonapi()
-	{
-		$invalid_jsonapi = '["This is valid JSON", "but invalid JSON API"]';
+    /**
+     * @test isValidRequestBody() with invalid jsonapi
+     */
+    public function testIsValidRequestBodyWithInvalidJsonapi()
+    {
+        $invalid_jsonapi = '["This is valid JSON", "but invalid JSON API"]';
 
-		$this->assertFalse(Helper::isValidRequestBody($invalid_jsonapi));
-	}
+        $this->assertFalse(Helper::isValidRequestBody($invalid_jsonapi));
+    }
 
-	/**
-	 * @test isValidRequestBody() with invalid json
-	 */
-	public function testIsValidRequestBodyWithInvalidJson()
-	{
-		$invalid_json = 'invalid_json_string';
+    /**
+     * @test isValidRequestBody() with invalid json
+     */
+    public function testIsValidRequestBodyWithInvalidJson()
+    {
+        $invalid_json = 'invalid_json_string';
 
-		$this->assertFalse(Helper::isValidRequestBody($invalid_json));
-	}
+        $this->assertFalse(Helper::isValidRequestBody($invalid_json));
+    }
 
-	// Tests for deprecated methods
+    // Tests for deprecated methods
 
-	/**
-	 * @test parse() with valid JSON API returns Document Object
-	 */
-	public function testParseWithValidJsonapiReturnsDocument()
-	{
-		$jsonapi = '{"meta":{}}';
+    /**
+     * @test parse() with valid JSON API returns Document Object
+     */
+    public function testParseWithValidJsonapiReturnsDocument()
+    {
+        $jsonapi = '{"meta":{}}';
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Document', Helper::parse($jsonapi));
-	}
+        $this->assertInstanceOf('Art4\JsonApiClient\Document', Helper::parse($jsonapi));
+    }
 
-	/**
-	 * @expectedException Art4\JsonApiClient\Exception\ValidationException
-	 *
-	 * @test parse throw Exception if input is invalid jsonapi
-	 */
-	public function testParseWithInvalidJsonapiThrowsException()
-	{
-		$invalid_jsonapi = '["This is valid JSON", "but invalid JSON API"]';
+    /**
+     * @expectedException Art4\JsonApiClient\Exception\ValidationException
+     *
+     * @test parse throw Exception if input is invalid jsonapi
+     */
+    public function testParseWithInvalidJsonapiThrowsException()
+    {
+        $invalid_jsonapi = '["This is valid JSON", "but invalid JSON API"]';
 
-		$output = Helper::parse($invalid_jsonapi);
-	}
+        $output = Helper::parse($invalid_jsonapi);
+    }
 
-	/**
-	 * @expectedException Art4\JsonApiClient\Exception\ValidationException
-	 *
-	 * JSON API documents are defined in JavaScript Object Notation (JSON) [RFC4627].
-	 */
-	public function testParseWithInvalidJsonThrowsException()
-	{
-		$invalid_json = 'invalid_json_string';
+    /**
+     * @expectedException Art4\JsonApiClient\Exception\ValidationException
+     *
+     * JSON API documents are defined in JavaScript Object Notation (JSON) [RFC4627].
+     */
+    public function testParseWithInvalidJsonThrowsException()
+    {
+        $invalid_json = 'invalid_json_string';
 
-		$output = Helper::parse($invalid_json);
-	}
+        $output = Helper::parse($invalid_json);
+    }
 
-	/**
-	 * @test isValid() with valid JSON API returns true
-	 */
-	public function testIsValidWithValidJsonapi()
-	{
-		$jsonapi = '{"meta":{}}';
+    /**
+     * @test isValid() with valid JSON API returns true
+     */
+    public function testIsValidWithValidJsonapi()
+    {
+        $jsonapi = '{"meta":{}}';
 
-		$this->assertTrue(Helper::isValid($jsonapi));
-	}
+        $this->assertTrue(Helper::isValid($jsonapi));
+    }
 
-	/**
-	 * @test isValid() with invalid jsonapi
-	 */
-	public function testIsValidWithInvalidJsonapi()
-	{
-		$invalid_jsonapi = '["This is valid JSON", "but invalid JSON API"]';
+    /**
+     * @test isValid() with invalid jsonapi
+     */
+    public function testIsValidWithInvalidJsonapi()
+    {
+        $invalid_jsonapi = '["This is valid JSON", "but invalid JSON API"]';
 
-		$this->assertFalse(Helper::isValid($invalid_jsonapi));
-	}
+        $this->assertFalse(Helper::isValid($invalid_jsonapi));
+    }
 
-	/**
-	 * @test isValid() with invalid json
-	 */
-	public function testIsValidWithInvalidJson()
-	{
-		$invalid_json = 'invalid_json_string';
+    /**
+     * @test isValid() with invalid json
+     */
+    public function testIsValidWithInvalidJson()
+    {
+        $invalid_json = 'invalid_json_string';
 
-		$this->assertFalse(Helper::isValid($invalid_json));
-	}
+        $this->assertFalse(Helper::isValid($invalid_json));
+    }
 }

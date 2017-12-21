@@ -23,58 +23,57 @@ use Art4\JsonApiClient\Exception\FactoryException;
 
 final class Factory implements FactoryInterface
 {
-	/**
-	 * @var array
-	 */
-	protected $classes = [
-		'Attributes'                    => 'Art4\JsonApiClient\Attributes',
-		'Document'                      => 'Art4\JsonApiClient\Document',
-		'DocumentLink'                  => 'Art4\JsonApiClient\DocumentLink',
-		'Error'                         => 'Art4\JsonApiClient\Error',
-		'ErrorCollection'               => 'Art4\JsonApiClient\ErrorCollection',
-		'ErrorLink'                     => 'Art4\JsonApiClient\ErrorLink',
-		'ErrorSource'                   => 'Art4\JsonApiClient\ErrorSource',
-		'Jsonapi'                       => 'Art4\JsonApiClient\Jsonapi',
-		'Link'                          => 'Art4\JsonApiClient\Link',
-		'Meta'                          => 'Art4\JsonApiClient\Meta',
-		'Relationship'                  => 'Art4\JsonApiClient\Relationship',
-		'RelationshipCollection'        => 'Art4\JsonApiClient\RelationshipCollection',
-		'RelationshipLink'              => 'Art4\JsonApiClient\RelationshipLink',
-		'ResourceCollection'            => 'Art4\JsonApiClient\ResourceCollection',
-		'ResourceIdentifier'            => 'Art4\JsonApiClient\ResourceIdentifier',
-		'ResourceIdentifierCollection'  => 'Art4\JsonApiClient\ResourceIdentifierCollection',
-		'ResourceItem'                  => 'Art4\JsonApiClient\ResourceItem',
-		'ResourceItemLink'              => 'Art4\JsonApiClient\ResourceItemLink',
-		'ResourceNull'                  => 'Art4\JsonApiClient\ResourceNull',
-	];
+    /**
+     * @var array
+     */
+    protected $classes = [
+        'Attributes'                    => 'Art4\JsonApiClient\Attributes',
+        'Document'                      => 'Art4\JsonApiClient\Document',
+        'DocumentLink'                  => 'Art4\JsonApiClient\DocumentLink',
+        'Error'                         => 'Art4\JsonApiClient\Error',
+        'ErrorCollection'               => 'Art4\JsonApiClient\ErrorCollection',
+        'ErrorLink'                     => 'Art4\JsonApiClient\ErrorLink',
+        'ErrorSource'                   => 'Art4\JsonApiClient\ErrorSource',
+        'Jsonapi'                       => 'Art4\JsonApiClient\Jsonapi',
+        'Link'                          => 'Art4\JsonApiClient\Link',
+        'Meta'                          => 'Art4\JsonApiClient\Meta',
+        'Relationship'                  => 'Art4\JsonApiClient\Relationship',
+        'RelationshipCollection'        => 'Art4\JsonApiClient\RelationshipCollection',
+        'RelationshipLink'              => 'Art4\JsonApiClient\RelationshipLink',
+        'ResourceCollection'            => 'Art4\JsonApiClient\ResourceCollection',
+        'ResourceIdentifier'            => 'Art4\JsonApiClient\ResourceIdentifier',
+        'ResourceIdentifierCollection'  => 'Art4\JsonApiClient\ResourceIdentifierCollection',
+        'ResourceItem'                  => 'Art4\JsonApiClient\ResourceItem',
+        'ResourceItemLink'              => 'Art4\JsonApiClient\ResourceItemLink',
+        'ResourceNull'                  => 'Art4\JsonApiClient\ResourceNull',
+    ];
 
-	/**
-	 * @param array $overload Specs to be overloaded with custom classes.
-	 */
-	public function __construct(array $overload = [])
-	{
-		if ($overload)
-		{
-			$this->classes = array_replace($this->classes, $overload);
-		}
-	}
+    /**
+     * @param array $overload specs to be overloaded with custom classes
+     */
+    public function __construct(array $overload = [])
+    {
+        if ($overload) {
+            $this->classes = array_replace($this->classes, $overload);
+        }
+    }
 
-	/**
-	 * Create a new instance of a class
-	 *
-	 * @param  string $name
-	 * @param  array  $args
-	 * @return object
-	 */
-	public function make($name, array $args = [])
-	{
-		if ( ! isset($this->classes[$name]) )
-		{
-			throw new FactoryException('"' . $name . '" is not a registered class');
-		}
+    /**
+     * Create a new instance of a class
+     *
+     * @param string $name
+     * @param array  $args
+     *
+     * @return object
+     */
+    public function make($name, array $args = [])
+    {
+        if (! isset($this->classes[$name])) {
+            throw new FactoryException('"' . $name . '" is not a registered class');
+        }
 
-		$class = new \ReflectionClass($this->classes[$name]);
+        $class = new \ReflectionClass($this->classes[$name]);
 
-		return $class->newInstanceArgs($args);
-	}
+        return $class->newInstanceArgs($args);
+    }
 }

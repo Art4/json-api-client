@@ -24,12 +24,13 @@ namespace Art4\JsonApiClient\Utils;
  */
 interface FactoryInterface
 {
-	/**
-	 * Create a new instance of a class
-	 *
-	 * @param  string $name
-	 * @param  array  $args
-	 * @return object
-	 */
-	public function make($name, array $args = []);
+    /**
+     * Create a new instance of a class
+     *
+     * @param string $name
+     * @param array  $args
+     *
+     * @return object
+     */
+    public function make($name, array $args = []);
 }

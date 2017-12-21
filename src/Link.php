@@ -32,116 +32,109 @@ use Art4\JsonApiClient\Exception\ValidationException;
  */
 final class Link implements LinkInterface
 {
-	use AccessTrait;
+    use AccessTrait;
 
-	/**
-	 * @var AccessInterface
-	 */
-	protected $parent;
+    /**
+     * @var AccessInterface
+     */
+    protected $parent;
 
-	/**
-	 * @var DataContainerInterface
-	 */
-	protected $container;
+    /**
+     * @var DataContainerInterface
+     */
+    protected $container;
 
-	/**
-	 * @var FactoryManagerInterface
-	 */
-	protected $manager;
+    /**
+     * @var FactoryManagerInterface
+     */
+    protected $manager;
 
-	/**
-	 * Sets the manager and parent
-	 *
-	 * @param FactoryManagerInterface $manager The manager
-	 * @param AccessInterface $parent The parent
-	 */
-	public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
-	{
-		$this->parent = $parent;
+    /**
+     * Sets the manager and parent
+     *
+     * @param FactoryManagerInterface $manager The manager
+     * @param AccessInterface         $parent  The parent
+     */
+    public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
+    {
+        $this->parent = $parent;
 
-		$this->manager = $manager;
+        $this->manager = $manager;
 
-		$this->container = new DataContainer();
-	}
+        $this->container = new DataContainer();
+    }
 
-	/**
-	 * Parses the data for this element
-	 *
-	 * @param mixed $object The data
-	 *
-	 * @return self
-	 *
-	 * @throws ValidationException
-	 */
-	public function parse($object)
-	{
-		if ( ! is_object($object) )
-		{
-			throw new ValidationException('Link has to be an object or string, "' . gettype($object) . '" given.');
-		}
+    /**
+     * Parses the data for this element
+     *
+     * @param mixed $object The data
+     *
+     * @throws ValidationException
+     *
+     * @return self
+     */
+    public function parse($object)
+    {
+        if (! is_object($object)) {
+            throw new ValidationException('Link has to be an object or string, "' . gettype($object) . '" given.');
+        }
 
-		if ( ! array_key_exists('href', $object) )
-		{
-			throw new ValidationException('Link must have a "href" attribute.');
-		}
+        if (! array_key_exists('href', $object)) {
+            throw new ValidationException('Link must have a "href" attribute.');
+        }
 
-		foreach (get_object_vars($object) as $name => $value)
-		{
-			$this->set($name, $value);
-		}
+        foreach (get_object_vars($object) as $name => $value) {
+            $this->set($name, $value);
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Get a value by the key of this object
-	 *
-	 * @param string $key The key of the value
-	 * @return mixed The value
-	 */
-	public function get($key)
-	{
-		try
-		{
-			return $this->container->get($key);
-		}
-		catch (AccessException $e)
-		{
-			throw new AccessException('"' . $key . '" doesn\'t exist in this object.');
-		}
-	}
+    /**
+     * Get a value by the key of this object
+     *
+     * @param string $key The key of the value
+     *
+     * @return mixed The value
+     */
+    public function get($key)
+    {
+        try {
+            return $this->container->get($key);
+        } catch (AccessException $e) {
+            throw new AccessException('"' . $key . '" doesn\'t exist in this object.');
+        }
+    }
 
-	/**
-	 * Set a link
-	 *
-	 * @param string $name The Name
-	 * @param string|object $link The Link
-	 *
-	 * @return self
-	 */
-	protected function set($name, $link)
-	{
-		if ( $name === 'meta' )
-		{
-			$meta = $this->manager->getFactory()->make(
-				'Meta',
-				[$this->manager, $this]
-			);
-			$meta->parse($link);
+    /**
+     * Set a link
+     *
+     * @param string        $name The Name
+     * @param string|object $link The Link
+     *
+     * @return self
+     */
+    protected function set($name, $link)
+    {
+        if ($name === 'meta') {
+            $meta = $this->manager->getFactory()->make(
+                'Meta',
+                [$this->manager, $this]
+            );
+            $meta->parse($link);
 
-			$this->container->set($name, $meta);
+            $this->container->set($name, $meta);
 
-			return $this;
-		}
+            return $this;
+        }
 
-		// every link must be an URL
-		if ( ! is_string($link) )
-		{
-			throw new ValidationException('Every link attribute has to be a string, "' . gettype($link) . '" given.');
-		}
+        // every link must be an URL
+        if (! is_string($link)) {
+            throw new ValidationException('Every link attribute has to be a string, "' . gettype($link) . '" given.');
+        }
 
-		$this->container->set($name, strval($link));
+        $this->container->set($name, strval($link));
 
-		return $this;
-	}
+        return $this;
+    }
 }

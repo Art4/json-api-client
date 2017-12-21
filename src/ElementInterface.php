@@ -26,22 +26,22 @@ use Art4\JsonApiClient\Utils\FactoryManagerInterface;
  */
 interface ElementInterface extends AccessInterface
 {
-	/**
-	 * Sets the manager and parent
-	 *
-	 * @param FactoryManagerInterface $manager The manager
-	 * @param AccessInterface $parent The parent
-	 */
-	public function __construct(FactoryManagerInterface $manager, AccessInterface $parent);
+    /**
+     * Sets the manager and parent
+     *
+     * @param FactoryManagerInterface $manager The manager
+     * @param AccessInterface         $parent  The parent
+     */
+    public function __construct(FactoryManagerInterface $manager, AccessInterface $parent);
 
-	/**
-	 * Parses the data for this element
-	 *
-	 * @param mixed $object The data
-	 *
-	 * @return self
-	 *
-	 * @throws ValidationException
-	 */
-	public function parse($object);
+    /**
+     * Parses the data for this element
+     *
+     * @param mixed $object The data
+     *
+     * @throws ValidationException
+     *
+     * @return self
+     */
+    public function parse($object);
 }

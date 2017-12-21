@@ -1,12 +1,15 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
-This project adheres to [Semantic Versioning](http://semver.org/).
+
+The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
+and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
 ### Changed
 
+- Change Code Style to PSR-2
 - Support for PHP 5.5 dropped, PHP >=5.6 is now required
 - Tests in Travis for PHP 7.2 and nightly added
 

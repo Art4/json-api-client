@@ -22,4 +22,6 @@ namespace Art4\JsonApiClient;
 /**
  * ResourceNull Interface
  */
-interface ResourceNullInterface extends ElementInterface { }
+interface ResourceNullInterface extends ElementInterface
+{
+}

@@ -32,85 +32,78 @@ use Art4\JsonApiClient\Exception\ValidationException;
  */
 final class ErrorSource implements ErrorSourceInterface
 {
-	use AccessTrait;
+    use AccessTrait;
 
-	/**
-	 * @var DataContainerInterface
-	 */
-	protected $container;
+    /**
+     * @var DataContainerInterface
+     */
+    protected $container;
 
-	/**
-	 * @var FactoryManagerInterface
-	 */
-	protected $manager;
+    /**
+     * @var FactoryManagerInterface
+     */
+    protected $manager;
 
-	/**
-	 * Sets the manager and parent
-	 *
-	 * @param FactoryManagerInterface $manager The manager
-	 * @param AccessInterface $parent The parent
-	 */
-	public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
-	{
-		$this->manager = $manager;
+    /**
+     * Sets the manager and parent
+     *
+     * @param FactoryManagerInterface $manager The manager
+     * @param AccessInterface         $parent  The parent
+     */
+    public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
+    {
+        $this->manager = $manager;
 
-		$this->container = new DataContainer();
-	}
+        $this->container = new DataContainer();
+    }
 
-	/**
-	 * Parses the data for this element
-	 *
-	 * @param mixed $object The data
-	 *
-	 * @return self
-	 *
-	 * @throws ValidationException
-	 */
-	public function parse($object)
-	{
-		if ( ! is_object($object) )
-		{
-			throw new ValidationException('ErrorSource has to be an object, "' . gettype($object) . '" given.');
-		}
+    /**
+     * Parses the data for this element
+     *
+     * @param mixed $object The data
+     *
+     * @throws ValidationException
+     *
+     * @return self
+     */
+    public function parse($object)
+    {
+        if (! is_object($object)) {
+            throw new ValidationException('ErrorSource has to be an object, "' . gettype($object) . '" given.');
+        }
 
-		if ( property_exists($object, 'pointer') )
-		{
-			if ( ! is_string($object->pointer) )
-			{
-				throw new ValidationException('property "pointer" has to be a string, "' . gettype($object->pointer) . '" given.');
-			}
+        if (property_exists($object, 'pointer')) {
+            if (! is_string($object->pointer)) {
+                throw new ValidationException('property "pointer" has to be a string, "' . gettype($object->pointer) . '" given.');
+            }
 
-			$this->container->set('pointer', strval($object->pointer));
-		}
+            $this->container->set('pointer', strval($object->pointer));
+        }
 
-		if ( property_exists($object, 'parameter') )
-		{
-			if ( ! is_string($object->parameter) )
-			{
-				throw new ValidationException('property "parameter" has to be a string, "' . gettype($object->parameter) . '" given.');
-			}
+        if (property_exists($object, 'parameter')) {
+            if (! is_string($object->parameter)) {
+                throw new ValidationException('property "parameter" has to be a string, "' . gettype($object->parameter) . '" given.');
+            }
 
-			$this->container->set('parameter', strval($object->parameter));
-		}
+            $this->container->set('parameter', strval($object->parameter));
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Get a value by the key of this document
-	 *
-	 * @param string $key The key of the value
-	 * @return mixed The value
-	 */
-	public function get($key)
-	{
-		try
-		{
-			return $this->container->get($key);
-		}
-		catch (AccessException $e)
-		{
-			throw new AccessException('"' . $key . '" doesn\'t exist in this error source.');
-		}
-	}
+    /**
+     * Get a value by the key of this document
+     *
+     * @param string $key The key of the value
+     *
+     * @return mixed The value
+     */
+    public function get($key)
+    {
+        try {
+            return $this->container->get($key);
+        } catch (AccessException $e) {
+            throw new AccessException('"' . $key . '" doesn\'t exist in this error source.');
+        }
+    }
 }

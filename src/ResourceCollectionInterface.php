@@ -24,4 +24,6 @@ use Art4\JsonApiClient\ElementInterface;
 /**
  * ResourceCollection Interface
  */
-interface ResourceCollectionInterface extends ElementInterface { }
+interface ResourceCollectionInterface extends ElementInterface
+{
+}

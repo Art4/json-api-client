@@ -24,11 +24,11 @@ namespace Art4\JsonApiClient;
  */
 interface AccessInterface
 {
-	public function get($key);
+    public function get($key);
 
-	public function has($key);
+    public function has($key);
 
-	public function getKeys();
+    public function getKeys();
 
-	public function asArray();
+    public function asArray();
 }

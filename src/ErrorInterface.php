@@ -22,4 +22,6 @@ namespace Art4\JsonApiClient;
 /**
  * Error Interface
  */
-interface ErrorInterface extends ElementInterface { }
+interface ErrorInterface extends ElementInterface
+{
+}

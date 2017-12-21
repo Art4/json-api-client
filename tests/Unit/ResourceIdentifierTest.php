@@ -24,200 +24,203 @@ use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 
 class ResourceIdentifierTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 {
-	use HelperTrait;
+    use HelperTrait;
 
-	/**
-	 * @setup
-	 */
-	public function setUp()
-	{
-		$this->manager = $this->buildManagerMock();
-	}
+    /**
+     * @setup
+     */
+    public function setUp()
+    {
+        $this->manager = $this->buildManagerMock();
+    }
 
-	/**
-	 * @test create with object
-	 */
-	public function testCreateWithObject()
-	{
-		$object = new \stdClass();
-		$object->type = 'type';
-		$object->id = 789;
+    /**
+     * @test create with object
+     */
+    public function testCreateWithObject()
+    {
+        $object = new \stdClass();
+        $object->type = 'type';
+        $object->id = 789;
 
-		$identifier = new ResourceIdentifier($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
-		$identifier->parse($object);
+        $identifier = new ResourceIdentifier($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
+        $identifier->parse($object);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $identifier);
-		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $identifier);
-		$this->assertSame($identifier->getKeys(), array('type', 'id'));
+        $this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $identifier);
+        $this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $identifier);
+        $this->assertSame($identifier->getKeys(), ['type', 'id']);
 
-		$this->assertSame($identifier->get('type'), 'type');
-		$this->assertSame($identifier->get('id'), '789');
-		$this->assertFalse($identifier->has('meta'));
+        $this->assertSame($identifier->get('type'), 'type');
+        $this->assertSame($identifier->get('id'), '789');
+        $this->assertFalse($identifier->has('meta'));
 
-		$this->assertSame($identifier->asArray(), array(
-			'type' => $identifier->get('type'),
-			'id' => $identifier->get('id'),
-		));
+        $this->assertSame($identifier->asArray(), [
+            'type' => $identifier->get('type'),
+            'id' => $identifier->get('id'),
+        ]);
 
-		$this->assertSame($identifier->asArray(true), array(
-			'type' => $identifier->get('type'),
-			'id' => $identifier->get('id'),
-		));
-	}
+        $this->assertSame($identifier->asArray(true), [
+            'type' => $identifier->get('type'),
+            'id' => $identifier->get('id'),
+        ]);
+    }
 
-	/**
-	 * @test create with object and meta
-	 */
-	public function testCreateWithObjectAndMeta()
-	{
-		$object = new \stdClass();
-		$object->type = 'types';
-		$object->id = 159;
-		$object->meta = new \stdClass();
+    /**
+     * @test create with object and meta
+     */
+    public function testCreateWithObjectAndMeta()
+    {
+        $object = new \stdClass();
+        $object->type = 'types';
+        $object->id = 159;
+        $object->meta = new \stdClass();
 
-		$identifier = new ResourceIdentifier($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
-		$identifier->parse($object);
+        $identifier = new ResourceIdentifier($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
+        $identifier->parse($object);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $identifier);
+        $this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $identifier);
 
-		$this->assertSame($identifier->get('type'), 'types');
-		$this->assertSame($identifier->get('id'), '159');
-		$this->assertTrue($identifier->has('meta'));
-		$this->assertInstanceOf('Art4\JsonApiClient\MetaInterface', $identifier->get('meta'));
-		$this->assertSame($identifier->getKeys(), array('type', 'id', 'meta'));
-	}
+        $this->assertSame($identifier->get('type'), 'types');
+        $this->assertSame($identifier->get('id'), '159');
+        $this->assertTrue($identifier->has('meta'));
+        $this->assertInstanceOf('Art4\JsonApiClient\MetaInterface', $identifier->get('meta'));
+        $this->assertSame($identifier->getKeys(), ['type', 'id', 'meta']);
+    }
 
-	/**
-	 * @dataProvider jsonValuesProvider
-	 *
-	 * The values of the id and type members MUST be strings.
-	 */
-	public function testTypeCannotBeAnObjectOrArray($input)
-	{
-		$object = new \stdClass();
-		$object->type = $input;
-		$object->id = '753';
+    /**
+     * @dataProvider jsonValuesProvider
+     *
+     * The values of the id and type members MUST be strings.
+     *
+     * @param mixed $input
+     */
+    public function testTypeCannotBeAnObjectOrArray($input)
+    {
+        $object = new \stdClass();
+        $object->type = $input;
+        $object->id = '753';
 
-		if ( gettype($input) === 'object' or gettype($input) === 'array' )
-		{
-			$this->setExpectedException(
-				'Art4\JsonApiClient\Exception\ValidationException',
-				'Resource type cannot be an array or object'
-			);
-		}
+        if (gettype($input) === 'object' or gettype($input) === 'array') {
+            $this->setExpectedException(
+                'Art4\JsonApiClient\Exception\ValidationException',
+                'Resource type cannot be an array or object'
+            );
+        }
 
-		$identifier = new ResourceIdentifier($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
-		$identifier->parse($object);
+        $identifier = new ResourceIdentifier($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
+        $identifier->parse($object);
 
-		$this->assertTrue(is_string($identifier->get('type')));
-	}
+        $this->assertTrue(is_string($identifier->get('type')));
+    }
 
-	/**
-	 * @dataProvider jsonValuesProvider
-	 *
-	 * The values of the id and type members MUST be strings.
-	 */
-	public function testIdCannotBeAnObjectOrArray($input)
-	{
-		$object = new \stdClass();
-		$object->type = 'posts';
-		$object->id = $input;
+    /**
+     * @dataProvider jsonValuesProvider
+     *
+     * The values of the id and type members MUST be strings.
+     *
+     * @param mixed $input
+     */
+    public function testIdCannotBeAnObjectOrArray($input)
+    {
+        $object = new \stdClass();
+        $object->type = 'posts';
+        $object->id = $input;
 
-		$identifier = new ResourceIdentifier($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
+        $identifier = new ResourceIdentifier($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
-		if ( gettype($input) === 'object' or gettype($input) === 'array' )
-		{
-			$this->setExpectedException(
-				'Art4\JsonApiClient\Exception\ValidationException',
-				'Resource Id cannot be an array or object'
-			);
-		}
+        if (gettype($input) === 'object' or gettype($input) === 'array') {
+            $this->setExpectedException(
+                'Art4\JsonApiClient\Exception\ValidationException',
+                'Resource Id cannot be an array or object'
+            );
+        }
 
-		$identifier->parse($object);
+        $identifier->parse($object);
 
-		$this->assertTrue(is_string($identifier->get('id')));
-	}
+        $this->assertTrue(is_string($identifier->get('id')));
+    }
 
-	/**
-	 * @dataProvider jsonValuesProvider
-	 *
-	 * A "resource identifier object" is an object that identifies an individual resource.
-	 * A "resource identifier object" MUST contain type and id members.
-	 */
-	public function testCreateWithDataproviderThrowsException($input)
-	{
-		$identifier = new ResourceIdentifier($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
+    /**
+     * @dataProvider jsonValuesProvider
+     *
+     * A "resource identifier object" is an object that identifies an individual resource.
+     * A "resource identifier object" MUST contain type and id members.
+     *
+     * @param mixed $input
+     */
+    public function testCreateWithDataproviderThrowsException($input)
+    {
+        $identifier = new ResourceIdentifier($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
-		if ( gettype($input) === 'object' )
-		{
-			$this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $identifier);
+        if (gettype($input) === 'object') {
+            $this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifier', $identifier);
 
-			return;
-		}
+            return;
+        }
 
-		$this->setExpectedException(
-			'Art4\JsonApiClient\Exception\ValidationException',
-			'Resource has to be an object, "' . gettype($input) . '" given.'
-		);
+        $this->setExpectedException(
+            'Art4\JsonApiClient\Exception\ValidationException',
+            'Resource has to be an object, "' . gettype($input) . '" given.'
+        );
 
-		$identifier->parse($input);
-	}
+        $identifier->parse($input);
+    }
 
-	/**
-	 * @test A "resource identifier object" MUST contain type and id members.
-	 */
-	public function testCreateWithObjectWithoutTypeThrowsException()
-	{
-		$object = new \stdClass();
-		$object->id = 123;
+    /**
+     * @test A "resource identifier object" MUST contain type and id members.
+     */
+    public function testCreateWithObjectWithoutTypeThrowsException()
+    {
+        $object = new \stdClass();
+        $object->id = 123;
 
-		$identifier = new ResourceIdentifier($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
+        $identifier = new ResourceIdentifier($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
-		$this->setExpectedException(
-			'Art4\JsonApiClient\Exception\ValidationException',
-			'A resource object MUST contain a type'
-		);
+        $this->setExpectedException(
+            'Art4\JsonApiClient\Exception\ValidationException',
+            'A resource object MUST contain a type'
+        );
 
-		$identifier->parse($object);
-	}
+        $identifier->parse($object);
+    }
 
-	/**
-	 * @test A "resource identifier object" MUST contain type and id members.
-	 */
-	public function testCreateWithObjectWithoutIdThrowsException()
-	{
-		$object = new \stdClass();
-		$object->type = 'type';
+    /**
+     * @test A "resource identifier object" MUST contain type and id members.
+     */
+    public function testCreateWithObjectWithoutIdThrowsException()
+    {
+        $object = new \stdClass();
+        $object->type = 'type';
 
-		$identifier = new ResourceIdentifier($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
+        $identifier = new ResourceIdentifier($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
-		$this->setExpectedException(
-			'Art4\JsonApiClient\Exception\ValidationException',
-			'A resource object MUST contain an id'
-		);
+        $this->setExpectedException(
+            'Art4\JsonApiClient\Exception\ValidationException',
+            'A resource object MUST contain an id'
+        );
 
-		$identifier->parse($object);
-	}
+        $identifier->parse($object);
+    }
 
-	/**
-	 * @test get() on an undefined value throws Exception
-	 */
-	public function testGetWithUndefinedValueThrowsException()
-	{
-		$object = new \stdClass();
-		$object->type = 'posts';
-		$object->id = 9;
+    /**
+     * @test get() on an undefined value throws Exception
+     */
+    public function testGetWithUndefinedValueThrowsException()
+    {
+        $object = new \stdClass();
+        $object->type = 'posts';
+        $object->id = 9;
 
-		$identifier = new ResourceIdentifier($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
-		$identifier->parse($object);
+        $identifier = new ResourceIdentifier($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
+        $identifier->parse($object);
 
-		$this->assertFalse($identifier->has('foobar'));
+        $this->assertFalse($identifier->has('foobar'));
 
-		$this->setExpectedException(
-			'Art4\JsonApiClient\Exception\AccessException',
-			'"foobar" doesn\'t exist in this identifier.'
-		);
+        $this->setExpectedException(
+            'Art4\JsonApiClient\Exception\AccessException',
+            '"foobar" doesn\'t exist in this identifier.'
+        );
 
-		$identifier->get('foobar');
-	}
+        $identifier->get('foobar');
+    }
 }

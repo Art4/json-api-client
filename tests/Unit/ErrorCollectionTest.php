@@ -24,107 +24,106 @@ use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 
 class ErrorCollectionTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 {
-	use HelperTrait;
+    use HelperTrait;
 
-	/**
-	 * @setup
-	 */
-	public function setUp()
-	{
-		$this->manager = $this->buildManagerMock();
-	}
+    /**
+     * @setup
+     */
+    public function setUp()
+    {
+        $this->manager = $this->buildManagerMock();
+    }
 
-	/**
-	 * @test create
-	 */
-	public function testCreate()
-	{
-		$errors = array(
-			new \stdClass(),
-			new \stdClass(),
-		);
+    /**
+     * @test create
+     */
+    public function testCreate()
+    {
+        $errors = [
+            new \stdClass(),
+            new \stdClass(),
+        ];
 
-		$collection = new ErrorCollection($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
-		$collection->parse($errors);
+        $collection = new ErrorCollection($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
+        $collection->parse($errors);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\ErrorCollection', $collection);
-		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $collection);
+        $this->assertInstanceOf('Art4\JsonApiClient\ErrorCollection', $collection);
+        $this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $collection);
 
-		$this->assertTrue(count($collection->asArray()) === 2);
-		$this->assertSame($collection->getKeys(), array(0, 1));
+        $this->assertTrue(count($collection->asArray()) === 2);
+        $this->assertSame($collection->getKeys(), [0, 1]);
 
-		$this->assertFalse($collection->has(new \stdClass));
-		$this->assertFalse($collection->has(array()));
-		$this->assertFalse($collection->has('string'));
+        $this->assertFalse($collection->has(new \stdClass));
+        $this->assertFalse($collection->has([]));
+        $this->assertFalse($collection->has('string'));
 
-		$this->assertTrue($collection->has(0));
-		$error = $collection->get(0);
+        $this->assertTrue($collection->has(0));
+        $error = $collection->get(0);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\ErrorInterface', $error);
+        $this->assertInstanceOf('Art4\JsonApiClient\ErrorInterface', $error);
 
-		$this->assertTrue($collection->has(1));
-		$error = $collection->get(1);
+        $this->assertTrue($collection->has(1));
+        $error = $collection->get(1);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\ErrorInterface', $error);
+        $this->assertInstanceOf('Art4\JsonApiClient\ErrorInterface', $error);
 
-		$this->assertSame($collection->asArray(), array(
-			$collection->get(0),
-			$collection->get(1),
-		));
+        $this->assertSame($collection->asArray(), [
+            $collection->get(0),
+            $collection->get(1),
+        ]);
 
-		// Test full array
-		$this->assertSame($collection->asArray(true), array(
-			$collection->get(0)->asArray(true),
-			$collection->get(1)->asArray(true),
-		));
-	}
+        // Test full array
+        $this->assertSame($collection->asArray(true), [
+            $collection->get(0)->asArray(true),
+            $collection->get(1)->asArray(true),
+        ]);
+    }
 
-	/**
-	 * @dataProvider jsonValuesProvider
-	 */
-	public function testCreateWithoutArrayThrowsException($input)
-	{
-		// Input must be an array with at least one object
-		if ( gettype($input) === 'array' )
-		{
-			$this->setExpectedException(
-				'Art4\JsonApiClient\Exception\ValidationException',
-				'Errors array cannot be empty and MUST have at least one object'
-			);
-		}
-		else
-		{
-			$this->setExpectedException(
-				'Art4\JsonApiClient\Exception\ValidationException',
-				'Errors for a collection has to be in an array, "' . gettype($input) . '" given.'
-			);
-		}
+    /**
+     * @dataProvider jsonValuesProvider
+     *
+     * @param mixed $input
+     */
+    public function testCreateWithoutArrayThrowsException($input)
+    {
+        // Input must be an array with at least one object
+        if (gettype($input) === 'array') {
+            $this->setExpectedException(
+                'Art4\JsonApiClient\Exception\ValidationException',
+                'Errors array cannot be empty and MUST have at least one object'
+            );
+        } else {
+            $this->setExpectedException(
+                'Art4\JsonApiClient\Exception\ValidationException',
+                'Errors for a collection has to be in an array, "' . gettype($input) . '" given.'
+            );
+        }
 
-		$collection = new ErrorCollection($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
-		$collection->parse($input);
-	}
+        $collection = new ErrorCollection($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
+        $collection->parse($input);
+    }
 
-	/**
-	 * @test get('resources') on an empty collection throws an exception
-	 */
-	public function testGetErrorWithEmptyCollectionThrowsException()
-	{
-		$errors = array(
-			new \stdClass(),
-		);
+    /**
+     * @test get('resources') on an empty collection throws an exception
+     */
+    public function testGetErrorWithEmptyCollectionThrowsException()
+    {
+        $errors = [
+            new \stdClass(),
+        ];
 
-		$collection = new ErrorCollection($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
-		$collection->parse($errors);
+        $collection = new ErrorCollection($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
+        $collection->parse($errors);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\ErrorCollection', $collection);
+        $this->assertInstanceOf('Art4\JsonApiClient\ErrorCollection', $collection);
 
-		$this->assertFalse($collection->has(1));
+        $this->assertFalse($collection->has(1));
 
-		$this->setExpectedException(
-			'Art4\JsonApiClient\Exception\AccessException',
-			'"1" doesn\'t exist in this collection.'
-		);
+        $this->setExpectedException(
+            'Art4\JsonApiClient\Exception\AccessException',
+            '"1" doesn\'t exist in this collection.'
+        );
 
-		$collection->get(1);
-	}
+        $collection->get(1);
+    }
 }

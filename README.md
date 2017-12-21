@@ -96,7 +96,7 @@ $ phpunit
 
 ## Contributing
 
-Please feel free to fork and sending Pull Requests. This project follows [Semantic Versioning 2](http://semver.org).
+Please feel free to fork and sending Pull Requests. This project follows [Semantic Versioning 2](http://semver.org) and [PSR-2](http://www.php-fig.org/psr/psr-2/).
 
 ## Credits
 

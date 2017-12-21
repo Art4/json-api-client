@@ -22,4 +22,6 @@ namespace Art4\JsonApiClient;
 /**
  * Relationship Interface
  */
-interface RelationshipInterface extends ElementInterface { }
+interface RelationshipInterface extends ElementInterface
+{
+}

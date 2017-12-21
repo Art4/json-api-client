@@ -24,56 +24,58 @@ namespace Art4\JsonApiClient\Tests\Fixtures;
  */
 trait HelperTrait
 {
-	/**
-	 * Json Values Provider
-	 *
-	 * @see http://json.org/
-	 */
-	public function jsonValuesProvider()
-	{
-		return array(
-			array(new \stdClass()),
-			array(array()),
-			array('string'),
-			array(456),
-			array(159.654),
-			array(-15E-3),
-			array(true),
-			array(false),
-			array(null),
-		);
-	}
+    /**
+     * Json Values Provider
+     *
+     * @see http://json.org/
+     */
+    public function jsonValuesProvider()
+    {
+        return [
+            [new \stdClass()],
+            [[]],
+            ['string'],
+            [456],
+            [159.654],
+            [-15E-3],
+            [true],
+            [false],
+            [null],
+        ];
+    }
 
-	/**
-	 * Builds a Manager Mock
-	 */
-	public function buildManagerMock()
-	{
-		// Mock factory
-		$factory = new Factory;
-		$factory->testcase = $this;
+    /**
+     * Builds a Manager Mock
+     */
+    public function buildManagerMock()
+    {
+        // Mock factory
+        $factory = new Factory;
+        $factory->testcase = $this;
 
-		// Mock Manager
-		$manager = $this->getMockBuilder('Art4\JsonApiClient\Utils\FactoryManagerInterface')
-			->getMock();
+        // Mock Manager
+        $manager = $this->getMockBuilder('Art4\JsonApiClient\Utils\FactoryManagerInterface')
+            ->getMock();
 
-		$manager->expects($this->any())
-			->method('getFactory')
-			->will($this->returnValue($factory));
+        $manager->expects($this->any())
+            ->method('getFactory')
+            ->will($this->returnValue($factory));
 
-		$manager->expects($this->any())
-			->method('getConfig')
-			->with('optional_item_id')
-			->willReturn(false);
+        $manager->expects($this->any())
+            ->method('getConfig')
+            ->with('optional_item_id')
+            ->willReturn(false);
 
-		return $manager;
-	}
+        return $manager;
+    }
 
-	/**
-	 * returns a json string from a file
-	 */
-	protected function getJsonString($filename)
-	{
-		return file_get_contents(__DIR__ . '/../files/' . $filename);
-	}
+    /**
+     * returns a json string from a file
+     *
+     * @param mixed $filename
+     */
+    protected function getJsonString($filename)
+    {
+        return file_get_contents(__DIR__ . '/../files/' . $filename);
+    }
 }

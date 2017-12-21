@@ -24,39 +24,42 @@ namespace Art4\JsonApiClient\Utils;
  */
 interface FactoryManagerInterface
 {
-	/**
-	 * Set a factory into the manager
-	 *
-	 * @param  FactoryInterface $factory
-	 * @return object
-	 */
-	public function setFactory(FactoryInterface $factory);
+    /**
+     * Set a factory into the manager
+     *
+     * @param FactoryInterface $factory
+     *
+     * @return object
+     */
+    public function setFactory(FactoryInterface $factory);
 
-	/**
-	 * Get a factory from the manager
-	 *
-	 * @return FactoryInterface
-	 */
-	public function getFactory();
+    /**
+     * Get a factory from the manager
+     *
+     * @return FactoryInterface
+     */
+    public function getFactory();
 
-	/**
-	 * Get a config by key
-	 *
-	 * @param string $key
-	 * @return mixed
-	 *
-	 * @throws  \InvalidArgumentException If $key is not a valid config key
-	 */
-	public function getConfig($key);
+    /**
+     * Get a config by key
+     *
+     * @param string $key
+     *
+     * @throws \InvalidArgumentException If $key is not a valid config key
+     *
+     * @return mixed
+     */
+    public function getConfig($key);
 
-	/**
-	 * Set a config
-	 *
-	 * @param   string $key
-	 * @param   mixed $value
-	 * @return  self
-	 *
-	 * @throws  \InvalidArgumentException If $key is not a valid config key
-	 */
-	public function setConfig($key, $value);
+    /**
+     * Set a config
+     *
+     * @param string $key
+     * @param mixed  $value
+     *
+     * @throws \InvalidArgumentException If $key is not a valid config key
+     *
+     * @return self
+     */
+    public function setConfig($key, $value);
 }

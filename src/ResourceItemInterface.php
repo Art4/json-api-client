@@ -22,4 +22,6 @@ namespace Art4\JsonApiClient;
 /**
  * ResourceItem  Interface
  */
-interface ResourceItemInterface extends ElementInterface { }
+interface ResourceItemInterface extends ElementInterface
+{
+}

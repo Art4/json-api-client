@@ -24,122 +24,125 @@ use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 
 class JsonapiTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 {
-	use HelperTrait;
+    use HelperTrait;
 
-	/**
-	 * @setup
-	 */
-	public function setUp()
-	{
-		$this->manager = $this->buildManagerMock();
-	}
+    /**
+     * @setup
+     */
+    public function setUp()
+    {
+        $this->manager = $this->buildManagerMock();
+    }
 
-	/**
-	 * @test create with object
-	 */
-	public function testCreateWithObject()
-	{
-		$object = new \stdClass();
-		$object->version = '1.0';
+    /**
+     * @test create with object
+     */
+    public function testCreateWithObject()
+    {
+        $object = new \stdClass();
+        $object->version = '1.0';
 
-		// This object MAY also contain a meta member, whose value is a meta object
-		$object->meta = new \stdClass();
+        // This object MAY also contain a meta member, whose value is a meta object
+        $object->meta = new \stdClass();
 
-		// these properties must be ignored
-		$object->testobj = new \stdClass();
-		$object->teststring = 'http://example.org/link';
+        // these properties must be ignored
+        $object->testobj = new \stdClass();
+        $object->teststring = 'http://example.org/link';
 
-		$jsonapi = new Jsonapi($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
-		$jsonapi->parse($object);
+        $jsonapi = new Jsonapi($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
+        $jsonapi->parse($object);
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Jsonapi', $jsonapi);
-		$this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $jsonapi);
-		$this->assertSame($jsonapi->getKeys(), array('version', 'meta'));
+        $this->assertInstanceOf('Art4\JsonApiClient\Jsonapi', $jsonapi);
+        $this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $jsonapi);
+        $this->assertSame($jsonapi->getKeys(), ['version', 'meta']);
 
-		$this->assertFalse($jsonapi->has('testobj'));
-		$this->assertFalse($jsonapi->has('teststring'));
-		$this->assertTrue($jsonapi->has('version'));
-		$this->assertSame($jsonapi->get('version'), '1.0');
-		$this->assertTrue($jsonapi->has('meta'));
-		$this->assertInstanceOf('Art4\JsonApiClient\MetaInterface', $jsonapi->get('meta'));
+        $this->assertFalse($jsonapi->has('testobj'));
+        $this->assertFalse($jsonapi->has('teststring'));
+        $this->assertTrue($jsonapi->has('version'));
+        $this->assertSame($jsonapi->get('version'), '1.0');
+        $this->assertTrue($jsonapi->has('meta'));
+        $this->assertInstanceOf('Art4\JsonApiClient\MetaInterface', $jsonapi->get('meta'));
 
-		$this->assertSame($jsonapi->asArray(), array(
-			'version' => $jsonapi->get('version'),
-			'meta' => $jsonapi->get('meta'),
-		));
+        $this->assertSame($jsonapi->asArray(), [
+            'version' => $jsonapi->get('version'),
+            'meta' => $jsonapi->get('meta'),
+        ]);
 
-		// Test full array
-		$this->assertSame($jsonapi->asArray(true), array(
-			'version' => $jsonapi->get('version'),
-			'meta' => $jsonapi->get('meta')->asArray(true),
-		));
+        // Test full array
+        $this->assertSame($jsonapi->asArray(true), [
+            'version' => $jsonapi->get('version'),
+            'meta' => $jsonapi->get('meta')->asArray(true),
+        ]);
 
-		// test get() with not existing key throws an exception
-		$this->assertFalse($jsonapi->has('something'));
+        // test get() with not existing key throws an exception
+        $this->assertFalse($jsonapi->has('something'));
 
-		$this->setExpectedException(
-			'Art4\JsonApiClient\Exception\AccessException',
-			'"something" doesn\'t exist in this jsonapi object.'
-		);
+        $this->setExpectedException(
+            'Art4\JsonApiClient\Exception\AccessException',
+            '"something" doesn\'t exist in this jsonapi object.'
+        );
 
-		$jsonapi->get('something');
-	}
+        $jsonapi->get('something');
+    }
 
-	/**
-	 * @dataProvider jsonValuesProvider
-	 *
-	 * If present, the value of the jsonapi member MUST be an object (a "jsonapi object").
-	 */
-	public function testCreateWithDataprovider($input)
-	{
-		$jsonapi = new Jsonapi($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
+    /**
+     * @dataProvider jsonValuesProvider
+     *
+     * If present, the value of the jsonapi member MUST be an object (a "jsonapi object").
+     *
+     * @param mixed $input
+     */
+    public function testCreateWithDataprovider($input)
+    {
+        $jsonapi = new Jsonapi($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
-		// Input must be an object
-		if ( gettype($input) === 'object' )
-		{
-			$this->assertInstanceOf('Art4\JsonApiClient\Jsonapi', $jsonapi->parse($input));
-			return;
-		}
+        // Input must be an object
+        if (gettype($input) === 'object') {
+            $this->assertInstanceOf('Art4\JsonApiClient\Jsonapi', $jsonapi->parse($input));
 
-		$this->setExpectedException(
-			'Art4\JsonApiClient\Exception\ValidationException',
-			'Jsonapi has to be an object, "' . gettype($input) . '" given.'
-		);
+            return;
+        }
 
-		$jsonapi->parse($input);
-	}
+        $this->setExpectedException(
+            'Art4\JsonApiClient\Exception\ValidationException',
+            'Jsonapi has to be an object, "' . gettype($input) . '" given.'
+        );
 
-	/**
-	 * @dataProvider jsonValuesProvider
-	 *
-	 * The jsonapi object MAY contain a version member whose value is a string
-	 */
-	public function testVersionCannotBeAnObjectOrArray($input)
-	{
-		$object = new \stdClass();
-		$object->version = $input;
+        $jsonapi->parse($input);
+    }
 
-		$jsonapi = new Jsonapi($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
+    /**
+     * @dataProvider jsonValuesProvider
+     *
+     * The jsonapi object MAY contain a version member whose value is a string
+     *
+     * @param mixed $input
+     */
+    public function testVersionCannotBeAnObjectOrArray($input)
+    {
+        $object = new \stdClass();
+        $object->version = $input;
 
-		if ( gettype($input) === 'object' or gettype($input) === 'array' )
-		{
-			$this->setExpectedException(
-				'Art4\JsonApiClient\Exception\ValidationException',
-				'property "version" cannot be an object or array, "' . gettype($input) . '" given.'
-			);
+        $jsonapi = new Jsonapi($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
 
-			$jsonapi->parse($object);
+        if (gettype($input) === 'object' or gettype($input) === 'array') {
+            $this->setExpectedException(
+                'Art4\JsonApiClient\Exception\ValidationException',
+                'property "version" cannot be an object or array, "' . gettype($input) . '" given.'
+            );
 
-			return;
-		}
+            $jsonapi->parse($object);
 
-		$jsonapi->parse($object);
+            return;
+        }
 
-		$this->assertInstanceOf('Art4\JsonApiClient\Jsonapi', $jsonapi);
-		$this->assertSame($jsonapi->getKeys(), array('version'));
+        $jsonapi->parse($object);
 
-		// other input must be transformed to string
-		$this->assertTrue($jsonapi->has('version'));
-		$this->assertTrue(is_string($jsonapi->get('version')));
-	}
+        $this->assertInstanceOf('Art4\JsonApiClient\Jsonapi', $jsonapi);
+        $this->assertSame($jsonapi->getKeys(), ['version']);
+
+        // other input must be transformed to string
+        $this->assertTrue($jsonapi->has('version'));
+        $this->assertTrue(is_string($jsonapi->get('version')));
+    }
 }

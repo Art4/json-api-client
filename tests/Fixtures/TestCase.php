@@ -21,26 +21,24 @@ namespace Art4\JsonApiClient\Tests\Fixtures;
 
 class TestCase extends \PHPUnit\Framework\TestCase
 {
-	/**
-	 * Shim for PHPUnit 6
-	 *
-	 * @param mixed  $exceptionName
-	 * @param string $exceptionMessage
-	 * @param int    $exceptionCode
-	 */
-	public function setExpectedException($exceptionName, $exceptionMessage = '', $exceptionCode = null)
-	{
-		if (is_callable('parent::setExpectedException'))
-		{
-			return parent::setExpectedException($exceptionName, $exceptionMessage, $exceptionCode);
-		}
+    /**
+     * Shim for PHPUnit 6
+     *
+     * @param mixed  $exceptionName
+     * @param string $exceptionMessage
+     * @param int    $exceptionCode
+     */
+    public function setExpectedException($exceptionName, $exceptionMessage = '', $exceptionCode = null)
+    {
+        if (is_callable('parent::setExpectedException')) {
+            return parent::setExpectedException($exceptionName, $exceptionMessage, $exceptionCode);
+        }
 
-		$this->expectException($exceptionName);
-		$this->expectExceptionMessage($exceptionMessage);
+        $this->expectException($exceptionName);
+        $this->expectExceptionMessage($exceptionMessage);
 
-		if ( $exceptionCode !== null )
-		{
-			$this->expectExceptionCode($exceptionCode);
-		}
-	}
+        if ($exceptionCode !== null) {
+            $this->expectExceptionCode($exceptionCode);
+        }
+    }
 }

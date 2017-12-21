@@ -37,193 +37,176 @@ use Art4\JsonApiClient\Exception\ValidationException;
  */
 final class DocumentLink implements DocumentLinkInterface
 {
-	use AccessTrait;
+    use AccessTrait;
 
-	/**
-	 * @var DataContainerInterface
-	 */
-	protected $container;
+    /**
+     * @var DataContainerInterface
+     */
+    protected $container;
 
-	/**
-	 * @var FactoryManagerInterface
-	 */
-	protected $manager;
+    /**
+     * @var FactoryManagerInterface
+     */
+    protected $manager;
 
-	/**
-	 * @var AccessInterface
-	 */
-	protected $parent;
+    /**
+     * @var AccessInterface
+     */
+    protected $parent;
 
-	/**
-	 * Sets the manager and parent
-	 *
-	 * @param FactoryManagerInterface $manager The manager
-	 * @param AccessInterface $parent The parent
-	 */
-	public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
-	{
-		$this->manager = $manager;
+    /**
+     * Sets the manager and parent
+     *
+     * @param FactoryManagerInterface $manager The manager
+     * @param AccessInterface         $parent  The parent
+     */
+    public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
+    {
+        $this->manager = $manager;
 
-		$this->parent = $parent;
+        $this->parent = $parent;
 
-		$this->container = new DataContainer();
-	}
+        $this->container = new DataContainer();
+    }
 
-	/**
-	 * Parses the data for this element
-	 *
-	 * @param mixed $object The data
-	 *
-	 * @return self
-	 *
-	 * @throws ValidationException
-	 */
-	public function parse($object)
-	{
-		if ( ! is_object($object) )
-		{
-			throw new ValidationException('DocumentLink has to be an object, "' . gettype($object) . '" given.');
-		}
+    /**
+     * Parses the data for this element
+     *
+     * @param mixed $object The data
+     *
+     * @throws ValidationException
+     *
+     * @return self
+     */
+    public function parse($object)
+    {
+        if (! is_object($object)) {
+            throw new ValidationException('DocumentLink has to be an object, "' . gettype($object) . '" given.');
+        }
 
-		$links = get_object_vars($object);
+        $links = get_object_vars($object);
 
-		if ( array_key_exists('self', $links) )
-		{
-			if ( ! is_string($links['self']) and ! is_object($links['self']) )
-			{
-				throw new ValidationException('property "self" has to be a string or object, "' . gettype($links['self']) . '" given.');
-			}
+        if (array_key_exists('self', $links)) {
+            if (! is_string($links['self']) and ! is_object($links['self'])) {
+                throw new ValidationException('property "self" has to be a string or object, "' . gettype($links['self']) . '" given.');
+            }
 
-			$this->setLink('self', $links['self']);
+            $this->setLink('self', $links['self']);
 
-			unset($links['self']);
-		}
+            unset($links['self']);
+        }
 
-		if ( array_key_exists('related', $links) )
-		{
-			if ( ! is_string($links['related']) and ! is_object($links['related']) )
-			{
-				throw new ValidationException('property "related" has to be a string or object, "' . gettype($links['related']) . '" given.');
-			}
+        if (array_key_exists('related', $links)) {
+            if (! is_string($links['related']) and ! is_object($links['related'])) {
+                throw new ValidationException('property "related" has to be a string or object, "' . gettype($links['related']) . '" given.');
+            }
 
-			$this->setLink('related', $links['related']);
+            $this->setLink('related', $links['related']);
 
-			unset($links['related']);
-		}
+            unset($links['related']);
+        }
 
-		// Pagination links, if data in parent attributes exists
-		if ( $this->parent->has('data') )
-		{
-			if ( array_key_exists('first', $links) )
-			{
-				$this->setPaginationLink('first', $links['first']);
+        // Pagination links, if data in parent attributes exists
+        if ($this->parent->has('data')) {
+            if (array_key_exists('first', $links)) {
+                $this->setPaginationLink('first', $links['first']);
 
-				unset($links['first']);
-			}
+                unset($links['first']);
+            }
 
-			if ( array_key_exists('last', $links) )
-			{
-				$this->setPaginationLink('last', $links['last']);
+            if (array_key_exists('last', $links)) {
+                $this->setPaginationLink('last', $links['last']);
 
-				unset($links['last']);
-			}
+                unset($links['last']);
+            }
 
-			if ( array_key_exists('prev', $links) )
-			{
-				$this->setPaginationLink('prev', $links['prev']);
+            if (array_key_exists('prev', $links)) {
+                $this->setPaginationLink('prev', $links['prev']);
 
-				unset($links['prev']);
-			}
+                unset($links['prev']);
+            }
 
-			if ( array_key_exists('next', $links) )
-			{
-				$this->setPaginationLink('next', $links['next']);
+            if (array_key_exists('next', $links)) {
+                $this->setPaginationLink('next', $links['next']);
 
-				unset($links['next']);
-			}
-		}
+                unset($links['next']);
+            }
+        }
 
-		// custom links
-		foreach ($links as $name => $value)
-		{
-			$this->setLink($name, $value);
-		}
-	}
+        // custom links
+        foreach ($links as $name => $value) {
+            $this->setLink($name, $value);
+        }
+    }
 
-	/**
-	 * Get a value by the key of this object
-	 *
-	 * @param string $key The key of the value
-	 * @return mixed The value
-	 */
-	public function get($key)
-	{
-		try
-		{
-			return $this->container->get($key);
-		}
-		catch (AccessException $e)
-		{
-			throw new AccessException('"' . $key . '" doesn\'t exist in this object.');
-		}
-	}
+    /**
+     * Get a value by the key of this object
+     *
+     * @param string $key The key of the value
+     *
+     * @return mixed The value
+     */
+    public function get($key)
+    {
+        try {
+            return $this->container->get($key);
+        } catch (AccessException $e) {
+            throw new AccessException('"' . $key . '" doesn\'t exist in this object.');
+        }
+    }
 
-	/**
-	 * Set a pagination link
-	 *
-	 * @param string $name The name of the link
-	 * @param string $value The link
-	 * @return self
-	 */
-	private function setPaginationLink($name, $value)
-	{
-		if ( ! is_object($value) and ! is_string($value) and ! is_null($value) )
-		{
-			throw new ValidationException('property "' . $name . '" has to be an object, a string or null, "' . gettype($value) . '" given.');
-		}
+    /**
+     * Set a pagination link
+     *
+     * @param string $name  The name of the link
+     * @param string $value The link
+     *
+     * @return self
+     */
+    private function setPaginationLink($name, $value)
+    {
+        if (! is_object($value) and ! is_string($value) and ! is_null($value)) {
+            throw new ValidationException('property "' . $name . '" has to be an object, a string or null, "' . gettype($value) . '" given.');
+        }
 
-		if ( is_string($value) )
-		{
-			$this->container->set($name, strval($value));
-		}
-		elseif ( is_object($value) )
-		{
-			$this->setLink($name, $value);
-		}
+        if (is_string($value)) {
+            $this->container->set($name, strval($value));
+        } elseif (is_object($value)) {
+            $this->setLink($name, $value);
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Set a link
-	 *
-	 * @param string $name The name of the link
-	 * @param string $link The link
-	 * @return self
-	 */
-	private function setLink($name, $link)
-	{
-		if ( ! is_string($link) and ! is_object($link) )
-		{
-			throw new ValidationException('Link attribute has to be an object or string, "' . gettype($link) . '" given.');
-		}
+    /**
+     * Set a link
+     *
+     * @param string $name The name of the link
+     * @param string $link The link
+     *
+     * @return self
+     */
+    private function setLink($name, $link)
+    {
+        if (! is_string($link) and ! is_object($link)) {
+            throw new ValidationException('Link attribute has to be an object or string, "' . gettype($link) . '" given.');
+        }
 
-		if ( is_string($link) )
-		{
-			$this->container->set($name, strval($link));
+        if (is_string($link)) {
+            $this->container->set($name, strval($link));
 
-			return $this;
-		}
+            return $this;
+        }
 
-		// Now $link can only be an object
-		$link_object = $this->manager->getFactory()->make(
-			'Link',
-			[$this->manager, $this]
-		);
-		$link_object->parse($link);
+        // Now $link can only be an object
+        $link_object = $this->manager->getFactory()->make(
+            'Link',
+            [$this->manager, $this]
+        );
+        $link_object->parse($link);
 
-		$this->container->set($name, $link_object);
+        $this->container->set($name, $link_object);
 
-		return $this;
-	}
+        return $this;
+    }
 }

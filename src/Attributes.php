@@ -32,82 +32,76 @@ use Art4\JsonApiClient\Exception\ValidationException;
  */
 final class Attributes implements AttributesInterface
 {
-	use AccessTrait;
+    use AccessTrait;
 
-	/**
-	 * @var DataContainerInterface
-	 */
-	protected $container;
+    /**
+     * @var DataContainerInterface
+     */
+    protected $container;
 
-	/**
-	 * @var FactoryManagerInterface
-	 */
-	protected $manager;
+    /**
+     * @var FactoryManagerInterface
+     */
+    protected $manager;
 
-	/**
-	 * Sets the manager and parent
-	 *
-	 * @param FactoryManagerInterface $manager The manager
-	 * @param AccessInterface $parent The parent
-	 */
-	public function __construct(FactoryManagerInterface $manager, AccessInterface $parent = null)
-	{
-		$this->manager = $manager;
+    /**
+     * Sets the manager and parent
+     *
+     * @param FactoryManagerInterface $manager The manager
+     * @param AccessInterface         $parent  The parent
+     */
+    public function __construct(FactoryManagerInterface $manager, AccessInterface $parent = null)
+    {
+        $this->manager = $manager;
 
-		$this->container = new DataContainer();
-	}
+        $this->container = new DataContainer();
+    }
 
-	/**
-	 * Parses the data for this element
-	 *
-	 * @param mixed $object The data
-	 *
-	 * @return self
-	 *
-	 * @throws ValidationException
-	 */
-	public function parse($object)
-	{
-		if ( ! is_object($object) )
-		{
-			throw new ValidationException('Attributes has to be an object, "' . gettype($object) . '" given.');
-		}
+    /**
+     * Parses the data for this element
+     *
+     * @param mixed $object The data
+     *
+     * @throws ValidationException
+     *
+     * @return self
+     */
+    public function parse($object)
+    {
+        if (! is_object($object)) {
+            throw new ValidationException('Attributes has to be an object, "' . gettype($object) . '" given.');
+        }
 
-		if ( property_exists($object, 'type') or property_exists($object, 'id') or property_exists($object, 'relationships') or property_exists($object, 'links') )
-		{
-			throw new ValidationException('These properties are not allowed in attributes: `type`, `id`, `relationships`, `links`');
-		}
+        if (property_exists($object, 'type') or property_exists($object, 'id') or property_exists($object, 'relationships') or property_exists($object, 'links')) {
+            throw new ValidationException('These properties are not allowed in attributes: `type`, `id`, `relationships`, `links`');
+        }
 
-		$object_vars = get_object_vars($object);
+        $object_vars = get_object_vars($object);
 
-		if ( count($object_vars) === 0 )
-		{
-			return $this;
-		}
+        if (count($object_vars) === 0) {
+            return $this;
+        }
 
-		foreach ($object_vars as $name => $value)
-		{
-			$this->container->set($name, $value);
-		}
+        foreach ($object_vars as $name => $value) {
+            $this->container->set($name, $value);
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Get a value by the key of this object
-	 *
-	 * @param string $key The key of the value
-	 * @return mixed The value
-	 */
-	public function get($key)
-	{
-		try
-		{
-			return $this->container->get($key);
-		}
-		catch (AccessException $e)
-		{
-			throw new AccessException('"' . $key . '" doesn\'t exist in this object.');
-		}
-	}
+    /**
+     * Get a value by the key of this object
+     *
+     * @param string $key The key of the value
+     *
+     * @return mixed The value
+     */
+    public function get($key)
+    {
+        try {
+            return $this->container->get($key);
+        } catch (AccessException $e) {
+            throw new AccessException('"' . $key . '" doesn\'t exist in this object.');
+        }
+    }
 }
