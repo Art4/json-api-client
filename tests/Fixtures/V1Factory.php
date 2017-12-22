@@ -17,12 +17,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient;
+namespace Art4\JsonApiClient\Tests\Fixtures;
 
-/**
- * Access Interface
- */
-interface AccessInterface extends Accessable
+use Art4\JsonApiClient\Element;
+use Art4\JsonApiClient\Factory;
+
+final class V1Factory implements Factory
 {
-    public function asArray();
+    public $testcase;
+
+    /**
+     * Create a factory
+     *
+     * @param object $testcase
+     * @param array  $args
+     *
+     * @return object
+     */
+    public function __construct($testcase)
+    {
+        return $this->testcase = $testcase;
+    }
+
+    /**
+     * Create a new instance of a class
+     *
+     * @param string $name
+     * @param array  $args
+     *
+     * @return object
+     */
+    public function make($name, array $args = [])
+    {
+        return $this->testcase->createMock(Element::class);
+    }
 }

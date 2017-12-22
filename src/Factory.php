@@ -20,9 +20,17 @@
 namespace Art4\JsonApiClient;
 
 /**
- * Access Interface
+ * Factory Interface
  */
-interface AccessInterface extends Accessable
+interface Factory
 {
-    public function asArray();
+    /**
+     * Create a new instance of a class
+     *
+     * @param string $name
+     * @param array  $args
+     *
+     * @return object
+     */
+    public function make($name, array $args = []);
 }

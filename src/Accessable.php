@@ -20,9 +20,13 @@
 namespace Art4\JsonApiClient;
 
 /**
- * Access Interface
+ * Accessable Interface
  */
-interface AccessInterface extends Accessable
+interface Accessable
 {
-    public function asArray();
+    public function get($key);
+
+    public function has($key);
+
+    public function getKeys();
 }

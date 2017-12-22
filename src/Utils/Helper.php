@@ -140,7 +140,7 @@ final class Helper
      */
     public static function isValid($json_string)
     {
-        @trigger_error(__METHOD__ . ' is deprecated since version 0.9 and will be removed in 1.0. Use parseResponseBody() instead', E_USER_DEPRECATED);
+        @trigger_error(__METHOD__ . ' is deprecated since version 0.9 and will be removed in 1.0. Use isValidResponseBody() instead', E_USER_DEPRECATED);
 
         return static::isValidResponseBody($json_string);
     }

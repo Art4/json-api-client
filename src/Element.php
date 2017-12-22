@@ -20,9 +20,16 @@
 namespace Art4\JsonApiClient;
 
 /**
- * Access Interface
+ * Element Interface
  */
-interface AccessInterface extends Accessable
+interface Element
 {
-    public function asArray();
+    /**
+     * Sets the manager and parent
+     *
+     * @param mixed                         $data    The data for this Element
+     * @param Art4\JsonApiClient\Manager    $manager The manager
+     * @param Art4\JsonApiClient\Accessable $parent  The parent
+     */
+    public function __construct($data, Manager $manager, Accessable $parent);
 }
