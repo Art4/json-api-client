@@ -36,20 +36,7 @@ class ResourceNullTest extends TestCase
      */
     public function setUp()
     {
-        // Mock factory
-        $factory = new V1Factory($this);
-
-        // Mock Manager
-        $this->manager = $this->createMock(Manager::class);
-
-        $this->manager->expects($this->any())
-            ->method('getFactory')
-            ->will($this->returnValue($factory));
-
-        $this->manager->expects($this->any())
-            ->method('getParam')
-            ->with('optional_item_id')
-            ->willReturn(false);
+        $this->setUpManagerMock();
     }
 
     /**
@@ -69,11 +56,6 @@ class ResourceNullTest extends TestCase
 
         $this->assertFalse($resource->has('something'));
         $this->assertSame([], $resource->getKeys());
-
-        $this->assertSame(null, $resource->asArray());
-
-        // Test full array
-        $this->assertSame(null, $resource->asArray(true));
     }
 
     /**

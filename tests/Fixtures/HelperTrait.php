@@ -19,6 +19,10 @@
 
 namespace Art4\JsonApiClient\Tests\Fixtures;
 
+use Art4\JsonApiClient\Factory;
+use Art4\JsonApiClient\Manager;
+use Art4\JsonApiClient\Tests\Fixtures\Factory as FixtureFactory;
+
 /**
  * Helper Trait
  */
@@ -45,12 +49,31 @@ trait HelperTrait
     }
 
     /**
+     * Json Values Provider but without the object
+     *
+     * @see http://json.org/
+     */
+    public function jsonValuesProviderWithoutObject()
+    {
+        return [
+            [[]],
+            ['string'],
+            [456],
+            [159.654],
+            [-15E-3],
+            [true],
+            [false],
+            [null],
+        ];
+    }
+
+    /**
      * Builds a Manager Mock
      */
     public function buildManagerMock()
     {
         // Mock factory
-        $factory = new Factory;
+        $factory = new FixtureFactory;
         $factory->testcase = $this;
 
         // Mock Manager
@@ -67,6 +90,27 @@ trait HelperTrait
             ->willReturn(false);
 
         return $manager;
+    }
+
+    /**
+     * Builds a Manager Mock and set it into the TestCase
+     */
+    public function setUpManagerMock()
+    {
+        // Mock factory
+        $factory = new V1Factory($this);
+
+        // Mock Manager
+        $this->manager = $this->createMock(Manager::class);
+
+        $this->manager->expects($this->any())
+            ->method('getFactory')
+            ->will($this->returnValue($factory));
+
+        $this->manager->expects($this->any())
+            ->method('getParam')
+            ->with('optional_item_id')
+            ->willReturn(false);
     }
 
     /**

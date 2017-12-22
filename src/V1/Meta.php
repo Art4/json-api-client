@@ -22,51 +22,58 @@ namespace Art4\JsonApiClient\V1;
 use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\Element;
 use Art4\JsonApiClient\Manager;
+use Art4\JsonApiClient\Helper\AbstractElement;
 use Art4\JsonApiClient\Exception\AccessException;
+use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
- * Null Resource
+ * Meta Object
+ *
+ * @see http://jsonapi.org/format/#document-meta
  */
-final class ResourceNull implements Accessable, Element
+final class Meta extends AbstractElement
 {
     /**
-     * Constructor
+     * Parses the data for this element
      *
-     * @param mixed                         $data    The data for this Element
-     * @param Art4\JsonApiClient\Manager    $manager The manager
-     * @param Art4\JsonApiClient\Accessable $parent  The parent
+     * @param mixed $object The data
+     *
+     * @throws ValidationException
+     *
+     * @return self
      */
-    public function __construct($data, Manager $manager, Accessable $parent) {}
-
-    /**
-     * Check if a value exists in this resource
-     *
-     * @param string $key The key of the value
-     *
-     * @return bool false
-     */
-    public function has($key)
+    protected function parse($object)
     {
-        return false;
+        if (! is_object($object)) {
+            throw new ValidationException('Meta has to be an object, "' . gettype($object) . '" given.');
+        }
+
+        $object_vars = get_object_vars($object);
+
+        if (count($object_vars) === 0) {
+            return $this;
+        }
+
+        foreach ($object_vars as $name => $value) {
+            $this->set($name, $value);
+        }
+
+        return $this;
     }
 
     /**
-     * Returns the keys of all setted values in this resource
-     *
-     * @return array Keys of all setted values
-     */
-    public function getKeys()
-    {
-        return [];
-    }
-
-    /**
-     * Get a value by the key of this identifier
+     * Get a value by the key of this object
      *
      * @param string $key The key of the value
+     *
+     * @return mixed The value
      */
     public function get($key)
     {
-        throw new AccessException('A ResourceNull has no values.');
+        try {
+            return parent::get($key);
+        } catch (AccessException $e) {
+            throw new AccessException('"' . $key . '" doesn\'t exist in this object.');
+        }
     }
 }

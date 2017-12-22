@@ -17,38 +17,52 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient\Tests\Fixtures;
+namespace Art4\JsonApiClient\Helper;
 
-use Art4\JsonApiClient\Element;
-use Art4\JsonApiClient\Factory as FactoryInterface;
+use \SplStack;
 
-final class V1Factory implements FactoryInterface
+final class AccessKey extends SplStack
 {
-    public $testcase;
-
     /**
-     * Create a factory
-     *
-     * @param object $testcase
-     * @param array  $args
-     *
-     * @return object
-     */
-    public function __construct($testcase)
+    * Transforms the Key to a string
+    *
+    * @return string
+    */
+    public static function create($key)
     {
-        return $this->testcase = $testcase;
+        // Ignore arrays and objects
+        if (is_object($key) or is_array($key)) {
+            $key = '';
+        }
+
+        $key_string = strval($key);
+
+        $key = new self;
+        $key->raw = $key_string;
+
+        $keys = explode('.', $key_string);
+
+        foreach ($keys as $value) {
+            $key->push($value);
+        }
+
+        $key->rewind();
+
+        return $key;
     }
 
     /**
-     * Create a new instance of a class
-     *
-     * @param string $name
-     * @param array  $args
-     *
-     * @return object
+     * @var string Ras key
      */
-    public function make($name, array $args = [])
+    public $raw = '';
+
+    /**
+     * Transforms the Key to a string
+     *
+     * @return string
+     */
+    public function __toString()
     {
-        return $this->testcase->createMock(Element::class);
+        return $this->raw;
     }
 }

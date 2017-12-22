@@ -17,56 +17,68 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient\V1;
+namespace Art4\JsonApiClient\Helper;
 
 use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\Element;
 use Art4\JsonApiClient\Manager;
-use Art4\JsonApiClient\Exception\AccessException;
 
 /**
- * Null Resource
+ * AbstractElement
  */
-final class ResourceNull implements Accessable, Element
+abstract class AbstractElement implements Accessable, Element
 {
+    use AccessableTrait;
+
     /**
-     * Constructor
+     * @var Art4\JsonApiClient\Manager
+     */
+    private $manager;
+
+    /**
+     * @var Art4\JsonApiClient\Accessable
+     */
+    private $parent;
+
+    /**
+     * Sets the manager and parent
      *
      * @param mixed                         $data    The data for this Element
      * @param Art4\JsonApiClient\Manager    $manager The manager
      * @param Art4\JsonApiClient\Accessable $parent  The parent
      */
-    public function __construct($data, Manager $manager, Accessable $parent) {}
-
-    /**
-     * Check if a value exists in this resource
-     *
-     * @param string $key The key of the value
-     *
-     * @return bool false
-     */
-    public function has($key)
+    public function __construct($data, Manager $manager, Accessable $parent)
     {
-        return false;
+        $this->manager = $manager;
+        $this->parent = $parent;
+
+        $this->parse($data);
     }
 
     /**
-     * Returns the keys of all setted values in this resource
+     * Returns the Manager
      *
-     * @return array Keys of all setted values
+     * @return Art4\JsonApiClient\Manager
      */
-    public function getKeys()
+    public function getManager()
     {
-        return [];
+        return $this->manager;
     }
 
     /**
-     * Get a value by the key of this identifier
+     * Get the parent
      *
-     * @param string $key The key of the value
+     * @return Art4\JsonApiClient\Accessable
      */
-    public function get($key)
+    public function getParent()
     {
-        throw new AccessException('A ResourceNull has no values.');
+        return $this->parent;
     }
+
+    /**
+     * Parse the data
+     *
+     * @param mixed $data
+     */
+    abstract protected function parse($data);
 }
