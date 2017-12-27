@@ -61,18 +61,11 @@ class LinkTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
         $this->assertTrue($link->has('link'));
         $this->assertSame($link->get('link'), 'http://example.org/link');
 
-        $this->assertSame($link->asArray(), [
+        $this->assertSame([
             'meta' => $link->get('meta'),
             'href' => $link->get('href'),
             'link' => $link->get('link'),
-        ]);
-
-        // Test full array
-        $this->assertSame($link->asArray(true), [
-            'meta' => $link->get('meta')->asArray(true),
-            'href' => $link->get('href'),
-            'link' => $link->get('link'),
-        ]);
+        ], $link->asArray());
 
         // test get() with not existing key throws an exception
         $this->assertFalse($link->has('something'));

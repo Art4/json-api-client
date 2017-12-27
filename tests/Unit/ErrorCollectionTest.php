@@ -67,16 +67,10 @@ class ErrorCollectionTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 
         $this->assertInstanceOf('Art4\JsonApiClient\ErrorInterface', $error);
 
-        $this->assertSame($collection->asArray(), [
+        $this->assertSame([
             $collection->get(0),
             $collection->get(1),
-        ]);
-
-        // Test full array
-        $this->assertSame($collection->asArray(true), [
-            $collection->get(0)->asArray(true),
-            $collection->get(1)->asArray(true),
-        ]);
+        ], $collection->asArray());
     }
 
     /**

@@ -17,15 +17,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient;
+namespace Art4\JsonApiClient\Serializer;
 
-/**
- * Access Interface
- */
-interface AccessInterface extends Accessable
+use Art4\JsonApiClient\AccessInterface;
+
+interface Serializer
 {
     /**
-     * @deprecated since version 0.10, to be removed in 1.0. Use Art4\JsonApiClient\Serializer\ArraySerializer::serialize() instead
+     * Serialize data
+     *
+     * @param Art4\JsonApiClient\AccessInterface $data The data for serialization
+     *
+     * @return array
      */
-    public function asArray();
+    public function serialize(AccessInterface $data);
 }

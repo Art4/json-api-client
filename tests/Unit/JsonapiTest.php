@@ -63,16 +63,10 @@ class JsonapiTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
         $this->assertTrue($jsonapi->has('meta'));
         $this->assertInstanceOf('Art4\JsonApiClient\MetaInterface', $jsonapi->get('meta'));
 
-        $this->assertSame($jsonapi->asArray(), [
+        $this->assertSame([
             'version' => $jsonapi->get('version'),
             'meta' => $jsonapi->get('meta'),
-        ]);
-
-        // Test full array
-        $this->assertSame($jsonapi->asArray(true), [
-            'version' => $jsonapi->get('version'),
-            'meta' => $jsonapi->get('meta')->asArray(true),
-        ]);
+        ], $jsonapi->asArray());
 
         // test get() with not existing key throws an exception
         $this->assertFalse($jsonapi->has('something'));

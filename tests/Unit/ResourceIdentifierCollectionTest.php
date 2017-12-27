@@ -74,17 +74,11 @@ class ResourceIdentifierCollectionTest extends \Art4\JsonApiClient\Tests\Fixture
         $this->assertTrue($collection->has(1));
         $this->assertTrue($collection->has(2));
 
-        $this->assertSame($collection->asArray(), [
+        $this->assertSame([
             $collection->get(0),
             $collection->get(1),
             $collection->get(2),
-        ]);
-
-        $this->assertSame($collection->asArray(true), [
-            $collection->get(0)->asArray(true),
-            $collection->get(1)->asArray(true),
-            $collection->get(2)->asArray(true),
-        ]);
+        ], $collection->asArray());
     }
 
     /**

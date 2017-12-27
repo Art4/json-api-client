@@ -52,10 +52,7 @@ class RelationshipTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 
         $meta = $relationship->get('meta');
 
-        $this->assertSame($relationship->asArray(), ['meta' => $meta]);
-
-        // Test full array
-        $this->assertSame($relationship->asArray(true), ['meta' => $meta->asArray(true)]);
+        $this->assertSame(['meta' => $meta], $relationship->asArray());
 
         // test get() with not existing key throws an exception
         $this->assertFalse($relationship->has('something'));
@@ -134,10 +131,7 @@ class RelationshipTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 
         $this->assertInstanceOf('Art4\JsonApiClient\RelationshipLinkInterface', $links);
 
-        $this->assertSame($relationship->asArray(), ['links' => $links]);
-
-        // Test full array
-        $this->assertSame($relationship->asArray(true), ['links' => $links->asArray(true)]);
+        $this->assertSame(['links' => $links], $relationship->asArray());
     }
 
     /**

@@ -7,9 +7,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- New class `Art4\JsonApiClient\Serializer\ArraySerializer` to create an array from an `Art4\JsonApiClient\AccessInterface`
+
 ### Changed
 
 - Support for PHP 5.5 dropped, PHP >=5.6 is now required
+
+### Deprecated
+
+- `Art4\JsonApiClient\AccessInterface::asArray()` will be removed in v1.0, use `Art4\JsonApiClient\Serializer\ArraySerializer::serialize()` instead
 
 ## [0.9.1] - 2017-12-21
 

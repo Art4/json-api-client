@@ -74,7 +74,7 @@ class ErrorTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
         $this->assertTrue($error->has('meta'));
         $this->assertInstanceOf('Art4\JsonApiClient\MetaInterface', $error->get('meta'));
 
-        $this->assertSame($error->asArray(), [
+        $this->assertSame([
             'id'     => 'id',
             'links'  => $error->get('links'),
             'status' => 'status',
@@ -83,19 +83,7 @@ class ErrorTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
             'detail' => 'detail',
             'source' => $error->get('source'),
             'meta'   => $error->get('meta'),
-        ]);
-
-        // Test full array
-        $this->assertSame($error->asArray(true), [
-            'id'     => 'id',
-            'links'  => $error->get('links')->asArray(true),
-            'status' => 'status',
-            'code'   => 'code',
-            'title'  => 'title',
-            'detail' => 'detail',
-            'source' => $error->get('source')->asArray(true),
-            'meta'   => $error->get('meta')->asArray(true),
-        ]);
+        ], $error->asArray());
 
         // test get() with not existing key throws an exception
         $this->assertFalse($error->has('something'));

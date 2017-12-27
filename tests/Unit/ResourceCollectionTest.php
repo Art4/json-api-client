@@ -77,13 +77,9 @@ class ResourceCollectionTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 
         $this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifierInterface', $resource);
 
-        $this->assertSame($collection->asArray(), [
+        $this->assertSame([
             $collection->get(0),
-        ]);
-
-        $this->assertSame($collection->asArray(true), [
-            $collection->get(0)->asArray(true),
-        ]);
+        ], $collection->asArray());
     }
 
     /**
@@ -119,17 +115,11 @@ class ResourceCollectionTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 
         $this->assertInstanceOf('Art4\JsonApiClient\ResourceIdentifierInterface', $resource);
 
-        $this->assertSame($collection->asArray(), [
+        $this->assertSame([
             $collection->get(0),
             $collection->get(1),
             $collection->get(2),
-        ]);
-
-        $this->assertSame($collection->asArray(true), [
-            $collection->get(0)->asArray(true),
-            $collection->get(1)->asArray(true),
-            $collection->get(2)->asArray(true),
-        ]);
+        ], $collection->asArray());
     }
 
     /**
