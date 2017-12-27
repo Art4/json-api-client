@@ -17,21 +17,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient;
+namespace Art4\JsonApiClient\Serializer;
 
-/**
- * Access Interface
- */
-interface AccessInterface
+use Art4\JsonApiClient\AccessInterface;
+
+interface Serializer
 {
-    public function get($key);
-
-    public function has($key);
-
-    public function getKeys();
-
     /**
-     * @deprecated
+     * Serialize data
+     *
+     * @param Art4\JsonApiClient\AccessInterface $data The data for serialization
+     *
+     * @return array
      */
-    public function asArray();
+    public function serialize(AccessInterface $data);
 }
