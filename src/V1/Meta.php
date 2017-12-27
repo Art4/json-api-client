@@ -39,8 +39,6 @@ final class Meta extends AbstractElement
      * @param mixed $object The data
      *
      * @throws ValidationException
-     *
-     * @return self
      */
     protected function parse($object)
     {
@@ -51,7 +49,7 @@ final class Meta extends AbstractElement
         $object_vars = get_object_vars($object);
 
         if (count($object_vars) === 0) {
-            return $this;
+            return;
         }
 
         foreach ($object_vars as $name => $value) {

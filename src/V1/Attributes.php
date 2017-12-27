@@ -39,8 +39,6 @@ final class Attributes extends AbstractElement
      * @param mixed $object The data
      *
      * @throws ValidationException
-     *
-     * @return self
      */
     protected function parse($object)
     {

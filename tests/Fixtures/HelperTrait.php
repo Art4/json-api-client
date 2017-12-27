@@ -68,6 +68,24 @@ trait HelperTrait
     }
 
     /**
+     * Json Values Provider but without the object and string
+     *
+     * @see http://json.org/
+     */
+    public function jsonValuesProviderWithoutObjectAndString()
+    {
+        return [
+            [[]],
+            [456],
+            [159.654],
+            [-15E-3],
+            [true],
+            [false],
+            [null],
+        ];
+    }
+
+    /**
      * Builds a Manager Mock
      */
     public function buildManagerMock()
