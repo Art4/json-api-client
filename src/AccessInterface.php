@@ -31,7 +31,7 @@ interface AccessInterface
     public function getKeys();
 
     /**
-     * @deprecated
+     * @deprecated since version 0.10, to be removed in 1.0. Use Art4\JsonApiClient\Serializer\ArraySerializer::serialize() instead
      */
     public function asArray();
 }

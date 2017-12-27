@@ -21,6 +21,7 @@ namespace Art4\JsonApiClient\Utils;
 
 use Art4\JsonApiClient\AccessInterface;
 use Art4\JsonApiClient\Exception\AccessException;
+use Art4\JsonApiClient\Serializer\ArraySerializer;
 
 final class DataContainer implements DataContainerInterface
 {
@@ -136,25 +137,19 @@ final class DataContainer implements DataContainerInterface
     /**
      * Convert this object in an array
      *
+     * @deprecated since version 0.10, to be removed in 1.0. Use Art4\JsonApiClient\Serializer\ArraySerializer::serialize() instead
+     *
      * @param bool $fullArray If true, objects are transformed into arrays recursively
      *
      * @return array
      */
     public function asArray($fullArray = false)
     {
-        $array = [];
+        @trigger_error(__METHOD__ . ' is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\Serializer\ArraySerializer::serialize() instead', E_USER_DEPRECATED);
 
-        foreach ($this->getKeys() as $key) {
-            $value = $this->getValue($key);
+        $serializer = new ArraySerializer(['recursive' => (bool) $fullArray]);
 
-            if ($fullArray) {
-                $array[$key] = $this->objectTransform($value);
-            } else {
-                $array[$key] = $value;
-            }
-        }
-
-        return $array;
+        return $serializer->serialize($this);
     }
 
     /**
@@ -205,24 +200,5 @@ final class DataContainer implements DataContainerInterface
         $key->rewind();
 
         return $key;
-    }
-
-    /**
-     * Transforms objects to arrays
-     *
-     * @param $val
-     *
-     * @return mixed
-     */
-    protected function objectTransform($val)
-    {
-        if (! is_object($val)) {
-            return $val;
-        } elseif ($val instanceof AccessInterface) {
-            return $val->asArray(true);
-        } else {
-            // Fallback for stdClass objects
-            return json_decode(json_encode($val), true);
-        }
     }
 }

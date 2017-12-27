@@ -20,6 +20,7 @@
 namespace Art4\JsonApiClient\Serializer;
 
 use Art4\JsonApiClient\AccessInterface;
+use Art4\JsonApiClient\ResourceNullInterface;
 
 final class ArraySerializer implements Serializer
 {
@@ -51,6 +52,11 @@ final class ArraySerializer implements Serializer
     public function serialize(AccessInterface $data)
     {
         $fullArray = (bool) $this->config['recursive'];
+
+        if ($data instanceof ResourceNullInterface) {
+            return null;
+        }
+
         $array = [];
 
         foreach ($data->getKeys() as $key) {
