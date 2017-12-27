@@ -57,8 +57,6 @@ final class Meta extends AbstractElement
         foreach ($object_vars as $name => $value) {
             $this->set($name, $value);
         }
-
-        return $this;
     }
 
     /**

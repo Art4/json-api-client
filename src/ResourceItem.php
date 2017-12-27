@@ -109,7 +109,7 @@ final class ResourceItem implements ResourceItemInterface
         if (property_exists($object, 'attributes')) {
             $attributes = $this->manager->getFactory()->make(
                 'Attributes',
-                [$this->manager]
+                [$this->manager, $this]
             );
             $attributes->parse($object->attributes);
 

@@ -17,34 +17,50 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient;
+namespace Art4\JsonApiClient\V1;
 
-@trigger_error(__NAMESPACE__ . '\Attributes is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\Attributes instead', E_USER_DEPRECATED);
-
-use Art4\JsonApiClient\Utils\AccessTrait;
-use Art4\JsonApiClient\Utils\DataContainer;
-use Art4\JsonApiClient\Utils\FactoryManagerInterface;
+use Art4\JsonApiClient\Accessable;
+use Art4\JsonApiClient\Element;
+use Art4\JsonApiClient\Manager;
+use Art4\JsonApiClient\Helper\AbstractElement;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
-use Art4\JsonApiClient\ForwardCompatibility\AbstractElement;
 
 /**
  * Attributes Object
  *
- * @deprecated Attributes class is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\Attributes instead.
- *
  * @see http://jsonapi.org/format/#document-resource-object-attributes
  */
-final class Attributes extends AbstractElement implements AttributesInterface
+final class Attributes extends AbstractElement
 {
     /**
-     * Get the represented Element name for the factory
+     * Parses the data for this element
      *
-     * @return string the element name
+     * @param mixed $object The data
+     *
+     * @throws ValidationException
+     *
+     * @return self
      */
-    protected function getElementNameForFactory()
+    protected function parse($object)
     {
-        return 'Attributes';
+        if (! is_object($object)) {
+            throw new ValidationException('Attributes has to be an object, "' . gettype($object) . '" given.');
+        }
+
+        if (property_exists($object, 'type') or property_exists($object, 'id') or property_exists($object, 'relationships') or property_exists($object, 'links')) {
+            throw new ValidationException('These properties are not allowed in attributes: `type`, `id`, `relationships`, `links`');
+        }
+
+        $object_vars = get_object_vars($object);
+
+        if (count($object_vars) === 0) {
+            return $this;
+        }
+
+        foreach ($object_vars as $name => $value) {
+            $this->set($name, $value);
+        }
     }
 
     /**
