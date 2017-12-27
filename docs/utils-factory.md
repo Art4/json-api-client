@@ -15,7 +15,7 @@ $factory = new \Art4\JsonApiClient\Utils\Factory([
 
 #### Example
 
-Assuming you want a `toJson()` functionality in your document object. First create your own Document class.
+Assuming you want a `getDescSortedKeys()` functionality in your resource item object. First create your own ResourceItem class.
 
 ```php
 <?php
@@ -25,66 +25,70 @@ namespace My\Own;
 use Art4\JsonApiClient\AccessInterface;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 
-class Document implements Art4\JsonApiClient\DocumentInterface
+class ResourceItem implements Art4\JsonApiClient\ResourceItemInterface
 {
-    protected $document;
+    protected $item;
 
-    // Implemention of Art4\JsonApiClient\DocumentInterface
+    // Implemention of Art4\JsonApiClient\ResourceItemInterface
 
     public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
     {
-        $this->document = new Art4\JsonApiClient\Document($manager, $parent);
+        $this->item = new Art4\JsonApiClient\ResourceItem($manager, $parent);
     }
 
     public function parse($object)
     {
-        $this->document->parse($object);
+        $this->item->parse($object);
 
         return $this;
     }
 
     public function get($key)
     {
-        return $this->document->get($key);
+        return $this->item->get($key);
     }
 
     public function has($key)
     {
-        return $this->document->has($key);
+        return $this->item->has($key);
     }
 
     public function getKeys()
     {
-        return $this->document->getKeys();
+        return $this->item->getKeys();
     }
 
     public function asArray()
     {
-        return $this->document->asArray();
+        // `Art4\JsonApiClient\AccessInterface::asArray()` will be removed in v1.0, use `Art4\JsonApiClient\Serializer\ArraySerializer::serialize()` instead
+        return $this->item->asArray();
     }
 
     // your new method
-    public function toJson()
+    public function getDescSortedKeys()
     {
-        return json_encode($this->asArray(true));
+        $keys = $this->getKeys();
+        rsort($keys);
+
+        return $keys;
     }
 }
 ```
 
-Now pass your document class to the factory.
+Now pass your resource item class to the factory.
 
 ```php
 $factory = new \Art4\JsonApiClient\Utils\Factory([
-    'Document' => 'My\Own\Document',
+    'ResourceItem' => 'My\Own\ResourceItem',
 ]);
 
 // Pass the factory to the manager
 $manager = new \Art4\JsonApiClient\Utils\Manager($factory);
 
-$document = $manager->parse($jsonapi_string);
+$item = $manager->parse($jsonapi_string)->get('data');
 
-echo get_class($document); // 'My\Own\Document'
-echo $document->toJson(); // '{"data":{"type":"posts","id":"5",......'
+echo get_class($item); // 'My\Own\ResourceItem'
+var_dump($item->getDescSortedKeys()); // ['type', 'relationships', 'meta', 'links', 'id', 'attributes']
 ```
 
 This way you can replace [every object](objects-introduction.md#all-objects) and modify the behaviour of how the JSON API is parsed or how you access the parsed data.

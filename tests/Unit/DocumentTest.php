@@ -58,14 +58,9 @@ class DocumentTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
         $this->assertFalse($document->has('links'));
         $this->assertFalse($document->has('included'));
 
-        $this->assertSame($document->asArray(), [
+        $this->assertSame([
             'meta' => $document->get('meta'),
-        ]);
-
-        // Test full array
-        $this->assertSame($document->asArray(true), [
-            'meta' => $document->get('meta')->asArray(true),
-        ]);
+        ], $document->asArray());
     }
 
     /**

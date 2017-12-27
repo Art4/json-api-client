@@ -98,24 +98,14 @@ class ResourceItemTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
         $this->assertInstanceOf('Art4\JsonApiClient\ResourceItemLinkInterface', $item->get('links'));
         $this->assertSame($item->getKeys(), ['type', 'id', 'meta', 'attributes', 'relationships', 'links']);
 
-        $this->assertSame($item->asArray(), [
+        $this->assertSame([
             'type' => $item->get('type'),
             'id' => $item->get('id'),
             'meta' => $item->get('meta'),
             'attributes' => $item->get('attributes'),
             'relationships' => $item->get('relationships'),
             'links' => $item->get('links'),
-        ]);
-
-        // Test full array
-        $this->assertSame($item->asArray(true), [
-            'type' => $item->get('type'),
-            'id' => $item->get('id'),
-            'meta' => $item->get('meta')->asArray(true),
-            'attributes' => $item->get('attributes')->asArray(true),
-            'relationships' => $item->get('relationships')->asArray(true),
-            'links' => $item->get('links')->asArray(true),
-        ]);
+        ], $item->asArray());
     }
 
     /**

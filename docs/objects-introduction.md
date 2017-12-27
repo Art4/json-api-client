@@ -45,7 +45,9 @@ JsonApiClient will parse a JSON API content into a hierarchical object stucture.
 - `has($key)`: Check, if a value exists
 - `get($key)`: Get a value
 - `getKeys()`: Get the keys of all existing values
-- `asArray()`: Get all values as an array
+- `asArray()`: **Deprecated** Get all values as an array
+
+> **Note:** `AccessInterface::asArray()` is deprecated and will be removed in v1.0
 
 ### Check if a value exist
 
@@ -130,10 +132,15 @@ string(28) "Testing the JsonApiClient library."
 
 ### Get the containing data as array
 
-You can get all data as an array using the `asArray()` method.
+> **Note:** `AccessInterface::asArray()` is deprecated and will be removed in v1.0 and using a Serializer is the new recommended way.
+
+You can get all data as an array using a Serializer. JsonApiClient comes with an ArraySerializer.
 
 ```php
-$array = $document->asArray();
+use Art4\JsonApiClient\Serializer\ArraySerializer;
+
+$serializer = new ArraySerializer();
+$array = $serializer->serialize($document);
 
 var_dump($array);
 ```
@@ -146,10 +153,13 @@ array(1) {
 }
 ```
 
-If you want a full array without any objects, use `asArray(true)` to parse all objects recursively into arrays.
+If you want a full array without any objects, set the `recursive` configuration into the `ArraySerializer` to parse all objects recursively into arrays.
 
 ```php
-$array = $document->asArray(true);
+use Art4\JsonApiClient\Serializer\ArraySerializer;
+
+$serializer = new ArraySerializer(['recursive' => true]);
+$array = $serializer->serialize($document);
 
 var_dump($array);
 ```

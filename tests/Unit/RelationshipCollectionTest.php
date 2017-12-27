@@ -60,14 +60,9 @@ class RelationshipCollectionTest extends \Art4\JsonApiClient\Tests\Fixtures\Test
         $this->assertTrue($collection->has('author'));
         $this->assertInstanceOf('Art4\JsonApiClient\RelationshipInterface', $collection->get('author'));
 
-        $this->assertSame($collection->asArray(), [
+        $this->assertSame([
             'author' => $collection->get('author'),
-        ]);
-
-        // Test full array
-        $this->assertSame($collection->asArray(true), [
-            'author' => $collection->get('author')->asArray(true),
-        ]);
+        ], $collection->asArray());
 
         // test get() with not existing key throws an exception
         $this->assertFalse($collection->has('something'));
