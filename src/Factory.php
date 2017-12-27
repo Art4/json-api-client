@@ -19,6 +19,8 @@
 
 namespace Art4\JsonApiClient;
 
+use Art4\JsonApiClient\Accessable;
+
 /**
  * Factory Interface
  */
@@ -30,7 +32,7 @@ interface Factory
      * @param string $name
      * @param array  $args
      *
-     * @return object
+     * @return Art4\JsonApiClient\Accessable
      */
     public function make($name, array $args = []);
 }

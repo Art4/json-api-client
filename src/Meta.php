@@ -19,70 +19,27 @@
 
 namespace Art4\JsonApiClient;
 
-use Art4\JsonApiClient\Utils\AccessTrait;
 use Art4\JsonApiClient\Utils\DataContainer;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
+use Art4\JsonApiClient\ForwardCompatibility\AbstractElement;
 
 /**
  * Meta Object
  *
  * @see http://jsonapi.org/format/#document-meta
  */
-final class Meta implements MetaInterface
+final class Meta extends AbstractElement implements MetaInterface
 {
-    use AccessTrait;
-
     /**
-     * @var DataContainerInterface
-     */
-    protected $container;
-
-    /**
-     * @var FactoryManagerInterface
-     */
-    protected $manager;
-
-    /**
-     * Sets the manager and parent
+     * Get the represented Element name for the factory
      *
-     * @param FactoryManagerInterface $manager The manager
-     * @param AccessInterface         $parent  The parent
+     * @return string the element name
      */
-    public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
+    protected function getElementNameForFactory()
     {
-        $this->manager = $manager;
-
-        $this->container = new DataContainer();
-    }
-
-    /**
-     * Parses the data for this element
-     *
-     * @param mixed $object The data
-     *
-     * @throws ValidationException
-     *
-     * @return self
-     */
-    public function parse($object)
-    {
-        if (! is_object($object)) {
-            throw new ValidationException('Meta has to be an object, "' . gettype($object) . '" given.');
-        }
-
-        $object_vars = get_object_vars($object);
-
-        if (count($object_vars) === 0) {
-            return $this;
-        }
-
-        foreach ($object_vars as $name => $value) {
-            $this->container->set($name, $value);
-        }
-
-        return $this;
+        return 'Meta';
     }
 
     /**
@@ -95,7 +52,7 @@ final class Meta implements MetaInterface
     public function get($key)
     {
         try {
-            return $this->container->get($key);
+            return parent::get($key);
         } catch (AccessException $e) {
             throw new AccessException('"' . $key . '" doesn\'t exist in this object.');
         }

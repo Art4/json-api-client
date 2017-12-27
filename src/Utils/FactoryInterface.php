@@ -19,18 +19,11 @@
 
 namespace Art4\JsonApiClient\Utils;
 
+use Art4\JsonApiClient\Factory;
+
 /**
  * Factory Interface
  */
-interface FactoryInterface
+interface FactoryInterface extends Factory
 {
-    /**
-     * Create a new instance of a class
-     *
-     * @param string $name
-     * @param array  $args
-     *
-     * @return object
-     */
-    public function make($name, array $args = []);
 }

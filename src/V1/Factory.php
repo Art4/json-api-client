@@ -17,36 +17,40 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient\Utils;
+namespace Art4\JsonApiClient\V1;
 
 use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\Exception\FactoryException;
+use Art4\JsonApiClient\Factory as FactoryInterface;
 
+/**
+ * Factory for V1 Elements
+ */
 final class Factory implements FactoryInterface
 {
     /**
      * @var array
      */
-    protected $classes = [
-        'Attributes'                    => 'Art4\JsonApiClient\Attributes',
-        'Document'                      => 'Art4\JsonApiClient\Document',
-        'DocumentLink'                  => 'Art4\JsonApiClient\DocumentLink',
-        'Error'                         => 'Art4\JsonApiClient\Error',
-        'ErrorCollection'               => 'Art4\JsonApiClient\ErrorCollection',
-        'ErrorLink'                     => 'Art4\JsonApiClient\ErrorLink',
-        'ErrorSource'                   => 'Art4\JsonApiClient\ErrorSource',
-        'Jsonapi'                       => 'Art4\JsonApiClient\Jsonapi',
-        'Link'                          => 'Art4\JsonApiClient\Link',
-        'Meta'                          => 'Art4\JsonApiClient\Meta',
-        'Relationship'                  => 'Art4\JsonApiClient\Relationship',
-        'RelationshipCollection'        => 'Art4\JsonApiClient\RelationshipCollection',
-        'RelationshipLink'              => 'Art4\JsonApiClient\RelationshipLink',
-        'ResourceCollection'            => 'Art4\JsonApiClient\ResourceCollection',
-        'ResourceIdentifier'            => 'Art4\JsonApiClient\ResourceIdentifier',
-        'ResourceIdentifierCollection'  => 'Art4\JsonApiClient\ResourceIdentifierCollection',
-        'ResourceItem'                  => 'Art4\JsonApiClient\ResourceItem',
-        'ResourceItemLink'              => 'Art4\JsonApiClient\ResourceItemLink',
-        'ResourceNull'                  => 'Art4\JsonApiClient\ResourceNull',
+    private $classes = [
+        'Attributes'                   => 'Art4\JsonApiClient\V1\Attributes',
+        'Document'                     => 'Art4\JsonApiClient\V1\Document',
+        'DocumentLink'                 => 'Art4\JsonApiClient\V1\DocumentLink',
+        'Error'                        => 'Art4\JsonApiClient\V1\Error',
+        'ErrorCollection'              => 'Art4\JsonApiClient\V1\ErrorCollection',
+        'ErrorLink'                    => 'Art4\JsonApiClient\V1\ErrorLink',
+        'ErrorSource'                  => 'Art4\JsonApiClient\V1\ErrorSource',
+        'Jsonapi'                      => 'Art4\JsonApiClient\V1\Jsonapi',
+        'Link'                         => 'Art4\JsonApiClient\V1\Link',
+        'Meta'                         => 'Art4\JsonApiClient\V1\Meta',
+        'Relationship'                 => 'Art4\JsonApiClient\V1\Relationship',
+        'RelationshipCollection'       => 'Art4\JsonApiClient\V1\RelationshipCollection',
+        'RelationshipLink'             => 'Art4\JsonApiClient\V1\RelationshipLink',
+        'ResourceCollection'           => 'Art4\JsonApiClient\V1\ResourceCollection',
+        'ResourceIdentifier'           => 'Art4\JsonApiClient\V1\ResourceIdentifier',
+        'ResourceIdentifierCollection' => 'Art4\JsonApiClient\V1\ResourceIdentifierCollection',
+        'ResourceItem'                 => 'Art4\JsonApiClient\V1\ResourceItem',
+        'ResourceItemLink'             => 'Art4\JsonApiClient\V1\ResourceItemLink',
+        'ResourceNull'                 => 'Art4\JsonApiClient\V1\ResourceNull',
     ];
 
     /**

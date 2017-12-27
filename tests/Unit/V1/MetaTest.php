@@ -30,13 +30,13 @@ class MetaTest extends TestCase
 {
     use HelperTrait;
 
-     /**
-      * @setup
-      */
-     public function setUp()
-     {
-         $this->setUpManagerMock();
-     }
+    /**
+     * @setup
+     */
+    public function setUp()
+    {
+        $this->setUpManagerMock();
+    }
 
     /**
      * @test create with object

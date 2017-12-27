@@ -24,10 +24,12 @@ use \SplStack;
 final class AccessKey extends SplStack
 {
     /**
-    * Transforms the Key to a string
-    *
-    * @return string
-    */
+     * Transforms the Key to a string
+     *
+     * @param mixed $key
+     *
+     * @return string
+     */
     public static function create($key)
     {
         // Ignore arrays and objects
