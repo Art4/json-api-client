@@ -19,8 +19,12 @@
 
 namespace Art4\JsonApiClient;
 
+@trigger_error(__NAMESPACE__ . '\RelationshipLinkInterface is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\Element instead', E_USER_DEPRECATED);
+
 /**
  * RelationshipLink Interface
+ *
+ * @deprecated RelationshipLinkInterface is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\Element instead
  */
 interface RelationshipLinkInterface extends ElementInterface
 {

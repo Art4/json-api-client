@@ -19,6 +19,8 @@
 
 namespace Art4\JsonApiClient\ForwardCompatibility;
 
+@trigger_error(__NAMESPACE__ . '\AbstractElement is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\Helper\AbstractElement instead', E_USER_DEPRECATED);
+
 use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\AccessInterface;
 use Art4\JsonApiClient\ElementInterface;
@@ -31,6 +33,8 @@ use Art4\JsonApiClient\V1\Factory as V1Factory;
 
 /**
  * An abstract Element that allows to use the new V1 Elements in the deprecated Elements
+ *
+ * @deprecated AbstractElement is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\Helper\AbstractElement instead
  */
 abstract class AbstractElement implements ElementInterface
 {

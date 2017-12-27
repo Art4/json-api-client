@@ -19,6 +19,8 @@
 
 namespace Art4\JsonApiClient;
 
+@trigger_error(__NAMESPACE__ . '\Meta is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\Meta instead', E_USER_DEPRECATED);
+
 use Art4\JsonApiClient\Utils\DataContainer;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 use Art4\JsonApiClient\Exception\AccessException;
@@ -27,6 +29,8 @@ use Art4\JsonApiClient\ForwardCompatibility\AbstractElement;
 
 /**
  * Meta Object
+ *
+ * @deprecated Meta class is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\Meta instead.
  *
  * @see http://jsonapi.org/format/#document-meta
  */

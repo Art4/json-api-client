@@ -19,8 +19,15 @@
 
 namespace Art4\JsonApiClient\Utils;
 
+@trigger_error(__NAMESPACE__ . '\AccessKey is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\Helper\AccessKey instead', E_USER_DEPRECATED);
+
 use \SplStack;
 
+/**
+ * AccessKey
+ *
+ * @deprecated AccessKey is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\Helper\AccessKey instead
+ */
 final class AccessKey extends SplStack
 {
     /**

@@ -19,9 +19,16 @@
 
 namespace Art4\JsonApiClient\Utils;
 
+@trigger_error(__NAMESPACE__ . '\Factory is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\Factory instead', E_USER_DEPRECATED);
+
 use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\Exception\FactoryException;
 
+/**
+ * Factory
+ *
+ * @deprecated Factory is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\Factory instead
+ */
 final class Factory implements FactoryInterface
 {
     /**

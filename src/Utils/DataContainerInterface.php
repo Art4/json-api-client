@@ -19,10 +19,14 @@
 
 namespace Art4\JsonApiClient\Utils;
 
+@trigger_error(__NAMESPACE__ . '\DataContainerInterface is deprecated since version 0.10 and will be removed in 1.0.', E_USER_DEPRECATED);
+
 use Art4\JsonApiClient\AccessInterface;
 
 /**
  * DataContainer Interface
+ *
+ * @deprecated DataContainerInterface is deprecated since version 0.10 and will be removed in 1.0.
  */
 interface DataContainerInterface extends AccessInterface
 {

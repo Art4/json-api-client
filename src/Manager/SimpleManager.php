@@ -17,20 +17,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient\ForwardCompatibility;
-
-@trigger_error(__NAMESPACE__ . '\Manager is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\Manager\SimpleManager instead', E_USER_DEPRECATED);
+namespace Art4\JsonApiClient\Manager;
 
 use Art4\JsonApiClient\Factory;
 use Art4\JsonApiClient\Exception\ValidationException;
-use Art4\JsonApiClient\Manager as ManagerInterface;
+use Art4\JsonApiClient\Manager;
 
 /**
- * Manager for Forward Compatibility
- *
- * @deprecated Manager is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\Manager\SimpleManager instead
+ * A simple Manager for parsing a JSON API string
  */
-final class Manager implements ManagerInterface
+final class SimpleManager implements Manager
 {
     private $factory;
 
@@ -49,6 +45,7 @@ final class Manager implements ManagerInterface
     public function __construct(Factory $factory, $params)
     {
         $this->factory = $factory;
+        // TODO: Validate $params
         $this->config = $params;
     }
 
@@ -63,8 +60,8 @@ final class Manager implements ManagerInterface
      */
     public function parseString($string)
     {
-        throw new ValidationException(sprintf(
-            '"%s" is not implemented.',
+        throw new \Exception(sprintf(
+            'TODO: "%s" is not implemented yet.',
             __METHOD__
         ));
     }
@@ -91,10 +88,9 @@ final class Manager implements ManagerInterface
      */
     public function getParam($key, $default)
     {
-        if (array_key_exists($key, $this->config)) {
-            return $this->config[$key];
-        }
-
-        return $default;
+        throw new \Exception(sprintf(
+            'TODO: "%s" is not implemented yet.',
+            __METHOD__
+        ));
     }
 }

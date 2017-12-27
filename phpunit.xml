@@ -25,6 +25,9 @@
         <testsuite name="integration">
             <directory suffix="Test.php">tests/Integration/</directory>
         </testsuite>
+        <testsuite name="V1">
+            <directory suffix="Test.php">tests/Unit/V1/</directory>
+        </testsuite>
     </testsuites>
     <filter>
         <whitelist>

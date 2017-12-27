@@ -19,8 +19,12 @@
 
 namespace Art4\JsonApiClient;
 
+@trigger_error(__NAMESPACE__ . '\ErrorInterface is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\Element instead', E_USER_DEPRECATED);
+
 /**
  * Error Interface
+ *
+ * @deprecated ErrorInterface is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\Element instead
  */
 interface ErrorInterface extends ElementInterface
 {
