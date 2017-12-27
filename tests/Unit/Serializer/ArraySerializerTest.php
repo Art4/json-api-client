@@ -65,4 +65,54 @@ class ArraySerializerTest extends TestCase
             'null' => null,
         ], $serializer->serialize($data));
     }
+
+    /**
+     * @test recursive serialize()
+     */
+    public function testRecursiveSerialize()
+    {
+        $stdObject = new \stdClass;
+        $stdObject->key = 'value';
+
+        $object1 = $this->createMock(AccessInterface::class);
+        $object1->method('get')->will($this->returnValueMap([
+            ['object', $stdObject],
+            ['array', []],
+            ['string', 'string'],
+            ['integer', 1],
+            ['boolean', true],
+            ['null', null],
+        ]));
+        $object1->method('getKeys')->willReturn([
+            'object',
+            'array',
+            'string',
+            'integer',
+            'boolean',
+            'null',
+        ]);
+
+        $data = $this->createMock(AccessInterface::class);
+        $data->method('get')->will($this->returnValueMap([
+            ['AccessObject', $object1],
+        ]));
+        $data->method('getKeys')->willReturn([
+            'AccessObject',
+        ]);
+
+        $serializer = new ArraySerializer(['recursive' => true]);
+
+        $this->assertSame([
+            'AccessObject' => [
+                'object' => [
+                    'key' => 'value',
+                ],
+                'array' => [],
+                'string' => 'string',
+                'integer' => 1,
+                'boolean' => true,
+                'null' => null,
+            ],
+        ], $serializer->serialize($data));
+    }
 }
