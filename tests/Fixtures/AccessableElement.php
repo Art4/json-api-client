@@ -19,36 +19,12 @@
 
 namespace Art4\JsonApiClient\Tests\Fixtures;
 
+use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\Element;
-use Art4\JsonApiClient\Factory as FactoryInterface;
 
-final class V1Factory implements FactoryInterface
+/**
+ * AccessableElement Interface
+ */
+interface AccessableElement extends Accessable, Element
 {
-    public $testcase;
-
-    /**
-     * Create a factory
-     *
-     * @param object $testcase
-     * @param array  $args
-     *
-     * @return object
-     */
-    public function __construct($testcase)
-    {
-        return $this->testcase = $testcase;
-    }
-
-    /**
-     * Create a new instance of a class
-     *
-     * @param string $name
-     * @param array  $args
-     *
-     * @return object
-     */
-    public function make($name, array $args = [])
-    {
-        return $this->testcase->getMockBuilder(AccessableElement::class)->getMock();
-    }
 }
