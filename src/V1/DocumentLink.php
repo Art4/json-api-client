@@ -174,11 +174,6 @@ final class DocumentLink extends AbstractElement
         }
 
         // Now $link can only be an object
-        $link_object = $this->getManager()->getFactory()->make(
-            'Link',
-            [$link, $this->getManager(), $this]
-        );
-
-        $this->set($name, $link_object);
+        $this->set($name, $this->create('Link', $link));
     }
 }

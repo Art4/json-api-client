@@ -78,12 +78,7 @@ final class Link extends AbstractElement
     private function setAsLink($name, $link)
     {
         if ($name === 'meta') {
-            $meta = $this->getManager()->getFactory()->make(
-                'Meta',
-                [$link, $this->getManager(), $this]
-            );
-
-            $this->set($name, $meta);
+            $this->set($name, $this->create('Meta', $link));
 
             return;
         }
