@@ -23,6 +23,7 @@ namespace Art4\JsonApiClient\Utils;
 
 use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\Exception\FactoryException;
+use Art4\JsonApiClient\V1\Factory as V1Factory;
 
 /**
  * Factory
@@ -76,6 +77,11 @@ final class Factory implements FactoryInterface
      */
     public function make($name, array $args = [])
     {
+        if (count($args) === 3) {
+            $factory = new V1Factory();
+
+            return $factory->make($name, $args);
+        }
         if (! isset($this->classes[$name])) {
             throw new FactoryException('"' . $name . '" is not a registered class');
         }
