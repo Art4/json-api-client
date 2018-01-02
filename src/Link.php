@@ -19,75 +19,28 @@
 
 namespace Art4\JsonApiClient;
 
-use Art4\JsonApiClient\Utils\AccessTrait;
-use Art4\JsonApiClient\Utils\DataContainer;
-use Art4\JsonApiClient\Utils\FactoryManagerInterface;
+@trigger_error(__NAMESPACE__ . '\Meta is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\Meta instead', E_USER_DEPRECATED);
+
 use Art4\JsonApiClient\Exception\AccessException;
-use Art4\JsonApiClient\Exception\ValidationException;
+use Art4\JsonApiClient\ForwardCompatibility\AbstractElement;
 
 /**
  * Link Object
  *
+ * @deprecated Link class is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\Link instead.
+ *
  * @see http://jsonapi.org/format/#document-links
  */
-final class Link implements LinkInterface
+final class Link extends AbstractElement implements LinkInterface
 {
-    use AccessTrait;
-
     /**
-     * @var AccessInterface
-     */
-    protected $parent;
-
-    /**
-     * @var DataContainerInterface
-     */
-    protected $container;
-
-    /**
-     * @var FactoryManagerInterface
-     */
-    protected $manager;
-
-    /**
-     * Sets the manager and parent
+     * Get the represented Element name for the factory
      *
-     * @param FactoryManagerInterface $manager The manager
-     * @param AccessInterface         $parent  The parent
+     * @return string the element name
      */
-    public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
+    protected function getElementNameForFactory()
     {
-        $this->parent = $parent;
-
-        $this->manager = $manager;
-
-        $this->container = new DataContainer();
-    }
-
-    /**
-     * Parses the data for this element
-     *
-     * @param mixed $object The data
-     *
-     * @throws ValidationException
-     *
-     * @return self
-     */
-    public function parse($object)
-    {
-        if (! is_object($object)) {
-            throw new ValidationException('Link has to be an object or string, "' . gettype($object) . '" given.');
-        }
-
-        if (! array_key_exists('href', $object)) {
-            throw new ValidationException('Link must have a "href" attribute.');
-        }
-
-        foreach (get_object_vars($object) as $name => $value) {
-            $this->set($name, $value);
-        }
-
-        return $this;
+        return 'Link';
     }
 
     /**
@@ -100,41 +53,9 @@ final class Link implements LinkInterface
     public function get($key)
     {
         try {
-            return $this->container->get($key);
+            return parent::get($key);
         } catch (AccessException $e) {
             throw new AccessException('"' . $key . '" doesn\'t exist in this object.');
         }
-    }
-
-    /**
-     * Set a link
-     *
-     * @param string        $name The Name
-     * @param string|object $link The Link
-     *
-     * @return self
-     */
-    protected function set($name, $link)
-    {
-        if ($name === 'meta') {
-            $meta = $this->manager->getFactory()->make(
-                'Meta',
-                [$this->manager, $this]
-            );
-            $meta->parse($link);
-
-            $this->container->set($name, $meta);
-
-            return $this;
-        }
-
-        // every link must be an URL
-        if (! is_string($link)) {
-            throw new ValidationException('Every link attribute has to be a string, "' . gettype($link) . '" given.');
-        }
-
-        $this->container->set($name, strval($link));
-
-        return $this;
     }
 }
