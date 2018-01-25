@@ -24,13 +24,15 @@ namespace Art4\JsonApiClient\ForwardCompatibility;
 use Art4\JsonApiClient\Factory;
 use Art4\JsonApiClient\Exception\ValidationException;
 use Art4\JsonApiClient\Manager as ManagerInterface;
+use Art4\JsonApiClient\Utils\FactoryManagerInterface;
+use Art4\JsonApiClient\Utils\FactoryInterface;
 
 /**
  * Manager for Forward Compatibility
  *
  * @deprecated Manager is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\Manager\SimpleManager instead
  */
-final class Manager implements ManagerInterface
+final class Manager implements ManagerInterface, FactoryManagerInterface
 {
     private $factory;
 
@@ -96,5 +98,52 @@ final class Manager implements ManagerInterface
         }
 
         return $default;
+    }
+
+    /**
+     * Set a factory into the manager
+     *
+     * @param FactoryInterface $factory
+     *
+     * @return object
+     */
+    public function setFactory(FactoryInterface $factory)
+    {
+        throw new \Exception(sprintf(
+            '"%s" is not implemented.',
+            __METHOD__
+        ));
+    }
+
+    /**
+     * Get a config by key
+     *
+     * @param string $key
+     *
+     * @throws \InvalidArgumentException If $key is not a valid config key
+     *
+     * @return mixed
+     */
+    public function getConfig($key)
+    {
+        return $this->getParam($key, null);
+    }
+
+    /**
+     * Set a config
+     *
+     * @param string $key
+     * @param mixed  $value
+     *
+     * @throws \InvalidArgumentException If $key is not a valid config key
+     *
+     * @return self
+     */
+    public function setConfig($key, $value)
+    {
+        throw new \Exception(sprintf(
+            '"%s" is not implemented.',
+            __METHOD__
+        ));
     }
 }

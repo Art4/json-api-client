@@ -80,7 +80,7 @@ abstract class AbstractElement implements Accessable, Element
      *
      * @return Art4\JsonApiClient\Accessable
      */
-    public function create($name, $data)
+    protected function create($name, $data)
     {
         return $this->getManager()->getFactory()->make(
             $name,

@@ -24,6 +24,7 @@ namespace Art4\JsonApiClient\Utils;
 use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\Exception\FactoryException;
 use Art4\JsonApiClient\V1\Factory as V1Factory;
+use Art4\JsonApiClient\Utils\DataContainer;
 
 /**
  * Factory
@@ -78,10 +79,9 @@ final class Factory implements FactoryInterface
     public function make($name, array $args = [])
     {
         if (count($args) === 3) {
-            $factory = new V1Factory();
-
-            return $factory->make($name, $args);
+            return $this->handleV1Data($name, $args);
         }
+
         if (! isset($this->classes[$name])) {
             throw new FactoryException('"' . $name . '" is not a registered class');
         }
@@ -89,5 +89,31 @@ final class Factory implements FactoryInterface
         $class = new \ReflectionClass($this->classes[$name]);
 
         return $class->newInstanceArgs($args);
+    }
+
+    /**
+     * Create a new instance from V1 data
+     *
+     * @param string $name
+     * @param array  $args
+     *
+     * @return Art4\JsonApiClient\Accessable
+     */
+    private function handleV1Data($name, array $args = [])
+    {
+        $data = array_shift($args);
+        $manager = array_shift($args);
+        $parent = array_shift($args);
+
+        $container = new DataContainer();
+
+        foreach ($parent as $key => $value) {
+            $container->set($key, $value);
+        }
+
+        $element = $this->make($name, [$manager, $container]);
+        $element->parse($data);
+
+        return $element;
     }
 }

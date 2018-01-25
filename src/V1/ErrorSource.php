@@ -17,30 +17,47 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient;
+namespace Art4\JsonApiClient\V1;
 
-@trigger_error(__NAMESPACE__ . '\ErrorSource is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\ErrorSource instead', E_USER_DEPRECATED);
-
+use Art4\JsonApiClient\Helper\AbstractElement;
 use Art4\JsonApiClient\Exception\AccessException;
-use Art4\JsonApiClient\ForwardCompatibility\AbstractElement;
+use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
  * Error Source Object
  *
- * @deprecated ErrorSource class is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\ErrorSource instead.
- *
  * @see http://jsonapi.org/format/#error-objects
  */
-final class ErrorSource extends AbstractElement implements ErrorSourceInterface
+final class ErrorSource extends AbstractElement
 {
     /**
-     * Get the represented Element name for the factory
+     * Parses the data for this element
      *
-     * @return string the element name
+     * @param mixed $object The data
+     *
+     * @throws ValidationException
      */
-    protected function getElementNameForFactory()
+    protected function parse($object)
     {
-        return 'ErrorSource';
+        if (! is_object($object)) {
+            throw new ValidationException('ErrorSource has to be an object, "' . gettype($object) . '" given.');
+        }
+
+        if (property_exists($object, 'pointer')) {
+            if (! is_string($object->pointer)) {
+                throw new ValidationException('property "pointer" has to be a string, "' . gettype($object->pointer) . '" given.');
+            }
+
+            $this->set('pointer', strval($object->pointer));
+        }
+
+        if (property_exists($object, 'parameter')) {
+            if (! is_string($object->parameter)) {
+                throw new ValidationException('property "parameter" has to be a string, "' . gettype($object->parameter) . '" given.');
+            }
+
+            $this->set('parameter', strval($object->parameter));
+        }
     }
 
     /**
