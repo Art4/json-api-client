@@ -4,7 +4,7 @@
     "description": "JSON API client",
     "homepage": "https://github.com/Art4/json-api-client",
     "keywords": ["json", "api", "json-api", "client", "reader", "validator", "parser"],
-    "license": "GPL3",
+    "license": "GPL-3.0-or-later",
     "authors": [
         {
             "name": "Artur Weigandt",
