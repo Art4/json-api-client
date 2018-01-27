@@ -17,30 +17,39 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient;
+namespace Art4\JsonApiClient\V1;
 
-@trigger_error(__NAMESPACE__ . '\ErrorCollection is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\ErrorCollection instead', E_USER_DEPRECATED);
-
+use Art4\JsonApiClient\Helper\AbstractElement;
 use Art4\JsonApiClient\Exception\AccessException;
-use Art4\JsonApiClient\ForwardCompatibility\AbstractElement;
+use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
  * Error Collection Object
  *
- * @deprecated ErrorCollection class is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\Error instead.
- *
  * @see http://jsonapi.org/format/#error-objects
  */
-final class ErrorCollection extends AbstractElement implements ErrorCollectionInterface
+final class ErrorCollection extends AbstractElement
 {
     /**
-     * Get the represented Element name for the factory
+     * Parses the data for this element
      *
-     * @return string the element name
+     * @param mixed $object The data
+     *
+     * @throws ValidationException
      */
-    protected function getElementNameForFactory()
+    protected function parse($object)
     {
-        return 'ErrorCollection';
+        if (! is_array($object)) {
+            throw new ValidationException('Errors for a collection has to be in an array, "' . gettype($object) . '" given.');
+        }
+
+        if (count($object) === 0) {
+            throw new ValidationException('Errors array cannot be empty and MUST have at least one object');
+        }
+
+        foreach ($object as $err) {
+            $this->set('', $this->create('Error', $err));
+        }
     }
 
     /**

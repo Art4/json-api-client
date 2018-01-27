@@ -20,6 +20,7 @@
 namespace Art4\JsonApiClient\Tests\Unit\V1;
 
 use Art4\JsonApiClient\Accessable;
+use Art4\JsonApiClient\Exception\ValidationException;
 use Art4\JsonApiClient\V1\Error;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 use Art4\JsonApiClient\Tests\Fixtures\TestCase;
@@ -94,8 +95,8 @@ class ErrorTest extends TestCase
     public function testCreateWithoutObjectThrowsException($input)
     {
 
-        $this->setExpectedException(
-            'Art4\JsonApiClient\Exception\ValidationException',
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
             'Error has to be an object, "' . gettype($input) . '" given.'
         );
 
@@ -112,8 +113,8 @@ class ErrorTest extends TestCase
         $object = new \stdClass();
         $object->id = $input;
 
-        $this->setExpectedException(
-            'Art4\JsonApiClient\Exception\ValidationException',
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
             'property "id" has to be a string, "' . gettype($input) . '" given.'
         );
 
@@ -130,8 +131,8 @@ class ErrorTest extends TestCase
         $object = new \stdClass();
         $object->status = $input;
 
-        $this->setExpectedException(
-            'Art4\JsonApiClient\Exception\ValidationException',
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
             'property "status" has to be a string, "' . gettype($input) . '" given.'
         );
 
@@ -148,8 +149,8 @@ class ErrorTest extends TestCase
         $object = new \stdClass();
         $object->code = $input;
 
-        $this->setExpectedException(
-            'Art4\JsonApiClient\Exception\ValidationException',
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
             'property "code" has to be a string, "' . gettype($input) . '" given.'
         );
 
@@ -166,8 +167,8 @@ class ErrorTest extends TestCase
         $object = new \stdClass();
         $object->title = $input;
 
-        $this->setExpectedException(
-            'Art4\JsonApiClient\Exception\ValidationException',
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
             'property "title" has to be a string, "' . gettype($input) . '" given.'
         );
 
@@ -184,8 +185,8 @@ class ErrorTest extends TestCase
         $object = new \stdClass();
         $object->detail = $input;
 
-        $this->setExpectedException(
-            'Art4\JsonApiClient\Exception\ValidationException',
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
             'property "detail" has to be a string, "' . gettype($input) . '" given.'
         );
 
