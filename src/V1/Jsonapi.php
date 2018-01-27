@@ -17,30 +17,43 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient;
+namespace Art4\JsonApiClient\V1;
 
-@trigger_error(__NAMESPACE__ . '\Jsonapi is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\Jsonapi instead', E_USER_DEPRECATED);
-
+use Art4\JsonApiClient\Helper\AbstractElement;
 use Art4\JsonApiClient\Exception\AccessException;
-use Art4\JsonApiClient\ForwardCompatibility\AbstractElement;
+use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
  * JSON API Object
  *
- * @deprecated Jsonapi class is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\Jsonapi instead.
- *
  * @see http://jsonapi.org/format/#document-jsonapi-object
  */
-final class Jsonapi extends AbstractElement implements JsonapiInterface
+final class Jsonapi extends AbstractElement
 {
     /**
-     * Get the represented Element name for the factory
+     * Parses the data for this element
      *
-     * @return string the element name
+     * @param mixed $object The data
+     *
+     * @throws ValidationException
      */
-    protected function getElementNameForFactory()
+    protected function parse($object)
     {
-        return 'Jsonapi';
+        if (! is_object($object)) {
+            throw new ValidationException('Jsonapi has to be an object, "' . gettype($object) . '" given.');
+        }
+
+        if (property_exists($object, 'version')) {
+            if (is_object($object->version) or is_array($object->version)) {
+                throw new ValidationException('property "version" cannot be an object or array, "' . gettype($object->version) . '" given.');
+            }
+
+            $this->set('version', strval($object->version));
+        }
+
+        if (property_exists($object, 'meta')) {
+            $this->set('meta', $this->create('Meta', $object->meta));
+        }
     }
 
     /**
