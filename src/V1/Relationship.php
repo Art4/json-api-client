@@ -28,7 +28,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-resource-identifier-objects
  */
-final class ResourceIdentifier extends AbstractElement
+final class Relationship extends AbstractElement
 {
     /**
      * Parses the data for this element
@@ -40,30 +40,30 @@ final class ResourceIdentifier extends AbstractElement
     protected function parse($object)
     {
         if (! is_object($object)) {
-            throw new ValidationException('Resource has to be an object, "' . gettype($object) . '" given.');
+            throw new ValidationException('Relationship has to be an object, "' . gettype($object) . '" given.');
         }
 
-        if (! property_exists($object, 'type')) {
-            throw new ValidationException('A resource object MUST contain a type');
+        if (! property_exists($object, 'links') and ! property_exists($object, 'data') and ! property_exists($object, 'meta')) {
+            throw new ValidationException('A Relationship object MUST contain at least one of the following properties: links, data, meta');
         }
 
-        if (! property_exists($object, 'id')) {
-            throw new ValidationException('A resource object MUST contain an id');
+        if (property_exists($object, 'data')) {
+            if ($object->data === null) {
+                $this->set('data', $object->data);
+            } elseif (is_array($object->data)) {
+                $this->set('data', $this->create('ResourceIdentifierCollection', $object->data));
+            } else {
+                $this->set('data', $this->create('ResourceIdentifier', $object->data));
+            }
         }
-
-        if (is_object($object->type) or is_array($object->type)) {
-            throw new ValidationException('Resource type cannot be an array or object');
-        }
-
-        if (is_object($object->id) or is_array($object->id)) {
-            throw new ValidationException('Resource Id cannot be an array or object');
-        }
-
-        $this->set('type', strval($object->type));
-        $this->set('id', strval($object->id));
 
         if (property_exists($object, 'meta')) {
             $this->set('meta', $this->create('Meta', $object->meta));
+        }
+
+        // Parse 'links' after 'data'
+        if (property_exists($object, 'links')) {
+            $this->set('links', $this->create('RelationshipLink', $object->links));
         }
     }
 
@@ -79,7 +79,7 @@ final class ResourceIdentifier extends AbstractElement
         try {
             return parent::get($key);
         } catch (AccessException $e) {
-            throw new AccessException('"' . $key . '" doesn\'t exist in this identifier.');
+            throw new AccessException('"' . $key . '" doesn\'t exist in Relationship.');
         }
     }
 }

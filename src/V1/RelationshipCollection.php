@@ -24,11 +24,11 @@ use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
- * Resource Identifier Object
+ * Relationship Collection Object
  *
- * @see http://jsonapi.org/format/#document-resource-identifier-objects
+ * @see http://jsonapi.org/format/#document-resource-object-relationships
  */
-final class ResourceIdentifier extends AbstractElement
+final class RelationshipCollection extends AbstractElement
 {
     /**
      * Parses the data for this element
@@ -40,30 +40,25 @@ final class ResourceIdentifier extends AbstractElement
     protected function parse($object)
     {
         if (! is_object($object)) {
-            throw new ValidationException('Resource has to be an object, "' . gettype($object) . '" given.');
+            throw new ValidationException('Relationships has to be an object, "' . gettype($object) . '" given.');
         }
 
-        if (! property_exists($object, 'type')) {
-            throw new ValidationException('A resource object MUST contain a type');
+        if (property_exists($object, 'type') or property_exists($object, 'id')) {
+            throw new ValidationException('These properties are not allowed in attributes: `type`, `id`');
         }
 
-        if (! property_exists($object, 'id')) {
-            throw new ValidationException('A resource object MUST contain an id');
+        $object_vars = get_object_vars($object);
+
+        if (count($object_vars) === 0) {
+            return $this;
         }
 
-        if (is_object($object->type) or is_array($object->type)) {
-            throw new ValidationException('Resource type cannot be an array or object');
-        }
+        foreach ($object_vars as $name => $value) {
+            if ($this->getParent()->has('attributes.' . $name)) {
+                throw new ValidationException('"' . $name . '" property cannot be set because it exists already in parents Resource object.');
+            }
 
-        if (is_object($object->id) or is_array($object->id)) {
-            throw new ValidationException('Resource Id cannot be an array or object');
-        }
-
-        $this->set('type', strval($object->type));
-        $this->set('id', strval($object->id));
-
-        if (property_exists($object, 'meta')) {
-            $this->set('meta', $this->create('Meta', $object->meta));
+            $this->set($name, $this->create('Relationship', $value));
         }
     }
 
@@ -79,7 +74,7 @@ final class ResourceIdentifier extends AbstractElement
         try {
             return parent::get($key);
         } catch (AccessException $e) {
-            throw new AccessException('"' . $key . '" doesn\'t exist in this identifier.');
+            throw new AccessException('"' . $key . '" doesn\'t exist in this relationship collection.');
         }
     }
 }

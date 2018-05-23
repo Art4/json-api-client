@@ -20,10 +20,10 @@
 namespace Art4\JsonApiClient\Tests\Unit\V1;
 
 use Art4\JsonApiClient\Accessable;
-use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
-use Art4\JsonApiClient\Tests\Fixtures\TestCase;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
+use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
+use Art4\JsonApiClient\Tests\Fixtures\TestCase;
 use Art4\JsonApiClient\V1\Attributes;
 
 class AttributesTest extends TestCase
@@ -36,6 +36,9 @@ class AttributesTest extends TestCase
     public function setUp()
     {
         $this->setUpManagerMock();
+
+        // Mock parent
+        $this->parent = $this->createMock(Accessable::class);
     }
 
     /**
@@ -56,7 +59,7 @@ class AttributesTest extends TestCase
         $attributes = new Attributes(
             $object,
             $this->manager,
-            $this->createMock(Accessable::class)
+            $this->parent
         );
 
         $this->assertInstanceOf(Accessable::class, $attributes);
@@ -103,7 +106,7 @@ class AttributesTest extends TestCase
         $attributes = new Attributes(
             $input,
             $this->manager,
-            $this->createMock(Accessable::class)
+            $this->parent
         );
     }
 
@@ -125,7 +128,7 @@ class AttributesTest extends TestCase
         $attributes = new Attributes(
             $object,
             $this->manager,
-            $this->createMock(Accessable::class)
+            $this->parent
         );
     }
 
@@ -147,7 +150,7 @@ class AttributesTest extends TestCase
         $attributes = new Attributes(
             $object,
             $this->manager,
-            $this->createMock(Accessable::class)
+            $this->parent
         );
     }
 
@@ -169,7 +172,7 @@ class AttributesTest extends TestCase
         $attributes = new Attributes(
             $object,
             $this->manager,
-            $this->createMock(Accessable::class)
+            $this->parent
         );
     }
 
@@ -192,7 +195,7 @@ class AttributesTest extends TestCase
         $attributes = new Attributes(
             $object,
             $this->manager,
-            $this->createMock(Accessable::class)
+            $this->parent
         );
     }
 
@@ -207,7 +210,7 @@ class AttributesTest extends TestCase
         $attributes = new Attributes(
             $object,
             $this->manager,
-            $this->createMock(Accessable::class)
+            $this->parent
         );
 
         $this->assertFalse($attributes->has('foobar'));

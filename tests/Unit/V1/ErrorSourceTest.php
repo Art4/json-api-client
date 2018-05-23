@@ -36,6 +36,9 @@ class ErrorSourceTest extends TestCase
     public function setUp()
     {
         $this->setUpManagerMock();
+
+        // Mock parent
+        $this->parent = $this->createMock(Accessable::class);
     }
 
     /**
@@ -52,7 +55,7 @@ class ErrorSourceTest extends TestCase
         $object->parameter = 'parameter';
         $object->ignore = 'must be ignored';
 
-        $source = new ErrorSource($object, $this->manager, $this->createMock(Accessable::class));
+        $source = new ErrorSource($object, $this->manager, $this->parent);
 
         $this->assertInstanceOf(ErrorSource::class, $source);
         $this->assertInstanceOf(Accessable::class, $source);
@@ -89,7 +92,7 @@ class ErrorSourceTest extends TestCase
             'ErrorSource has to be an object, "' . gettype($input) . '" given.'
         );
 
-        $source = new ErrorSource($input, $this->manager, $this->createMock(Accessable::class));
+        $source = new ErrorSource($input, $this->manager, $this->parent);
     }
 
     /**
@@ -109,7 +112,7 @@ class ErrorSourceTest extends TestCase
             'property "pointer" has to be a string, "' . gettype($input) . '" given.'
         );
 
-        $source = new ErrorSource($object, $this->manager, $this->createMock(Accessable::class));
+        $source = new ErrorSource($object, $this->manager, $this->parent);
     }
 
     /**
@@ -129,6 +132,6 @@ class ErrorSourceTest extends TestCase
             'property "parameter" has to be a string, "' . gettype($input) . '" given.'
         );
 
-        $source = new ErrorSource($object, $this->manager, $this->createMock(Accessable::class));
+        $source = new ErrorSource($object, $this->manager, $this->parent);
     }
 }

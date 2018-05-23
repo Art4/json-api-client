@@ -21,9 +21,9 @@ namespace Art4\JsonApiClient\Tests\Unit\V1;
 
 use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\Exception\ValidationException;
-use Art4\JsonApiClient\V1\Error;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 use Art4\JsonApiClient\Tests\Fixtures\TestCase;
+use Art4\JsonApiClient\V1\Error;
 
 class ErrorTest extends TestCase
 {
@@ -35,6 +35,9 @@ class ErrorTest extends TestCase
     public function setUp()
     {
         $this->setUpManagerMock();
+
+        // Mock parent
+        $this->parent = $this->createMock(Accessable::class);
     }
 
     /**
@@ -53,7 +56,7 @@ class ErrorTest extends TestCase
         $object->source = new \stdClass();
         $object->meta = new \stdClass();
 
-        $error = new Error($object, $this->manager, $this->createMock(Accessable::class));
+        $error = new Error($object, $this->manager, $this->parent);
 
         $this->assertInstanceOf('Art4\JsonApiClient\V1\Error', $error);
         $this->assertInstanceOf(Accessable::class, $error);
@@ -62,7 +65,7 @@ class ErrorTest extends TestCase
         $this->assertTrue($error->has('id'));
         $this->assertSame($error->get('id'), 'id');
         $this->assertTrue($error->has('links'));
-        $this->assertInstanceOf('Art4\JsonApiClient\Accessable', $error->get('links'));
+        $this->assertInstanceOf(Accessable::class, $error->get('links'));
         $this->assertTrue($error->has('status'));
         $this->assertSame($error->get('status'), 'status');
         $this->assertTrue($error->has('code'));
@@ -72,9 +75,9 @@ class ErrorTest extends TestCase
         $this->assertTrue($error->has('detail'));
         $this->assertSame($error->get('detail'), 'detail');
         $this->assertTrue($error->has('source'));
-        $this->assertInstanceOf('Art4\JsonApiClient\Accessable', $error->get('source'));
+        $this->assertInstanceOf(Accessable::class, $error->get('source'));
         $this->assertTrue($error->has('meta'));
-        $this->assertInstanceOf('Art4\JsonApiClient\Accessable', $error->get('meta'));
+        $this->assertInstanceOf(Accessable::class, $error->get('meta'));
 
         // test get() with not existing key throws an exception
         $this->assertFalse($error->has('something'));
@@ -100,7 +103,7 @@ class ErrorTest extends TestCase
             'Error has to be an object, "' . gettype($input) . '" given.'
         );
 
-        $error = new Error($input, $this->manager, $this->createMock(Accessable::class));
+        $error = new Error($input, $this->manager, $this->parent);
     }
 
     /**
@@ -118,7 +121,7 @@ class ErrorTest extends TestCase
             'property "id" has to be a string, "' . gettype($input) . '" given.'
         );
 
-        $error = new Error($object, $this->manager, $this->createMock(Accessable::class));
+        $error = new Error($object, $this->manager, $this->parent);
     }
 
     /**
@@ -136,7 +139,7 @@ class ErrorTest extends TestCase
             'property "status" has to be a string, "' . gettype($input) . '" given.'
         );
 
-        $error = new Error($object, $this->manager, $this->createMock(Accessable::class));
+        $error = new Error($object, $this->manager, $this->parent);
     }
 
     /**
@@ -154,7 +157,7 @@ class ErrorTest extends TestCase
             'property "code" has to be a string, "' . gettype($input) . '" given.'
         );
 
-        $error = new Error($object, $this->manager, $this->createMock(Accessable::class));
+        $error = new Error($object, $this->manager, $this->parent);
     }
 
     /**
@@ -172,7 +175,7 @@ class ErrorTest extends TestCase
             'property "title" has to be a string, "' . gettype($input) . '" given.'
         );
 
-        $error = new Error($object, $this->manager, $this->createMock(Accessable::class));
+        $error = new Error($object, $this->manager, $this->parent);
     }
 
     /**
@@ -190,6 +193,6 @@ class ErrorTest extends TestCase
             'property "detail" has to be a string, "' . gettype($input) . '" given.'
         );
 
-        $error = new Error($object, $this->manager, $this->createMock(Accessable::class));
+        $error = new Error($object, $this->manager, $this->parent);
     }
 }

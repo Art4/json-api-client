@@ -23,9 +23,10 @@ use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
+use Art4\JsonApiClient\Tests\Fixtures\TestCase;
 use Art4\JsonApiClient\V1\Jsonapi;
 
-class JsonapiTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
+class JsonapiTest extends TestCase
 {
     use HelperTrait;
 
@@ -35,6 +36,9 @@ class JsonapiTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
     public function setUp()
     {
         $this->setUpManagerMock();
+
+        // Mock parent
+        $this->parent = $this->createMock(Accessable::class);
     }
 
     /**
@@ -52,7 +56,7 @@ class JsonapiTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
         $object->testobj = new \stdClass();
         $object->teststring = 'http://example.org/link';
 
-        $jsonapi = new Jsonapi($object, $this->manager, $this->createMock(Accessable::class));
+        $jsonapi = new Jsonapi($object, $this->manager, $this->parent);
 
         $this->assertInstanceOf(Jsonapi::class, $jsonapi);
         $this->assertInstanceOf(Accessable::class, $jsonapi);
@@ -90,7 +94,7 @@ class JsonapiTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
             'Jsonapi has to be an object, "' . gettype($input) . '" given.'
         );
 
-        $jsonapi = new Jsonapi($input, $this->manager, $this->createMock(Accessable::class));
+        $jsonapi = new Jsonapi($input, $this->manager, $this->parent);
     }
 
     /**
@@ -116,7 +120,7 @@ class JsonapiTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
             // return;
         }
 
-        $jsonapi = new Jsonapi($object, $this->manager, $this->createMock(Accessable::class));
+        $jsonapi = new Jsonapi($object, $this->manager, $this->parent);
 
         $this->assertInstanceOf(Jsonapi::class, $jsonapi);
         $this->assertSame($jsonapi->getKeys(), ['version']);

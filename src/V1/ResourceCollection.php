@@ -24,11 +24,11 @@ use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
- * Resource Identifier Object
+ * Resource Object
  *
- * @see http://jsonapi.org/format/#document-resource-identifier-objects
+ * @see http://jsonapi.org/format/#document-resource-objects
  */
-final class ResourceIdentifier extends AbstractElement
+final class ResourceCollection extends AbstractElement
 {
     /**
      * Parses the data for this element
@@ -39,31 +39,14 @@ final class ResourceIdentifier extends AbstractElement
      */
     protected function parse($object)
     {
-        if (! is_object($object)) {
-            throw new ValidationException('Resource has to be an object, "' . gettype($object) . '" given.');
+        if (! is_array($object)) {
+            throw new ValidationException('Resources for a collection has to be in an array, "' . gettype($object) . '" given.');
         }
 
-        if (! property_exists($object, 'type')) {
-            throw new ValidationException('A resource object MUST contain a type');
-        }
-
-        if (! property_exists($object, 'id')) {
-            throw new ValidationException('A resource object MUST contain an id');
-        }
-
-        if (is_object($object->type) or is_array($object->type)) {
-            throw new ValidationException('Resource type cannot be an array or object');
-        }
-
-        if (is_object($object->id) or is_array($object->id)) {
-            throw new ValidationException('Resource Id cannot be an array or object');
-        }
-
-        $this->set('type', strval($object->type));
-        $this->set('id', strval($object->id));
-
-        if (property_exists($object, 'meta')) {
-            $this->set('meta', $this->create('Meta', $object->meta));
+        if (count($object) > 0) {
+            foreach ($object as $resource) {
+                $this->set('', $this->parseResource($resource));
+            }
         }
     }
 
@@ -79,7 +62,33 @@ final class ResourceIdentifier extends AbstractElement
         try {
             return parent::get($key);
         } catch (AccessException $e) {
-            throw new AccessException('"' . $key . '" doesn\'t exist in this identifier.');
+            throw new AccessException('"' . $key . '" doesn\'t exist in this resource.');
         }
+    }
+
+    /**
+     * Generate a new resource from an object
+     *
+     * @param object $data The resource data
+     *
+     * @return ElementInterface The resource
+     */
+    private function parseResource($data)
+    {
+        if (! is_object($data)) {
+            throw new ValidationException('Resources inside a collection MUST be objects, "' . gettype($data) . '" given.');
+        }
+
+        $object_vars = get_object_vars($data);
+
+        // the 2 properties must be type and id
+        // or the 3 properties must be type, id and meta
+        if (count($object_vars) === 2 or (count($object_vars) === 3 and property_exists($data, 'meta'))) {
+            $resource = $this->create('ResourceIdentifier', $data);
+        } else {
+            $resource = $this->create('ResourceItem', $data);
+        }
+
+        return $resource;
     }
 }

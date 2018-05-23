@@ -19,11 +19,11 @@
 
 namespace Art4\JsonApiClient\Tests\Unit\V1;
 
+use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 use Art4\JsonApiClient\Tests\Fixtures\TestCase;
-use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\V1\Link;
 
 class LinkTest extends TestCase
@@ -38,7 +38,7 @@ class LinkTest extends TestCase
         $this->setUpManagerMock();
 
         // Mock parent link
-        $this->parent_link = $this->createMock(Accessable::class);
+        $this->parent = $this->createMock(Accessable::class);
     }
 
     /**
@@ -51,7 +51,7 @@ class LinkTest extends TestCase
         $object->href = 'http://example.org/href';
         $object->link = 'http://example.org/link';
 
-        $link = new Link($object, $this->manager, $this->parent_link);
+        $link = new Link($object, $this->manager, $this->parent);
 
         $this->assertInstanceOf(Accessable::class, $link);
 
@@ -87,7 +87,7 @@ class LinkTest extends TestCase
         $object->href = $input;
 
         if (gettype($input) === 'string') {
-            $link = new Link($object, $this->manager, $this->parent_link);
+            $link = new Link($object, $this->manager, $this->parent);
 
             $this->assertTrue($link->has('href'));
             $this->assertTrue(is_string($link->get('href')));
@@ -100,7 +100,7 @@ class LinkTest extends TestCase
             'Every link attribute has to be a string, "' . gettype($input) . '" given.'
         );
 
-        $link = new Link($object, $this->manager, $this->parent_link);
+        $link = new Link($object, $this->manager, $this->parent);
     }
 
     /**
@@ -119,7 +119,7 @@ class LinkTest extends TestCase
             'Link must have a "href" attribute.'
         );
 
-        $link = new Link($object, $this->manager, $this->parent_link);
+        $link = new Link($object, $this->manager, $this->parent);
     }
 
     /**
@@ -131,7 +131,7 @@ class LinkTest extends TestCase
         $object->meta = new \stdClass();
         $object->href = 'http://example.org/href';
 
-        $link = new Link($object, $this->manager, $this->parent_link);
+        $link = new Link($object, $this->manager, $this->parent);
 
         $this->assertTrue($link->has('meta'));
         $this->assertInstanceOf(Accessable::class, $link->get('meta'));
@@ -151,6 +151,6 @@ class LinkTest extends TestCase
             'Link has to be an object or string, "' . gettype($input) . '" given.'
         );
 
-        $link = new Link($input, $this->manager, $this->parent_link);
+        $link = new Link($input, $this->manager, $this->parent);
     }
 }

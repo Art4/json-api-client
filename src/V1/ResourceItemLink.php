@@ -46,8 +46,6 @@ final class ResourceItemLink extends AbstractElement
         foreach (get_object_vars($object) as $name => $value) {
             $this->setLink($name, $value);
         }
-
-        return $this;
     }
 
     /**

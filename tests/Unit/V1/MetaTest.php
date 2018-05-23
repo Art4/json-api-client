@@ -22,9 +22,9 @@ namespace Art4\JsonApiClient\Tests\Unit\V1;
 use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
-use Art4\JsonApiClient\V1\Meta;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 use Art4\JsonApiClient\Tests\Fixtures\TestCase;
+use Art4\JsonApiClient\V1\Meta;
 
 class MetaTest extends TestCase
 {
@@ -36,6 +36,9 @@ class MetaTest extends TestCase
     public function setUp()
     {
         $this->setUpManagerMock();
+
+        // Mock parent
+        $this->parent = $this->createMock(Accessable::class);
     }
 
     /**
@@ -56,7 +59,7 @@ class MetaTest extends TestCase
         $meta = new Meta(
             $object,
             $this->manager,
-            $this->createMock(Accessable::class)
+            $this->parent
         );
 
         $this->assertInstanceOf(Accessable::class, $meta);
@@ -95,7 +98,7 @@ class MetaTest extends TestCase
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage('Meta has to be an object, "' . gettype($input) . '" given.');
 
-        $meta = new Meta($input, $this->manager, $this->createMock(Accessable::class));
+        $meta = new Meta($input, $this->manager, $this->parent);
     }
 
     /**
@@ -105,7 +108,7 @@ class MetaTest extends TestCase
     {
         $object = new \stdClass();
 
-        $meta = new Meta($object, $this->manager, $this->createMock(Accessable::class));
+        $meta = new Meta($object, $this->manager, $this->parent);
 
         $this->assertFalse($meta->has('something'));
 

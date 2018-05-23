@@ -23,9 +23,10 @@ use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
+use Art4\JsonApiClient\Tests\Fixtures\TestCase;
 use Art4\JsonApiClient\V1\ErrorCollection;
 
-class ErrorCollectionTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
+class ErrorCollectionTest extends TestCase
 {
     use HelperTrait;
 
@@ -35,6 +36,9 @@ class ErrorCollectionTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
     public function setUp()
     {
         $this->setUpManagerMock();
+
+        // Mock parent
+        $this->parent = $this->createMock(Accessable::class);
     }
 
     /**
@@ -47,7 +51,7 @@ class ErrorCollectionTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
             new \stdClass(),
         ];
 
-        $collection = new ErrorCollection($errors, $this->manager, $this->createMock(Accessable::class));
+        $collection = new ErrorCollection($errors, $this->manager, $this->parent);
 
         $this->assertInstanceOf(ErrorCollection::class, $collection);
         $this->assertInstanceOf(Accessable::class, $collection);
@@ -89,7 +93,7 @@ class ErrorCollectionTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
             );
         }
 
-        $collection = new ErrorCollection($input, $this->manager, $this->createMock(Accessable::class));
+        $collection = new ErrorCollection($input, $this->manager, $this->parent);
     }
 
     /**
@@ -101,7 +105,7 @@ class ErrorCollectionTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
             new \stdClass(),
         ];
 
-        $collection = new ErrorCollection($errors, $this->manager, $this->createMock(Accessable::class));
+        $collection = new ErrorCollection($errors, $this->manager, $this->parent);
 
         $this->assertInstanceOf(ErrorCollection::class, $collection);
 

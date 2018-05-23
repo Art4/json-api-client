@@ -111,8 +111,6 @@ final class Error extends AbstractElement
         if (property_exists($object, 'meta')) {
             $this->set('meta', $this->create('Meta', $object->meta));
         }
-
-        return $this;
     }
 
     /**

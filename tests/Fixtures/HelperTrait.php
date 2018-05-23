@@ -68,6 +68,25 @@ trait HelperTrait
     }
 
     /**
+     * Json Values Provider but without the array
+     *
+     * @see http://json.org/
+     */
+    public function jsonValuesProviderWithoutArray()
+    {
+        return [
+            [new \stdClass],
+            ['string'],
+            [456],
+            [159.654],
+            [-15E-3],
+            [true],
+            [false],
+            [null],
+        ];
+    }
+
+    /**
      * Json Values Provider but without the string
      *
      * @see http://json.org/

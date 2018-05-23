@@ -19,6 +19,7 @@
 
 namespace Art4\JsonApiClient\V1;
 
+use Art4\JsonApiClient\DocumentInterface;
 use Art4\JsonApiClient\Helper\AbstractElement;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
@@ -28,7 +29,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
  *
  * @see http://jsonapi.org/format/#document-resource-identifier-objects
  */
-final class ResourceIdentifier extends AbstractElement
+final class ResourceItem extends AbstractElement
 {
     /**
      * Parses the data for this element
@@ -47,23 +48,44 @@ final class ResourceIdentifier extends AbstractElement
             throw new ValidationException('A resource object MUST contain a type');
         }
 
-        if (! property_exists($object, 'id')) {
-            throw new ValidationException('A resource object MUST contain an id');
-        }
-
         if (is_object($object->type) or is_array($object->type)) {
             throw new ValidationException('Resource type cannot be an array or object');
         }
 
-        if (is_object($object->id) or is_array($object->id)) {
-            throw new ValidationException('Resource Id cannot be an array or object');
+        $this->set('type', strval($object->type));
+
+        if (
+            $this->getManager()->getParam('optional_item_id', false) === false or (
+                ! $this->getParent() instanceof Document and
+                ! $this->getParent() instanceof DocumentInterface //@deprecated Do not use DocumentInterface
+            )
+        ) {
+            if (! property_exists($object, 'id')) {
+                throw new ValidationException('A resource object MUST contain an id');
+            }
+
+            if (is_object($object->id) or is_array($object->id)) {
+                throw new ValidationException('Resource id cannot be an array or object');
+            }
+
+            $this->set('id', strval($object->id));
         }
 
-        $this->set('type', strval($object->type));
-        $this->set('id', strval($object->id));
 
         if (property_exists($object, 'meta')) {
             $this->set('meta', $this->create('Meta', $object->meta));
+        }
+
+        if (property_exists($object, 'attributes')) {
+            $this->set('attributes', $this->create('Attributes', $object->attributes));
+        }
+
+        if (property_exists($object, 'relationships')) {
+            $this->set('relationships', $this->create('RelationshipCollection', $object->relationships));
+        }
+
+        if (property_exists($object, 'links')) {
+            $this->set('links', $this->create('ResourceItemLink', $object->links));
         }
     }
 
@@ -79,7 +101,7 @@ final class ResourceIdentifier extends AbstractElement
         try {
             return parent::get($key);
         } catch (AccessException $e) {
-            throw new AccessException('"' . $key . '" doesn\'t exist in this identifier.');
+            throw new AccessException('"' . $key . '" doesn\'t exist in this resource.');
         }
     }
 }

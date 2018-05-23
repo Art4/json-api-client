@@ -17,12 +17,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient\Tests\Unit;
+namespace Art4\JsonApiClient\Tests\Unit\V1;
 
-use Art4\JsonApiClient\ResourceItem;
+use Art4\JsonApiClient\Accessable;
+use Art4\JsonApiClient\Exception\AccessException;
+use Art4\JsonApiClient\Exception\ValidationException;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
+use Art4\JsonApiClient\Tests\Fixtures\TestCase;
+use Art4\JsonApiClient\V1\ResourceItem;
 
-class ResourceItemTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
+class ResourceItemTest extends TestCase
 {
     use HelperTrait;
 
@@ -31,7 +35,10 @@ class ResourceItemTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
      */
     public function setUp()
     {
-        $this->manager = $this->buildManagerMock();
+        $this->setUpManagerMock();
+
+        // Mock parent
+        $this->parent = $this->createMock(Accessable::class);
     }
 
     /**
@@ -43,11 +50,12 @@ class ResourceItemTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
         $object->type = 'type';
         $object->id = 789;
 
-        $item = new ResourceItem($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
-        $item->parse($object);
+        $this->manager->method('getParam')->willReturn(false);
 
-        $this->assertInstanceOf('Art4\JsonApiClient\ResourceItem', $item);
-        $this->assertInstanceOf('Art4\JsonApiClient\AccessInterface', $item);
+        $item = new ResourceItem($object, $this->manager, $this->parent);
+
+        $this->assertInstanceOf(ResourceItem::class, $item);
+        $this->assertInstanceOf(Accessable::class, $item);
         $this->assertSame($item->getKeys(), ['type', 'id']);
 
         $this->assertSame($item->get('type'), 'type');
@@ -60,8 +68,8 @@ class ResourceItemTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
         // test get() with not existing key throws an exception
         $this->assertFalse($item->has('something'));
 
-        $this->setExpectedException(
-            'Art4\JsonApiClient\Exception\AccessException',
+        $this->expectException(AccessException::class);
+        $this->expectExceptionMessage(
             '"something" doesn\'t exist in this resource.'
         );
 
@@ -81,89 +89,93 @@ class ResourceItemTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
         $object->relationships = new \stdClass();
         $object->links = new \stdClass();
 
-        $item = new ResourceItem($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
-        $item->parse($object);
+        $item = new ResourceItem($object, $this->manager, $this->parent);
 
-        $this->assertInstanceOf('Art4\JsonApiClient\ResourceItem', $item);
+        $this->assertInstanceOf(ResourceItem::class, $item);
 
         $this->assertSame($item->get('type'), 'type');
         $this->assertSame($item->get('id'), '789');
         $this->assertTrue($item->has('meta'));
-        $this->assertInstanceOf('Art4\JsonApiClient\MetaInterface', $item->get('meta'));
+        $this->assertInstanceOf(Accessable::class, $item->get('meta'));
         $this->assertTrue($item->has('attributes'));
-        $this->assertInstanceOf('Art4\JsonApiClient\AttributesInterface', $item->get('attributes'));
+        $this->assertInstanceOf(Accessable::class, $item->get('attributes'));
         $this->assertTrue($item->has('relationships'));
-        // $this->assertInstanceOf('Art4\JsonApiClient\RelationshipCollectionInterface', $item->get('relationships'));
+        $this->assertInstanceOf(Accessable::class, $item->get('relationships'));
         $this->assertTrue($item->has('links'));
-        // $this->assertInstanceOf('Art4\JsonApiClient\ResourceItemLinkInterface', $item->get('links'));
+        $this->assertInstanceOf(Accessable::class, $item->get('links'));
         $this->assertSame($item->getKeys(), ['type', 'id', 'meta', 'attributes', 'relationships', 'links']);
-
-        $this->assertSame([
-            'type' => $item->get('type'),
-            'id' => $item->get('id'),
-            'meta' => $item->get('meta'),
-            'attributes' => $item->get('attributes'),
-            'relationships' => $item->get('relationships'),
-            'links' => $item->get('links'),
-        ], $item->asArray());
     }
 
     /**
-     * @dataProvider jsonValuesProvider
-     *
      * The values of the id and type members MUST be strings.
-     *
-     * @param mixed $input
      */
-    public function testTypeCannotBeAnObjectOrArray($input)
+    public function testTypeCannotBeAnObject()
     {
         $object = new \stdClass();
-        $object->type = $input;
+        $object->type = new \stdClass;
         $object->id = '753';
 
-        $item = new ResourceItem($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
+            'Resource type cannot be an array or object'
+        );
 
-        if (gettype($input) === 'object' or gettype($input) === 'array') {
-            $this->setExpectedException(
-                'Art4\JsonApiClient\Exception\ValidationException',
-                'Resource type cannot be an array or object'
-            );
-        }
-
-        $item->parse($object);
-
-        $this->assertTrue(is_string($item->get('type')));
+        $item = new ResourceItem($object, $this->manager, $this->parent);
     }
 
     /**
-     * @dataProvider jsonValuesProvider
-     *
      * The values of the id and type members MUST be strings.
-     *
-     * @param mixed $input
      */
-    public function testIdCannotBeAnObjectOrArray($input)
+    public function testTypeCannotBeAnArray()
+    {
+        $object = new \stdClass();
+        $object->type = [];
+        $object->id = '753';
+
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
+            'Resource type cannot be an array or object'
+        );
+
+        $item = new ResourceItem($object, $this->manager, $this->parent);
+    }
+
+    /**
+     * The values of the id and type members MUST be strings.
+     */
+    public function testIdCannotBeAnObject()
     {
         $object = new \stdClass();
         $object->type = 'posts';
-        $object->id = $input;
+        $object->id = new \stdClass;
 
-        $item = new ResourceItem($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
+            'Resource id cannot be an array or object'
+        );
 
-        if (gettype($input) === 'object' or gettype($input) === 'array') {
-            $this->setExpectedException(
-                'Art4\JsonApiClient\Exception\ValidationException',
-                'Resource id cannot be an array or object'
-            );
-        }
-
-        $item->parse($object);
-
-        $this->assertTrue(is_string($item->get('id')));
+        $item = new ResourceItem($object, $this->manager, $this->parent);
     }
 
     /**
-     * @dataProvider jsonValuesProvider
+     * The values of the id and type members MUST be strings.
+     */
+    public function testIdCannotBeAnArray()
+    {
+        $object = new \stdClass();
+        $object->type = 'posts';
+        $object->id = [];
+
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
+            'Resource id cannot be an array or object'
+        );
+
+        $item = new ResourceItem($object, $this->manager, $this->parent);
+    }
+
+    /**
+     * @dataProvider jsonValuesProviderWithoutObject
      *
      * A "resource object" is an object that identifies an individual resource.
      * A "resource object" MUST contain type and id members.
@@ -172,20 +184,12 @@ class ResourceItemTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
      */
     public function testCreateWithDataproviderThrowsException($input)
     {
-        $item = new ResourceItem($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
-
-        if (gettype($input) === 'object') {
-            $this->assertInstanceOf('Art4\JsonApiClient\ResourceItem', $item);
-
-            return;
-        }
-
-        $this->setExpectedException(
-            'Art4\JsonApiClient\Exception\ValidationException',
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
             'Resource has to be an object, "' . gettype($input) . '" given.'
         );
 
-        $item->parse($input);
+        $item = new ResourceItem($input, $this->manager, $this->parent);
     }
 
     /**
@@ -196,14 +200,12 @@ class ResourceItemTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
         $object = new \stdClass();
         $object->id = 123;
 
-        $item = new ResourceItem($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
-
-        $this->setExpectedException(
-            'Art4\JsonApiClient\Exception\ValidationException',
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
             'A resource object MUST contain a type'
         );
 
-        $item->parse($object);
+        $item = new ResourceItem($object, $this->manager, $this->parent);
     }
 
     /**
@@ -214,13 +216,11 @@ class ResourceItemTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
         $object = new \stdClass();
         $object->type = 'type';
 
-        $item = new ResourceItem($this->manager, $this->createMock('Art4\JsonApiClient\AccessInterface'));
-
-        $this->setExpectedException(
-            'Art4\JsonApiClient\Exception\ValidationException',
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
             'A resource object MUST contain an id'
         );
 
-        $item->parse($object);
+        $item = new ResourceItem($object, $this->manager, $this->parent);
     }
 }

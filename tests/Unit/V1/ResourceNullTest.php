@@ -37,6 +37,9 @@ class ResourceNullTest extends TestCase
     public function setUp()
     {
         $this->setUpManagerMock();
+
+        // Mock parent
+        $this->parent = $this->createMock(Accessable::class);
     }
 
     /**
@@ -49,7 +52,7 @@ class ResourceNullTest extends TestCase
         $resource = new ResourceNull(
             $input,
             $this->manager,
-            $this->createMock(Accessable::class)
+            $this->parent
         );
 
         $this->assertInstanceOf(Accessable::class, $resource);
@@ -66,7 +69,7 @@ class ResourceNullTest extends TestCase
         $resource = new ResourceNull(
             null,
             $this->manager,
-            $this->createMock(Accessable::class)
+            $this->parent
         );
 
         $this->expectException(AccessException::class);

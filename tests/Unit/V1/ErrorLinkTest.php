@@ -36,6 +36,9 @@ class ErrorLinkTest extends TestCase
     public function setUp()
     {
         $this->setUpManagerMock();
+
+        // Mock parent
+        $this->parent = $this->createMock(Accessable::class);
     }
 
     /**
@@ -52,7 +55,7 @@ class ErrorLinkTest extends TestCase
         $object->href = 'http://example.org/href';
         $object->about = 'http://example.org/about';
 
-        $link = new ErrorLink($object, $this->manager, $this->createMock(Accessable::class));
+        $link = new ErrorLink($object, $this->manager, $this->parent);
 
         $this->assertInstanceOf(ErrorLink::class, $link);
         $this->assertInstanceOf(Accessable::class, $link);
@@ -83,7 +86,7 @@ class ErrorLinkTest extends TestCase
             'ErrorLink MUST contain these properties: about'
         );
 
-        $link = new ErrorLink($object, $this->manager, $this->createMock(Accessable::class));
+        $link = new ErrorLink($object, $this->manager, $this->parent);
     }
 
     /**
@@ -98,7 +101,7 @@ class ErrorLinkTest extends TestCase
         $object = new \stdClass();
         $object->about = new \stdClass();
 
-        $link = new ErrorLink($object, $this->manager, $this->createMock(Accessable::class));
+        $link = new ErrorLink($object, $this->manager, $this->parent);
 
         $this->assertInstanceOf(ErrorLink::class, $link);
         $this->assertSame($link->getKeys(), ['about']);
@@ -121,7 +124,7 @@ class ErrorLinkTest extends TestCase
             'Link has to be an object, "' . gettype($input) . '" given.'
         );
 
-        $link = new ErrorLink($input, $this->manager, $this->createMock(Accessable::class));
+        $link = new ErrorLink($input, $this->manager, $this->parent);
     }
 
     /**
@@ -142,7 +145,7 @@ class ErrorLinkTest extends TestCase
             'Link attribute has to be an object or string, "' . gettype($input) . '" given.'
         );
 
-        $link = new ErrorLink($object, $this->manager, $this->createMock(Accessable::class));
+        $link = new ErrorLink($object, $this->manager, $this->parent);
     }
 
     /**
@@ -162,7 +165,7 @@ class ErrorLinkTest extends TestCase
             'Link has to be an object or string, "' . gettype($input) . '" given.'
         );
 
-        $link = new ErrorLink($object, $this->manager, $this->createMock(Accessable::class));
+        $link = new ErrorLink($object, $this->manager, $this->parent);
     }
 
     /**
@@ -173,7 +176,7 @@ class ErrorLinkTest extends TestCase
         $object = new \stdClass();
         $object->about = 'http://example.org/about';
 
-        $link = new ErrorLink($object, $this->manager, $this->createMock(Accessable::class));
+        $link = new ErrorLink($object, $this->manager, $this->parent);
 
         $this->assertFalse($link->has('something'));
 
