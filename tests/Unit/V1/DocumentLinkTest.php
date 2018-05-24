@@ -390,9 +390,9 @@ class DocumentLinkTest extends TestCase
     }
 
     /**
-     * @_test
+     * @test
      */
-    public function _testGetOnANonExistingKeyThrowsException()
+    public function testGetOnANonExistingKeyThrowsException()
     {
         $object = new \stdClass();
         $object->self = 'http://example.org/self';
