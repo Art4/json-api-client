@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient\V1\Tests;
+namespace Art4\JsonApiClient\Tests\Unit\V1;
 
 use Art4\JsonApiClient\Exception\FactoryException;
 use Art4\JsonApiClient\Factory as FactoryInterface;
