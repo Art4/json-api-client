@@ -25,6 +25,7 @@ namespace Art4\JsonApiClient\Utils;
  * Trait for array conversion
  *
  * @deprecated AccessTrait is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\Helper\AccessableTrait instead
+ * @codeCoverageIgnore
  */
 trait AccessTrait
 {
