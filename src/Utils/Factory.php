@@ -24,7 +24,6 @@ namespace Art4\JsonApiClient\Utils;
 use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\Exception\FactoryException;
 use Art4\JsonApiClient\V1\Factory as V1Factory;
-use Art4\JsonApiClient\Utils\DataContainer;
 
 /**
  * Factory
@@ -107,8 +106,8 @@ final class Factory implements FactoryInterface
 
         $container = new DataContainer();
 
-        foreach ($parent as $key => $value) {
-            $container->set($key, $value);
+        foreach ($parent->getKeys() as $key) {
+            $container->set($key, $parent->get($key));
         }
 
         $element = $this->make($name, [$manager, $container]);

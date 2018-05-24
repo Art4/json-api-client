@@ -28,7 +28,6 @@ use Art4\JsonApiClient\ForwardCompatibility\AbstractElement;
  * Attributes Object
  *
  * @deprecated Attributes is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\Attributes instead.
- *
  * @see http://jsonapi.org/format/#document-resource-object-attributes
  */
 final class Attributes extends AbstractElement implements AttributesInterface

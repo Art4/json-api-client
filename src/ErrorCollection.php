@@ -28,7 +28,6 @@ use Art4\JsonApiClient\ForwardCompatibility\AbstractElement;
  * Error Collection Object
  *
  * @deprecated ErrorCollection class is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\Error instead.
- *
  * @see http://jsonapi.org/format/#error-objects
  */
 final class ErrorCollection extends AbstractElement implements ErrorCollectionInterface

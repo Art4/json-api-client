@@ -97,7 +97,6 @@ class ErrorTest extends TestCase
      */
     public function testCreateWithoutObjectThrowsException($input)
     {
-
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(
             'Error has to be an object, "' . gettype($input) . '" given.'

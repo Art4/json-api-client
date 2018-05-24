@@ -28,7 +28,6 @@ use Art4\JsonApiClient\ForwardCompatibility\AbstractElement;
  * Error Link Object
  *
  * @deprecated ErrorLink class is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\ErrorLink instead.
- *
  * @see http://jsonapi.org/format/#error-objects
  *
  * An error object MAY have the following members:

@@ -19,89 +19,27 @@
 
 namespace Art4\JsonApiClient;
 
-use Art4\JsonApiClient\Utils\AccessTrait;
-use Art4\JsonApiClient\Utils\DataContainer;
-use Art4\JsonApiClient\Utils\FactoryManagerInterface;
+@trigger_error(__NAMESPACE__ . '\Relationship is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\Relationship instead', E_USER_DEPRECATED);
+
 use Art4\JsonApiClient\Exception\AccessException;
-use Art4\JsonApiClient\Exception\ValidationException;
+use Art4\JsonApiClient\ForwardCompatibility\AbstractElement;
 
 /**
  * Relationship Object
  *
+ * @deprecated Relationship is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\Relationship instead.
  * @see http://jsonapi.org/format/#document-resource-object-relationships
  */
-final class Relationship implements RelationshipInterface
+final class Relationship extends AbstractElement implements RelationshipInterface
 {
-    use AccessTrait;
-
     /**
-     * @var DataContainerInterface
-     */
-    protected $container;
-
-    /**
-     * @var FactoryManagerInterface
-     */
-    protected $manager;
-
-    /**
-     * Sets the manager and parent
+     * Get the represented Element name for the factory
      *
-     * @param FactoryManagerInterface $manager The manager
-     * @param AccessInterface         $parent  The parent
+     * @return string the element name
      */
-    public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
+    protected function getElementNameForFactory()
     {
-        $this->manager = $manager;
-
-        $this->container = new DataContainer();
-    }
-
-    /**
-     * Parses the data for this element
-     *
-     * @param mixed $object The data
-     *
-     * @throws ValidationException
-     *
-     * @return self
-     */
-    public function parse($object)
-    {
-        if (! is_object($object)) {
-            throw new ValidationException('Relationship has to be an object, "' . gettype($object) . '" given.');
-        }
-
-        if (! property_exists($object, 'links') and ! property_exists($object, 'data') and ! property_exists($object, 'meta')) {
-            throw new ValidationException('A Relationship object MUST contain at least one of the following properties: links, data, meta');
-        }
-
-        if (property_exists($object, 'data')) {
-            $this->container->set('data', $this->parseData($object->data));
-        }
-
-        if (property_exists($object, 'meta')) {
-            $meta = $this->manager->getFactory()->make(
-                'Meta',
-                [$this->manager, $this]
-            );
-            $meta->parse($object->meta);
-
-            $this->container->set('meta', $meta);
-        }
-
-        // Parse 'links' after 'data'
-        if (property_exists($object, 'links')) {
-            $link = $this->manager->getFactory()->make(
-                'RelationshipLink',
-                [$this->manager, $this]
-            );
-            $link->parse($object->links);
-
-            $this->container->set('links', $link);
-        }
-
-        return $this;
+        return 'Relationship';
     }
 
     /**
@@ -114,44 +52,9 @@ final class Relationship implements RelationshipInterface
     public function get($key)
     {
         try {
-            return $this->container->get($key);
+            return parent::get($key);
         } catch (AccessException $e) {
             throw new AccessException('"' . $key . '" doesn\'t exist in Relationship.');
         }
-    }
-
-    /**
-     * Parse the data value
-     *
-     *
-     * @param null|array|object $data Data value
-     *
-     * @throws ValidationException If $data isn't null or an object
-     *
-     * @return null|ResourceIdentifier|ResourceIdentifierCollection The parsed data
-     */
-    protected function parseData($data)
-    {
-        if ($data === null) {
-            return $data;
-        }
-
-        if (is_array($data)) {
-            $collection = $this->manager->getFactory()->make(
-                'ResourceIdentifierCollection',
-                [$this->manager, $this]
-            );
-            $collection->parse($data);
-
-            return $collection;
-        }
-
-        $identifier = $this->manager->getFactory()->make(
-            'ResourceIdentifier',
-            [$this->manager, $this]
-        );
-        $identifier->parse($data);
-
-        return $identifier;
     }
 }

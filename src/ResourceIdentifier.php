@@ -28,7 +28,6 @@ use Art4\JsonApiClient\ForwardCompatibility\AbstractElement;
  * Resource Identifier Object
  *
  * @deprecated ResourceIdentifier is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\ResourceIdentifier instead.
- *
  * @see http://jsonapi.org/format/#document-resource-identifier-objects
  */
 final class ResourceIdentifier extends AbstractElement implements ResourceIdentifierInterface

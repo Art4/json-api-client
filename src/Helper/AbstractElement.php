@@ -60,7 +60,7 @@ abstract class AbstractElement implements Accessable, Element
      *
      * @return Art4\JsonApiClient\Manager
      */
-    public function getManager()
+    protected function getManager()
     {
         return $this->manager;
     }
@@ -70,13 +70,16 @@ abstract class AbstractElement implements Accessable, Element
      *
      * @return Art4\JsonApiClient\Accessable
      */
-    public function getParent()
+    protected function getParent()
     {
         return $this->parent;
     }
 
     /**
      * Create an element
+     *
+     * @param mixed $name
+     * @param mixed $data
      *
      * @return Art4\JsonApiClient\Accessable
      */

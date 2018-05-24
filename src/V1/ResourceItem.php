@@ -55,10 +55,8 @@ final class ResourceItem extends AbstractElement
         $this->set('type', strval($object->type));
 
         if (
-            $this->getManager()->getParam('optional_item_id', false) === false or (
-                ! $this->getParent() instanceof Document and
-                ! $this->getParent() instanceof DocumentInterface //@deprecated Do not use DocumentInterface
-            )
+            $this->getManager()->getParam('optional_item_id', false) === false
+            or ! $this->getParent()->has('data') // If parent has no `data` than parent is a ResourceCollection
         ) {
             if (! property_exists($object, 'id')) {
                 throw new ValidationException('A resource object MUST contain an id');
@@ -70,7 +68,6 @@ final class ResourceItem extends AbstractElement
 
             $this->set('id', strval($object->id));
         }
-
 
         if (property_exists($object, 'meta')) {
             $this->set('meta', $this->create('Meta', $object->meta));

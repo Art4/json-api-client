@@ -133,8 +133,7 @@ trait HelperTrait
         $factory->testcase = $this;
 
         // Mock Manager
-        $manager = $this->getMockBuilder('Art4\JsonApiClient\Utils\FactoryManagerInterface')
-            ->getMock();
+        $manager = $this->createMock('Art4\JsonApiClient\Utils\FactoryManagerInterface');
 
         $manager->expects($this->any())
             ->method('getFactory')

@@ -128,6 +128,8 @@ final class Document extends AbstractElement
         if ($object_keys === ['id', 'type'] or $object_keys === ['id', 'meta', 'type']) {
             $resource = $this->create('ResourceIdentifier', $data);
         } else {
+            // #Workaround: preset `data` with null, so ResourceItem can distinguish his parent between Document and ResourceCollection
+            $this->set('data', null);
             $resource = $this->create('ResourceItem', $data);
         }
 

@@ -28,7 +28,6 @@ use Art4\JsonApiClient\ForwardCompatibility\AbstractElement;
  * ItemLink Object
  *
  * @deprecated ResourceItemLink class is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\ResourceItemLink instead.
- *
  * @see http://jsonapi.org/format/#document-links
  */
 final class ResourceItemLink extends AbstractElement implements ResourceItemLinkInterface

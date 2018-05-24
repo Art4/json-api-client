@@ -28,7 +28,6 @@ use Art4\JsonApiClient\ForwardCompatibility\AbstractElement;
  * Document Link Object
  *
  * @deprecated DocumentLink is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\DocumentLink instead.
- *
  * @see http://jsonapi.org/format/#document-top-level
  *
  * The top-level links object MAY contain the following members:

@@ -28,7 +28,6 @@ use Art4\JsonApiClient\ForwardCompatibility\AbstractElement;
  * Link Object
  *
  * @deprecated Link class is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\Link instead.
- *
  * @see http://jsonapi.org/format/#document-links
  */
 final class Link extends AbstractElement implements LinkInterface

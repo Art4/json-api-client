@@ -28,7 +28,6 @@ use Art4\JsonApiClient\ForwardCompatibility\AbstractElement;
  * JSON API Object
  *
  * @deprecated Jsonapi class is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\Jsonapi instead.
- *
  * @see http://jsonapi.org/format/#document-jsonapi-object
  */
 final class Jsonapi extends AbstractElement implements JsonapiInterface

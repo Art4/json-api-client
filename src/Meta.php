@@ -28,7 +28,6 @@ use Art4\JsonApiClient\ForwardCompatibility\AbstractElement;
  * Meta Object
  *
  * @deprecated Meta class is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\Meta instead.
- *
  * @see http://jsonapi.org/format/#document-meta
  */
 final class Meta extends AbstractElement implements MetaInterface

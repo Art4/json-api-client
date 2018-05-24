@@ -113,7 +113,8 @@ class RelationshipTest extends TestCase
         $object->links = new \stdClass();
         $object->links->self = 'http://example.org/self';
 
-        $relationship = $relationship = new Relationship($object, $this->manager, $this->parent);;
+        $relationship = $relationship = new Relationship($object, $this->manager, $this->parent);
+        ;
 
         $this->assertInstanceOf(Relationship::class, $relationship);
         $this->assertSame($relationship->getKeys(), ['links']);
@@ -138,7 +139,8 @@ class RelationshipTest extends TestCase
         $object = new \stdClass();
         $object->data = $data;
 
-        $relationship = $relationship = new Relationship($object, $this->manager, $this->parent);;
+        $relationship = $relationship = new Relationship($object, $this->manager, $this->parent);
+        ;
 
         $this->assertInstanceOf(Relationship::class, $relationship);
         $this->assertSame($relationship->getKeys(), ['data']);
@@ -155,7 +157,8 @@ class RelationshipTest extends TestCase
         $object = new \stdClass();
         $object->data = null;
 
-        $relationship = $relationship = new Relationship($object, $this->manager, $this->parent);;
+        $relationship = $relationship = new Relationship($object, $this->manager, $this->parent);
+        ;
 
         $this->assertInstanceOf(Relationship::class, $relationship);
         $this->assertSame($relationship->getKeys(), ['data']);
@@ -176,7 +179,8 @@ class RelationshipTest extends TestCase
         $object = new \stdClass();
         $object->data = [$data_obj];
 
-        $relationship = $relationship = new Relationship($object, $this->manager, $this->parent);;
+        $relationship = $relationship = new Relationship($object, $this->manager, $this->parent);
+        ;
 
         $this->assertInstanceOf(Relationship::class, $relationship);
         $this->assertSame($relationship->getKeys(), ['data']);
@@ -195,7 +199,8 @@ class RelationshipTest extends TestCase
         $object = new \stdClass();
         $object->data = [];
 
-        $relationship = $relationship = new Relationship($object, $this->manager, $this->parent);;
+        $relationship = $relationship = new Relationship($object, $this->manager, $this->parent);
+        ;
 
         $this->assertInstanceOf(Relationship::class, $relationship);
         $this->assertSame($relationship->getKeys(), ['data']);
@@ -214,7 +219,8 @@ class RelationshipTest extends TestCase
         $object = new \stdClass();
         $object->meta = new \stdClass();
 
-        $relationship = $relationship = new Relationship($object, $this->manager, $this->parent);;
+        $relationship = $relationship = new Relationship($object, $this->manager, $this->parent);
+        ;
 
         $this->assertInstanceOf(Relationship::class, $relationship);
         $this->assertSame($relationship->getKeys(), ['meta']);

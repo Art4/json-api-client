@@ -19,124 +19,27 @@
 
 namespace Art4\JsonApiClient;
 
-use Art4\JsonApiClient\Utils\AccessTrait;
-use Art4\JsonApiClient\Utils\DataContainer;
-use Art4\JsonApiClient\Utils\FactoryManagerInterface;
+@trigger_error(__NAMESPACE__ . '\ResourceItem is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\ResourceItem instead', E_USER_DEPRECATED);
+
 use Art4\JsonApiClient\Exception\AccessException;
-use Art4\JsonApiClient\Exception\ValidationException;
+use Art4\JsonApiClient\ForwardCompatibility\AbstractElement;
 
 /**
  * Resource Object
  *
+ * @deprecated ResourceItem is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\ResourceItem instead.
  * @see http://jsonapi.org/format/#document-resource-objects
  */
-final class ResourceItem implements ResourceItemInterface
+final class ResourceItem extends AbstractElement implements ResourceItemInterface
 {
-    use AccessTrait;
-
     /**
-     * @var DataContainerInterface
-     */
-    protected $container;
-
-    /**
-     * @var AccessInterface
-     */
-    protected $parent;
-
-    /**
-     * Sets the manager and parent
+     * Get the represented Element name for the factory
      *
-     * @param FactoryManagerInterface $manager The manager
-     * @param AccessInterface         $parent  The parent
+     * @return string the element name
      */
-    public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
+    protected function getElementNameForFactory()
     {
-        $this->manager = $manager;
-        $this->parent = $parent;
-
-        $this->container = new DataContainer();
-    }
-
-    /**
-     * Parses the data for this element
-     *
-     * @param mixed $object The data
-     *
-     * @throws ValidationException
-     *
-     * @return self
-     */
-    public function parse($object)
-    {
-        if (! is_object($object)) {
-            throw new ValidationException('Resource has to be an object, "' . gettype($object) . '" given.');
-        }
-
-        if (! property_exists($object, 'type')) {
-            throw new ValidationException('A resource object MUST contain a type');
-        }
-
-        if (is_object($object->type) or is_array($object->type)) {
-            throw new ValidationException('Resource type cannot be an array or object');
-        }
-
-        $this->container->set('type', strval($object->type));
-
-        if ($this->manager->getConfig('optional_item_id') === false or ! $this->parent instanceof DocumentInterface) {
-            if (! property_exists($object, 'id')) {
-                throw new ValidationException('A resource object MUST contain an id');
-            }
-
-            if (is_object($object->id) or is_array($object->id)) {
-                throw new ValidationException('Resource id cannot be an array or object');
-            }
-
-            $this->container->set('id', strval($object->id));
-        }
-
-
-        if (property_exists($object, 'meta')) {
-            $meta = $this->manager->getFactory()->make(
-                'Meta',
-                [$this->manager, $this]
-            );
-            $meta->parse($object->meta);
-
-            $this->container->set('meta', $meta);
-        }
-
-        if (property_exists($object, 'attributes')) {
-            $attributes = $this->manager->getFactory()->make(
-                'Attributes',
-                [$this->manager, $this]
-            );
-            $attributes->parse($object->attributes);
-
-            $this->container->set('attributes', $attributes);
-        }
-
-        if (property_exists($object, 'relationships')) {
-            $relationships = $this->manager->getFactory()->make(
-                'RelationshipCollection',
-                [$this->manager, $this]
-            );
-            $relationships->parse($object->relationships);
-
-            $this->container->set('relationships', $relationships);
-        }
-
-        if (property_exists($object, 'links')) {
-            $link = $this->manager->getFactory()->make(
-                'ResourceItemLink',
-                [$this->manager, $this]
-            );
-            $link->parse($object->links);
-
-            $this->container->set('links', $link);
-        }
-
-        return $this;
+        return 'ResourceItem';
     }
 
     /**
@@ -149,7 +52,7 @@ final class ResourceItem implements ResourceItemInterface
     public function get($key)
     {
         try {
-            return $this->container->get($key);
+            return parent::get($key);
         } catch (AccessException $e) {
             throw new AccessException('"' . $key . '" doesn\'t exist in this resource.');
         }

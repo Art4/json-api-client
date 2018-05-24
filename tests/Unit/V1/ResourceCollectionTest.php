@@ -148,7 +148,6 @@ class ResourceCollectionTest extends TestCase
      */
     public function testCreateWithoutArrayThrowsException($input)
     {
-
         $this->setExpectedException(
             'Art4\JsonApiClient\Exception\ValidationException',
             'Resources for a collection has to be in an array, "' . gettype($input) . '" given.'

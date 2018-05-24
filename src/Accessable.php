@@ -24,9 +24,28 @@ namespace Art4\JsonApiClient;
  */
 interface Accessable
 {
+    /**
+     * Get a value by a key
+     *
+     * @param mixed $key The key
+     *
+     * @return mixed
+     */
     public function get($key);
 
+    /**
+     * Check if a value exists
+     *
+     * @param mixed $key The key
+     *
+     * @return bool
+     */
     public function has($key);
 
+    /**
+     * Returns the keys of all setted values
+     *
+     * @return array Keys of all setted values
+     */
     public function getKeys();
 }
