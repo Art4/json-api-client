@@ -19,15 +19,13 @@
 
 namespace Art4\JsonApiClient\Utils;
 
-/**
- * @codeCoverageIgnore
- */
-@trigger_error(__NAMESPACE__ . '\AccessTrait is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\Helper\AccessableTrait instead', E_USER_DEPRECATED);
+@trigger_error(__NAMESPACE__ . '\AccessTrait is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\Helper\AccessableTrait instead', E_USER_DEPRECATED); // @codeCoverageIgnore
 
 /**
  * Trait for array conversion
  *
  * @deprecated AccessTrait is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\Helper\AccessableTrait instead
+ * @codeCoverageIgnore
  */
 trait AccessTrait
 {
