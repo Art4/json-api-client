@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-- New class `Art4\JsonApiClient\Serializer\ArraySerializer` to create an array from an `Art4\JsonApiClient\AccessInterface`
+- New class `Art4\JsonApiClient\Serializer\ArraySerializer` to create an array from an `Art4\JsonApiClient\Accessable`
 
 ### Changed
 

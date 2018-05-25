@@ -19,7 +19,7 @@
 
 namespace Art4\JsonApiClient\Serializer;
 
-use Art4\JsonApiClient\AccessInterface;
+use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\ResourceNullInterface;
 
 final class ArraySerializer implements Serializer
@@ -45,11 +45,11 @@ final class ArraySerializer implements Serializer
     /**
      * Convert data in an array
      *
-     * @param Art4\JsonApiClient\AccessInterface $data The data for serialization
+     * @param Art4\JsonApiClient\Accessable $data The data for serialization
      *
      * @return array
      */
-    public function serialize(AccessInterface $data)
+    public function serialize(Accessable $data)
     {
         $fullArray = (bool) $this->config['recursive'];
 
@@ -83,7 +83,7 @@ final class ArraySerializer implements Serializer
     {
         if (! is_object($val)) {
             return $val;
-        } elseif ($val instanceof AccessInterface) {
+        } elseif ($val instanceof Accessable) {
             return $this->serialize($val);
         } else {
             // Fallback for stdClass objects

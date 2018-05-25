@@ -19,16 +19,16 @@
 
 namespace Art4\JsonApiClient\Serializer;
 
-use Art4\JsonApiClient\AccessInterface;
+use Art4\JsonApiClient\Accessable;
 
 interface Serializer
 {
     /**
      * Serialize data
      *
-     * @param Art4\JsonApiClient\AccessInterface $data The data for serialization
+     * @param Art4\JsonApiClient\Accessable $data The data for serialization
      *
      * @return array
      */
-    public function serialize(AccessInterface $data);
+    public function serialize(Accessable $data);
 }

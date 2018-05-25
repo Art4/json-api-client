@@ -99,7 +99,7 @@ final class DataContainer implements DataContainerInterface
         }
 
         if (! array_key_exists($string, $this->data)) {
-            return false;
+            return false; // @codeCoverageIgnore
         }
 
         $value = $this->getValue($string);
@@ -172,7 +172,7 @@ final class DataContainer implements DataContainerInterface
             return $this->data[$key];
         }
 
-        throw new AccessException('Could not get the value for the key "' . $key . '".');
+        throw new AccessException('Could not get the value for the key "' . $key . '".'); // @codeCoverageIgnore
     }
 
     /**
