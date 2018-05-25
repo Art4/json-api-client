@@ -129,4 +129,18 @@ class DataContainerTest extends TestCase
 
         $data->get('fuz.foo.bar');
     }
+
+    /**
+     * @test
+     */
+    public function testAsArray()
+    {
+        $data = new DataContainer;
+        $data->set('foo', 'bar');
+
+        $this->assertSame(
+            ['foo' => 'bar'],
+            $data->asArray()
+        );
+    }
 }
