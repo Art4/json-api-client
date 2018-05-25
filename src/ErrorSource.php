@@ -19,76 +19,27 @@
 
 namespace Art4\JsonApiClient;
 
-use Art4\JsonApiClient\Utils\AccessTrait;
-use Art4\JsonApiClient\Utils\DataContainer;
-use Art4\JsonApiClient\Utils\FactoryManagerInterface;
+@trigger_error(__NAMESPACE__ . '\ErrorSource is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\ErrorSource instead', E_USER_DEPRECATED);
+
 use Art4\JsonApiClient\Exception\AccessException;
-use Art4\JsonApiClient\Exception\ValidationException;
+use Art4\JsonApiClient\ForwardCompatibility\AbstractElement;
 
 /**
  * Error Source Object
  *
+ * @deprecated ErrorSource class is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\ErrorSource instead.
  * @see http://jsonapi.org/format/#error-objects
  */
-final class ErrorSource implements ErrorSourceInterface
+final class ErrorSource extends AbstractElement implements ErrorSourceInterface
 {
-    use AccessTrait;
-
     /**
-     * @var DataContainerInterface
-     */
-    protected $container;
-
-    /**
-     * @var FactoryManagerInterface
-     */
-    protected $manager;
-
-    /**
-     * Sets the manager and parent
+     * Get the represented Element name for the factory
      *
-     * @param FactoryManagerInterface $manager The manager
-     * @param AccessInterface         $parent  The parent
+     * @return string the element name
      */
-    public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
+    protected function getElementNameForFactory()
     {
-        $this->manager = $manager;
-
-        $this->container = new DataContainer();
-    }
-
-    /**
-     * Parses the data for this element
-     *
-     * @param mixed $object The data
-     *
-     * @throws ValidationException
-     *
-     * @return self
-     */
-    public function parse($object)
-    {
-        if (! is_object($object)) {
-            throw new ValidationException('ErrorSource has to be an object, "' . gettype($object) . '" given.');
-        }
-
-        if (property_exists($object, 'pointer')) {
-            if (! is_string($object->pointer)) {
-                throw new ValidationException('property "pointer" has to be a string, "' . gettype($object->pointer) . '" given.');
-            }
-
-            $this->container->set('pointer', strval($object->pointer));
-        }
-
-        if (property_exists($object, 'parameter')) {
-            if (! is_string($object->parameter)) {
-                throw new ValidationException('property "parameter" has to be a string, "' . gettype($object->parameter) . '" given.');
-            }
-
-            $this->container->set('parameter', strval($object->parameter));
-        }
-
-        return $this;
+        return 'ErrorSource';
     }
 
     /**
@@ -101,7 +52,7 @@ final class ErrorSource implements ErrorSourceInterface
     public function get($key)
     {
         try {
-            return $this->container->get($key);
+            return parent::get($key);
         } catch (AccessException $e) {
             throw new AccessException('"' . $key . '" doesn\'t exist in this error source.');
         }

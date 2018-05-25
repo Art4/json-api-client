@@ -19,18 +19,15 @@
 
 namespace Art4\JsonApiClient\Utils;
 
+@trigger_error(__NAMESPACE__ . '\FactoryInterface is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\Factory instead', E_USER_DEPRECATED);
+
+use Art4\JsonApiClient\Factory;
+
 /**
  * Factory Interface
+ *
+ * @deprecated AccessInterface is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\Factory instead
  */
-interface FactoryInterface
+interface FactoryInterface extends Factory
 {
-    /**
-     * Create a new instance of a class
-     *
-     * @param string $name
-     * @param array  $args
-     *
-     * @return object
-     */
-    public function make($name, array $args = []);
 }

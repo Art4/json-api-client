@@ -454,9 +454,6 @@ class ParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 
         $this->assertTrue($document->has('data.0.relationships.comments.links.related.meta.count'));
         $this->assertSame($document->get('data.0.relationships.comments.links.related.meta.count'), 10);
-
-        // Test full array
-        $this->assertEquals(json_decode($string, true), $document->asArray(true));
     }
 
     /**
@@ -476,19 +473,19 @@ class ParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
         $this->assertTrue($document->has('links.next'));
         $this->assertTrue($document->has('links.last'));
 
-        $this->assertInstanceOf('Art4\JsonApiClient\LinkInterface', $document->get('links.self'));
+        $this->assertInstanceOf('Art4\JsonApiClient\Link', $document->get('links.self'));
         $this->assertTrue($document->has('links.self.href'));
         $this->assertSame('?page[number]=1&page[size]=10', $document->get('links.self.href'));
 
-        $this->assertInstanceOf('Art4\JsonApiClient\LinkInterface', $document->get('links.first'));
+        $this->assertInstanceOf('Art4\JsonApiClient\Link', $document->get('links.first'));
         $this->assertTrue($document->has('links.first.href'));
         $this->assertSame('?page[number]=1&page[size]=10', $document->get('links.first.href'));
 
-        $this->assertInstanceOf('Art4\JsonApiClient\LinkInterface', $document->get('links.next'));
+        $this->assertInstanceOf('Art4\JsonApiClient\Link', $document->get('links.next'));
         $this->assertTrue($document->has('links.next.href'));
         $this->assertSame('?page[number]=2&page[size]=10', $document->get('links.next.href'));
 
-        $this->assertInstanceOf('Art4\JsonApiClient\LinkInterface', $document->get('links.last'));
+        $this->assertInstanceOf('Art4\JsonApiClient\Link', $document->get('links.last'));
         $this->assertTrue($document->has('links.last.href'));
         $this->assertSame('?page[number]=11&page[size]=10', $document->get('links.last.href'));
 
@@ -500,9 +497,6 @@ class ParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
         $this->assertInstanceOf('Art4\JsonApiClient\MetaInterface', $document->get('jsonapi.meta'));
         $this->assertTrue($document->has('jsonapi.meta.foo'));
         $this->assertSame('bar', $document->get('jsonapi.meta.foo'));
-
-        // Test full array
-        $this->assertEquals(json_decode($string, true), $document->asArray(true));
     }
 
     /**

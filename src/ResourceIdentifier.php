@@ -19,88 +19,27 @@
 
 namespace Art4\JsonApiClient;
 
-use Art4\JsonApiClient\Utils\AccessTrait;
-use Art4\JsonApiClient\Utils\DataContainer;
-use Art4\JsonApiClient\Utils\FactoryManagerInterface;
+@trigger_error(__NAMESPACE__ . '\ResourceIdentifier is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\ResourceIdentifier instead', E_USER_DEPRECATED);
+
 use Art4\JsonApiClient\Exception\AccessException;
-use Art4\JsonApiClient\Exception\ValidationException;
+use Art4\JsonApiClient\ForwardCompatibility\AbstractElement;
 
 /**
  * Resource Identifier Object
  *
+ * @deprecated ResourceIdentifier is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\ResourceIdentifier instead.
  * @see http://jsonapi.org/format/#document-resource-identifier-objects
  */
-final class ResourceIdentifier implements ResourceIdentifierInterface
+final class ResourceIdentifier extends AbstractElement implements ResourceIdentifierInterface
 {
-    use AccessTrait;
-
     /**
-     * @var DataContainerInterface
-     */
-    protected $container;
-
-    /**
-     * @var FactoryManagerInterface
-     */
-    protected $manager;
-
-    /**
-     * @param object $object The error object
+     * Get the represented Element name for the factory
      *
-     * @throws ValidationException
-     *
-     * @return self
+     * @return string the element name
      */
-    public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
+    protected function getElementNameForFactory()
     {
-        $this->manager = $manager;
-
-        $this->container = new DataContainer();
-    }
-
-    /**
-     * @param object $object The error object
-     *
-     * @throws ValidationException
-     *
-     * @return self
-     */
-    public function parse($object)
-    {
-        if (! is_object($object)) {
-            throw new ValidationException('Resource has to be an object, "' . gettype($object) . '" given.');
-        }
-
-        if (! property_exists($object, 'type')) {
-            throw new ValidationException('A resource object MUST contain a type');
-        }
-
-        if (! property_exists($object, 'id')) {
-            throw new ValidationException('A resource object MUST contain an id');
-        }
-
-        if (is_object($object->type) or is_array($object->type)) {
-            throw new ValidationException('Resource type cannot be an array or object');
-        }
-
-        if (is_object($object->id) or is_array($object->id)) {
-            throw new ValidationException('Resource Id cannot be an array or object');
-        }
-
-        $this->container->set('type', strval($object->type));
-        $this->container->set('id', strval($object->id));
-
-        if (property_exists($object, 'meta')) {
-            $meta = $this->manager->getFactory()->make(
-                'Meta',
-                [$this->manager, $this]
-            );
-            $meta->parse($object->meta);
-
-            $this->container->set('meta', $meta);
-        }
-
-        return $this;
+        return 'ResourceIdentifier';
     }
 
     /**
@@ -113,7 +52,7 @@ final class ResourceIdentifier implements ResourceIdentifierInterface
     public function get($key)
     {
         try {
-            return $this->container->get($key);
+            return parent::get($key);
         } catch (AccessException $e) {
             throw new AccessException('"' . $key . '" doesn\'t exist in this identifier.');
         }

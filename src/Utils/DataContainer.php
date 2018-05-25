@@ -19,10 +19,17 @@
 
 namespace Art4\JsonApiClient\Utils;
 
+@trigger_error(__NAMESPACE__ . '\DataContainer is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\Helper\AccessableTrait instead', E_USER_DEPRECATED);
+
 use Art4\JsonApiClient\AccessInterface;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Serializer\ArraySerializer;
 
+/**
+ * DataContainer
+ *
+ * @deprecated DataContainer is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\Helper\AccessableTrait instead
+ */
 final class DataContainer implements DataContainerInterface
 {
     /**
@@ -92,7 +99,7 @@ final class DataContainer implements DataContainerInterface
         }
 
         if (! array_key_exists($string, $this->data)) {
-            return false;
+            return false; // @codeCoverageIgnore
         }
 
         $value = $this->getValue($string);
@@ -165,7 +172,7 @@ final class DataContainer implements DataContainerInterface
             return $this->data[$key];
         }
 
-        throw new AccessException('Could not get the value for the key "' . $key . '".');
+        throw new AccessException('Could not get the value for the key "' . $key . '".'); // @codeCoverageIgnore
     }
 
     /**

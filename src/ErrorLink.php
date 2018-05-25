@@ -19,91 +19,31 @@
 
 namespace Art4\JsonApiClient;
 
-use Art4\JsonApiClient\Utils\AccessTrait;
-use Art4\JsonApiClient\Utils\DataContainer;
-use Art4\JsonApiClient\Utils\FactoryManagerInterface;
+@trigger_error(__NAMESPACE__ . '\ErrorLink is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\ErrorLink instead', E_USER_DEPRECATED);
+
 use Art4\JsonApiClient\Exception\AccessException;
-use Art4\JsonApiClient\Exception\ValidationException;
+use Art4\JsonApiClient\ForwardCompatibility\AbstractElement;
 
 /**
  * Error Link Object
  *
+ * @deprecated ErrorLink class is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\ErrorLink instead.
  * @see http://jsonapi.org/format/#error-objects
  *
  * An error object MAY have the following members:
  * - links: a links object containing the following members:
  *   - about: a link that leads to further details about this particular occurrence of the problem.
  */
-final class ErrorLink implements ErrorLinkInterface
+final class ErrorLink extends AbstractElement implements ErrorLinkInterface
 {
-    use AccessTrait;
-
     /**
-     * @var DataContainerInterface
-     */
-    protected $container;
-
-    /**
-     * @var FactoryManagerInterface
-     */
-    protected $manager;
-
-    /**
-     * Sets the manager and parent
+     * Get the represented Element name for the factory
      *
-     * @param FactoryManagerInterface $manager The manager
-     * @param AccessInterface         $parent  The parent
+     * @return string the element name
      */
-    public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
+    protected function getElementNameForFactory()
     {
-        $this->manager = $manager;
-
-        $this->container = new DataContainer();
-    }
-
-    /**
-     * Parses the data for this element
-     *
-     * @param mixed $object The data
-     *
-     * @throws ValidationException
-     *
-     * @return self
-     */
-    public function parse($object)
-    {
-        if (! is_object($object)) {
-            throw new ValidationException('Link has to be an object, "' . gettype($object) . '" given.');
-        }
-
-        $links = get_object_vars($object);
-
-        if (! array_key_exists('about', $links)) {
-            throw new ValidationException('ErrorLink MUST contain these properties: about');
-        }
-
-        if (! is_string($links['about']) and ! is_object($links['about'])) {
-            throw new ValidationException('Link has to be an object or string, "' . gettype($links['about']) . '" given.');
-        }
-
-        if (is_string($links['about'])) {
-            $this->container->set('about', strval($links['about']));
-        } else {
-            $link = $this->manager->getFactory()->make(
-                'Link',
-                [$this->manager, $this]
-            );
-            $link->parse($links['about']);
-
-            $this->container->set('about', $link);
-        }
-
-        unset($links['about']);
-
-        // custom links
-        foreach ($links as $name => $value) {
-            $this->setLink($name, $value);
-        }
+        return 'ErrorLink';
     }
 
     /**
@@ -116,41 +56,9 @@ final class ErrorLink implements ErrorLinkInterface
     public function get($key)
     {
         try {
-            return $this->container->get($key);
+            return parent::get($key);
         } catch (AccessException $e) {
             throw new AccessException('"' . $key . '" doesn\'t exist in this object.');
         }
-    }
-
-    /**
-     * Set a link
-     *
-     * @param string $name The name of the link
-     * @param string $link The link
-     *
-     * @return self
-     */
-    private function setLink($name, $link)
-    {
-        if (! is_string($link) and ! is_object($link)) {
-            throw new ValidationException('Link attribute has to be an object or string, "' . gettype($link) . '" given.');
-        }
-
-        if (is_string($link)) {
-            $this->container->set($name, strval($link));
-
-            return $this;
-        }
-
-        // Now $link can only be an object
-        $link_object = $this->manager->getFactory()->make(
-            'Link',
-            [$this->manager, $this]
-        );
-        $link_object->parse($link);
-
-        $this->container->set($name, $link_object);
-
-        return $this;
     }
 }

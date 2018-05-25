@@ -19,17 +19,15 @@
 
 namespace Art4\JsonApiClient;
 
+@trigger_error(__NAMESPACE__ . '\AccessInterface is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\Accessable instead', E_USER_DEPRECATED);
+
 /**
  * Access Interface
+ *
+ * @deprecated AccessInterface is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\Accessable instead
  */
-interface AccessInterface
+interface AccessInterface extends Accessable
 {
-    public function get($key);
-
-    public function has($key);
-
-    public function getKeys();
-
     /**
      * @deprecated since version 0.10, to be removed in 1.0. Use Art4\JsonApiClient\Serializer\ArraySerializer::serialize() instead
      */

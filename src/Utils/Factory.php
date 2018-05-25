@@ -19,8 +19,17 @@
 
 namespace Art4\JsonApiClient\Utils;
 
-use Art4\JsonApiClient\Exception\FactoryException;
+@trigger_error(__NAMESPACE__ . '\Factory is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\Factory instead', E_USER_DEPRECATED);
 
+use Art4\JsonApiClient\Accessable;
+use Art4\JsonApiClient\Exception\FactoryException;
+use Art4\JsonApiClient\V1\Factory as V1Factory;
+
+/**
+ * Factory
+ *
+ * @deprecated Factory is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\Factory instead
+ */
 final class Factory implements FactoryInterface
 {
     /**
@@ -64,10 +73,14 @@ final class Factory implements FactoryInterface
      * @param string $name
      * @param array  $args
      *
-     * @return object
+     * @return Art4\JsonApiClient\Accessable
      */
     public function make($name, array $args = [])
     {
+        if (count($args) === 3) {
+            return $this->handleV1Data($name, $args);
+        }
+
         if (! isset($this->classes[$name])) {
             throw new FactoryException('"' . $name . '" is not a registered class');
         }
@@ -75,5 +88,31 @@ final class Factory implements FactoryInterface
         $class = new \ReflectionClass($this->classes[$name]);
 
         return $class->newInstanceArgs($args);
+    }
+
+    /**
+     * Create a new instance from V1 data
+     *
+     * @param string $name
+     * @param array  $args
+     *
+     * @return Art4\JsonApiClient\Accessable
+     */
+    private function handleV1Data($name, array $args = [])
+    {
+        $data = array_shift($args);
+        $manager = array_shift($args);
+        $parent = array_shift($args);
+
+        $container = new DataContainer();
+
+        foreach ($parent->getKeys() as $key) {
+            $container->set($key, $parent->get($key));
+        }
+
+        $element = $this->make($name, [$manager, $container]);
+        $element->parse($data);
+
+        return $element;
     }
 }

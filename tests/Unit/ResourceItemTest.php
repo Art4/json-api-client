@@ -223,4 +223,46 @@ class ResourceItemTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 
         $item->parse($object);
     }
+
+    /**
+     * @test The request MUST include a single resource object as primary data. The resource object MUST contain at least a type member.
+     *
+     * @see http://jsonapi.org/format/1.0/#crud-creating-client-ids
+     */
+    public function testCreateWithObjectWithoutId()
+    {
+        // Mock factory
+        $factory = new \Art4\JsonApiClient\Tests\Fixtures\Factory;
+        $factory->testcase = $this;
+
+        // Mock Manager
+        $manager = $this->createMock('Art4\JsonApiClient\Utils\FactoryManagerInterface');
+
+        $manager->expects($this->any())
+            ->method('getFactory')
+            ->will($this->returnValue($factory));
+
+        $manager->expects($this->any())
+            ->method('getConfig')
+            ->with('optional_item_id')
+            ->willReturn(true);
+
+        // Mock the parent
+        $parent = $this->createMock('Art4\JsonApiClient\AccessInterface');
+
+        $parent->expects($this->any())
+            ->method('has')
+            ->with('data')
+            ->willReturn(true);
+
+        $object = new \stdClass();
+        $object->type = 'type';
+
+        $item = new ResourceItem($manager, $parent);
+        $item->parse($object);
+
+        $this->assertTrue($item->has('type'));
+        $this->assertFalse($item->has('id'));
+        $this->assertSame('type', $item->get('type'));
+    }
 }

@@ -19,7 +19,7 @@
 
 namespace Art4\JsonApiClient\Tests\Unit\Serializer;
 
-use Art4\JsonApiClient\AccessInterface;
+use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\Serializer\ArraySerializer;
 use Art4\JsonApiClient\Tests\Fixtures\TestCase;
 
@@ -30,10 +30,10 @@ class ArraySerializerTest extends TestCase
      */
     public function testSerialize()
     {
-        $object1 = $this->createMock(AccessInterface::class);
+        $object1 = $this->createMock(Accessable::class);
         $object2 = new \stdClass;
 
-        $data = $this->createMock(AccessInterface::class);
+        $data = $this->createMock(Accessable::class);
         $data->method('get')->will($this->returnValueMap([
             ['AccessObject', $object1],
             ['object', $object2],
@@ -74,7 +74,7 @@ class ArraySerializerTest extends TestCase
         $stdObject = new \stdClass;
         $stdObject->key = 'value';
 
-        $object1 = $this->createMock(AccessInterface::class);
+        $object1 = $this->createMock(Accessable::class);
         $object1->method('get')->will($this->returnValueMap([
             ['object', $stdObject],
             ['array', []],
@@ -92,7 +92,7 @@ class ArraySerializerTest extends TestCase
             'null',
         ]);
 
-        $data = $this->createMock(AccessInterface::class);
+        $data = $this->createMock(Accessable::class);
         $data->method('get')->will($this->returnValueMap([
             ['AccessObject', $object1],
         ]));

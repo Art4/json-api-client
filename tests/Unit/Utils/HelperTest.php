@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient\Utils\Tests;
+namespace Art4\JsonApiClient\Tests\Utils;
 
 use Art4\JsonApiClient\Utils\Helper;
 use Art4\JsonApiClient\Exception\ValidationException;

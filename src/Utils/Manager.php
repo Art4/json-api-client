@@ -19,6 +19,13 @@
 
 namespace Art4\JsonApiClient\Utils;
 
+@trigger_error(__NAMESPACE__ . '\Manager is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\Manager\SimpleManager instead', E_USER_DEPRECATED);
+
+/**
+ * Manager
+ *
+ * @deprecated Manager is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\Manager\SimpleManager instead
+ */
 final class Manager implements ManagerInterface, FactoryManagerInterface
 {
     /**

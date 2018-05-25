@@ -19,11 +19,15 @@
 
 namespace Art4\JsonApiClient;
 
+@trigger_error(__NAMESPACE__ . '\ResourceNull is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\ResourceNull instead', E_USER_DEPRECATED);
+
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 
 /**
  * Null Resource
+ *
+ * @deprecated ResourceNull is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\NullResource instead.
  */
 final class ResourceNull implements ResourceNullInterface
 {

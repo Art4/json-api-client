@@ -19,125 +19,44 @@
 
 namespace Art4\JsonApiClient;
 
-use Art4\JsonApiClient\Utils\AccessTrait;
+@trigger_error(__NAMESPACE__ . '\Document is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\Document instead', E_USER_DEPRECATED);
+
+use Art4\JsonApiClient\Exception\AccessException;
+use Art4\JsonApiClient\ForwardCompatibility\AbstractElement;
 use Art4\JsonApiClient\Utils\DataContainer;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
-use Art4\JsonApiClient\Exception\AccessException;
-use Art4\JsonApiClient\Exception\ValidationException;
 
 /**
  * Document Top Level Object
  *
+ * @deprecated Document is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\Document instead.
  * @see http://jsonapi.org/format/#document-top-level
  */
-final class Document implements DocumentInterface
+final class Document extends AbstractElement implements DocumentInterface
 {
-    use AccessTrait;
-
     /**
-     * @var DataContainerInterface
-     */
-    protected $container;
-
-    /**
-     * @var FactoryManagerInterface
-     */
-    protected $manager;
-
-    /**
-     * @param object $object The document body
+     * Sets the manager and parent
      *
-     * @throws ValidationException
-     *
-     * @return Document
+     * @param FactoryManagerInterface $manager The manager
+     * @param AccessInterface         $parent  The parent
      */
     public function __construct(FactoryManagerInterface $manager, AccessInterface $parent = null)
     {
-        $this->manager = $manager;
+        if ($parent === null) {
+            $parent = new DataContainer;
+        }
 
-        $this->container = new DataContainer();
+        parent::__construct($manager, $parent);
     }
 
     /**
-     * @param object $object The document body
+     * Get the represented Element name for the factory
      *
-     * @throws ValidationException
-     *
-     * @return Document
+     * @return string the element name
      */
-    public function parse($object)
+    protected function getElementNameForFactory()
     {
-        if (! is_object($object)) {
-            throw new ValidationException('Document has to be an object, "' . gettype($object) . '" given.');
-        }
-
-        if (! property_exists($object, 'data') and ! property_exists($object, 'meta') and ! property_exists($object, 'errors')) {
-            throw new ValidationException('Document MUST contain at least one of the following properties: data, errors, meta');
-        }
-
-        if (property_exists($object, 'data') and property_exists($object, 'errors')) {
-            throw new ValidationException('The properties `data` and `errors` MUST NOT coexist in Document.');
-        }
-
-        if (property_exists($object, 'data')) {
-            $this->container->set('data', $this->parseData($object->data));
-        }
-
-        if (property_exists($object, 'meta')) {
-            $meta = $this->manager->getFactory()->make(
-                'Meta',
-                [$this->manager, $this]
-            );
-            $meta->parse($object->meta);
-
-            $this->container->set('meta', $meta);
-        }
-
-        if (property_exists($object, 'errors')) {
-            $errors = $this->manager->getFactory()->make(
-                'ErrorCollection',
-                [$this->manager, $this]
-            );
-            $errors->parse($object->errors);
-
-            $this->container->set('errors', $errors);
-        }
-
-        if (property_exists($object, 'included')) {
-            if (! property_exists($object, 'data')) {
-                throw new ValidationException('If Document does not contain a `data` property, the `included` property MUST NOT be present either.');
-            }
-
-            $collection = $this->manager->getFactory()->make(
-                'ResourceCollection',
-                [$this->manager, $this]
-            );
-            $collection->parse($object->included);
-
-            $this->container->set('included', $collection);
-        }
-
-        if (property_exists($object, 'jsonapi')) {
-            $jsonapi = $this->manager->getFactory()->make(
-                'Jsonapi',
-                [$this->manager, $this]
-            );
-            $jsonapi->parse($object->jsonapi);
-
-            $this->container->set('jsonapi', $jsonapi);
-        }
-
-        if (property_exists($object, 'links')) {
-            $links = $this->manager->getFactory()->make(
-                'DocumentLink',
-                [$this->manager, $this]
-            );
-            $links->parse($object->links);
-
-            $this->container->set('links', $links);
-        }
-
-        return $this;
+        return 'Document';
     }
 
     /**
@@ -150,67 +69,9 @@ final class Document implements DocumentInterface
     public function get($key)
     {
         try {
-            return $this->container->get($key);
+            return parent::get($key);
         } catch (AccessException $e) {
             throw new AccessException('"' . $key . '" doesn\'t exist in Document.');
         }
-    }
-
-    /**
-     * Parse the data value
-     *
-     *
-     * @param null|object $data Data value
-     *
-     * @throws ValidationException If $data isn't null or an object
-     *
-     * @return ElementInterface The parsed data
-     */
-    protected function parseData($data)
-    {
-        if ($data === null) {
-            $resource = $this->manager->getFactory()->make(
-                'ResourceNull',
-                [$this->manager, $this]
-            );
-            $resource->parse($data);
-
-            return $resource;
-        }
-
-        if (is_array($data)) {
-            $collection =  $this->manager->getFactory()->make(
-                'ResourceCollection',
-                [$this->manager, $this]
-            );
-            $collection->parse($data);
-
-            return $collection;
-        }
-
-        if (! is_object($data)) {
-            throw new ValidationException('Data value has to be null or an object, "' . gettype($data) . '" given.');
-        }
-
-        $object_keys = array_keys(get_object_vars($data));
-        sort($object_keys);
-
-        // the properties must be type and id or
-        // the 3 properties must be type, id and meta
-        if ($object_keys === ['id', 'type'] or $object_keys === ['id', 'meta', 'type']) {
-            $resource = $this->manager->getFactory()->make(
-                'ResourceIdentifier',
-                [$this->manager, $this]
-            );
-            $resource->parse($data);
-        } else {
-            $resource = $this->manager->getFactory()->make(
-                'ResourceItem',
-                [$this->manager, $this]
-            );
-            $resource->parse($data);
-        }
-
-        return $resource;
     }
 }

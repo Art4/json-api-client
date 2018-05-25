@@ -19,75 +19,27 @@
 
 namespace Art4\JsonApiClient;
 
-use Art4\JsonApiClient\Utils\AccessTrait;
-use Art4\JsonApiClient\Utils\DataContainer;
-use Art4\JsonApiClient\Utils\FactoryManagerInterface;
+@trigger_error(__NAMESPACE__ . '\ErrorCollection is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\ErrorCollection instead', E_USER_DEPRECATED);
+
 use Art4\JsonApiClient\Exception\AccessException;
-use Art4\JsonApiClient\Exception\ValidationException;
+use Art4\JsonApiClient\ForwardCompatibility\AbstractElement;
 
 /**
  * Error Collection Object
  *
+ * @deprecated ErrorCollection class is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\V1\Error instead.
  * @see http://jsonapi.org/format/#error-objects
  */
-final class ErrorCollection implements ErrorCollectionInterface
+final class ErrorCollection extends AbstractElement implements ErrorCollectionInterface
 {
-    use AccessTrait;
-
     /**
-     * @var DataContainerInterface
-     */
-    protected $container;
-
-    /**
-     * @var FactoryManagerInterface
-     */
-    protected $manager;
-
-    /**
-     * Sets the manager and parent
+     * Get the represented Element name for the factory
      *
-     * @param FactoryManagerInterface $manager The manager
-     * @param AccessInterface         $parent  The parent
+     * @return string the element name
      */
-    public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
+    protected function getElementNameForFactory()
     {
-        $this->manager = $manager;
-
-        $this->container = new DataContainer();
-    }
-
-    /**
-     * Parses the data for this element
-     *
-     * @param mixed $object The data
-     * @param mixed $errors
-     *
-     * @throws ValidationException
-     *
-     * @return self
-     */
-    public function parse($errors)
-    {
-        if (! is_array($errors)) {
-            throw new ValidationException('Errors for a collection has to be in an array, "' . gettype($errors) . '" given.');
-        }
-
-        if (count($errors) === 0) {
-            throw new ValidationException('Errors array cannot be empty and MUST have at least one object');
-        }
-
-        foreach ($errors as $err) {
-            $error = $this->manager->getFactory()->make(
-                'Error',
-                [$this->manager, $this]
-            );
-            $error->parse($err);
-
-            $this->container->set('', $error);
-        }
-
-        return $this;
+        return 'ErrorCollection';
     }
 
     /**
@@ -100,7 +52,7 @@ final class ErrorCollection implements ErrorCollectionInterface
     public function get($key)
     {
         try {
-            return $this->container->get($key);
+            return parent::get($key);
         } catch (AccessException $e) {
             throw new AccessException('"' . $key . '" doesn\'t exist in this collection.');
         }
