@@ -19,10 +19,11 @@
 
 namespace Art4\JsonApiClient\ForwardCompatibility;
 
-@trigger_error(__NAMESPACE__ . '\Manager is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\Manager\SimpleManager instead', E_USER_DEPRECATED);
+@trigger_error(__NAMESPACE__ . '\Manager is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\Manager\ErrorAbortManager instead', E_USER_DEPRECATED);
 
-use Art4\JsonApiClient\Factory;
 use Art4\JsonApiClient\Exception\ValidationException;
+use Art4\JsonApiClient\Factory;
+use Art4\JsonApiClient\Input\Input;
 use Art4\JsonApiClient\Manager as ManagerInterface;
 use Art4\JsonApiClient\Utils\FactoryManagerInterface;
 use Art4\JsonApiClient\Utils\FactoryInterface;
@@ -30,7 +31,7 @@ use Art4\JsonApiClient\Utils\FactoryInterface;
 /**
  * Manager for Forward Compatibility
  *
- * @deprecated Manager is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\Manager\SimpleManager instead
+ * @deprecated Manager is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\Manager\ErrorAbortManager instead
  */
 final class Manager implements ManagerInterface, FactoryManagerInterface
 {
@@ -55,15 +56,15 @@ final class Manager implements ManagerInterface, FactoryManagerInterface
     }
 
     /**
-     * Parse a JSON API string
+     * Parse the input
      *
-     * @param string $string The JSON API string
+     * @param Art4\JsonApiClient\Input\Input $input
      *
-     * @throws Art4\JsonApiClient\Exception\ValidationException If $string is not valid JSON API
+     * @throws Art4\JsonApiClient\Exception\ValidationException If $input contains invalid JSON API
      *
      * @return Art4\JsonApiClient\Accessable
      */
-    public function parseString($string)
+    public function parse(Input $input)
     {
         throw new ValidationException(sprintf(
             '"%s" is not implemented.',

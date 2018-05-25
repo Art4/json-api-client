@@ -17,40 +17,36 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient;
+namespace Art4\JsonApiClient\Tests\Input;
 
-use Art4\JsonApiClient\Input\Input;
+use Art4\JsonApiClient\Input\RequestStringInput;
+use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
+use Art4\JsonApiClient\Tests\Fixtures\TestCase;
 
-/**
- * Manager Interface
- */
-interface Manager
+class RequestStringInputTest extends TestCase
 {
-    /**
-     * Parse the input
-     *
-     * @param Art4\JsonApiClient\Input\Input $input
-     *
-     * @throws Art4\JsonApiClient\Exception\ValidationException If $input contains invalid JSON API
-     *
-     * @return Art4\JsonApiClient\Accessable
-     */
-    public function parse(Input $input);
+    use HelperTrait;
 
     /**
-     * Get a factory from the manager
-     *
-     * @return Art4\JsonApiClient\Factory
+     * @test
      */
-    public function getFactory();
+    public function testGetAsObjectFromStringReturnsObject()
+    {
+        $input = new RequestStringInput('{}');
+
+        $this->assertInstanceOf(\stdClass::class, $input->getAsObject());
+    }
 
     /**
-     * Get a param by key
-     *
-     * @param string $key
-     * @param mixed  $default
-     *
-     * @return mixed
+     * @dataProvider jsonValuesProviderWithoutString
+     * @test
      */
-    public function getParam($key, $default);
+    public function testCreateWithoutStringThrowsException($input)
+    {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage(
+            '$string must be a string, "' . gettype($input) . '" given.'
+        );
+        new RequestStringInput($input);
+    }
 }

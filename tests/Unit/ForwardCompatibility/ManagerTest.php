@@ -21,6 +21,7 @@ namespace Art4\JsonApiClient\Tests\ForwardCompatibility;
 
 use Art4\JsonApiClient\Factory;
 use Art4\JsonApiClient\ForwardCompatibility\Manager;
+use Art4\JsonApiClient\Input\Input;
 use Art4\JsonApiClient\Tests\Fixtures\TestCase;
 
 class ManagerTest extends TestCase
@@ -62,10 +63,10 @@ class ManagerTest extends TestCase
 
         $this->expectException(\Art4\JsonApiClient\Exception\ValidationException::class);
         $this->expectExceptionMessage(
-            '"Art4\JsonApiClient\ForwardCompatibility\Manager::parseString" is not implemented.'
+            '"Art4\JsonApiClient\ForwardCompatibility\Manager::parse" is not implemented.'
         );
 
-        $manager->parseString('{"meta":{}}');
+        $manager->parse($this->createMock(Input::class));
     }
 
     /**

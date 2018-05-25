@@ -17,40 +17,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient;
-
-use Art4\JsonApiClient\Input\Input;
+namespace Art4\JsonApiClient\Input;
 
 /**
- * Manager Interface
+ * Input Interface
  */
-interface Manager
+interface Input
 {
     /**
-     * Parse the input
+     * Get the input as simple object
      *
-     * @param Art4\JsonApiClient\Input\Input $input
+     * This should be a native PH stdClass object, so Manager could
+     * iterate over all public attributes
      *
-     * @throws Art4\JsonApiClient\Exception\ValidationException If $input contains invalid JSON API
-     *
-     * @return Art4\JsonApiClient\Accessable
+     * @return stdClass
      */
-    public function parse(Input $input);
-
-    /**
-     * Get a factory from the manager
-     *
-     * @return Art4\JsonApiClient\Factory
-     */
-    public function getFactory();
-
-    /**
-     * Get a param by key
-     *
-     * @param string $key
-     * @param mixed  $default
-     *
-     * @return mixed
-     */
-    public function getParam($key, $default);
+    public function getAsObject();
 }

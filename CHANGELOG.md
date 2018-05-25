@@ -84,7 +84,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `Art4\JsonApiClient\Utils\Factory` will be removed in v1.0, use `Art4\JsonApiClient\V1\Factory` instead
 - `Art4\JsonApiClient\Utils\FactoryInterface` will be removed in v1.0, use `Art4\JsonApiClient\Factory` instead
 - `Art4\JsonApiClient\Utils\FactoryManagerInterface` will be removed in v1.0
-- `Art4\JsonApiClient\Utils\Manager` will be removed in v1.0, use `Art4\JsonApiClient\Manager\SimpleManager` instead
+- `Art4\JsonApiClient\Utils\Manager` will be removed in v1.0, use `Art4\JsonApiClient\Manager\ErrorAbortManager` instead
 - `Art4\JsonApiClient\Utils\ManagerInterface` will be removed in v1.0, use `Art4\JsonApiClient\Manager` instead
 
 ## [0.9.1] - 2017-12-21

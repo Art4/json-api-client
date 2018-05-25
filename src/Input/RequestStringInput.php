@@ -17,40 +17,44 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient;
+namespace Art4\JsonApiClient\Input;
 
-use Art4\JsonApiClient\Input\Input;
+use Art4\JsonApiClient\Utils\Helper;
 
 /**
- * Manager Interface
+ * Handles a http Request body as string
  */
-interface Manager
+final class RequestStringInput implements RequestInput
 {
-    /**
-     * Parse the input
-     *
-     * @param Art4\JsonApiClient\Input\Input $input
-     *
-     * @throws Art4\JsonApiClient\Exception\ValidationException If $input contains invalid JSON API
-     *
-     * @return Art4\JsonApiClient\Accessable
-     */
-    public function parse(Input $input);
+    private $rawString;
 
     /**
-     * Get a factory from the manager
+     * Set the input
      *
-     * @return Art4\JsonApiClient\Factory
+     * @param string $string
      */
-    public function getFactory();
+    public function __construct($string)
+    {
+        if (! is_string($string)) {
+            throw new \Exception(sprintf(
+                '$string must be a string, "%s" given.',
+                gettype($string)
+            ));
+        }
+
+        $this->string = $string;
+    }
 
     /**
-     * Get a param by key
+     * Get the input as simple object
      *
-     * @param string $key
-     * @param mixed  $default
+     * This should be a native PH stdClass object, so Manager could
+     * iterate over all public attributes
      *
-     * @return mixed
+     * @return stdClass
      */
-    public function getParam($key, $default);
+    public function getAsObject()
+    {
+        return Helper::decodeJson($this->string);
+    }
 }

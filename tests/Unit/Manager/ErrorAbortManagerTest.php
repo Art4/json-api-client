@@ -17,40 +17,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient;
+namespace Art4\JsonApiClient\Tests\Manager;
 
-use Art4\JsonApiClient\Input\Input;
+use Art4\JsonApiClient\Factory;
+use Art4\JsonApiClient\Manager\ErrorAbortManager;
+use Art4\JsonApiClient\Tests\Fixtures\TestCase;
 
-/**
- * Manager Interface
- */
-interface Manager
+class ErrorAbortManagerTest extends TestCase
 {
     /**
-     * Parse the input
-     *
-     * @param Art4\JsonApiClient\Input\Input $input
-     *
-     * @throws Art4\JsonApiClient\Exception\ValidationException If $input contains invalid JSON API
-     *
-     * @return Art4\JsonApiClient\Accessable
+     * @test
      */
-    public function parse(Input $input);
+    public function testCreateWithConstructorReturnsSelf()
+    {
+        $factory = $this->createMock(Factory::class);
+        $manager = new ErrorAbortManager($factory);
 
-    /**
-     * Get a factory from the manager
-     *
-     * @return Art4\JsonApiClient\Factory
-     */
-    public function getFactory();
-
-    /**
-     * Get a param by key
-     *
-     * @param string $key
-     * @param mixed  $default
-     *
-     * @return mixed
-     */
-    public function getParam($key, $default);
+        $this->assertSame($factory, $manager->getFactory());
+    }
 }

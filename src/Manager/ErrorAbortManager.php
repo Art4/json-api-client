@@ -19,21 +19,23 @@
 
 namespace Art4\JsonApiClient\Manager;
 
-use Art4\JsonApiClient\Factory;
 use Art4\JsonApiClient\Exception\ValidationException;
+use Art4\JsonApiClient\Factory;
+use Art4\JsonApiClient\Helper\RootAccessable;
+use Art4\JsonApiClient\Input\Input;
+use Art4\JsonApiClient\Input\RequestInput;
 use Art4\JsonApiClient\Manager;
 
 /**
- * A simple Manager for parsing a JSON API string
- *
- * @todo Still under development
- * @codeCoverageIgnore
+ * A Manager that aborts if a validation error occurs
  */
-final class SimpleManager implements Manager
+final class ErrorAbortManager implements Manager
 {
     private $factory;
 
-    private $config = [
+    private $config;
+
+    private $default = [
         'optional_item_id' => false,
     ];
 
@@ -47,27 +49,38 @@ final class SimpleManager implements Manager
      */
     public function __construct(Factory $factory)
     {
-        throw new \Exception(sprintf(
-            'TODO: "%s" is not implemented yet.',
-            __METHOD__
-        ));
+        $this->factory = $factory;
     }
 
     /**
-     * Parse a JSON API string
+     * Parse the input
      *
-     * @param string $string The JSON API string
+     * @param Art4\JsonApiClient\Input\Input $input
      *
-     * @throws Art4\JsonApiClient\Exception\ValidationException If $string is not valid JSON API
+     * @throws Art4\JsonApiClient\Exception\ValidationException If $input contains invalid JSON API
      *
      * @return Art4\JsonApiClient\Accessable
      */
-    public function parseString($string)
+    public function parse(Input $input)
     {
-        throw new \Exception(sprintf(
-            'TODO: "%s" is not implemented yet.',
-            __METHOD__
-        ));
+        // fill config
+        $this->config = $this->default;
+
+        if ($input instanceof RequestInput) {
+            $this->config['optional_item_id'] = true;
+        }
+
+        $object = $input->getAsObject();
+
+        $document = $this->getFactory()->make(
+            'Document',
+            [$object, $this, new RootAccessable]
+        );
+
+        // Clear config
+        $this->config = null;
+
+        return $document;
     }
 
     /**
@@ -86,15 +99,14 @@ final class SimpleManager implements Manager
      * @param string $key
      * @param mixed  $default
      *
-     * @throws \InvalidArgumentException If $key is not a valid config key and no default was set
-     *
      * @return mixed
      */
     public function getParam($key, $default)
     {
-        throw new \Exception(sprintf(
-            'TODO: "%s" is not implemented yet.',
-            __METHOD__
-        ));
+        if (array_key_exists($key, $this->config)) {
+            return $this->config[$key];
+        }
+
+        return $default;
     }
 }
