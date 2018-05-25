@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient\Tests\Utils;
+namespace Art4\JsonApiClient\Utils\Tests;
 
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Tests\Fixtures\TestCase;
@@ -51,6 +51,26 @@ class DataContainerTest extends TestCase
     /**
      * @test
      */
+    public function testHasWithObjectKeyReturnsFalse()
+    {
+        $data = new DataContainer;
+
+        $this->assertFalse($data->has(new \stdClass));
+    }
+
+    /**
+     * @test
+     */
+    public function testHasWithArrayKeyReturnsFalse()
+    {
+        $data = new DataContainer;
+
+        $this->assertFalse($data->has([]));
+    }
+
+    /**
+     * @test
+     */
     public function testHasWithUnknownDataReturnsFalse()
     {
         $data = new DataContainer;
@@ -58,6 +78,21 @@ class DataContainerTest extends TestCase
 
         $this->assertTrue($data->has('foo'));
         $this->assertFalse($data->has('foo.bar'));
+    }
+
+    /**
+     * @test
+     */
+    public function testHasWithUnknownDataInsideAccessableReturnsFalse()
+    {
+        $fuz = new DataContainer;
+        $fuz->set('foo', ['bar' => 'baz']);
+
+        $data = new DataContainer;
+        $data->set('fuz', $fuz);
+
+        $this->assertTrue($data->has('fuz.foo'));
+        $this->assertFalse($data->has('fuz.foo.bar'));
     }
 
     /**
@@ -74,5 +109,24 @@ class DataContainerTest extends TestCase
         );
 
         $data->get('foo.bar');
+    }
+
+    /**
+     * @test
+     */
+    public function testGetWithUnknownDataInsideAccessableThrowsException()
+    {
+        $fuz = new DataContainer;
+        $fuz->set('foo', ['bar' => 'baz']);
+
+        $data = new DataContainer;
+        $data->set('fuz', $fuz);
+
+        $this->expectException(AccessException::class);
+        $this->expectExceptionMessage(
+            'Could not get the value for the key "fuz.foo.bar"'
+        );
+
+        $data->get('fuz.foo.bar');
     }
 }
