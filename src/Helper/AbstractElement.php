@@ -25,6 +25,8 @@ use Art4\JsonApiClient\Manager;
 
 /**
  * AbstractElement
+ *
+ * @internal
  */
 abstract class AbstractElement implements Accessable, Element
 {

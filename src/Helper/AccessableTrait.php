@@ -24,6 +24,8 @@ use Art4\JsonApiClient\Exception\AccessException;
 
 /**
  * Trait for Accessables
+ *
+ * @internal
  */
 trait AccessableTrait
 {

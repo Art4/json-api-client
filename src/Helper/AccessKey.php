@@ -19,8 +19,13 @@
 
 namespace Art4\JsonApiClient\Helper;
 
-use \SplStack;
+use SplStack;
 
+/**
+ * AccessKey
+ *
+ * @internal
+ */
 final class AccessKey extends SplStack
 {
     /**

@@ -10,6 +10,25 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 
 - New class `Art4\JsonApiClient\Serializer\ArraySerializer` to create an array from an `Art4\JsonApiClient\Accessable`
+- New class `Art4\JsonApiClient\V1\Attributes` to represent an Attributes element
+- New class `Art4\JsonApiClient\V1\Document` to represent a Document element
+- New class `Art4\JsonApiClient\V1\DocumentLink` to represent a DocumentLink element
+- New class `Art4\JsonApiClient\V1\Error` to represent an Error element
+- New class `Art4\JsonApiClient\V1\ErrorCollection` to represent an ErrorCollection element
+- New class `Art4\JsonApiClient\V1\ErrorLink` to represent an ErrorLink element
+- New class `Art4\JsonApiClient\V1\ErrorSource` to represent an ErrorSource element
+- New class `Art4\JsonApiClient\V1\Jsonapi` to represent a Jsonapi element
+- New class `Art4\JsonApiClient\V1\Link` to represent a Link element
+- New class `Art4\JsonApiClient\V1\Meta` to represent a Meta element
+- New class `Art4\JsonApiClient\V1\Relationship` to represent a Relationship element
+- New class `Art4\JsonApiClient\V1\RelationshipCollection` to represent a RelationshipCollection element
+- New class `Art4\JsonApiClient\V1\RelationshipLink` to represent a RelationshipLink element
+- New class `Art4\JsonApiClient\V1\ResourceCollection` to represent a ResourceCollection element
+- New class `Art4\JsonApiClient\V1\ResourceIdentifier` to represent a ResourceIdentifier element
+- New class `Art4\JsonApiClient\V1\ResourceIdentifierCollection` to represent a ResourceIdentifierCollection element
+- New class `Art4\JsonApiClient\V1\ResourceItem` to represent a ResourceItem element
+- New class `Art4\JsonApiClient\V1\ResourceItemLink` to represent a ResourceItemLink element
+- New class `Art4\JsonApiClient\V1\ResourceNull` to represent a ResourceNull element
 
 ### Changed
 
@@ -18,6 +37,55 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Deprecated
 
 - `Art4\JsonApiClient\AccessInterface::asArray()` will be removed in v1.0, use `Art4\JsonApiClient\Serializer\ArraySerializer::serialize()` instead
+- `Art4\JsonApiClient\AccessInterface` will be removed in v1.0, use `Art4\JsonApiClient\Accessable` instead
+- `Art4\JsonApiClient\Attributes` will be removed in v1.0, use `Art4\JsonApiClient\V1\Attributes` instead
+- `Art4\JsonApiClient\AttributesInterface` will be removed in v1.0, use `Art4\JsonApiClient\Accessable` instead
+- `Art4\JsonApiClient\Document` will be removed in v1.0, use `Art4\JsonApiClient\V1\Document` instead
+- `Art4\JsonApiClient\DocumentInterface` will be removed in v1.0, use `Art4\JsonApiClient\Accessable` instead
+- `Art4\JsonApiClient\DocumentLink` will be removed in v1.0, use `Art4\JsonApiClient\V1\DocumentLink` instead
+- `Art4\JsonApiClient\DocumentLinkInterface` will be removed in v1.0, use `Art4\JsonApiClient\Accessable` instead
+- `Art4\JsonApiClient\ElementInterface` will be removed in v1.0, use `Art4\JsonApiClient\Element` instead
+- `Art4\JsonApiClient\Error` will be removed in v1.0, use `Art4\JsonApiClient\V1\Error` instead
+- `Art4\JsonApiClient\ErrorCollection` will be removed in v1.0, use `Art4\JsonApiClient\V1\ErrorCollection` instead
+- `Art4\JsonApiClient\ErrorCollectionInterface` will be removed in v1.0, use `Art4\JsonApiClient\Accessable` instead
+- `Art4\JsonApiClient\ErrorInterface` will be removed in v1.0, use `Art4\JsonApiClient\Accessable` instead
+- `Art4\JsonApiClient\ErrorLink` will be removed in v1.0, use `Art4\JsonApiClient\V1\ErrorLink` instead
+- `Art4\JsonApiClient\ErrorLinkInterface` will be removed in v1.0, use `Art4\JsonApiClient\Accessable` instead
+- `Art4\JsonApiClient\ErrorSource` will be removed in v1.0, use `Art4\JsonApiClient\V1\ErrorSource` instead
+- `Art4\JsonApiClient\ErrorSourceInterface` will be removed in v1.0, use `Art4\JsonApiClient\Accessable` instead
+- `Art4\JsonApiClient\Jsonapi` will be removed in v1.0, use `Art4\JsonApiClient\V1\Jsonapi` instead
+- `Art4\JsonApiClient\JsonapiInterface` will be removed in v1.0, use `Art4\JsonApiClient\Accessable` instead
+- `Art4\JsonApiClient\Link` will be removed in v1.0, use `Art4\JsonApiClient\V1\Link` instead
+- `Art4\JsonApiClient\LinkInterface` will be removed in v1.0, use `Art4\JsonApiClient\Accessable` instead
+- `Art4\JsonApiClient\Meta` will be removed in v1.0, use `Art4\JsonApiClient\V1\Meta` instead
+- `Art4\JsonApiClient\MetaInterface` will be removed in v1.0, use `Art4\JsonApiClient\Accessable` instead
+- `Art4\JsonApiClient\Relationship` will be removed in v1.0, use `Art4\JsonApiClient\V1\Relationship` instead
+- `Art4\JsonApiClient\RelationshipCollection` will be removed in v1.0, use `Art4\JsonApiClient\V1\RelationshipCollection` instead
+- `Art4\JsonApiClient\RelationshipCollectionInterface` will be removed in v1.0, use `Art4\JsonApiClient\Accessable` instead
+- `Art4\JsonApiClient\RelationshipInterface` will be removed in v1.0, use `Art4\JsonApiClient\Accessable` instead
+- `Art4\JsonApiClient\RelationshipLink` will be removed in v1.0, use `Art4\JsonApiClient\V1\RelationshipLink` instead
+- `Art4\JsonApiClient\RelationshipLinkInterface` will be removed in v1.0, use `Art4\JsonApiClient\Accessable` instead
+- `Art4\JsonApiClient\ResourceCollection` will be removed in v1.0, use `Art4\JsonApiClient\V1\ResourceCollection` instead
+- `Art4\JsonApiClient\ResourceCollectionInterface` will be removed in v1.0, use `Art4\JsonApiClient\Accessable` instead
+- `Art4\JsonApiClient\ResourceIdentifier` will be removed in v1.0, use `Art4\JsonApiClient\V1\ResourceIdentifier` instead
+- `Art4\JsonApiClient\ResourceIdentifierCollection` will be removed in v1.0, use `Art4\JsonApiClient\V1\ResourceIdentifierCollection` instead
+- `Art4\JsonApiClient\ResourceIdentifierCollectionInterface` will be removed in v1.0, use `Art4\JsonApiClient\Accessable` instead
+- `Art4\JsonApiClient\ResourceIdentifierInterface` will be removed in v1.0, use `Art4\JsonApiClient\Accessable` instead
+- `Art4\JsonApiClient\ResourceItem` will be removed in v1.0, use `Art4\JsonApiClient\V1\ResourceItem` instead
+- `Art4\JsonApiClient\ResourceItemInterface` will be removed in v1.0, use `Art4\JsonApiClient\Accessable` instead
+- `Art4\JsonApiClient\ResourceItemLink` will be removed in v1.0, use `Art4\JsonApiClient\V1\ResourceItemLink` instead
+- `Art4\JsonApiClient\ResourceItemLinkInterface` will be removed in v1.0, use `Art4\JsonApiClient\Accessable` instead
+- `Art4\JsonApiClient\ResourceNull` will be removed in v1.0, use `Art4\JsonApiClient\V1\ResourceNull` instead
+- `Art4\JsonApiClient\ResourceNullInterface` will be removed in v1.0, use `Art4\JsonApiClient\Accessable` instead
+- `Art4\JsonApiClient\Utils\AccessKey` will be removed in v1.0
+- `Art4\JsonApiClient\Utils\AccessTrait` will be removed in v1.0
+- `Art4\JsonApiClient\Utils\DataContainer` will be removed in v1.0
+- `Art4\JsonApiClient\Utils\DataContainerInterface` will be removed in v1.0
+- `Art4\JsonApiClient\Utils\Factory` will be removed in v1.0, use `Art4\JsonApiClient\V1\Factory` instead
+- `Art4\JsonApiClient\Utils\FactoryInterface` will be removed in v1.0, use `Art4\JsonApiClient\Factory` instead
+- `Art4\JsonApiClient\Utils\FactoryManagerInterface` will be removed in v1.0
+- `Art4\JsonApiClient\Utils\Manager` will be removed in v1.0, use `Art4\JsonApiClient\Manager\SimpleManager` instead
+- `Art4\JsonApiClient\Utils\ManagerInterface` will be removed in v1.0, use `Art4\JsonApiClient\Manager` instead
 
 ## [0.9.1] - 2017-12-21
 
@@ -54,12 +122,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 
+- Drop support for PHP 5.4
 - **BREAKING**: New method `Utils\ManagerInterface::getConfig()` to get a config value
 - **BREAKING**: New method `Utils\ManagerInterface::setConfig()` to set a config value
-
-### Removed
-
-- **BREAKING**: Drop support for PHP 5.4
 
 ## [0.7] - 2016-11-24
 
