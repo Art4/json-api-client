@@ -25,6 +25,9 @@ use Art4\JsonApiClient\Manager;
 
 /**
  * A simple Manager for parsing a JSON API string
+ *
+ * @todo Still under development
+ * @codeCoverageIgnore
  */
 final class SimpleManager implements Manager
 {
@@ -42,11 +45,12 @@ final class SimpleManager implements Manager
      *
      * @return object
      */
-    public function __construct(Factory $factory, $params)
+    public function __construct(Factory $factory)
     {
-        $this->factory = $factory;
-        // TODO: Validate $params
-        $this->config = $params;
+        throw new \Exception(sprintf(
+            'TODO: "%s" is not implemented yet.',
+            __METHOD__
+        ));
     }
 
     /**

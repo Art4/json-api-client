@@ -25,16 +25,6 @@ namespace Art4\JsonApiClient;
 interface Manager
 {
     /**
-     * Create a Manager
-     *
-     * @param Art4\JsonApiClient\Factory $factory
-     * @param mixed                      $params  A config array
-     *
-     * @return object
-     */
-    public function __construct(Factory $factory, $params);
-
-    /**
      * Parse a JSON API string
      *
      * @param string $string The JSON API string
