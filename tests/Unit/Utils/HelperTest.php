@@ -42,6 +42,9 @@ class HelperTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
         $invalid_jsonapi = '["This is valid JSON", "but invalid JSON API"]';
 
         $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
+            'Document has to be an object, "array" given.'
+        );
 
         $output = Helper::parseResponseBody($invalid_jsonapi);
     }
@@ -54,6 +57,9 @@ class HelperTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
         $invalid_json = 'invalid_json_string';
 
         $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
+            'Unable to parse JSON data: JSON_ERROR_SYNTAX - Syntax error, malformed JSON'
+        );
 
         $output = Helper::parseResponseBody($invalid_json);
     }
@@ -106,6 +112,9 @@ class HelperTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
         $invalid_jsonapi = '["This is valid JSON", "but invalid JSON API"]';
 
         $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
+            'Document has to be an object, "array" given.'
+        );
 
         $output = Helper::parseRequestBody($invalid_jsonapi);
     }
@@ -118,6 +127,9 @@ class HelperTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
         $invalid_json = 'invalid_json_string';
 
         $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
+            'Unable to parse JSON data: JSON_ERROR_SYNTAX - Syntax error, malformed JSON'
+        );
 
         $output = Helper::parseRequestBody($invalid_json);
     }
@@ -165,25 +177,33 @@ class HelperTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
     }
 
     /**
-     * @expectedException Art4\JsonApiClient\Exception\ValidationException
-     *
      * @test parse throw Exception if input is invalid jsonapi
      */
     public function testParseWithInvalidJsonapiThrowsException()
     {
         $invalid_jsonapi = '["This is valid JSON", "but invalid JSON API"]';
 
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
+            'Document has to be an object, "array" given.'
+        );
+
         $output = Helper::parse($invalid_jsonapi);
     }
 
     /**
-     * @expectedException Art4\JsonApiClient\Exception\ValidationException
+     * @test
      *
      * JSON API documents are defined in JavaScript Object Notation (JSON) [RFC4627].
      */
     public function testParseWithInvalidJsonThrowsException()
     {
         $invalid_json = 'invalid_json_string';
+
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
+            'Unable to parse JSON data: JSON_ERROR_SYNTAX - Syntax error, malformed JSON'
+        );
 
         $output = Helper::parse($invalid_json);
     }

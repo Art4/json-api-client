@@ -17,22 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient\Input;
+namespace Art4\JsonApiClient\Exception;
 
-/**
- * Input Interface
- */
-interface Input
+class InputException extends \Exception implements Exception
 {
-    /**
-     * Get the input as simple object
-     *
-     * This should be a native PH stdClass object, so Manager could
-     * iterate over all public attributes
-     *
-     * @throws InputException if somethin went wrong with the input
-     *
-     * @return stdClass
-     */
-    public function getAsObject();
 }

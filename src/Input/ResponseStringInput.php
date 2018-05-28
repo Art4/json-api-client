@@ -19,30 +19,25 @@
 
 namespace Art4\JsonApiClient\Input;
 
-use Art4\JsonApiClient\Utils\Helper;
-
 /**
  * Handles a http Response body as string
  */
 final class ResponseStringInput implements Input
 {
+    use StringInputTrait;
+
     private $rawString;
 
     /**
      * Set the input
      *
      * @param string $string
+     *
+     * @throws InputException if $string is not a string
      */
     public function __construct($string)
     {
-        if (! is_string($string)) {
-            throw new \Exception(sprintf(
-                '$string must be a string, "%s" given.',
-                gettype($string)
-            ));
-        }
-
-        $this->string = $string;
+        $this->rawString = $this->prepareString($string);
     }
 
     /**
@@ -51,10 +46,12 @@ final class ResponseStringInput implements Input
      * This should be a native PH stdClass object, so Manager could
      * iterate over all public attributes
      *
+     * @throws InputException if somethin went wrong with the input
+     *
      * @return stdClass
      */
     public function getAsObject()
     {
-        return Helper::decodeJson($this->string);
+        return $this->decodeJson($this->rawString);
     }
 }

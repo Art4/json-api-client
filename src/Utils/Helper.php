@@ -21,7 +21,9 @@ namespace Art4\JsonApiClient\Utils;
 
 use Art4\JsonApiClient\Document;
 use Art4\JsonApiClient\Exception\Exception;
+use Art4\JsonApiClient\Exception\InputException;
 use Art4\JsonApiClient\Exception\ValidationException;
+use Art4\JsonApiClient\Input\ResponseStringInput;
 
 /**
  * PHP JSON API client helper
@@ -33,15 +35,15 @@ final class Helper
     const JSONAPI_VERSION = '1.0';
 
     /**
-     * @param string $json_string
+     * @param string $jsonString
      *
      * @throws ValidationException
      *
      * @return Document
      */
-    public static function parseResponseBody($json_string)
+    public static function parseResponseBody($jsonString)
     {
-        $data = static::decodeJson($json_string);
+        $data = static::decodeJson($jsonString);
 
         $manager = new Manager();
 
@@ -55,15 +57,15 @@ final class Helper
     }
 
     /**
-     * @param string $json_string
+     * @param string $jsonString
      *
      * @throws ValidationException
      *
      * @return Document
      */
-    public static function parseRequestBody($json_string)
+    public static function parseRequestBody($jsonString)
     {
-        $data = static::decodeJson($json_string);
+        $data = static::decodeJson($jsonString);
 
         $manager = new Manager();
         $manager->setConfig('optional_item_id', true);
@@ -80,30 +82,30 @@ final class Helper
     /**
      * @deprecated since version 0.9, to be removed in 1.0. Use parseResponseBody() instead
      *
-     * @param string $json_string
+     * @param string $jsonString
      *
      * @throws ValidationException
      *
      * @return Document
      */
-    public static function parse($json_string)
+    public static function parse($jsonString)
     {
         @trigger_error(__METHOD__ . ' is deprecated since version 0.9 and will be removed in 1.0. Use parseResponseBody() instead', E_USER_DEPRECATED);
 
-        return static::parseResponseBody($json_string);
+        return static::parseResponseBody($jsonString);
     }
 
     /**
      * Checks if a string is a valid JSON API response body
      *
-     * @param string $json_string
+     * @param string $jsonString
      *
-     * @return bool true, if $json_string contains valid JSON API, else false
+     * @return bool true, if $jsonString contains valid JSON API, else false
      */
-    public static function isValidResponseBody($json_string)
+    public static function isValidResponseBody($jsonString)
     {
         try {
-            static::parseResponseBody($json_string);
+            static::parseResponseBody($jsonString);
         } catch (Exception $e) {
             return false;
         }
@@ -114,14 +116,14 @@ final class Helper
     /**
      * Checks if a string is a valid JSON API request body
      *
-     * @param string $json_string
+     * @param string $jsonString
      *
-     * @return bool true, if $json_string contains valid JSON API, else false
+     * @return bool true, if $jsonString contains valid JSON API, else false
      */
-    public static function isValidRequestBody($json_string)
+    public static function isValidRequestBody($jsonString)
     {
         try {
-            static::parseRequestBody($json_string);
+            static::parseRequestBody($jsonString);
         } catch (Exception $e) {
             return false;
         }
@@ -134,52 +136,36 @@ final class Helper
      *
      * @deprecated since version 0.9, to be removed in 1.0. Use isValidResponseBody() instead
      *
-     * @param string $json_string
+     * @param string $jsonString
      *
-     * @return bool true, if $json_string contains valid JSON API, else false
+     * @return bool true, if $jsonString contains valid JSON API, else false
      */
-    public static function isValid($json_string)
+    public static function isValid($jsonString)
     {
         @trigger_error(__METHOD__ . ' is deprecated since version 0.9 and will be removed in 1.0. Use isValidResponseBody() instead', E_USER_DEPRECATED);
 
-        return static::isValidResponseBody($json_string);
+        return static::isValidResponseBody($jsonString);
     }
 
     /**
      * Decodes a json string
      *
-     * @param string $json_string
+     * @deprecated since version 0.10, to be removed in 1.0. Use Art4\JsonApiClient\Input\ResponseStringInput::getAsObject() instead
+     *
+     * @param string $jsonString
      *
      * @throws ValidationException
      *
      * @return object
      */
-    public static function decodeJson($json_string)
+    public static function decodeJson($jsonString)
     {
-        $jsonErrors = [
-            JSON_ERROR_DEPTH => 'JSON_ERROR_DEPTH - Maximum stack depth exceeded',
-            JSON_ERROR_STATE_MISMATCH => 'JSON_ERROR_STATE_MISMATCH - Underflow or the modes mismatch',
-            JSON_ERROR_CTRL_CHAR => 'JSON_ERROR_CTRL_CHAR - Unexpected control character found',
-            JSON_ERROR_SYNTAX => 'JSON_ERROR_SYNTAX - Syntax error, malformed JSON',
-            JSON_ERROR_UTF8 => 'JSON_ERROR_UTF8 - Malformed UTF-8 characters, possibly incorrectly encoded'
-        ];
+        @trigger_error(__METHOD__ . ' is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\Input\ResponseStringInput::getAsObject() instead', E_USER_DEPRECATED);
 
-        // Can we use JSON_BIGINT_AS_STRING?
-        $options = (version_compare(PHP_VERSION, '5.4.0', '>=') and ! (defined('JSON_C_VERSION') and PHP_INT_SIZE > 4)) ? JSON_BIGINT_AS_STRING : 0;
-        $data = json_decode($json_string, false, 512, $options);
-
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            $last = json_last_error();
-
-            $error = 'Unknown error';
-
-            if (isset($jsonErrors[$last])) {
-                $error = $jsonErrors[$last];
-            }
-
-            throw new ValidationException('Unable to parse JSON data: ' . $error);
+        try {
+            return (new ResponseStringInput($jsonString))->getAsObject();
+        } catch (InputException $e) {
+            throw new ValidationException($e->getMessage(), $e->getCode(), $e);
         }
-
-        return $data;
     }
 }
