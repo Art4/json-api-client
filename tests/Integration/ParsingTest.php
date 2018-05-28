@@ -54,6 +54,8 @@ class ParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
     /**
      * @test
      * @dataProvider createParserProvider
+     *
+     * @param mixed $parser
      */
     public function testParseSimpleResourceWithDifferentParser($parser)
     {

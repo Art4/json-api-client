@@ -63,6 +63,8 @@ class ParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
     /**
      * @test
      * @dataProvider createParserProvider
+     *
+     * @param mixed $parser
      */
     public function testParseSimpleResourceWithDifferentParser($parser)
     {
@@ -99,6 +101,8 @@ class ParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
     /**
      * @test
      * @dataProvider createParserProvider
+     *
+     * @param mixed $parser
      */
     public function testParseSimpleResourceIdentifier($parser)
     {
@@ -130,6 +134,8 @@ class ParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
     /**
      * @test
      * @dataProvider createParserProvider
+     *
+     * @param mixed $parser
      */
     public function testParseResourceObject($parser)
     {
@@ -205,6 +211,8 @@ class ParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
     /**
      * @test
      * @dataProvider createParserProvider
+     *
+     * @param mixed $parser
      */
     public function testParseCompleteResourceObjectWithMultipleRelationships($parser)
     {
@@ -386,6 +394,8 @@ class ParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
     /**
      * @test
      * @dataProvider createParserProvider
+     *
+     * @param mixed $parser
      */
     public function testParsePaginationExample($parser)
     {
@@ -447,6 +457,8 @@ class ParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
     /**
      * @test
      * @dataProvider createParserProvider
+     *
+     * @param mixed $parser
      */
     public function testParseRelationshipExample($parser)
     {
@@ -514,6 +526,8 @@ class ParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
     /**
      * @test
      * @dataProvider createParserProvider
+     *
+     * @param mixed $parser
      */
     public function testParseObjectLinksExample($parser)
     {
@@ -558,6 +572,8 @@ class ParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
     /**
      * @test
      * @dataProvider createParserProvider
+     *
+     * @param mixed $parser
      */
     public function testParseResourceIdentifierWithMeta($parser)
     {
@@ -591,6 +607,8 @@ class ParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
     /**
      * @test
      * @dataProvider createParserProvider
+     *
+     * @param mixed $parser
      */
     public function testParseNullResource($parser)
     {
@@ -619,6 +637,8 @@ class ParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
     /**
      * @test
      * @dataProvider createParserProvider
+     *
+     * @param mixed $parser
      */
     public function testParseResourceIdentifierCollectionWithMeta($parser)
     {
@@ -663,6 +683,8 @@ class ParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
     /**
      * @test
      * @dataProvider createParserProvider
+     *
+     * @param mixed $parser
      */
     public function testParseCreateResourceWithoutId($parser)
     {
@@ -682,6 +704,8 @@ class ParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
     /**
      * @test
      * @dataProvider createParserProvider
+     *
+     * @param mixed $parser
      */
     public function testParseCreateShortResourceWithoutId($parser)
     {

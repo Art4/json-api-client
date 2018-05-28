@@ -40,6 +40,8 @@ class RequestStringInputTest extends TestCase
     /**
      * @dataProvider jsonValuesProviderWithoutString
      * @test
+     *
+     * @param mixed $input
      */
     public function testCreateWithoutStringThrowsException($input)
     {
