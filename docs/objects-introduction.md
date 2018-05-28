@@ -54,9 +54,11 @@ JsonApiClient will parse a JSON API content into a hierarchical object stucture.
 You can check for all possible values using the `has()` method.
 
 ```php
-$jsonapi_string = '{"meta":{"info":"Testing the JsonApiClient library."}}';
+use Art4\JsonApiClient\Helper\Parser;
 
-$document = \Art4\JsonApiClient\Utils\Helper::parseResponseBody($jsonapi_string);
+$jsonapiString = '{"meta":{"info":"Testing the JsonApiClient library."}}';
+
+$document = Parser::parseResponseString($jsonapiString);
 
 var_dump($document->has('meta'));
 ```
@@ -102,7 +104,7 @@ This can be useful to get available values:
 ```php
 foreach($document->getKeys() as $key)
 {
-	$model->$key = $document->get($key);
+    $model->$key = $document->get($key);
 }
 ```
 
@@ -116,7 +118,7 @@ $meta = $document->get('meta');
 // $meta contains a meta object.
 ```
 
-> **Note:** Using `get()` on a non-existing value will throw an [Exception\AccessException](exception-introduction.md#exceptionaccessexception). Use `has()` or `getKeys()` to check if a value exists.
+> **Note:** Using `get()` on a non-existing value will throw an [AccessException](exception-introduction.md#exceptionaccessexception). Use `has()` or `getKeys()` to check if a value exists.
 
 The `get()` method has support for dot-notated keys:
 
@@ -149,7 +151,7 @@ This returns:
 
 ```php
 array(1) {
-  ["meta"] => object(Art4\JsonApiClient\Meta)#9 (2) { ... }
+  ["meta"] => object(Art4\JsonApiClient\V1\Meta)#9 (2) { ... }
 }
 ```
 

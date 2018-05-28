@@ -21,8 +21,12 @@
 * [Jsonapi object](objects-jsonapi.md)
 * [Meta object](objects-meta.md)
 
-### Utils:
-* [Manager](utils-manager.md)
+### Helper:
+* [Manager](manager.md)
 * [Factory](utils-factory.md)
-* [Helper](utils-helper.md)
+* [Parser](helper-parser.md)
 * [Exceptions](exception-introduction.md)
+
+### Deprecated Utils:
+* [Manager](utils-manager.md)
+* [Helper](utils-helper.md)

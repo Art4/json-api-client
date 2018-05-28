@@ -1,46 +1,64 @@
 # Utils\Factory
 [Back to Navigation](README.md)
 
-The `Utils\Factory` provides a simple way to override [all objects](objects-introduction.md#all-objects) by injecting your own classes.
+The `Art4\JsonApiClient\V1\Factory` provides a simple way to override [all objects](objects-introduction.md#all-objects) by injecting your own classes.
 
 ### Override the classes
 
-All used classes are listed [in the source code](../src/Utils/Factory.php#L12). You can inject your own classes by passing them to the factory constructor.
+All possible classes are:
+
+- Attributes
+- Document
+- DocumentLink
+- Error
+- ErrorCollection
+- ErrorLink
+- ErrorSource
+- Jsonapi
+- Link
+- Meta
+- Relationship
+- RelationshipCollection
+- RelationshipLink
+- ResourceCollection
+- ResourceIdentifier
+- ResourceIdentifierCollection
+- ResourceItem
+- ResourceItemLink
+- ResourceNull
+
+You can inject your own classes by passing them to the factory constructor.
 
 ```php
-$factory = new \Art4\JsonApiClient\Utils\Factory([
-    'Document' => 'My\Own\Document'
-])
+use Art4\JsonApiClient\V1\Factory;
+use My\Own\Document;
+
+$factory = new Factory([
+    'Document' => Document::class,
+]);
 ```
 
 #### Example
 
-Assuming you want a `getDescSortedKeys()` functionality in your resource item object. First create your own ResourceItem class.
+Assuming you want a `getDescSortedKeys()` functionality in your resource item object. First create your own ResourceItem class. You can
 
 ```php
-<?php
-
 namespace My\Own;
 
-use Art4\JsonApiClient\AccessInterface;
-use Art4\JsonApiClient\Utils\FactoryManagerInterface;
+use Art4\JsonApiClient\Accessable;
+use Art4\JsonApiClient\Helper\AbstractElement;
+use Art4\JsonApiClient\Manager;
+use Art4\JsonApiClient\V1\ResourceItem as V1ResourceItem;
 
-class ResourceItem implements Art4\JsonApiClient\ResourceItemInterface
+class ResourceItem extends AbstractElement
 {
     protected $item;
 
-    // Implemention of Art4\JsonApiClient\ResourceItemInterface
+    // Implemention of Art4\JsonApiClient\Element
 
-    public function __construct(FactoryManagerInterface $manager, AccessInterface $parent)
+    public function __construct($data, Manager $manager, Accessable $parent)
     {
-        $this->item = new Art4\JsonApiClient\ResourceItem($manager, $parent);
-    }
-
-    public function parse($object)
-    {
-        $this->item->parse($object);
-
-        return $this;
+        $this->item = new V1ResourceItem($data, $manager, $parent);
     }
 
     public function get($key)
@@ -58,12 +76,6 @@ class ResourceItem implements Art4\JsonApiClient\ResourceItemInterface
         return $this->item->getKeys();
     }
 
-    public function asArray()
-    {
-        // `Art4\JsonApiClient\AccessInterface::asArray()` will be removed in v1.0, use `Art4\JsonApiClient\Serializer\ArraySerializer::serialize()` instead
-        return $this->item->asArray();
-    }
-
     // your new method
     public function getDescSortedKeys()
     {
@@ -78,14 +90,21 @@ class ResourceItem implements Art4\JsonApiClient\ResourceItemInterface
 Now pass your resource item class to the factory.
 
 ```php
-$factory = new \Art4\JsonApiClient\Utils\Factory([
-    'ResourceItem' => 'My\Own\ResourceItem',
+use Art4\JsonApiClient\Input\ResponseStringInput;
+use Art4\JsonApiClient\Manager\ErrorAbortManager;
+use Art4\JsonApiClient\V1\Factory;
+use My\Own\ResourceItem;
+
+$factory = new Factory([
+    'ResourceItem' => ResourceItem::class,
 ]);
 
 // Pass the factory to the manager
-$manager = new \Art4\JsonApiClient\Utils\Manager($factory);
+$manager = new ErrorAbortManager($factory);
 
-$item = $manager->parse($jsonapi_string)->get('data');
+$document = $manager->parse(new ResponseStringInput($jsonapiString));
+
+$item = $document->get('data');
 
 echo get_class($item); // 'My\Own\ResourceItem'
 var_dump($item->getDescSortedKeys()); // ['type', 'relationships', 'meta', 'links', 'id', 'attributes']
@@ -97,12 +116,14 @@ This way you can replace [every object](objects-introduction.md#all-objects) and
 
 ### Create your own factory
 
-If you need to make more changes in the factory you can write your own factory. Just implement the `\Art4\JsonApiClient\Utils\FactoryInterface` in your own factory.
+If you need to make more changes in the factory you can write your own factory. Just implement the `\Art4\JsonApiClient\Factory` in your own factory.
 
 ```php
-<?php
-namespace My\Own
-class Factory implements \Art4\JsonApiClient\Utils\FactoryInterface
+namespace My\Own;
+
+use Art4\JsonApiClient\Factory as FactoryInterface;
+
+class Factory implements FactoryInterface
 {
     /**
      * Create a new instance of a class

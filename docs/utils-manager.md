@@ -1,6 +1,8 @@
 # Utils\Manager
 [Back to Navigation](README.md)
 
+**Attention:** `Utils\Manager` is deprecated and will be removed in JsonApiClient 1.0, use [Manager\ErrorAbortManager](manager.md) instead.
+
 The `Utils\Manager` can be used to parse JSON API string and to inject a [Factory](utils-factory.md) for overriding classes.
 
 ### Parse a JSON API string
@@ -10,16 +12,16 @@ Assuming you have get a response from a JSON API server. Use `parse()` to work w
 ```php
 
 // The Response body from a JSON API server
-$jsonapi_string = '{"meta":{"info":"Testing the JsonApiClient library."}}';
+$jsonapiString = '{"meta":{"info":"Testing the JsonApiClient library."}}';
 
 $manager = new \Art4\JsonApiClient\Utils\Manager();
 
-$document = $manager->parse($jsonapi_string);
+$document = $manager->parse($jsonapiString);
 ```
 
 This returns a [Document](objects-document.md) object which provided all contents.
 
-> **Note:** If `$jsonapi_string` contains not valid JSON or JSON API a [Exception\ValidationException](exception-introduction.md#exceptionvalidationexception) will be thrown.
+> **Note:** If `$jsonapiString` contains not valid JSON or JSON API a [ValidationException](exception-introduction.md#exceptionvalidationexception) will be thrown.
 
 ### Parse a JSON API string for creating a new resource
 
@@ -28,19 +30,19 @@ Assuming you have get a request for creating a new resource. In this case the `i
 ```php
 
 // The request body from a client
-$jsonapi_string = '{"data":{"type":"posts","attributes":{"title":"Post Title"}}}';
+$jsonapiString = '{"data":{"type":"posts","attributes":{"title":"Post Title"}}}';
 
 $manager = new \Art4\JsonApiClient\Utils\Manager();
 
 // Set this to `true`
 $manager->setConfig('optional_item_id', true);
 
-$document = $manager->parse($jsonapi_string);
+$document = $manager->parse($jsonapiString);
 ```
 
 This returns a [Document](objects-document.md) object which provided all contents.
 
-> **Note:** If `$jsonapi_string` contains not valid JSON or JSON API a [Exception\ValidationException](exception-introduction.md#exceptionvalidationexception) will be thrown.
+> **Note:** If `$jsonapiString` contains not valid JSON or JSON API a [ValidationException](exception-introduction.md#exceptionvalidationexception) will be thrown.
 
 ### Working with a factory
 

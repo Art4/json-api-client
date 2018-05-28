@@ -3,7 +3,7 @@
 
 ## Description
 
-The `Document` object represents the [Top Level](http://jsonapi.org/format/#document-top-level) of a JSON API response. You can create it using [Utils\Helper](utils-helper.md).
+The `Document` object represents the [Top Level](http://jsonapi.org/format/#document-top-level) of a JSON API response. You can create it using [Helper\Parser](helper-parser.md).
 
 Property of: _none_
 
@@ -27,9 +27,11 @@ _[Symbols definition](objects-introduction.md#symbols)_
 You can check for all possible values using the `has()` method.
 
 ```php
-$jsonapi_string = '{"meta":{"info":"Testing the JsonApiClient library."}}';
+use Art4\JsonApiClient\Helper\Parser;
 
-$document = \Art4\JsonApiClient\Utils\Helper::parseResponseBody($jsonapi_string);
+$jsonapiString = '{"meta":{"info":"Testing the JsonApiClient library."}}';
+
+$document = Parser::parseResponseString($jsonapiString);
 
 var_dump($document->has('data'));
 var_dump($document->has('errors'));
@@ -69,9 +71,8 @@ array(
 This can be useful to get available values:
 
 ```php
-foreach($document->getKeys() as $key)
-{
-	$value = $document->get($key);
+foreach($document->getKeys() as $key) {
+    $value = $document->get($key);
 }
 ```
 
@@ -88,4 +89,4 @@ $links    = $document->get('links');
 $included = $document->get('included');
 ```
 
-> **Note:** Using `get()` on a non-existing value will throw an [Exception\AccessException](exception-introduction.md#exceptionaccessexception). Use `has()` or `getKeys()` to check if a value exists.
+> **Note:** Using `get()` on a non-existing value will throw an [AccessException](exception-introduction.md#exceptionaccessexception). Use `has()` or `getKeys()` to check if a value exists.
