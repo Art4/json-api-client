@@ -68,8 +68,8 @@ class RelationshipCollectionTest extends TestCase
         // test get() with not existing key throws an exception
         $this->assertFalse($collection->has('something'));
 
-        $this->setExpectedException(
-            'Art4\JsonApiClient\Exception\AccessException',
+        $this->expectException(AccessException::class);
+        $this->expectExceptionMessage(
             '"something" doesn\'t exist in this relationship collection.'
         );
 
@@ -111,8 +111,8 @@ class RelationshipCollectionTest extends TestCase
         $object = new \stdClass();
         $object->type = 'posts';
 
-        $this->setExpectedException(
-            'Art4\JsonApiClient\Exception\ValidationException',
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
             'These properties are not allowed in attributes: `type`, `id`'
         );
 
@@ -136,8 +136,8 @@ class RelationshipCollectionTest extends TestCase
         $object = new \stdClass();
         $object->id = '5';
 
-        $this->setExpectedException(
-            'Art4\JsonApiClient\Exception\ValidationException',
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
             'These properties are not allowed in attributes: `type`, `id`'
         );
 
@@ -161,8 +161,8 @@ class RelationshipCollectionTest extends TestCase
         $object = new \stdClass();
         $object->author = new \stdClass();
 
-        $this->setExpectedException(
-            'Art4\JsonApiClient\Exception\ValidationException',
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
             '"author" property cannot be set because it exists already in parents Resource object.'
         );
 
@@ -176,8 +176,8 @@ class RelationshipCollectionTest extends TestCase
      */
     public function testCreateWithoutObjectThrowsException($input)
     {
-        $this->setExpectedException(
-            'Art4\JsonApiClient\Exception\ValidationException',
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
             'Relationships has to be an object, "' . gettype($input) . '" given.'
         );
 

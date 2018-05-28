@@ -61,8 +61,8 @@ class RelationshipTest extends TestCase
         // test get() with not existing key throws an exception
         $this->assertFalse($relationship->has('something'));
 
-        $this->setExpectedException(
-            'Art4\JsonApiClient\Exception\AccessException',
+        $this->expectException(AccessException::class);
+        $this->expectExceptionMessage(
             '"something" doesn\'t exist in Relationship.'
         );
 
@@ -78,8 +78,8 @@ class RelationshipTest extends TestCase
      */
     public function testCreateWithoutObjectThrowsException($input)
     {
-        $this->setExpectedException(
-            'Art4\JsonApiClient\Exception\ValidationException',
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
             'Relationship has to be an object, "' . gettype($input) . '" given.'
         );
 
@@ -96,8 +96,8 @@ class RelationshipTest extends TestCase
         $object = new \stdClass();
         $object->foo = 'bar';
 
-        $this->setExpectedException(
-            'Art4\JsonApiClient\Exception\ValidationException',
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
             'A Relationship object MUST contain at least one of the following properties: links, data, meta'
         );
 

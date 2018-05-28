@@ -17,33 +17,36 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient\Tests\Manager;
+namespace Art4\JsonApiClient\Tests\Input;
 
-use Art4\JsonApiClient\Factory;
-use Art4\JsonApiClient\Manager\ErrorAbortManager;
+use Art4\JsonApiClient\Input\ResponseStringInput;
+use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 use Art4\JsonApiClient\Tests\Fixtures\TestCase;
 
-class ErrorAbortManagerTest extends TestCase
+class ResponseStringInputTest extends TestCase
 {
+    use HelperTrait;
+
     /**
      * @test
      */
-    public function testCreateWithConstructorReturnsSelf()
+    public function testGetAsObjectFromStringReturnsObject()
     {
-        $factory = $this->createMock(Factory::class);
-        $manager = new ErrorAbortManager($factory);
+        $input = new ResponseStringInput('{}');
 
-        $this->assertSame($factory, $manager->getFactory());
+        $this->assertInstanceOf(\stdClass::class, $input->getAsObject());
     }
 
     /**
+     * @dataProvider jsonValuesProviderWithoutString
      * @test
      */
-    public function testGetParamReturnsDefault()
+    public function testCreateWithoutStringThrowsException($input)
     {
-        $factory = $this->createMock(Factory::class);
-        $manager = new ErrorAbortManager($factory);
-
-        $this->assertSame('default', $manager->getParam('not-existing-param', 'default'));
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage(
+            '$string must be a string, "' . gettype($input) . '" given.'
+        );
+        new ResponseStringInput($input);
     }
 }

@@ -33,7 +33,7 @@ final class ErrorAbortManager implements Manager
 {
     private $factory;
 
-    private $config;
+    private $config = [];
 
     private $default = [
         'optional_item_id' => false,
@@ -78,7 +78,7 @@ final class ErrorAbortManager implements Manager
         );
 
         // Clear config
-        $this->config = null;
+        $this->config = [];
 
         return $document;
     }

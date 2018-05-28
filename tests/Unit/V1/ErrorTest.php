@@ -20,6 +20,7 @@
 namespace Art4\JsonApiClient\Tests\Unit\V1;
 
 use Art4\JsonApiClient\Accessable;
+use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 use Art4\JsonApiClient\Tests\Fixtures\TestCase;
@@ -82,8 +83,8 @@ class ErrorTest extends TestCase
         // test get() with not existing key throws an exception
         $this->assertFalse($error->has('something'));
 
-        $this->setExpectedException(
-            'Art4\JsonApiClient\Exception\AccessException',
+        $this->expectException(AccessException::class);
+        $this->expectExceptionMessage(
             '"something" doesn\'t exist in this error object.'
         );
 

@@ -113,8 +113,8 @@ class ResourceIdentifierCollectionTest extends TestCase
      */
     public function testCreateWithoutArrayThrowsException($input)
     {
-        $this->setExpectedException(
-            'Art4\JsonApiClient\Exception\ValidationException',
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
             'Resources for a collection has to be in an array, "' . gettype($input) . '" given.'
         );
 
@@ -132,8 +132,8 @@ class ResourceIdentifierCollectionTest extends TestCase
 
         $this->assertFalse($collection->has(0));
 
-        $this->setExpectedException(
-            'Art4\JsonApiClient\Exception\AccessException',
+        $this->expectException(AccessException::class);
+        $this->expectExceptionMessage(
             '"0" doesn\'t exist in this resource.'
         );
 

@@ -118,8 +118,8 @@ class RelationshipLinkTest extends TestCase
         $object->prev = new \stdClass();
         $object->next = new \stdClass();
 
-        $this->setExpectedException(
-            'Art4\JsonApiClient\Exception\ValidationException',
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
             'property "first" has to be a string or null, "object" given.'
         );
 
@@ -217,8 +217,8 @@ class RelationshipLinkTest extends TestCase
      */
     public function testCreateWithoutObjectThrowsException($input)
     {
-        $this->setExpectedException(
-            'Art4\JsonApiClient\Exception\ValidationException',
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
             'RelationshipLink has to be an object, "' . gettype($input) . '" given.'
         );
 
@@ -238,8 +238,8 @@ class RelationshipLinkTest extends TestCase
         $object->self = 'http://example.org/self';
         $object->input = $input;
 
-        $this->setExpectedException(
-            'Art4\JsonApiClient\Exception\ValidationException',
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
             'Link attribute has to be an object or string, "' . gettype($input) . '" given.'
         );
 
@@ -255,8 +255,8 @@ class RelationshipLinkTest extends TestCase
         $object->first = 'http://example.org/first';
         $object->next = 'http://example.org/next';
 
-        $this->setExpectedException(
-            'Art4\JsonApiClient\Exception\ValidationException',
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
             'RelationshipLink has to be at least a "self" or "related" link'
         );
 
@@ -275,8 +275,8 @@ class RelationshipLinkTest extends TestCase
         $object = new \stdClass();
         $object->self = $input;
 
-        $this->setExpectedException(
-            'Art4\JsonApiClient\Exception\ValidationException',
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
             'property "self" has to be a string, "' . gettype($input) . '" given.'
         );
 
@@ -296,8 +296,8 @@ class RelationshipLinkTest extends TestCase
         $object = new \stdClass();
         $object->related = $input;
 
-        $this->setExpectedException(
-            'Art4\JsonApiClient\Exception\ValidationException',
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
             'property "related" has to be a string or object, "' . gettype($input) . '" given.'
         );
 
@@ -337,8 +337,8 @@ class RelationshipLinkTest extends TestCase
             return;
         }
 
-        $this->setExpectedException(
-            'Art4\JsonApiClient\Exception\ValidationException',
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
             'property "first" has to be a string or null, "' . gettype($input) . '" given.'
         );
 
@@ -378,8 +378,8 @@ class RelationshipLinkTest extends TestCase
             return;
         }
 
-        $this->setExpectedException(
-            'Art4\JsonApiClient\Exception\ValidationException',
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
             'property "last" has to be a string or null, "' . gettype($input) . '" given.'
         );
 
@@ -419,8 +419,8 @@ class RelationshipLinkTest extends TestCase
             return;
         }
 
-        $this->setExpectedException(
-            'Art4\JsonApiClient\Exception\ValidationException',
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
             'property "prev" has to be a string or null, "' . gettype($input) . '" given.'
         );
 
@@ -460,8 +460,8 @@ class RelationshipLinkTest extends TestCase
             return;
         }
 
-        $this->setExpectedException(
-            'Art4\JsonApiClient\Exception\ValidationException',
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
             'property "next" has to be a string or null, "' . gettype($input) . '" given.'
         );
 
@@ -481,8 +481,8 @@ class RelationshipLinkTest extends TestCase
 
         $this->assertFalse($link->has('something'));
 
-        $this->setExpectedException(
-            'Art4\JsonApiClient\Exception\AccessException',
+        $this->expectException(AccessException::class);
+        $this->expectExceptionMessage(
             '"something" doesn\'t exist in this object.'
         );
 
