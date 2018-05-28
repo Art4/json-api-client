@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
+- New class `Art4\JsonApiClient\Helper\Parser` to parse or validate a JSON API string
+- New class `Art4\JsonApiClient\Manager\ErrorAbortManager` to parse a JSON API input
 - New class `Art4\JsonApiClient\Serializer\ArraySerializer` to create an array from an `Art4\JsonApiClient\Accessable`
 - New class `Art4\JsonApiClient\V1\Attributes` to represent an Attributes element
 - New class `Art4\JsonApiClient\V1\Document` to represent a Document element
@@ -85,6 +87,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `Art4\JsonApiClient\Utils\FactoryInterface` will be removed in v1.0, use `Art4\JsonApiClient\Factory` instead
 - `Art4\JsonApiClient\Utils\FactoryManagerInterface` will be removed in v1.0
 - `Art4\JsonApiClient\Utils\Helper::decodeJson()` will be removed in v1.0, use `Art4\JsonApiClient\Input\ResponseStringInput::getAsObject()` instead
+- `Art4\JsonApiClient\Utils\Helper` will be removed in v1.0, use `Art4\JsonApiClient\Helper\Parser` instead
 - `Art4\JsonApiClient\Utils\Manager` will be removed in v1.0, use `Art4\JsonApiClient\Manager\ErrorAbortManager` instead
 - `Art4\JsonApiClient\Utils\ManagerInterface` will be removed in v1.0, use `Art4\JsonApiClient\Manager` instead
 

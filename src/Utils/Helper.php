@@ -19,6 +19,8 @@
 
 namespace Art4\JsonApiClient\Utils;
 
+@trigger_error(__NAMESPACE__ . '\Helper is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\Helper\Parser instead', E_USER_DEPRECATED);
+
 use Art4\JsonApiClient\Document;
 use Art4\JsonApiClient\Exception\Exception;
 use Art4\JsonApiClient\Exception\InputException;
@@ -28,7 +30,7 @@ use Art4\JsonApiClient\Input\ResponseStringInput;
 /**
  * PHP JSON API client helper
  *
- * Website: http://github.com/Art4/json-api-client
+ * @deprecated Helper is deprecated since version 0.10 and will be removed in 1.0. Use Art4\JsonApiClient\Helper\Parser instead
  */
 final class Helper
 {
