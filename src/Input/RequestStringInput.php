@@ -19,12 +19,10 @@
 
 namespace Art4\JsonApiClient\Input;
 
-use Art4\JsonApiClient\Utils\Helper;
-
 /**
  * Handles a http Request body as string
  */
-final class RequestStringInput implements RequestInput
+final class RequestStringInput implements Input, RequestInput
 {
     use StringInputTrait;
 

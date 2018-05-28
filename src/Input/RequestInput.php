@@ -22,6 +22,6 @@ namespace Art4\JsonApiClient\Input;
 /**
  * Input Interface
  */
-interface RequestInput extends Input
+interface RequestInput
 {
 }
