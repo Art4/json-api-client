@@ -112,8 +112,8 @@ use Art4\JsonApiClient\Helper\Parser;
 
 $wrong_jsonapi = '{"data":{},"meta":{"info":"This is wrong JSON API. `data` has to be `null` or containing at least `type` and `id`."}}';
 
-if ( Parser::isValidResponseBody($wrong_jsonapi) ) {
-// or use Parser::isValidRequestBody($wrong_jsonapi)
+if ( Parser::isValidResponseString($wrong_jsonapi) ) {
+// or use Parser::isValidRequestString($wrong_jsonapi)
 	echo 'string is valid.';
 } else {
 	echo 'string is invalid json api!';
