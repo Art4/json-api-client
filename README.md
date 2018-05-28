@@ -38,22 +38,64 @@ See the [documentation](docs/README.md).
 ### Using as reader
 
 ```php
+use Art4\JsonApiClient\Exception\InputException;
+use Art4\JsonApiClient\Exception\ValidationException;
+use Art4\JsonApiClient\Helper\Parser;
+
 // The Response body from a JSON API server
-$jsonapi_string = '{"meta":{"info":"Testing the JsonApiClient library."}}';
+$jsonapiString = '{"meta":{"info":"Testing the JsonApiClient library."}}';
 
-$manager = new \Art4\JsonApiClient\Utils\Manager();
+// Use this if you have a response after calling a JSON API server
+$document = Parser::parseResponseString($jsonapiString);
 
-// Set this if you expect a resource creating request
-$manager->setConfig('optional_item_id', true);
+// Or use this if you have a request to your JSON API server
+$document = Parser::parseRequestString($jsonapiString);
+```
 
-$document = $manager->parse($jsonapi_string);
+Using `Art4\JsonApiClient\Helper\Parser::parseResponseString($jsonapiString)` is a shortcut for directly using the Manager:
 
+```php
+use Art4\JsonApiClient\Exception\InputException;
+use Art4\JsonApiClient\Exception\ValidationException;
+use Art4\JsonApiClient\Input\RequestStringInput;
+use Art4\JsonApiClient\Input\ResponseStringInput;
+use Art4\JsonApiClient\Manager\ErrorAbortManager;
+use Art4\JsonApiClient\V1\Factory;
+
+// The Response body from a JSON API server
+$jsonapiString = '{"meta":{"info":"Testing the JsonApiClient library."}}';
+
+$manager = new ErrorAbortManager(
+    new Factory()
+);
+
+// Use this if you have a response after calling a JSON API server
+$input = new ResponseStringInput($jsonapiString);
+
+// Or use this if you have a request to your JSON API server
+$input = new RequestStringInput($jsonapiString);
+
+try {
+    $document = $manager->parse($input);
+} catch (InputException $e) {
+    // $jsonapiString is not valid JSON
+} catch (ValidationException $e) {
+    // $jsonapiString is not valid JSON API
+}
+
+// do something with $document
+```
+
+`$document` implements the `Art4\JsonApiClient\Accessable` interface to access the parsed data. It has `has($key)`, `get($key)` and `getKeys()` methods.
+
+```php
+// Note that has() and get() have support for dot-notated keys
 if ($document->has('meta.info'))
 {
     echo $document->get('meta.info'); // "Testing the JsonApiClient library."
 }
 
-// List all keys
+// you can get all keys as an array
 var_dump($document->getKeys());
 
 // array(
@@ -66,14 +108,14 @@ var_dump($document->getKeys());
 JsonApiClient can be used as a validator for JSON API contents:
 
 ```php
+use Art4\JsonApiClient\Helper\Parser;
+
 $wrong_jsonapi = '{"data":{},"meta":{"info":"This is wrong JSON API. `data` has to be `null` or containing at least `type` and `id`."}}';
 
-if ( \Art4\JsonApiClient\Utils\Helper::isValidResponseBody($wrong_jsonapi) )
-{
+if ( Parser::isValidResponseBody($wrong_jsonapi) ) {
+// or use Parser::isValidRequestBody($wrong_jsonapi)
 	echo 'string is valid.';
-}
-else
-{
+} else {
 	echo 'string is invalid json api!';
 }
 
