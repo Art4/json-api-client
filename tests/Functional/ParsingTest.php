@@ -17,32 +17,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient\Tests\Functional\V1;
+namespace Art4\JsonApiClient\Tests\Functional;
 
-use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\Input\RequestStringInput;
 use Art4\JsonApiClient\Input\ResponseStringInput;
 use Art4\JsonApiClient\Manager\ErrorAbortManager;
 use Art4\JsonApiClient\Serializer\ArraySerializer;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
-use Art4\JsonApiClient\V1\Attributes;
-use Art4\JsonApiClient\V1\Document;
-use Art4\JsonApiClient\V1\DocumentLink;
+use Art4\JsonApiClient\Tests\Fixtures\TestCase;
+use Art4\JsonApiClient\Utils\Manager as UtilsManager;
 use Art4\JsonApiClient\V1\Factory;
-use Art4\JsonApiClient\V1\Jsonapi;
-use Art4\JsonApiClient\V1\Link;
-use Art4\JsonApiClient\V1\Meta;
-use Art4\JsonApiClient\V1\Relationship;
-use Art4\JsonApiClient\V1\RelationshipCollection;
-use Art4\JsonApiClient\V1\RelationshipLink;
-use Art4\JsonApiClient\V1\ResourceCollection;
-use Art4\JsonApiClient\V1\ResourceIdentifier;
-use Art4\JsonApiClient\V1\ResourceIdentifierCollection;
-use Art4\JsonApiClient\V1\ResourceItem;
-use Art4\JsonApiClient\V1\ResourceItemLink;
-use Art4\JsonApiClient\V1\ResourceNull;
 
-class ParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
+class ParsingTest extends TestCase
 {
     use HelperTrait;
 
@@ -51,7 +37,7 @@ class ParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
      */
     public function jsonapiDataProvider()
     {
-        $path = str_replace('/', \DIRECTORY_SEPARATOR, __DIR__ . '/../../files/');
+        $path = str_replace('/', \DIRECTORY_SEPARATOR, __DIR__ . '/../files/');
         $files = [];
 
         $requestFiles = [
@@ -75,18 +61,33 @@ class ParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 
     /**
      * @test
+     * @deprecated
      * @dataProvider jsonapiDataProvider
-     *
-     * @param mixed $parser
+     */
+    public function parseJsonapiDataWithUtilsManager($filename, array $meta)
+    {
+        $manager = new UtilsManager();
+        $manager->setConfig('optional_item_id', $meta['is_request']);
+
+        $string = $this->getJsonString($filename);
+
+        $document = $manager->parse($string);
+
+        // Test full array
+        $this->assertEquals(
+            json_decode($string, true),
+            (new ArraySerializer(['recursive' => true]))->serialize($document),
+            $filename
+        );
+    }
+
+    /**
+     * @test
+     * @dataProvider jsonapiDataProvider
      */
     public function parseJsonapiDataWithErrorAbortManager($filename, array $meta)
     {
         $manager = new ErrorAbortManager(new Factory);
-
-        $requestFiles = [
-            '14_create_resource_without_id.json',
-            '15_create_resource_without_id.json',
-        ];
 
         $string = $this->getJsonString($filename);
 
