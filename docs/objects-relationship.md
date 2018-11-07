@@ -5,12 +5,16 @@
 
 The `Relationship` object represents the [relationship object](http://jsonapi.org/format/#document-resource-object-relationships) inside a relationship collection.
 
+This object implements the [Accessable interface](objects-introduction.md#value-access).
+
 Property of:
 - [Relationship Collection object](objects-relationship-collection.md)
 
 ### Properties
 
 _[Symbols definition](objects-introduction.md#symbols)_
+
+You can use the [Accessable interface](objects-introduction.md#value-access) to access this properties.
 
 |     | Key | Value | Note |
 | --- | --- | ----- | ---- |

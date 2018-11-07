@@ -21,8 +21,6 @@ namespace Art4\JsonApiClient\Helper;
 
 use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\Exception\Exception;
-use Art4\JsonApiClient\Exception\InputException;
-use Art4\JsonApiClient\Exception\ValidationException;
 use Art4\JsonApiClient\Input\RequestStringInput;
 use Art4\JsonApiClient\Input\ResponseStringInput;
 use Art4\JsonApiClient\Manager\ErrorAbortManager;

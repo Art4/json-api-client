@@ -19,7 +19,7 @@ $document = \Art4\JsonApiClient\Utils\Helper::parseResponseBody($jsonapiString);
 
 This returns a [Document](objects-document.md) object which provided all contents.
 
-> **Note:** If `$jsonapiString` contains not valid JSON or JSON API a [ValidationException](exception-introduction.md#exceptionvalidationexception) will be thrown.
+> **Note:** If `$jsonapiString` contains not valid JSON or JSON API a [ValidationException](exception-introduction.md#validationexception) will be thrown.
 >
 > See more about Exceptions in the [Exception section](exception-introduction.md).
 
@@ -37,7 +37,7 @@ $document = \Art4\JsonApiClient\Utils\Helper::parseRequestBody($jsonapiString);
 
 This returns a [Document](objects-document.md) object which provided all contents.
 
-> **Note:** If `$jsonapiString` contains not valid JSON or JSON API a [ValidationException](exception-introduction.md#exceptionvalidationexception) will be thrown.
+> **Note:** If `$jsonapiString` contains not valid JSON or JSON API a [ValidationException](exception-introduction.md#validationexception) will be thrown.
 >
 > See more about Exceptions in the [Exception section](exception-introduction.md).
 

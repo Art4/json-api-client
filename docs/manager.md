@@ -24,7 +24,8 @@ $document = $manager->parse(new ResponseStringInput($jsonapiString));
 
 This returns a [Document](objects-document.md) object which provided all contents.
 
-> **Note:** If `$jsonapiString` contains not valid JSON or JSON API a [ValidationException](exception-introduction.md#exceptionvalidationexception) will be thrown.
+> **Note:** If `$jsonapiString` contains not valid JSON a [InputException](exception-introduction.md#inputexception) will be thrown.
+> **Note:** If `$jsonapiString` contains not valid JSON API a [ValidationException](exception-introduction.md#validationexception) will be thrown.
 
 ### Parse a JSON API string for creating a new resource
 
@@ -46,7 +47,8 @@ $document = $manager->parse(new RequestStringInput($jsonapiString));
 
 This returns a [Document](objects-document.md) object which provided all contents.
 
-> **Note:** If `$jsonapiString` contains not valid JSON or JSON API a [ValidationException](exception-introduction.md#exceptionvalidationexception) will be thrown.
+> **Note:** If `$jsonapiString` contains not valid JSON a [InputException](exception-introduction.md#inputexception) will be thrown.
+> **Note:** If `$jsonapiString` contains not valid JSON API a [ValidationException](exception-introduction.md#validationexception) will be thrown.
 
 ### Working with a factory
 

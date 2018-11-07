@@ -5,6 +5,8 @@
 
 The `Meta` object represents a [meta object](http://jsonapi.org/format/#document-meta).
 
+This object implements the [Accessable interface](objects-introduction.md#value-access).
+
 Property of:
 - [Document object](objects-document.md)
 - [Resource Identifier object](objects-resource-identifier.md)
@@ -16,6 +18,8 @@ Property of:
 ### Properties
 
 _[Symbols definition](objects-introduction.md#symbols)_
+
+You can use the [Accessable interface](objects-introduction.md#value-access) to access this properties.
 
 |     | Key | Value | Note |
 | --- | --- | ----- | ---- |

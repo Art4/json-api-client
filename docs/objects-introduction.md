@@ -40,14 +40,11 @@ All possible objects and their hierarchical structure are listed below.
 
 ## Value access
 
-JsonApiClient will parse a JSON API content into a hierarchical object stucture. Every object implements the `AccessInterface` and has these methods for getting the values:
+JsonApiClient will parse a JSON API content into a hierarchical object stucture. Every object implements the `Accessable` interface and has these methods for getting the values:
 
 - `has($key)`: Check, if a value exists
 - `get($key)`: Get a value
 - `getKeys()`: Get the keys of all existing values
-- `asArray()`: **Deprecated** Get all values as an array
-
-> **Note:** `AccessInterface::asArray()` is deprecated and will be removed in v1.0
 
 ### Check if a value exist
 
@@ -118,7 +115,7 @@ $meta = $document->get('meta');
 // $meta contains a meta object.
 ```
 
-> **Note:** Using `get()` on a non-existing value will throw an [AccessException](exception-introduction.md#exceptionaccessexception). Use `has()` or `getKeys()` to check if a value exists.
+> **Note:** Using `get()` on a non-existing value will throw an [AccessException](exception-introduction.md#accessexception). Use `has()` or `getKeys()` to check if a value exists.
 
 The `get()` method has support for dot-notated keys:
 
@@ -134,9 +131,7 @@ string(28) "Testing the JsonApiClient library."
 
 ### Get the containing data as array
 
-> **Note:** `AccessInterface::asArray()` is deprecated and will be removed in v1.0 and using a Serializer is the new recommended way.
-
-You can get all data as an array using a Serializer. JsonApiClient comes with an ArraySerializer.
+You can get all data as an array using a Serializer. JsonApiClient comes with an `ArraySerializer`.
 
 ```php
 use Art4\JsonApiClient\Serializer\ArraySerializer;

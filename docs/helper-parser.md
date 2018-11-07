@@ -5,7 +5,7 @@ The `Art4\JsonApiClient\Helper\Parser` provides some useful methods to deal with
 
 ### Parse a JSON API response body
 
-Assuming you have get a response from a JSON API server. Use `parseResponsestring()` to work with the data.
+Assuming you have get a response from a JSON API server. Use `parseResponseString()` to work with the data.
 
 ```php
 use Art4\JsonApiClient\Helper\Parser;
@@ -19,7 +19,8 @@ $document = Parser::parseResponseString($jsonapiString);
 
 `$document` will be a [Document](objects-document.md) object which provided all contents.
 
-> **Note:** If `$jsonapiString` contains not valid JSON or JSON API a [InputException](exception-introduction.md) or [ValidationException](exception-introduction.md#exceptionvalidationexception) will be thrown.
+> **Note:** If `$jsonapiString` contains not valid JSON a [InputException](exception-introduction.md#inputexception) will be thrown.
+> **Note:** If `$jsonapiString` contains not valid JSON API a [ValidationException](exception-introduction.md#validationexception) will be thrown.
 >
 > See more about Exceptions in the [Exception section](exception-introduction.md).
 
@@ -41,7 +42,8 @@ $document = Parser::parseRequestString($jsonapiString);
 
 This returns a [Document](objects-document.md) object which provided all contents.
 
-> **Note:** If `$jsonapiString` contains not valid JSON or JSON API a [InputException](exception-introduction.md) or [ValidationException](exception-introduction.md#exceptionvalidationexception) will be thrown.
+> **Note:** If `$jsonapiString` contains not valid JSON a [InputException](exception-introduction.md#inputexception) will be thrown.
+> **Note:** If `$jsonapiString` contains not valid JSON API a [ValidationException](exception-introduction.md#validationexception) will be thrown.
 >
 > See more about Exceptions in the [Exception section](exception-introduction.md).
 

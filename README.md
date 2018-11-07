@@ -45,11 +45,17 @@ use Art4\JsonApiClient\Helper\Parser;
 // The Response body from a JSON API server
 $jsonapiString = '{"meta":{"info":"Testing the JsonApiClient library."}}';
 
-// Use this if you have a response after calling a JSON API server
-$document = Parser::parseResponseString($jsonapiString);
+try {
+    // Use this if you have a response after calling a JSON API server
+    $document = Parser::parseResponseString($jsonapiString);
 
-// Or use this if you have a request to your JSON API server
-$document = Parser::parseRequestString($jsonapiString);
+    // Or use this if you have a request to your JSON API server
+    $document = Parser::parseRequestString($jsonapiString);
+} catch (InputException $e) {
+    // $jsonapiString is not valid JSON
+} catch (ValidationException $e) {
+    // $jsonapiString is not valid JSON API
+}
 ```
 
 Using `Art4\JsonApiClient\Helper\Parser::parseResponseString($jsonapiString)` is a shortcut for directly using the Manager:
@@ -69,13 +75,13 @@ $manager = new ErrorAbortManager(
     new Factory()
 );
 
-// Use this if you have a response after calling a JSON API server
-$input = new ResponseStringInput($jsonapiString);
-
-// Or use this if you have a request to your JSON API server
-$input = new RequestStringInput($jsonapiString);
-
 try {
+    // Use this if you have a response after calling a JSON API server
+    $input = new ResponseStringInput($jsonapiString);
+
+    // Or use this if you have a request to your JSON API server
+    $input = new RequestStringInput($jsonapiString);
+
     $document = $manager->parse($input);
 } catch (InputException $e) {
     // $jsonapiString is not valid JSON
@@ -113,13 +119,13 @@ use Art4\JsonApiClient\Helper\Parser;
 $wrong_jsonapi = '{"data":{},"meta":{"info":"This is wrong JSON API. `data` has to be `null` or containing at least `type` and `id`."}}';
 
 if ( Parser::isValidResponseString($wrong_jsonapi) ) {
-// or use Parser::isValidRequestString($wrong_jsonapi)
+// or Parser::isValidRequestString($wrong_jsonapi)
 	echo 'string is valid.';
 } else {
 	echo 'string is invalid json api!';
 }
 
-// echos 'string is invalid json api!'
+// echoes 'string is invalid json api!'
 ```
 
 ### Extend the client

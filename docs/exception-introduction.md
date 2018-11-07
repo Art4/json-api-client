@@ -13,6 +13,31 @@ try {
 }
 ```
 
+## InputException
+
+The `Art4\JsonApiClient\Exception\InputException` will be thrown if the input for `Art4\JsonApiClient\Input\RequestStringInput` or `Art4\JsonApiClient\Input\ResponseStringInput` is not a string or not valid JSON.
+
+```php
+use Art4\JsonApiClient\Exception\InputException;
+use Art4\JsonApiClient\Input\RequestStringInput;
+
+// If input is not a string
+try {
+    $input = new RequestStringInput([]); // input must be a string, not array
+} catch (InputException $e) {
+    echo $e->getMessage(); // "$string must be a string, "array" given."
+}
+
+// If input is invalid JSON
+$input = new RequestStringInput('This is invalid JSON'); // input must be valid JSON
+
+try {
+    $object = $input->getAsObject();
+} catch (InputException $e) {
+    echo $e->getMessage(); // "Unable to parse JSON data: Syntax error, malformed JSON"
+}
+```
+
 ## ValidationException
 
 The `Art4\JsonApiClient\Exception\ValidationException` will be thrown if the response from the JSON API server doesn't follow the JSON API specification.

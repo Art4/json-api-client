@@ -5,11 +5,15 @@
 
 The `Document` object represents the [Top Level](http://jsonapi.org/format/#document-top-level) of a JSON API response. You can create it using [Helper\Parser](helper-parser.md).
 
+This object implements the [Accessable interface](objects-introduction.md#value-access).
+
 Property of: _none_
 
 ### Properties
 
 _[Symbols definition](objects-introduction.md#symbols)_
+
+You can use the [Accessable interface](objects-introduction.md#value-access) to access this properties.
 
 |     | Key | Value | Note |
 | --- | --- | ----- | ---- |
@@ -89,4 +93,4 @@ $links    = $document->get('links');
 $included = $document->get('included');
 ```
 
-> **Note:** Using `get()` on a non-existing value will throw an [AccessException](exception-introduction.md#exceptionaccessexception). Use `has()` or `getKeys()` to check if a value exists.
+> **Note:** Using `get()` on a non-existing value will throw an [AccessException](exception-introduction.md#accessexception). Use `has()` or `getKeys()` to check if a value exists.
