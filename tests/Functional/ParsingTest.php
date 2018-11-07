@@ -61,8 +61,11 @@ class ParsingTest extends TestCase
 
     /**
      * @test
+     *
      * @deprecated
      * @dataProvider jsonapiDataProvider
+     *
+     * @param mixed $filename
      */
     public function parseJsonapiDataWithUtilsManager($filename, array $meta)
     {
@@ -84,6 +87,8 @@ class ParsingTest extends TestCase
     /**
      * @test
      * @dataProvider jsonapiDataProvider
+     *
+     * @param mixed $filename
      */
     public function parseJsonapiDataWithErrorAbortManager($filename, array $meta)
     {
