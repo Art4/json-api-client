@@ -1,6 +1,6 @@
 # Navigation
 
-### :rocket:Quickstart
+### :rocket: Quickstart
 
 Take a look at the [Parser](helper-parser.md) to quickstart with JsonApiClient.
 

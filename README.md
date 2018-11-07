@@ -6,22 +6,30 @@
 [![Coverage Status](https://coveralls.io/repos/Art4/json-api-client/badge.svg?branch=master&service=github)](https://coveralls.io/github/Art4/json-api-client?branch=master)
 [![Total Downloads](https://img.shields.io/packagist/dt/art4/json-api-client.svg)](https://packagist.org/packages/art4/json-api-client)
 
-JsonApiClient is a PHP Library to validate and handle the response body from a [JSON API](http://jsonapi.org) Server.
+JsonApiClient :construction_worker_woman: is a PHP Library to validate and handle the response body from a [JSON API](http://jsonapi.org) Server.
 
 Format: [JSON API 1.0](http://jsonapi.org/format/1.0/)
 
-### WIP: Goals for 1.0
+## :checkered_flag: Goals
 
-* [x] Be 100% JSON API 1.0 spec conform
-* [x] Handle/validate a server response body
-* [x] Offer an easy way to retrieve the data
-* [x] Be extendable and allow injection of classes/models
-* [x] Handle/validate a client request body
-* [ ] Refactore and remove the deprecated code
+* :heavy_check_mark: Be 100% JSON API spec conform
+* :heavy_check_mark: Be open for new spec versions
+* :heavy_check_mark: Handle/validate a server response body
+* :heavy_check_mark: Handle/validate a client request body
+* :heavy_check_mark: Offer an easy way to retrieve the data
+* :heavy_check_mark: Allow extendability and injection of classes/models
 
-### Upgrade notice
+## :package: Install
 
-JsonApiClient can be considered as stable and version 0.10 will be the last development version.
+Via Composer
+
+``` bash
+$ composer require art4/json-api-client
+```
+
+### :building_construction: Development notice
+
+**JsonApiClient can be considered as stable** and version 0.10 will be the last development version.
 
 After version 0.8 there where no breaking changes. Every change was backward compatible and every functionality that will be removed in future now only triggers a deprecated warning.
 
@@ -35,21 +43,13 @@ This simply means for you:
 
 (Compare the [Symfony upgrade documentation](https://symfony.com/doc/current/setup/upgrade_major.html))
 
-#### Attention for older versions
+#### :warning: Attention for older versions
 
 Version 0.6.1 and below interprets the pagination links wrong. Make sure you are using the latest version of JsonApiClient. See [#19](https://github.com/Art4/json-api-client/issues/19), [#23](https://github.com/Art4/json-api-client/pull/23) and [#26](https://github.com/Art4/json-api-client/pull/26) for more information.
 
-## Install
+## :rocket: Usage
 
-Via Composer
-
-``` bash
-$ composer require art4/json-api-client
-```
-
-## Usage
-
-See the [documentation](docs/README.md).
+See the [quickstart guide](docs/helper-parser.md) or the [documentation](docs/README.md).
 
 ### Using as parser
 
@@ -116,25 +116,25 @@ if ( Parser::isValidResponseString($wrong_jsonapi) ) {
 
 Need more functionality? Want to directly inject your model? Easily extend JsonApiClient with the [Factory](docs/utils-factory.md).
 
-## Changelog
+## :loud_sound: Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
 
-## Testing
+## :white_check_mark: Testing
 
 ``` bash
 $ phpunit
 ```
 
-## Contributing
+## :wrench: Contributing
 
 Please feel free to fork and sending Pull Requests. This project follows [Semantic Versioning 2](http://semver.org) and [PSR-2](http://www.php-fig.org/psr/psr-2/).
 
-## Credits
+## :heart: Credits
 
 - [Artur Weigandt](https://github.com/Art4) [![Twitter](http://img.shields.io/badge/Twitter-@weigandtlabs-blue.svg)](https://twitter.com/weigandtlabs)
 - [All Contributors](../../contributors)
 
-## License
+## :page_facing_up: License
 
 GPL3. Please see [License File](LICENSE) for more information.
