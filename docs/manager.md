@@ -67,7 +67,7 @@ This returns a [Document](objects-document.md) object which provided all content
 
 ### Working with a factory
 
-You can set a custom [Factory](utils->factory.md) to the manager through the constructor.
+You can set a custom [Factory](utils-factory.md) to the manager through the constructor.
 
 ```php
 use Art4\JsonApiClient\Manager\ErrorAbortManager;

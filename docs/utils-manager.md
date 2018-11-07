@@ -46,7 +46,7 @@ This returns a [Document](objects-document.md) object which provided all content
 
 ### Working with a factory
 
-You can set a custom [Factory](utils->factory.md) to the manager through `setFactory()` or the constructor.
+You can set a custom [Factory](utils-factory.md) to the manager through `setFactory()` or the constructor.
 
 ```php
 $manager = new \Art4\JsonApiClient\Utils\Manager($factory);
