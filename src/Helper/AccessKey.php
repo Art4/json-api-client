@@ -59,7 +59,7 @@ final class AccessKey extends SplStack
     }
 
     /**
-     * @var string Ras key
+     * @var string Raw key
      */
     public $raw = '';
 

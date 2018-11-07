@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
+- Support for PHP 7.3 added
 - New class `Art4\JsonApiClient\Helper\Parser` to parse or validate a JSON API string
 - New class `Art4\JsonApiClient\Manager\ErrorAbortManager` to parse a JSON API input
 - New class `Art4\JsonApiClient\Serializer\ArraySerializer` to create an array from an `Art4\JsonApiClient\Accessable`
