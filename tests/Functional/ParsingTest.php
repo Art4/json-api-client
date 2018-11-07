@@ -25,7 +25,6 @@ use Art4\JsonApiClient\Manager\ErrorAbortManager;
 use Art4\JsonApiClient\Serializer\ArraySerializer;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 use Art4\JsonApiClient\Tests\Fixtures\TestCase;
-use Art4\JsonApiClient\Utils\Manager as UtilsManager;
 use Art4\JsonApiClient\V1\Factory;
 
 class ParsingTest extends TestCase
@@ -57,31 +56,6 @@ class ParsingTest extends TestCase
         }
 
         return $files;
-    }
-
-    /**
-     * @test
-     *
-     * @deprecated
-     * @dataProvider jsonapiDataProvider
-     *
-     * @param mixed $filename
-     */
-    public function parseJsonapiDataWithUtilsManager($filename, array $meta)
-    {
-        $manager = new UtilsManager();
-        $manager->setConfig('optional_item_id', $meta['is_request']);
-
-        $string = $this->getJsonString($filename);
-
-        $document = $manager->parse($string);
-
-        // Test full array
-        $this->assertEquals(
-            json_decode($string, true),
-            (new ArraySerializer(['recursive' => true]))->serialize($document),
-            $filename
-        );
     }
 
     /**
