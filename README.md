@@ -10,10 +10,6 @@ JsonApiClient is a PHP Library to validate and handle the response body from a [
 
 Format: [JSON API 1.0](http://jsonapi.org/format/1.0/)
 
-#### Attention
-
-Version 0.6.1 and below interprets the pagination links wrong. Make sure you are using the latest version of JsonApiClient. See [#19](https://github.com/Art4/json-api-client/issues/19), [#23](https://github.com/Art4/json-api-client/pull/23) and [#26](https://github.com/Art4/json-api-client/pull/26) for more information.
-
 ### WIP: Goals for 1.0
 
 * [x] Be 100% JSON API 1.0 spec conform
@@ -22,6 +18,26 @@ Version 0.6.1 and below interprets the pagination links wrong. Make sure you are
 * [x] Be extendable and allow injection of classes/models
 * [x] Handle/validate a client request body
 * [ ] Refactore and remove the deprecated code
+
+### Upgrade notice
+
+JsonApiClient can be considered as stable and version 0.10 will be the last development version.
+
+After version 0.8 there where no breaking changes. Every change was backward compatible and every functionality that will be removed in future now only triggers a deprecated warning.
+
+After version 0.10 is released all deprecated code will be removed and version 1.0 will be released.
+
+This simply means for you:
+
+1. Update to version 0.10
+2. Make your code deprecation free
+3. You are now ready for upgrading to version 1.0 without breaking your code
+
+(Compare the [Symfony upgrade documentation](https://symfony.com/doc/current/setup/upgrade_major.html))
+
+#### Attention for older versions
+
+Version 0.6.1 and below interprets the pagination links wrong. Make sure you are using the latest version of JsonApiClient. See [#19](https://github.com/Art4/json-api-client/issues/19), [#23](https://github.com/Art4/json-api-client/pull/23) and [#26](https://github.com/Art4/json-api-client/pull/26) for more information.
 
 ## Install
 
