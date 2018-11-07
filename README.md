@@ -35,7 +35,7 @@ $ composer require art4/json-api-client
 
 See the [documentation](docs/README.md).
 
-### Using as reader
+### Using as parser
 
 ```php
 use Art4\JsonApiClient\Exception\InputException;
@@ -58,41 +58,9 @@ try {
 }
 ```
 
-Using `Art4\JsonApiClient\Helper\Parser::parseResponseString($jsonapiString)` is a shortcut for directly using the Manager:
+**Note**: Using `Art4\JsonApiClient\Helper\Parser` is just a shortcut for directly using the [Manager](docs/manager.md).
 
-```php
-use Art4\JsonApiClient\Exception\InputException;
-use Art4\JsonApiClient\Exception\ValidationException;
-use Art4\JsonApiClient\Input\RequestStringInput;
-use Art4\JsonApiClient\Input\ResponseStringInput;
-use Art4\JsonApiClient\Manager\ErrorAbortManager;
-use Art4\JsonApiClient\V1\Factory;
-
-// The Response body from a JSON API server
-$jsonapiString = '{"meta":{"info":"Testing the JsonApiClient library."}}';
-
-$manager = new ErrorAbortManager(
-    new Factory()
-);
-
-try {
-    // Use this if you have a response after calling a JSON API server
-    $input = new ResponseStringInput($jsonapiString);
-
-    // Or use this if you have a request to your JSON API server
-    $input = new RequestStringInput($jsonapiString);
-
-    $document = $manager->parse($input);
-} catch (InputException $e) {
-    // $jsonapiString is not valid JSON
-} catch (ValidationException $e) {
-    // $jsonapiString is not valid JSON API
-}
-
-// do something with $document
-```
-
-`$document` implements the `Art4\JsonApiClient\Accessable` interface to access the parsed data. It has `has($key)`, `get($key)` and `getKeys()` methods.
+`$document` implements the `Art4\JsonApiClient\Accessable` interface to access the parsed data. It has the methods `has($key)`, `get($key)` and `getKeys()`.
 
 ```php
 // Note that has() and get() have support for dot-notated keys

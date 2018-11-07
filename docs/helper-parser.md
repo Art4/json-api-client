@@ -20,6 +20,7 @@ $document = Parser::parseResponseString($jsonapiString);
 `$document` will be a [Document](objects-document.md) object which provided all contents.
 
 > **Note:** If `$jsonapiString` contains not valid JSON a [InputException](exception-introduction.md#inputexception) will be thrown.
+>
 > **Note:** If `$jsonapiString` contains not valid JSON API a [ValidationException](exception-introduction.md#validationexception) will be thrown.
 >
 > See more about Exceptions in the [Exception section](exception-introduction.md).
@@ -43,6 +44,7 @@ $document = Parser::parseRequestString($jsonapiString);
 This returns a [Document](objects-document.md) object which provided all contents.
 
 > **Note:** If `$jsonapiString` contains not valid JSON a [InputException](exception-introduction.md#inputexception) will be thrown.
+>
 > **Note:** If `$jsonapiString` contains not valid JSON API a [ValidationException](exception-introduction.md#validationexception) will be thrown.
 >
 > See more about Exceptions in the [Exception section](exception-introduction.md).

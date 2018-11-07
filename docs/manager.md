@@ -10,6 +10,8 @@ The `Art4\JsonApiClient\Manager` needs a `Art4\JsonApiClient\Input\Input` instan
 Assuming you have get a response from a JSON API server. Use `parse()` to work with the data.
 
 ```php
+use Art4\JsonApiClient\Exception\InputException;
+use Art4\JsonApiClient\Exception\ValidationException;
 use Art4\JsonApiClient\Input\ResponseStringInput;
 use Art4\JsonApiClient\Manager\ErrorAbortManager;
 use Art4\JsonApiClient\V1\Factory;
@@ -19,19 +21,27 @@ $jsonapiString = '{"meta":{"info":"Testing the JsonApiClient library."}}';
 
 $manager = new ErrorAbortManager(new Factory());
 
-$document = $manager->parse(new ResponseStringInput($jsonapiString));
+try {
+    // Use this if you have a response after calling a JSON API server
+    $input = new ResponseStringInput($jsonapiString);
+
+    $document = $manager->parse($input);
+} catch (InputException $e) {
+    // $jsonapiString is not valid JSON
+} catch (ValidationException $e) {
+    // $jsonapiString is not valid JSON API
+}
 ```
 
 This returns a [Document](objects-document.md) object which provided all contents.
-
-> **Note:** If `$jsonapiString` contains not valid JSON a [InputException](exception-introduction.md#inputexception) will be thrown.
-> **Note:** If `$jsonapiString` contains not valid JSON API a [ValidationException](exception-introduction.md#validationexception) will be thrown.
 
 ### Parse a JSON API string for creating a new resource
 
 Assuming you have get a request for creating a new resource. In this case the `id` in the resource item can be missed and you have to tell the Manager about this case.
 
 ```php
+use Art4\JsonApiClient\Exception\InputException;
+use Art4\JsonApiClient\Exception\ValidationException;
 use Art4\JsonApiClient\Input\RequestStringInput;
 use Art4\JsonApiClient\Manager\ErrorAbortManager;
 use Art4\JsonApiClient\V1\Factory;
@@ -41,14 +51,19 @@ $jsonapiString = '{"data":{"type":"posts","attributes":{"title":"Post Title"}}}'
 
 $manager = new ErrorAbortManager(new Factory());
 
-// Note that here the *Request*StringInput class is used
-$document = $manager->parse(new RequestStringInput($jsonapiString));
+try {
+    // Note that here the *Request*StringInput class is used
+    $input = new RequestStringInput($jsonapiString);
+
+    $document = $manager->parse($input);
+} catch (InputException $e) {
+    // $jsonapiString is not valid JSON
+} catch (ValidationException $e) {
+    // $jsonapiString is not valid JSON API
+}
 ```
 
 This returns a [Document](objects-document.md) object which provided all contents.
-
-> **Note:** If `$jsonapiString` contains not valid JSON a [InputException](exception-introduction.md#inputexception) will be thrown.
-> **Note:** If `$jsonapiString` contains not valid JSON API a [ValidationException](exception-introduction.md#validationexception) will be thrown.
 
 ### Working with a factory
 
