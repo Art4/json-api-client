@@ -5,6 +5,62 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Removed
+
+- **BREAKING**: `Art4\JsonApiClient\AccessInterface` removed, use `Art4\JsonApiClient\Accessable` instead
+- **BREAKING**: `Art4\JsonApiClient\Attributes` removed, use `Art4\JsonApiClient\V1\Attributes` instead
+- **BREAKING**: `Art4\JsonApiClient\AttributesInterface` removed, use `Art4\JsonApiClient\Accessable` instead
+- **BREAKING**: `Art4\JsonApiClient\Document` removed, use `Art4\JsonApiClient\V1\Document` instead
+- **BREAKING**: `Art4\JsonApiClient\DocumentInterface` removed, use `Art4\JsonApiClient\Accessable` instead
+- **BREAKING**: `Art4\JsonApiClient\DocumentLink` removed, use `Art4\JsonApiClient\V1\DocumentLink` instead
+- **BREAKING**: `Art4\JsonApiClient\DocumentLinkInterface` removed, use `Art4\JsonApiClient\Accessable` instead
+- **BREAKING**: `Art4\JsonApiClient\ElementInterface` removed, use `Art4\JsonApiClient\Element` instead
+- **BREAKING**: `Art4\JsonApiClient\Error` removed, use `Art4\JsonApiClient\V1\Error` instead
+- **BREAKING**: `Art4\JsonApiClient\ErrorCollection` removed, use `Art4\JsonApiClient\V1\ErrorCollection` instead
+- **BREAKING**: `Art4\JsonApiClient\ErrorCollectionInterface` removed, use `Art4\JsonApiClient\Accessable` instead
+- **BREAKING**: `Art4\JsonApiClient\ErrorInterface` removed, use `Art4\JsonApiClient\Accessable` instead
+- **BREAKING**: `Art4\JsonApiClient\ErrorLink` removed, use `Art4\JsonApiClient\V1\ErrorLink` instead
+- **BREAKING**: `Art4\JsonApiClient\ErrorLinkInterface` removed, use `Art4\JsonApiClient\Accessable` instead
+- **BREAKING**: `Art4\JsonApiClient\ErrorSource` removed, use `Art4\JsonApiClient\V1\ErrorSource` instead
+- **BREAKING**: `Art4\JsonApiClient\ErrorSourceInterface` removed, use `Art4\JsonApiClient\Accessable` instead
+- **BREAKING**: `Art4\JsonApiClient\Jsonapi` removed, use `Art4\JsonApiClient\V1\Jsonapi` instead
+- **BREAKING**: `Art4\JsonApiClient\JsonapiInterface` removed, use `Art4\JsonApiClient\Accessable` instead
+- **BREAKING**: `Art4\JsonApiClient\Link` removed, use `Art4\JsonApiClient\V1\Link` instead
+- **BREAKING**: `Art4\JsonApiClient\LinkInterface` removed, use `Art4\JsonApiClient\Accessable` instead
+- **BREAKING**: `Art4\JsonApiClient\Meta` removed, use `Art4\JsonApiClient\V1\Meta` instead
+- **BREAKING**: `Art4\JsonApiClient\MetaInterface` removed, use `Art4\JsonApiClient\Accessable` instead
+- **BREAKING**: `Art4\JsonApiClient\Relationship` removed, use `Art4\JsonApiClient\V1\Relationship` instead
+- **BREAKING**: `Art4\JsonApiClient\RelationshipCollection` removed, use `Art4\JsonApiClient\V1\RelationshipCollection` instead
+- **BREAKING**: `Art4\JsonApiClient\RelationshipCollectionInterface` removed, use `Art4\JsonApiClient\Accessable` instead
+- **BREAKING**: `Art4\JsonApiClient\RelationshipInterface` removed, use `Art4\JsonApiClient\Accessable` instead
+- **BREAKING**: `Art4\JsonApiClient\RelationshipLink` removed, use `Art4\JsonApiClient\V1\RelationshipLink` instead
+- **BREAKING**: `Art4\JsonApiClient\RelationshipLinkInterface` removed, use `Art4\JsonApiClient\Accessable` instead
+- **BREAKING**: `Art4\JsonApiClient\ResourceCollection` removed, use `Art4\JsonApiClient\V1\ResourceCollection` instead
+- **BREAKING**: `Art4\JsonApiClient\ResourceCollectionInterface` removed, use `Art4\JsonApiClient\Accessable` instead
+- **BREAKING**: `Art4\JsonApiClient\ResourceIdentifier` removed, use `Art4\JsonApiClient\V1\ResourceIdentifier` instead
+- **BREAKING**: `Art4\JsonApiClient\ResourceIdentifierCollection` removed, use `Art4\JsonApiClient\V1\ResourceIdentifierCollection` instead
+- **BREAKING**: `Art4\JsonApiClient\ResourceIdentifierCollectionInterface` removed, use `Art4\JsonApiClient\Accessable` instead
+- **BREAKING**: `Art4\JsonApiClient\ResourceIdentifierInterface` removed, use `Art4\JsonApiClient\Accessable` instead
+- **BREAKING**: `Art4\JsonApiClient\ResourceItem` removed, use `Art4\JsonApiClient\V1\ResourceItem` instead
+- **BREAKING**: `Art4\JsonApiClient\ResourceItemInterface` removed, use `Art4\JsonApiClient\Accessable` instead
+- **BREAKING**: `Art4\JsonApiClient\ResourceItemLink` removed, use `Art4\JsonApiClient\V1\ResourceItemLink` instead
+- **BREAKING**: `Art4\JsonApiClient\ResourceItemLinkInterface` removed, use `Art4\JsonApiClient\Accessable` instead
+- **BREAKING**: `Art4\JsonApiClient\ResourceNull` removed, use `Art4\JsonApiClient\V1\ResourceNull` instead
+- **BREAKING**: `Art4\JsonApiClient\ResourceNullInterface` removed, use `Art4\JsonApiClient\Accessable` instead
+- **BREAKING**: `Art4\JsonApiClient\Utils\AccessKey` removed
+- **BREAKING**: `Art4\JsonApiClient\Utils\AccessTrait` removed
+- **BREAKING**: `Art4\JsonApiClient\Utils\DataContainer` removed
+- **BREAKING**: `Art4\JsonApiClient\Utils\DataContainerInterface` removed
+- **BREAKING**: `Art4\JsonApiClient\Utils\Factory` removed, use `Art4\JsonApiClient\V1\Factory` instead
+- **BREAKING**: `Art4\JsonApiClient\Utils\FactoryInterface` removed, use `Art4\JsonApiClient\Factory` instead
+- **BREAKING**: `Art4\JsonApiClient\Utils\FactoryManagerInterface` removed
+- **BREAKING**: `Art4\JsonApiClient\Utils\Helper::decodeJson()` removed, use `Art4\JsonApiClient\Input\ResponseStringInput::getAsObject()` instead
+- **BREAKING**: `Art4\JsonApiClient\Utils\Helper` removed, use `Art4\JsonApiClient\Helper\Parser` instead
+- **BREAKING**: `Art4\JsonApiClient\Utils\Manager` removed, use `Art4\JsonApiClient\Manager\ErrorAbortManager` instead
+- **BREAKING**: `Art4\JsonApiClient\Utils\ManagerInterface` removed, use `Art4\JsonApiClient\Manager` instead
+
 ## [0.10] - 2018-11-07
 
 ### Added
