@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient\Tests\Integration;
+namespace Art4\JsonApiClient\Tests\Functional;
 
 use Art4\JsonApiClient\Helper\Parser;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
