@@ -106,7 +106,7 @@ class DocumentLinkTest extends TestCase
      *
      * @param mixed $input
      */
-    public function _testCreateWithoutObjectThrowsException($input)
+    public function testCreateWithoutObjectThrowsException($input)
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(
@@ -123,7 +123,7 @@ class DocumentLinkTest extends TestCase
      *
      * @param mixed $input
      */
-    public function _testCreateWithoutObjectOrStringAttributeThrowsException($input)
+    public function testCreateWithoutObjectOrStringAttributeThrowsException($input)
     {
         $object = new \stdClass();
         $object->self = 'http://example.org/self';
@@ -144,7 +144,7 @@ class DocumentLinkTest extends TestCase
      *
      * @param mixed $input
      */
-    public function _testSelfMustBeAStringOrObject($input)
+    public function testSelfMustBeAStringOrObject($input)
     {
         $object = new \stdClass();
         $object->self = $input;
@@ -176,7 +176,7 @@ class DocumentLinkTest extends TestCase
      *
      * @param mixed $input
      */
-    public function _testRelatedMustBeAStringOrObject($input)
+    public function testRelatedMustBeAStringOrObject($input)
     {
         $object = new \stdClass();
         $object->related = $input;
@@ -196,7 +196,7 @@ class DocumentLinkTest extends TestCase
      *
      * @param mixed $input
      */
-    public function _testFirstCanBeAnObjectOrStringOrNull($input)
+    public function testFirstCanBeAnObjectOrStringOrNull($input)
     {
         $object = new \stdClass();
         $object->self = 'https://example.org/self';
@@ -246,7 +246,7 @@ class DocumentLinkTest extends TestCase
      *
      * @param mixed $input
      */
-    public function _testLastCanBeAStringOrNull($input)
+    public function testLastCanBeAStringOrNull($input)
     {
         $object = new \stdClass();
         $object->self = 'https://example.org/self';
@@ -296,7 +296,7 @@ class DocumentLinkTest extends TestCase
      *
      * @param mixed $input
      */
-    public function _testPrevCanBeAStringOrNull($input)
+    public function testPrevCanBeAStringOrNull($input)
     {
         $object = new \stdClass();
         $object->self = 'https://example.org/self';
@@ -346,7 +346,7 @@ class DocumentLinkTest extends TestCase
      *
      * @param mixed $input
      */
-    public function _testNextCanBeAStringOrNull($input)
+    public function testNextCanBeAStringOrNull($input)
     {
         $object = new \stdClass();
         $object->self = 'https://example.org/self';
