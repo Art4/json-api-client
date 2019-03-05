@@ -19,7 +19,6 @@
 
 namespace Art4\JsonApiClient\Helper;
 
-use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\Exception\Exception;
 use Art4\JsonApiClient\Input\RequestStringInput;
 use Art4\JsonApiClient\Input\ResponseStringInput;
@@ -36,7 +35,7 @@ final class Parser
      *
      * @throws Art4\JsonApiClient\Exception\Exception
      *
-     * @return Art4\JsonApiClient\Accessable
+     * @return \Art4\JsonApiClient\Accessable
      */
     public static function parseResponseString($jsonString)
     {
@@ -50,7 +49,7 @@ final class Parser
      *
      * @throws Art4\JsonApiClient\Exception\Exception
      *
-     * @return Art4\JsonApiClient\Accessable
+     * @return \Art4\JsonApiClient\Accessable
      */
     public static function parseRequestString($jsonString)
     {
