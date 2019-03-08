@@ -59,7 +59,7 @@ final class ErrorAbortManager implements Manager
      *
      * @throws Art4\JsonApiClient\Exception\ValidationException If $input contains invalid JSON API
      *
-     * @return Art4\JsonApiClient\Accessable
+     * @return \Art4\JsonApiClient\Accessable
      */
     public function parse(Input $input)
     {
