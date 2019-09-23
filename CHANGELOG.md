@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Deprecated
 
-- Providing the fields `type` or `id` in a resource not as a string will be throw an ValidationException in v1.0, provide them always as strings instead.
+- Providing the fields `type` or `id` in a resource not as a string will be throw a ValidationException in v1.0, provide them always as strings instead.
 
 ## [0.10] - 2018-11-07
 
@@ -254,7 +254,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Validator fits nearly 100% specification
 - Full test coverage
 
-[Unreleased]: https://github.com/Art4/json-api-client/compare/0.10...HEAD
+[Unreleased]: https://github.com/Art4/json-api-client/compare/0.10.1...HEAD
+[0.10.1]: https://github.com/Art4/json-api-client/compare/0.10...0.10.1
 [0.10]: https://github.com/Art4/json-api-client/compare/0.9.1...0.10
 [0.9.1]: https://github.com/Art4/json-api-client/compare/0.9...0.9.1
 [0.9]: https://github.com/Art4/json-api-client/compare/0.8.1...0.9
