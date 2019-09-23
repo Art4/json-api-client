@@ -71,7 +71,7 @@ final class ResourceCollection extends AbstractElement
      *
      * @param object $data The resource data
      *
-     * @return ElementInterface The resource
+     * @return \Art4\JsonApiClient\Accessable The resource
      */
     private function parseResource($data)
     {

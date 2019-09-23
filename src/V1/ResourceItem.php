@@ -19,7 +19,6 @@
 
 namespace Art4\JsonApiClient\V1;
 
-use Art4\JsonApiClient\DocumentInterface;
 use Art4\JsonApiClient\Helper\AbstractElement;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
