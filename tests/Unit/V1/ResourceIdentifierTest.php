@@ -48,7 +48,7 @@ class ResourceIdentifierTest extends TestCase
     {
         $object = new \stdClass();
         $object->type = 'type';
-        $object->id = 789;
+        $object->id = '789';
 
         $identifier = new ResourceIdentifier($object, $this->manager, $this->parent);
 
@@ -68,7 +68,7 @@ class ResourceIdentifierTest extends TestCase
     {
         $object = new \stdClass();
         $object->type = 'types';
-        $object->id = 159;
+        $object->id = '159';
         $object->meta = new \stdClass();
 
         $identifier = new ResourceIdentifier($object, $this->manager, $this->parent);
@@ -83,24 +83,22 @@ class ResourceIdentifierTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProvider
+     * @dataProvider jsonValuesProviderWithoutString
      *
      * The values of the id and type members MUST be strings.
      *
      * @param mixed $input
      */
-    public function testTypeCannotBeAnObjectOrArray($input)
+    public function testTypeMustBeAString($input)
     {
         $object = new \stdClass();
         $object->type = $input;
         $object->id = '753';
 
-        if (gettype($input) === 'object' or gettype($input) === 'array') {
-            $this->expectException(ValidationException::class);
-            $this->expectExceptionMessage(
-                'Resource type cannot be an array or object'
-            );
-        }
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
+            'A resource type MUST be a string'
+        );
 
         $identifier = new ResourceIdentifier($object, $this->manager, $this->parent);
 
@@ -108,29 +106,24 @@ class ResourceIdentifierTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProvider
+     * @dataProvider jsonValuesProviderWithoutString
      *
      * The values of the id and type members MUST be strings.
      *
      * @param mixed $input
      */
-    public function testIdCannotBeAnObjectOrArray($input)
+    public function testIdMustBeAString($input)
     {
         $object = new \stdClass();
         $object->type = 'posts';
         $object->id = $input;
 
-
-        if (gettype($input) === 'object' or gettype($input) === 'array') {
-            $this->expectException(ValidationException::class);
-            $this->expectExceptionMessage(
-                'Resource Id cannot be an array or object'
-            );
-        }
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
+            'A resource id MUST be a string'
+        );
 
         $identifier = new ResourceIdentifier($object, $this->manager, $this->parent);
-
-        $this->assertTrue(is_string($identifier->get('id')));
     }
 
     /**
@@ -157,7 +150,7 @@ class ResourceIdentifierTest extends TestCase
     public function testCreateWithObjectWithoutTypeThrowsException()
     {
         $object = new \stdClass();
-        $object->id = 123;
+        $object->id = '123';
 
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(
@@ -190,7 +183,7 @@ class ResourceIdentifierTest extends TestCase
     {
         $object = new \stdClass();
         $object->type = 'posts';
-        $object->id = 9;
+        $object->id = '9';
 
         $identifier = new ResourceIdentifier($object, $this->manager, $this->parent);
 

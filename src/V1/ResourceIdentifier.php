@@ -47,28 +47,20 @@ final class ResourceIdentifier extends AbstractElement
             throw new ValidationException('A resource object MUST contain a type');
         }
 
+        if (! is_string($object->type)) {
+            throw new ValidationException('A resource type MUST be a string');
+        }
+
         if (! property_exists($object, 'id')) {
             throw new ValidationException('A resource object MUST contain an id');
         }
 
-        if (! is_string($object->type)) {
-            if (is_object($object->type) or is_array($object->type)) {
-                throw new ValidationException('Resource type cannot be an array or object');
-            }
-
-            @trigger_error('Parsing `type` not as string is deprecated since version 0.10.1 and will be throw an Exception in 1.0. Provide `type` always as string instead', E_USER_DEPRECATED);
-        }
-
         if (! is_string($object->id)) {
-            if (is_object($object->id) or is_array($object->id)) {
-                throw new ValidationException('Resource Id cannot be an array or object');
-            }
-
-            @trigger_error('Parsing `id` not as string is deprecated since version 0.10.1 and will be throw an Exception in 1.0. Provide `id` always as string instead', E_USER_DEPRECATED);
+            throw new ValidationException('A resource id MUST be a string');
         }
 
-        $this->set('type', strval($object->type));
-        $this->set('id', strval($object->id));
+        $this->set('type', $object->type);
+        $this->set('id', $object->id);
 
         if (property_exists($object, 'meta')) {
             $this->set('meta', $this->create('Meta', $object->meta));

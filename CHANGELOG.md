@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- **BREAKING**: Providing the fields `type` or `id` in a resource not as a string throws a `\Art4\JsonApiClient\Exception\ValidationException`, provide them always as strings instead
+
 ### Removed
 
 - **BREAKING**: `Art4\JsonApiClient\AccessInterface` removed, use `Art4\JsonApiClient\Accessable` instead
@@ -65,7 +69,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Deprecated
 
-- Providing the fields `type` or `id` in a resource not as a string will be throw a ValidationException in v1.0, provide them always as strings instead.
+- Providing the fields `type` or `id` in a resource not as a string will be throw a ValidationException in v1.0, provide them always as strings instead
 
 ## [0.10] - 2018-11-07
 

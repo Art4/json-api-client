@@ -48,7 +48,7 @@ class ResourceItemTest extends TestCase
     {
         $object = new \stdClass();
         $object->type = 'type';
-        $object->id = 789;
+        $object->id = '789';
 
         $this->manager->method('getParam')->willReturn(false);
 
@@ -83,7 +83,7 @@ class ResourceItemTest extends TestCase
     {
         $object = new \stdClass();
         $object->type = 'type';
-        $object->id = 789;
+        $object->id = '789';
         $object->meta = new \stdClass();
         $object->attributes = new \stdClass();
         $object->relationships = new \stdClass();
@@ -107,68 +107,42 @@ class ResourceItemTest extends TestCase
     }
 
     /**
+     * @dataProvider jsonValuesProviderWithoutString
+     *
      * The values of the id and type members MUST be strings.
+     *
+     * @param mixed $input
      */
-    public function testTypeCannotBeAnObject()
+    public function testTypeMustBeAString($input)
     {
         $object = new \stdClass();
-        $object->type = new \stdClass;
+        $object->type = $input;
         $object->id = '753';
 
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(
-            'Resource type cannot be an array or object'
+            'A resource type MUST be a string'
         );
 
         $item = new ResourceItem($object, $this->manager, $this->parent);
     }
 
     /**
+     * @dataProvider jsonValuesProviderWithoutString
+     *
      * The values of the id and type members MUST be strings.
+     *
+     * @param mixed $input
      */
-    public function testTypeCannotBeAnArray()
-    {
-        $object = new \stdClass();
-        $object->type = [];
-        $object->id = '753';
-
-        $this->expectException(ValidationException::class);
-        $this->expectExceptionMessage(
-            'Resource type cannot be an array or object'
-        );
-
-        $item = new ResourceItem($object, $this->manager, $this->parent);
-    }
-
-    /**
-     * The values of the id and type members MUST be strings.
-     */
-    public function testIdCannotBeAnObject()
+    public function testIdMustBeAString($input)
     {
         $object = new \stdClass();
         $object->type = 'posts';
-        $object->id = new \stdClass;
+        $object->id = $input;
 
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(
-            'Resource id cannot be an array or object'
-        );
-
-        $item = new ResourceItem($object, $this->manager, $this->parent);
-    }
-
-    /**
-     * The values of the id and type members MUST be strings.
-     */
-    public function testIdCannotBeAnArray()
-    {
-        $object = new \stdClass();
-        $object->type = 'posts';
-        $object->id = [];
-
-        $this->expectException(ValidationException::class);
-        $this->expectExceptionMessage(
-            'Resource id cannot be an array or object'
+            'A resource id MUST be a string'
         );
 
         $item = new ResourceItem($object, $this->manager, $this->parent);
