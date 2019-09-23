@@ -51,12 +51,20 @@ final class ResourceIdentifier extends AbstractElement
             throw new ValidationException('A resource object MUST contain an id');
         }
 
-        if (is_object($object->type) or is_array($object->type)) {
-            throw new ValidationException('Resource type cannot be an array or object');
+        if (! is_string($object->type)) {
+            if (is_object($object->type) or is_array($object->type)) {
+                throw new ValidationException('Resource type cannot be an array or object');
+            }
+
+            @trigger_error('Parsing `type` not as string is deprecated since version 0.10.1 and will be throw an Exception in 1.0. Provide `type` always as string instead', E_USER_DEPRECATED);
         }
 
-        if (is_object($object->id) or is_array($object->id)) {
-            throw new ValidationException('Resource Id cannot be an array or object');
+        if (! is_string($object->id)) {
+            if (is_object($object->id) or is_array($object->id)) {
+                throw new ValidationException('Resource Id cannot be an array or object');
+            }
+
+            @trigger_error('Parsing `id` not as string is deprecated since version 0.10.1 and will be throw an Exception in 1.0. Provide `id` always as string instead', E_USER_DEPRECATED);
         }
 
         $this->set('type', strval($object->type));
