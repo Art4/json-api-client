@@ -34,12 +34,10 @@ class RelationshipLinkTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
         $this->manager = $this->buildManagerMock();
 
         // Mock identifier collection
-        $collection = $this->getMockBuilder('Art4\JsonApiClient\ResourceIdentifierCollectionInterface')
-            ->getMock();
+        $collection = $this->createMock('Art4\JsonApiClient\ResourceIdentifierCollectionInterface');
 
         // Mock Relationship with data
-        $this->relationship = $this->getMockBuilder('Art4\JsonApiClient\RelationshipInterface')
-            ->getMock();
+        $this->relationship = $this->createMock('Art4\JsonApiClient\RelationshipInterface');
 
         $this->relationship->expects($this->any())
             ->method('has')
@@ -160,8 +158,7 @@ class RelationshipLinkTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
         $object->next = new \stdClass();
 
         // Mock Relationship
-        $relationship = $this->getMockBuilder('Art4\JsonApiClient\RelationshipInterface')
-            ->getMock();
+        $relationship = $this->createMock('Art4\JsonApiClient\RelationshipInterface');
 
         $relationship->expects($this->any())
             ->method('has')
@@ -199,8 +196,7 @@ class RelationshipLinkTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
         $object->next = new \stdClass();
 
         // Mock Relationship
-        $relationship = $this->getMockBuilder('Art4\JsonApiClient\RelationshipInterface')
-            ->getMock();
+        $relationship = $this->createMock('Art4\JsonApiClient\RelationshipInterface');
 
         $relationship->expects($this->any())
             ->method('has')
@@ -208,8 +204,7 @@ class RelationshipLinkTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
             ->will($this->returnValue(true));
 
         // Mock identifier item
-        $data = $this->getMockBuilder('Art4\JsonApiClient\ResourceIdentifierInterface')
-            ->getMock();
+        $data = $this->createMock('Art4\JsonApiClient\ResourceIdentifierInterface');
 
         $relationship->expects($this->any())
             ->method('get')

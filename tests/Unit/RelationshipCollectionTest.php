@@ -43,8 +43,7 @@ class RelationshipCollectionTest extends \Art4\JsonApiClient\Tests\Fixtures\Test
         $object->author = new \stdClass();
         $object->author->meta = new \stdClass();
 
-        $item = $this->getMockBuilder('Art4\JsonApiClient\ResourceItemInterface')
-            ->getMock();
+        $item = $this->createMock('Art4\JsonApiClient\ResourceItemInterface');
 
         $item->method('has')
             ->with($this->equalTo('attributes.author'))
@@ -80,8 +79,7 @@ class RelationshipCollectionTest extends \Art4\JsonApiClient\Tests\Fixtures\Test
      */
     public function testCreateWithEmptyObject()
     {
-        $item = $this->getMockBuilder('Art4\JsonApiClient\ResourceItemInterface')
-            ->getMock();
+        $item = $this->createMock('Art4\JsonApiClient\ResourceItemInterface');
 
         $item->method('has')
             ->with($this->equalTo('attributes'))
@@ -102,8 +100,7 @@ class RelationshipCollectionTest extends \Art4\JsonApiClient\Tests\Fixtures\Test
      */
     public function testCreateWithTypePropertyThrowsException()
     {
-        $item = $this->getMockBuilder('Art4\JsonApiClient\ResourceItemInterface')
-            ->getMock();
+        $item = $this->createMock('Art4\JsonApiClient\ResourceItemInterface');
 
         $item->expects($this->any())
             ->method('has')
@@ -130,8 +127,7 @@ class RelationshipCollectionTest extends \Art4\JsonApiClient\Tests\Fixtures\Test
      */
     public function testCreateWithIdPropertyThrowsException()
     {
-        $item = $this->getMockBuilder('Art4\JsonApiClient\ResourceItemInterface')
-            ->getMock();
+        $item = $this->createMock('Art4\JsonApiClient\ResourceItemInterface');
 
         $item->expects($this->any())
             ->method('has')
@@ -158,8 +154,7 @@ class RelationshipCollectionTest extends \Art4\JsonApiClient\Tests\Fixtures\Test
      */
     public function testCreateWithAuthorInRelationshipsAndAttributesThrowsException()
     {
-        $item = $this->getMockBuilder('Art4\JsonApiClient\ResourceItemInterface')
-            ->getMock();
+        $item = $this->createMock('Art4\JsonApiClient\ResourceItemInterface');
 
         $item->expects($this->any())
             ->method('has')
@@ -186,8 +181,7 @@ class RelationshipCollectionTest extends \Art4\JsonApiClient\Tests\Fixtures\Test
      */
     public function testCreateWithoutObjectThrowsException($input)
     {
-        $item = $this->getMockBuilder('Art4\JsonApiClient\ResourceItemInterface')
-        ->getMock();
+        $item = $this->createMock('Art4\JsonApiClient\ResourceItemInterface');
 
         $collection = new RelationshipCollection($this->manager, $item);
 
