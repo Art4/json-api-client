@@ -39,8 +39,7 @@ class ManagerTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
      */
     public function testCreateWithConstructorReturnsSelf()
     {
-        $factory = $this->getMockBuilder('Art4\JsonApiClient\Utils\FactoryInterface')
-            ->getMock();
+        $factory = $this->createMock('Art4\JsonApiClient\Utils\FactoryInterface');
 
         $manager = new Manager($factory);
 
@@ -55,8 +54,7 @@ class ManagerTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
      */
     public function testSetFactoryReturnsSelf()
     {
-        $factory = $this->getMockBuilder('Art4\JsonApiClient\Utils\FactoryInterface')
-            ->getMock();
+        $factory = $this->createMock('Art4\JsonApiClient\Utils\FactoryInterface');
 
         $manager = new Manager;
 
@@ -68,8 +66,7 @@ class ManagerTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
      */
     public function testGetFactoryReturnsFactoryInterface()
     {
-        $factory = $this->getMockBuilder('Art4\JsonApiClient\Utils\FactoryInterface')
-            ->getMock();
+        $factory = $this->createMock('Art4\JsonApiClient\Utils\FactoryInterface');
 
         $manager = (new Manager)->setFactory($factory);
 

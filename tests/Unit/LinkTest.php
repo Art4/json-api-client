@@ -34,8 +34,7 @@ class LinkTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
         $this->manager = $this->buildManagerMock();
 
         // Mock parent link
-        $this->parent_link = $this->getMockBuilder('Art4\JsonApiClient\LinkInterface')
-            ->getMock();
+        $this->parent_link = $this->createMock('Art4\JsonApiClient\LinkInterface');
     }
 
     /**

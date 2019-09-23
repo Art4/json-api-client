@@ -34,8 +34,7 @@ class DocumentLinkTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
         $this->manager = $this->buildManagerMock();
 
         // Mock parent
-        $this->parent = $this->getMockBuilder('Art4\JsonApiClient\AccessInterface')
-            ->getMock();
+        $this->parent = $this->createMock('Art4\JsonApiClient\AccessInterface');
 
         $this->parent->expects($this->any())
             ->method('has')
