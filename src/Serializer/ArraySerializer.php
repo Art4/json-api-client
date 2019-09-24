@@ -20,7 +20,6 @@
 namespace Art4\JsonApiClient\Serializer;
 
 use Art4\JsonApiClient\Accessable;
-use Art4\JsonApiClient\ResourceNullInterface;
 use Art4\JsonApiClient\V1\ResourceNull;
 
 final class ArraySerializer implements Serializer
@@ -54,10 +53,7 @@ final class ArraySerializer implements Serializer
     {
         $fullArray = (bool) $this->config['recursive'];
 
-        if (
-            $data instanceof ResourceNull
-            or $data instanceof ResourceNullInterface // #TODO Don't use ResourceNullInterface anymore
-        ) {
+        if ($data instanceof ResourceNull) {
             return null;
         }
 

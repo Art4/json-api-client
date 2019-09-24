@@ -22,7 +22,6 @@ namespace Art4\JsonApiClient\V1;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 use Art4\JsonApiClient\Helper\AbstractElement;
-use Art4\JsonApiClient\ResourceIdentifierCollectionInterface;
 
 /**
  * Relationship Link Object
@@ -80,10 +79,9 @@ final class RelationshipLink extends AbstractElement
         }
 
         // Pagination links
-        if ($this->getParent()->has('data') and (
-            $this->getParent()->get('data') instanceof ResourceIdentifierCollection or
-            $this->getParent()->get('data') instanceof ResourceIdentifierCollectionInterface
-        )) {
+        if ($this->getParent()->has('data') and
+            $this->getParent()->get('data') instanceof ResourceIdentifierCollection
+        ) {
             if (array_key_exists('first', $links)) {
                 $this->setPaginationLink('first', $links['first']);
 

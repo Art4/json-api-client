@@ -49,6 +49,11 @@ final class V1Factory implements FactoryInterface
      */
     public function make($name, array $args = [])
     {
-        return $this->testcase->getMockBuilder(AccessableElement::class)->getMock();
+        return $this->testcase->getMockBuilder(AccessableElement::class)
+            ->disableOriginalConstructor()
+            ->disableOriginalClone()
+            ->disableArgumentCloning()
+            ->disallowMockingUnknownTypes()
+            ->getMock();
     }
 }

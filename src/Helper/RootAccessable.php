@@ -28,7 +28,7 @@ use Art4\JsonApiClient\Manager;
  *
  * @internal
  */
-class RootAccessable implements Accessable
+final class RootAccessable implements Accessable
 {
     use AccessableTrait;
 }

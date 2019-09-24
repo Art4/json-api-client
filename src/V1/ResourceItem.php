@@ -19,7 +19,6 @@
 
 namespace Art4\JsonApiClient\V1;
 
-use Art4\JsonApiClient\DocumentInterface;
 use Art4\JsonApiClient\Helper\AbstractElement;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
@@ -48,11 +47,11 @@ final class ResourceItem extends AbstractElement
             throw new ValidationException('A resource object MUST contain a type');
         }
 
-        if (is_object($object->type) or is_array($object->type)) {
-            throw new ValidationException('Resource type cannot be an array or object');
+        if (! is_string($object->type)) {
+            throw new ValidationException('A resource type MUST be a string');
         }
 
-        $this->set('type', strval($object->type));
+        $this->set('type', $object->type);
 
         if (
             $this->getManager()->getParam('optional_item_id', false) === false
@@ -62,11 +61,11 @@ final class ResourceItem extends AbstractElement
                 throw new ValidationException('A resource object MUST contain an id');
             }
 
-            if (is_object($object->id) or is_array($object->id)) {
-                throw new ValidationException('Resource id cannot be an array or object');
+            if (! is_string($object->id)) {
+                throw new ValidationException('A resource id MUST be a string');
             }
 
-            $this->set('id', strval($object->id));
+            $this->set('id', $object->id);
         }
 
         if (property_exists($object, 'meta')) {

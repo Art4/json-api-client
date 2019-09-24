@@ -37,6 +37,10 @@ final class Factory implements FactoryInterface
     {
         return $this->testcase
             ->getMockBuilder('Art4\JsonApiClient\\' . $name . 'Interface') // Mock only the interfaces
+            ->disableOriginalConstructor()
+            ->disableOriginalClone()
+            ->disableArgumentCloning()
+            ->disallowMockingUnknownTypes()
             ->getMock();
     }
 }
