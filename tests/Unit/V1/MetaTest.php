@@ -33,7 +33,7 @@ class MetaTest extends TestCase
     /**
      * @setup
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpManagerMock();
 

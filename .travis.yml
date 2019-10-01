@@ -9,11 +9,9 @@ matrix:
   include:
     - php: nightly
     - env: COLLECT_COVERAGE=true
-      php: 7.3
   allow_failures:
     - php: nightly
     - env: COLLECT_COVERAGE=true
-      php: 7.3
 
 before_install:
 - travis_retry composer self-update
