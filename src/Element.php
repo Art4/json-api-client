@@ -27,9 +27,9 @@ interface Element
     /**
      * Sets the manager and parent
      *
-     * @param mixed                         $data    The data for this Element
-     * @param Art4\JsonApiClient\Manager    $manager The manager
-     * @param Art4\JsonApiClient\Accessable $parent  The parent
+     * @param mixed                          $data    The data for this Element
+     * @param \Art4\JsonApiClient\Manager    $manager The manager
+     * @param \Art4\JsonApiClient\Accessable $parent  The parent
      */
     public function __construct($data, Manager $manager, Accessable $parent);
 }

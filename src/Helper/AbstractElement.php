@@ -33,21 +33,21 @@ abstract class AbstractElement implements Accessable, Element
     use AccessableTrait;
 
     /**
-     * @var Art4\JsonApiClient\Manager
+     * @var \Art4\JsonApiClient\Manager
      */
     private $manager;
 
     /**
-     * @var Art4\JsonApiClient\Accessable
+     * @var \Art4\JsonApiClient\Accessable
      */
     private $parent;
 
     /**
      * Sets the manager and parent
      *
-     * @param mixed                         $data    The data for this Element
-     * @param Art4\JsonApiClient\Manager    $manager The manager
-     * @param Art4\JsonApiClient\Accessable $parent  The parent
+     * @param mixed                          $data    The data for this Element
+     * @param \Art4\JsonApiClient\Manager    $manager The manager
+     * @param \Art4\JsonApiClient\Accessable $parent  The parent
      */
     public function __construct($data, Manager $manager, Accessable $parent)
     {
@@ -60,7 +60,7 @@ abstract class AbstractElement implements Accessable, Element
     /**
      * Returns the Manager
      *
-     * @return Art4\JsonApiClient\Manager
+     * @return \Art4\JsonApiClient\Manager
      */
     protected function getManager()
     {
@@ -70,7 +70,7 @@ abstract class AbstractElement implements Accessable, Element
     /**
      * Get the parent
      *
-     * @return Art4\JsonApiClient\Accessable
+     * @return \Art4\JsonApiClient\Accessable
      */
     protected function getParent()
     {
@@ -83,7 +83,7 @@ abstract class AbstractElement implements Accessable, Element
      * @param mixed $name
      * @param mixed $data
      *
-     * @return Art4\JsonApiClient\Accessable
+     * @return \Art4\JsonApiClient\Accessable
      */
     protected function create($name, $data)
     {
