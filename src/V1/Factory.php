@@ -69,7 +69,7 @@ final class Factory implements FactoryInterface
      * @param string $name
      * @param array  $args
      *
-     * @return Art4\JsonApiClient\Accessable
+     * @return \Art4\JsonApiClient\Accessable
      */
     public function make($name, array $args = [])
     {

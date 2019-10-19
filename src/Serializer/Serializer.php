@@ -26,7 +26,7 @@ interface Serializer
     /**
      * Serialize data
      *
-     * @param Art4\JsonApiClient\Accessable $data The data for serialization
+     * @param \Art4\JsonApiClient\Accessable $data The data for serialization
      *
      * @return array
      */

@@ -29,18 +29,18 @@ interface Manager
     /**
      * Parse the input
      *
-     * @param Art4\JsonApiClient\Input\Input $input
+     * @param \Art4\JsonApiClient\Input\Input $input
      *
-     * @throws Art4\JsonApiClient\Exception\ValidationException If $input contains invalid JSON API
+     * @throws \Art4\JsonApiClient\Exception\ValidationException If $input contains invalid JSON API
      *
-     * @return Art4\JsonApiClient\Accessable
+     * @return \Art4\JsonApiClient\Accessable
      */
     public function parse(Input $input);
 
     /**
      * Get a factory from the manager
      *
-     * @return Art4\JsonApiClient\Factory
+     * @return \Art4\JsonApiClient\Factory
      */
     public function getFactory();
 

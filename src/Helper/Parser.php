@@ -33,7 +33,7 @@ final class Parser
     /**
      * @param string $jsonString
      *
-     * @throws Art4\JsonApiClient\Exception\Exception
+     * @throws \Art4\JsonApiClient\Exception\Exception
      *
      * @return \Art4\JsonApiClient\Accessable
      */
@@ -47,7 +47,7 @@ final class Parser
     /**
      * @param string $jsonString
      *
-     * @throws Art4\JsonApiClient\Exception\Exception
+     * @throws \Art4\JsonApiClient\Exception\Exception
      *
      * @return \Art4\JsonApiClient\Accessable
      */
