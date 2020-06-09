@@ -54,10 +54,6 @@ final class RelationshipCollection extends AbstractElement
         }
 
         foreach ($object_vars as $name => $value) {
-            if ($this->getParent()->has('attributes.' . $name)) {
-                throw new ValidationException('"' . $name . '" property cannot be set because it exists already in parents Resource object.');
-            }
-
             $this->set($name, $this->create('Relationship', $value));
         }
     }
