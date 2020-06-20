@@ -5,13 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [0.10.1] - 2019-09-24
+## [Unreleased](https://github.com/Art4/json-api-client/compare/0.10.2...HEAD)
+
+## [0.10.2 - 2020-06-21](https://github.com/Art4/json-api-client/compare/0.10.1...0.10.2)
+
+### Fixed
+
+- Relationship links can be an object
+
+## [0.10.1 - 2019-09-24](https://github.com/Art4/json-api-client/compare/0.10...0.10.1)
 
 ### Deprecated
 
 - Providing the fields `type` or `id` in a resource not as a string will be throw a ValidationException in v1.0, provide them always as strings instead.
 
-## [0.10] - 2018-11-07
+## [0.10 - 2018-11-07](https://github.com/Art4/json-api-client/compare/0.9.1...0.10)
 
 ### Added
 
@@ -254,9 +262,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Validator fits nearly 100% specification
 - Full test coverage
 
-[Unreleased]: https://github.com/Art4/json-api-client/compare/0.10.1...HEAD
-[0.10.1]: https://github.com/Art4/json-api-client/compare/0.10...0.10.1
-[0.10]: https://github.com/Art4/json-api-client/compare/0.9.1...0.10
 [0.9.1]: https://github.com/Art4/json-api-client/compare/0.9...0.9.1
 [0.9]: https://github.com/Art4/json-api-client/compare/0.8.1...0.9
 [0.8.1]: https://github.com/Art4/json-api-client/compare/0.8...0.8.1
