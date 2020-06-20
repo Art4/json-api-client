@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient\Tests\Integration;
+namespace Art4\JsonApiClient\Tests\Functional;
 
 use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\Helper\Parser;
@@ -612,6 +612,28 @@ class ParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
     {
         $string = $this->getJsonString('15_create_resource_without_id.json');
         $document = Parser::parseRequestString($string);
+
+        $this->assertInstanceOf('Art4\JsonApiClient\V1\Document', $document);
+        $this->assertSame(['data'], $document->getKeys());
+    }
+
+    /**
+     * @test
+     */
+    public function testExceptionIfIdIsNotString()
+    {
+        $this->expectException(\Art4\JsonApiClient\Exception\ValidationException::class);
+        $string = $this->getJsonString('16_type_and_id_as_integer.json');
+        $document = Parser::parseResponseString($string);
+    }
+
+    /**
+     * @test
+     */
+    public function testParseLinksInRelationshipsCorrectly()
+    {
+        $string = $this->getJsonString('17_relationship_links.json');
+        $document = Parser::parseResponseString($string);
 
         $this->assertInstanceOf('Art4\JsonApiClient\V1\Document', $document);
         $this->assertSame(['data'], $document->getKeys());

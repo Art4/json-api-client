@@ -27,7 +27,7 @@ use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 use Art4\JsonApiClient\Tests\Fixtures\TestCase;
 use Art4\JsonApiClient\V1\Factory;
 
-class ParsingTest extends TestCase
+class SerializerTest extends TestCase
 {
     use HelperTrait;
 
@@ -46,6 +46,13 @@ class ParsingTest extends TestCase
 
         foreach (glob($path . '*.json') as $file) {
             $filename = str_replace($path, '', $file);
+
+            // Ignore files with errors
+            if (in_array($filename, [
+                '16_type_and_id_as_integer.json'
+            ])) {
+                continue;
+            }
 
             $files[] = [
                 $filename,

@@ -264,20 +264,20 @@ class RelationshipLinkTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProviderWithoutString
+     * @dataProvider jsonValuesProviderWithoutObjectAndString
      *
      * self: a link for the relationship itself (a "relationship link").
      *
      * @param mixed $input
      */
-    public function testSelfMustBeAString($input)
+    public function testSelfMustBeAStringOrObject($input)
     {
         $object = new \stdClass();
         $object->self = $input;
 
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(
-            'property "self" has to be a string, "' . gettype($input) . '" given.'
+            'property "self" has to be a string or object, "' . gettype($input) . '" given.'
         );
 
         $link = new RelationshipLink($object, $this->manager, $this->relationship);
