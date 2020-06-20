@@ -665,4 +665,19 @@ class ParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
         // Test full array
         $this->assertEquals(json_decode($string, true), $document->asArray(true));
     }
+
+    /**
+     * @test
+     */
+    public function testParseLinksInRelationshipsCorrectly()
+    {
+        $string = $this->getJsonString('17_relationship_links.json');
+        $document = Helper::parseResponseBody($string);
+
+        $this->assertInstanceOf('Art4\JsonApiClient\Document', $document);
+        $this->assertSame(['data'], $document->getKeys());
+
+        // Test full array
+        $this->assertEquals(json_decode($string, true), $document->asArray(true));
+    }
 }

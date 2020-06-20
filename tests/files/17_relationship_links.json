@@ -1,0 +1,27 @@
+{
+  "data": [
+    {
+      "type": "articles",
+      "id": "1",
+      "attributes": {
+        "title": "JSON API paints my bikeshed!"
+      },
+      "relationships": {
+        "vid": {
+          "data": {
+            "type": "taxonomy_vocabulary--taxonomy_vocabulary",
+            "id": "e0b18172-b9fa-4a2f-88c0-ed19dca65a1b"
+          },
+          "links": {
+            "self": {
+              "href": "*/jsonapi/taxonomy_term/district/3fa7e3cd-ce96-4be7-abac-7203bf8a9f4f/relationships/vid"
+            },
+            "related": {
+              "href": "*/jsonapi/taxonomy_term/district/3fa7e3cd-ce96-4be7-abac-7203bf8a9f4f/vid"
+            }
+          }
+        }
+      }
+    }
+  ]
+}
