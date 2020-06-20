@@ -60,11 +60,11 @@ final class RelationshipLink extends AbstractElement
         $links = get_object_vars($object);
 
         if (array_key_exists('self', $links)) {
-            if (! is_string($links['self'])) {
-                throw new ValidationException('property "self" has to be a string, "' . gettype($links['self']) . '" given.');
+            if (! is_string($links['self']) and ! is_object($links['self'])) {
+                throw new ValidationException('property "self" has to be a string or object, "' . gettype($links['self']) . '" given.');
             }
 
-            $this->set('self', strval($links['self']));
+            $this->setLink('self', $links['self']);
 
             unset($links['self']);
         }

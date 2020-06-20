@@ -311,12 +311,12 @@ class RelationshipLinkTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
      *
      * @param mixed $input
      */
-    public function testSelfMustBeAString($input)
+    public function testSelfMustBeAStringOrObject($input)
     {
         $link = new RelationshipLink($this->manager, $this->relationship);
 
         // Input must be a string
-        if (gettype($input) === 'string') {
+        if (gettype($input) === 'string' or gettype($input) === 'object') {
             $this->assertInstanceOf('Art4\JsonApiClient\RelationshipLink', $link);
 
             return;
@@ -327,7 +327,7 @@ class RelationshipLinkTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 
         $this->setExpectedException(
             'Art4\JsonApiClient\Exception\ValidationException',
-            'property "self" has to be a string, "' . gettype($input) . '" given.'
+            'property "self" has to be a string or object, "' . gettype($input) . '" given.'
         );
 
         $link->parse($object);
