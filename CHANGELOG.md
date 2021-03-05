@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/Art4/json-api-client/compare/0.10.2...HEAD)
+## [Unreleased](https://github.com/Art4/json-api-client/compare/0.10.2...v1.x)
 
 ### Added
 
@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 
-- Support for PHP 5.6, 7.0, 7.1, 7.2 and 7.3 dropped, PHP ^7.4 is now required
+- Support for PHP 5.6, 7.0, 7.1, 7.2 and 7.3 dropped, PHP 7.4 is now required
 - **BREAKING**: Providing the fields `type` or `id` in a resource not as a string throws a `\Art4\JsonApiClient\Exception\ValidationException`, provide them always as strings instead
 
 ### Removed
