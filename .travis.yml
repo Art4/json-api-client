@@ -4,8 +4,6 @@ sudo: false
 php:
   - 8.0
   - 7.4
-  - 7.3
-  - 7.2
 matrix:
   fast_finish: true
   include:

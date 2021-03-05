@@ -7,9 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased](https://github.com/Art4/json-api-client/compare/0.10.2...HEAD)
 
+### Added
+
+- Support for PHP 8 added
+
 ### Changed
 
-- Support for PHP 5.6, 7.0 and 7.1 dropped, PHP ^7.2 is now required
+- Support for PHP 5.6, 7.0, 7.1, 7.2 and 7.3 dropped, PHP ^7.4 is now required
 - **BREAKING**: Providing the fields `type` or `id` in a resource not as a string throws a `\Art4\JsonApiClient\Exception\ValidationException`, provide them always as strings instead
 
 ### Removed
