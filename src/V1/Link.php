@@ -43,7 +43,7 @@ final class Link extends AbstractElement
             throw new ValidationException('Link has to be an object or string, "' . gettype($object) . '" given.');
         }
 
-        if (! array_key_exists('href', $object)) {
+        if (! property_exists($object, 'href')) {
             throw new ValidationException('Link must have a "href" attribute.');
         }
 
