@@ -27,6 +27,22 @@ Via Composer
 $ composer require art4/json-api-client
 ```
 
+### :building_construction: Upgrade to v1
+
+**Version 1.0 is finally released.** :tada:
+
+After version 0.8.0 there where no breaking changes. Every change was backward compatible and every functionality that was removed in v1.0 only triggers a deprecation warning in v0.10.
+
+To upgrade from v0.x to v1 just update to 0.10.2 and resolve all deprecation warnings.
+
+Or in 3 simple steps:
+
+1. Update your composer.json to `"art4/json-api-client": "^0.10.2"`
+2. Make your code deprecation warnings free
+3. Upgrade your composer.json to `"art4/json-api-client": "^1.0"` without breaking your app
+
+(Compare the [Symfony upgrade documentation](https://symfony.com/doc/current/setup/upgrade_major.html))
+
 ## :rocket: Usage
 
 See the [quickstart guide](docs/helper-parser.md) or the [documentation](docs/README.md).
