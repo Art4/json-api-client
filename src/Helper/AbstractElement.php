@@ -32,15 +32,9 @@ abstract class AbstractElement implements Accessable, Element
 {
     use AccessableTrait;
 
-    /**
-     * @var \Art4\JsonApiClient\Manager
-     */
-    private $manager;
+    private Manager $manager;
 
-    /**
-     * @var \Art4\JsonApiClient\Accessable
-     */
-    private $parent;
+    private Accessable $parent;
 
     /**
      * Sets the manager and parent

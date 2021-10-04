@@ -55,16 +55,11 @@ trait HelperTrait
      */
     public function jsonValuesProviderWithoutObject()
     {
-        return [
-            [[]],
-            ['string'],
-            [456],
-            [159.654],
-            [-15E-3],
-            [true],
-            [false],
-            [null],
-        ];
+        $data = $this->jsonValuesProvider();
+
+        unset($data[0]);
+
+        return array_values($data);
     }
 
     /**
@@ -74,16 +69,11 @@ trait HelperTrait
      */
     public function jsonValuesProviderWithoutArray()
     {
-        return [
-            [new \stdClass],
-            ['string'],
-            [456],
-            [159.654],
-            [-15E-3],
-            [true],
-            [false],
-            [null],
-        ];
+        $data = $this->jsonValuesProvider();
+
+        unset($data[1]);
+
+        return array_values($data);
     }
 
     /**
@@ -93,16 +83,11 @@ trait HelperTrait
      */
     public function jsonValuesProviderWithoutString()
     {
-        return [
-            [new \stdClass()],
-            [[]],
-            [456],
-            [159.654],
-            [-15E-3],
-            [true],
-            [false],
-            [null],
-        ];
+        $data = $this->jsonValuesProvider();
+
+        unset($data[2]);
+
+        return array_values($data);
     }
 
     /**
@@ -112,15 +97,46 @@ trait HelperTrait
      */
     public function jsonValuesProviderWithoutObjectAndString()
     {
+        $data = $this->jsonValuesProvider();
+
+        unset($data[0]);
+        unset($data[2]);
+
+        return array_values($data);
+    }
+
+    /**
+     * Json Values as string Provider
+     *
+     * @see http://json.org/
+     */
+    public function jsonValuesAsStringProvider()
+    {
         return [
-            [[]],
-            [456],
-            [159.654],
-            [-15E-3],
-            [true],
-            [false],
-            [null],
+            ['{}'],
+            ['[]'],
+            ['""'],
+            ['456'],
+            ['159.654'],
+            ['-15E-3'],
+            ['true'],
+            ['false'],
+            ['null'],
         ];
+    }
+
+    /**
+     * Json Values as string Provider but without the object
+     *
+     * @see http://json.org/
+     */
+    public function jsonValuesAsStringProviderWithoutObject()
+    {
+        $data = $this->jsonValuesAsStringProvider();
+
+        unset($data[0]);
+
+        return array_values($data);
     }
 
     /**

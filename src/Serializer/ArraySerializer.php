@@ -88,7 +88,9 @@ final class ArraySerializer implements Serializer
             return $this->serialize($val);
         } else {
             // Fallback for stdClass objects
-            return json_decode(json_encode($val), true);
+            $jsonVal = json_encode($val, JSON_THROW_ON_ERROR);
+
+            return json_decode($jsonVal, true);
         }
     }
 }
