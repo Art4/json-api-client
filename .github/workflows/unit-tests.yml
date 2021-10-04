@@ -14,12 +14,11 @@ jobs:
       fail-fast: false
       matrix:
         operating-system: ['ubuntu-latest']
+        php-versions: ['7.4', '8.0', '8.1']
         include:
-          - php-versions: '7.4'
-          - php-versions: '8.0'
-          - php-versions: '8.1'
-          - php-versions: '8.2'
-            experimental: true
+          - operating-system: 'ubuntu-latest'
+            php-versions: '8.2'
+            allow_failure: true
 
     steps:
       - name: Checkout
@@ -51,9 +50,12 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Install Composer dependencies
+        id: composer-install
+        continue-on-error: matrix.allow_failure
         run: composer install --no-progress --prefer-dist --optimize-autoloader
 
       - name: Run tests
+        if: steps.composer-install.outcome == 'success' && steps.composer-install.conclusion == 'success'
         run: vendor/bin/phpunit --coverage-text
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
