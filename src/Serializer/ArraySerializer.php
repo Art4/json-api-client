@@ -75,7 +75,7 @@ final class ArraySerializer implements Serializer
     /**
      * Transforms objects to arrays
      *
-     * @param $val
+     * @param mixed $val
      *
      * @return mixed
      */

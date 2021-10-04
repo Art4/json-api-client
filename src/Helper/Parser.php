@@ -33,7 +33,8 @@ final class Parser
     /**
      * @param string $jsonString
      *
-     * @throws \Art4\JsonApiClient\Exception\Exception
+     * @throws \Art4\JsonApiClient\Exception\ValidationException If $jsonString contains invalid JSON API
+     * @throws \Art4\JsonApiClient\Exception\InputException if something went wrong with the input
      *
      * @return \Art4\JsonApiClient\Accessable
      */
@@ -47,7 +48,8 @@ final class Parser
     /**
      * @param string $jsonString
      *
-     * @throws \Art4\JsonApiClient\Exception\Exception
+     * @throws \Art4\JsonApiClient\Exception\ValidationException If $jsonString contains invalid JSON API
+     * @throws \Art4\JsonApiClient\Exception\InputException if something went wrong with the input
      *
      * @return \Art4\JsonApiClient\Accessable
      */

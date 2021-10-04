@@ -33,7 +33,7 @@ final class RequestStringInput implements Input, RequestInput
      *
      * @param string $string
      *
-     * @throws InputException if $string is not a string
+     * @throws \Art4\JsonApiClient\Exception\InputException if $string is not a string
      */
     public function __construct($string)
     {
@@ -46,9 +46,9 @@ final class RequestStringInput implements Input, RequestInput
      * This should be a native PH stdClass object, so Manager could
      * iterate over all public attributes
      *
-     * @throws InputException if somethin went wrong with the input
+     * @throws \Art4\JsonApiClient\Exception\InputException if something went wrong with the input
      *
-     * @return stdClass
+     * @return \stdClass
      */
     public function getAsObject()
     {
