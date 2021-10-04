@@ -67,8 +67,8 @@ final class ResourceItemLink extends AbstractElement
     /**
      * Set a link
      *
-     * @param string        $name The Name
-     * @param string|object $link The Link
+     * @param string              $name The Name
+     * @param string|object|mixed $link The Link
      */
     private function setLink($name, $link)
     {

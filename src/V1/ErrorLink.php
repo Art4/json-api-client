@@ -90,8 +90,8 @@ final class ErrorLink extends AbstractElement
     /**
      * Set a link
      *
-     * @param string $name The name of the link
-     * @param string $link The link
+     * @param string              $name The name of the link
+     * @param string|object|mixed $link The link
      */
     private function setLink($name, $link)
     {
