@@ -30,9 +30,9 @@ interface Input
      * This should be a native PH stdClass object, so Manager could
      * iterate over all public attributes
      *
-     * @throws InputException if somethin went wrong with the input
+     * @throws \Art4\JsonApiClient\Exception\InputException if something went wrong with the input
      *
-     * @return stdClass
+     * @return \stdClass
      */
     public function getAsObject();
 }

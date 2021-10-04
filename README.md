@@ -2,7 +2,7 @@
 
 [![Latest Version](https://img.shields.io/github/release/Art4/json-api-client.svg)](https://github.com/Art4/json-api-client/releases)
 [![Software License](https://img.shields.io/badge/license-GPL3-brightgreen.svg)](LICENSE)
-[![Build Status](https://github.com/art4/json-api-client/actions/workflows/unit-tests.yml/badge.svg?branch=v1.x)](https://github.com/Art4/json-api-client/actionst)
+[![Build Status](https://github.com/art4/json-api-client/actions/workflows/unit-tests.yml/badge.svg?branch=v1.x)](https://github.com/Art4/json-api-client/actions)
 [![Total Downloads](https://img.shields.io/packagist/dt/art4/json-api-client.svg)](https://packagist.org/packages/art4/json-api-client)
 
 JsonApiClient :construction_worker_woman: is a PHP Library to validate and handle the response body from a [JSON API](http://jsonapi.org) Server.

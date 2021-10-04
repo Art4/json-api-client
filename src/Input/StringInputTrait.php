@@ -52,7 +52,7 @@ trait StringInputTrait
      *
      * @param string $jsonString
      *
-     * @throws InputException if somethin went wrong with the input
+     * @throws InputException if something went wrong with the input
      *
      * @return object
      */

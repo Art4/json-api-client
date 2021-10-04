@@ -99,12 +99,11 @@ final class Document extends AbstractElement
     /**
      * Parse the data value
      *
-     *
      * @param null|object $data Data value
      *
      * @throws ValidationException If $data isn't null or an object
      *
-     * @return Accessable The parsed data
+     * @return \Art4\JsonApiClient\Accessable The parsed data
      */
     private function parseData($data)
     {

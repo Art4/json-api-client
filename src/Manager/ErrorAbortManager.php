@@ -43,7 +43,6 @@ final class ErrorAbortManager implements Manager
      * Create a Manager
      *
      * @param \Art4\JsonApiClient\Factory $factory
-     * @param mixed                      $params  A config array
      *
      * @return object
      */
