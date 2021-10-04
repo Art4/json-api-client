@@ -15,10 +15,6 @@ jobs:
       matrix:
         operating-system: ['ubuntu-latest']
         php-versions: ['7.4', '8.0', '8.1']
-        include:
-          - operating-system: 'ubuntu-latest'
-            php-versions: '8.2'
-            continue-on-error: true
 
     steps:
       - name: Checkout
