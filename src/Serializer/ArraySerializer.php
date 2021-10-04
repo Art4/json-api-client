@@ -47,7 +47,7 @@ final class ArraySerializer implements Serializer
      *
      * @param \Art4\JsonApiClient\Accessable $data The data for serialization
      *
-     * @return array
+     * @return array|null
      */
     public function serialize(Accessable $data)
     {
