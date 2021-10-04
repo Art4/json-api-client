@@ -50,12 +50,9 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Install Composer dependencies
-        id: composer-install
         run: composer install --no-progress --prefer-dist --optimize-autoloader
 
       - name: Run tests
-        continue-on-error: false
-        if: steps.composer-install.outcome == 'success' && steps.composer-install.conclusion == 'success'
         run: vendor/bin/phpunit --coverage-text
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
