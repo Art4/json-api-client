@@ -18,7 +18,8 @@ jobs:
         include:
           - operating-system: 'ubuntu-latest'
             php-versions: '8.2'
-            allow_failure: true
+            env:
+              allow_failure: true
 
     steps:
       - name: Checkout
@@ -51,7 +52,7 @@ jobs:
 
       - name: Install Composer dependencies
         id: composer-install
-        continue-on-error: matrix.allow_failure
+        continue-on-error: env.allow_failure
         run: composer install --no-progress --prefer-dist --optimize-autoloader
 
       - name: Run tests
