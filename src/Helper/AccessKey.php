@@ -33,7 +33,7 @@ final class AccessKey extends SplStack
      *
      * @param mixed $key
      *
-     * @return AccessKey
+     * @return AccessKey<string>
      */
     public static function create($key)
     {

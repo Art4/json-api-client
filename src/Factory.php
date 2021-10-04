@@ -30,7 +30,7 @@ interface Factory
      * Create a new instance of a class
      *
      * @param string $name
-     * @param array  $args
+     * @param array<mixed|Manager|Accessable>  $args
      *
      * @return \Art4\JsonApiClient\Accessable
      */

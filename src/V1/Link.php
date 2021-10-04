@@ -74,7 +74,7 @@ final class Link extends AbstractElement
      * @param string        $name The Name
      * @param string|object $link The Link
      */
-    private function setAsLink($name, $link)
+    private function setAsLink(string $name, $link): void
     {
         if ($name === 'meta') {
             $this->set($name, $this->create('Meta', $link));

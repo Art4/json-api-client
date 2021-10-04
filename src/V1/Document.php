@@ -19,6 +19,7 @@
 
 namespace Art4\JsonApiClient\V1;
 
+use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\Helper\AbstractElement;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
@@ -99,13 +100,13 @@ final class Document extends AbstractElement
     /**
      * Parse the data value
      *
-     * @param null|object|array $data Data value
+     * @param null|object|array<string, mixed> $data Data value
      *
      * @throws ValidationException If $data isn't null or an object
      *
-     * @return \Art4\JsonApiClient\Accessable The parsed data
+     * @return Accessable The parsed data
      */
-    private function parseData($data)
+    private function parseData($data): Accessable
     {
         if ($data === null) {
             return $this->create('ResourceNull', $data);

@@ -30,7 +30,7 @@ use Art4\JsonApiClient\Exception\AccessException;
 trait AccessableTrait
 {
     /**
-     * @var array
+     * @var array<mixed>
      */
     private $data = [];
 
@@ -57,7 +57,7 @@ trait AccessableTrait
     /**
      * Returns the keys of all setted values
      *
-     * @return array Keys of all setted values
+     * @return array<string> Keys of all setted values
      */
     public function getKeys()
     {
@@ -144,9 +144,9 @@ trait AccessableTrait
     /**
      * Parse a dot.notated.key to an object
      *
-     * @param string|AccessKey $key The key
+     * @param string|AccessKey<string> $key The key
      *
-     * @return AccessKey The parsed key
+     * @return AccessKey<string> The parsed key
      */
     private function parseKey($key)
     {
