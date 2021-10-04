@@ -29,6 +29,10 @@ use Art4\JsonApiClient\Exception\AccessException;
  */
 final class ResourceNull implements Accessable, Element
 {
+    private $data;
+    private $manager;
+    private $parent;
+
     /**
      * Constructor
      *
@@ -38,6 +42,9 @@ final class ResourceNull implements Accessable, Element
      */
     public function __construct($data, Manager $manager, Accessable $parent)
     {
+        $this->data = $data;
+        $this->manager = $manager;
+        $this->parent = $parent;
     }
 
     /**
