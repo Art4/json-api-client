@@ -130,8 +130,8 @@ final class DocumentLink extends AbstractElement
     /**
      * Set a pagination link
      *
-     * @param string $name  The name of the link
-     * @param string $value The link
+     * @param string                   $name  The name of the link
+     * @param string|object|null|mixed $value The link
      */
     private function setPaginationLink($name, $value)
     {
@@ -152,8 +152,8 @@ final class DocumentLink extends AbstractElement
     /**
      * Set a link
      *
-     * @param string $name The name of the link
-     * @param string $link The link
+     * @param string              $name The name of the link
+     * @param string|object|mixed $link The link
      */
     private function setLink($name, $link)
     {
