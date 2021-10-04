@@ -132,8 +132,6 @@ final class DocumentLink extends AbstractElement
      *
      * @param string $name  The name of the link
      * @param string $value The link
-     *
-     * @return self
      */
     private function setPaginationLink($name, $value)
     {

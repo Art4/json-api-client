@@ -134,8 +134,6 @@ final class RelationshipLink extends AbstractElement
      *
      * @param string $name  The name of the link
      * @param string $value The link
-     *
-     * @return self
      */
     private function setPaginationLink($name, $value)
     {
@@ -154,8 +152,6 @@ final class RelationshipLink extends AbstractElement
      *
      * @param string $name The name of the link
      * @param string $link The link
-     *
-     * @return self
      */
     private function setLink($name, $link)
     {
