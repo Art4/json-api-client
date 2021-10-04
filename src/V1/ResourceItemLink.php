@@ -70,7 +70,7 @@ final class ResourceItemLink extends AbstractElement
      * @param string              $name The Name
      * @param string|object|mixed $link The Link
      */
-    private function setLink($name, $link)
+    private function setLink(string $name, $link): void
     {
         // from spec: aA link MUST be represented as either:
         // - a string containing the link's URL.

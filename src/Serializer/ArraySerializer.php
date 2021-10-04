@@ -24,14 +24,15 @@ use Art4\JsonApiClient\V1\ResourceNull;
 
 final class ArraySerializer implements Serializer
 {
-    private $config = [
+    /** @var array<string, mixed> */
+    private array $config = [
         'recursive' => false,
     ];
 
     /**
      * Setup the serializer
      *
-     * @param array $params
+     * @param array<string, mixed> $params
      */
     public function __construct(array $params = [])
     {
@@ -47,7 +48,7 @@ final class ArraySerializer implements Serializer
      *
      * @param \Art4\JsonApiClient\Accessable $data The data for serialization
      *
-     * @return array|null
+     * @return array<string, mixed>|null
      */
     public function serialize(Accessable $data)
     {

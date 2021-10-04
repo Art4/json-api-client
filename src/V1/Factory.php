@@ -29,9 +29,9 @@ use Art4\JsonApiClient\Factory as FactoryInterface;
 final class Factory implements FactoryInterface
 {
     /**
-     * @var array
+     * @var array<string, string>
      */
-    private $classes = [
+    private array $classes = [
         'Attributes'                   => Attributes::class,
         'Document'                     => Document::class,
         'DocumentLink'                 => DocumentLink::class,
@@ -54,7 +54,7 @@ final class Factory implements FactoryInterface
     ];
 
     /**
-     * @param array $overload specs to be overloaded with custom classes
+     * @param array<string, string> $overload specs to be overloaded with custom classes
      */
     public function __construct(array $overload = [])
     {
@@ -66,8 +66,8 @@ final class Factory implements FactoryInterface
     /**
      * Create a new instance of a class
      *
-     * @param string $name
-     * @param array  $args
+     * @param string        $name
+     * @param array<mixed>  $args
      *
      * @return \Art4\JsonApiClient\Accessable
      */

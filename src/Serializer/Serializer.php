@@ -28,7 +28,7 @@ interface Serializer
      *
      * @param \Art4\JsonApiClient\Accessable $data The data for serialization
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function serialize(Accessable $data);
 }

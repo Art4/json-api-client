@@ -26,7 +26,7 @@ final class RequestStringInput implements Input, RequestInput
 {
     use StringInputTrait;
 
-    private $rawString;
+    private string $rawString;
 
     /**
      * Set the input

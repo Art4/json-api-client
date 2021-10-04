@@ -29,9 +29,10 @@ use Art4\JsonApiClient\Exception\AccessException;
  */
 final class ResourceNull implements Accessable, Element
 {
+    /** @var mixed */
     private $data;
-    private $manager;
-    private $parent;
+    private Manager $manager;
+    private Accessable $parent;
 
     /**
      * Constructor
@@ -62,7 +63,7 @@ final class ResourceNull implements Accessable, Element
     /**
      * Returns the keys of all setted values in this resource
      *
-     * @return array Keys of all setted values
+     * @return array<string> Keys of all setted values
      */
     public function getKeys()
     {

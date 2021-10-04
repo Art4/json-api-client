@@ -50,7 +50,7 @@ final class RelationshipCollection extends AbstractElement
         $object_vars = get_object_vars($object);
 
         if (count($object_vars) === 0) {
-            return $this;
+            return;
         }
 
         foreach ($object_vars as $name => $value) {

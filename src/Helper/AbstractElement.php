@@ -97,6 +97,8 @@ abstract class AbstractElement implements Accessable, Element
      * Parse the data
      *
      * @param mixed $data
+     *
+     * @return void
      */
     abstract protected function parse($data);
 }

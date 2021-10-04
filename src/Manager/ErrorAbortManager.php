@@ -31,11 +31,13 @@ use Art4\JsonApiClient\Manager;
  */
 final class ErrorAbortManager implements Manager
 {
-    private $factory;
+    private Factory $factory;
 
-    private $config = [];
+    /** @var array<string, mixed> */
+    private array $config = [];
 
-    private $default = [
+    /** @var array<string, mixed> */
+    private array $default = [
         'optional_item_id' => false,
     ];
 

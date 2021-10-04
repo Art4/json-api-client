@@ -26,7 +26,7 @@ final class ResponseStringInput implements Input
 {
     use StringInputTrait;
 
-    private $rawString;
+    private string $rawString;
 
     /**
      * Set the input

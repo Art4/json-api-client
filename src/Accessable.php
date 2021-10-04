@@ -45,7 +45,7 @@ interface Accessable
     /**
      * Returns the keys of all setted values
      *
-     * @return array Keys of all setted values
+     * @return array<string> Keys of all setted values
      */
     public function getKeys();
 }
