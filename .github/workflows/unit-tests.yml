@@ -48,13 +48,7 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --no-progress --prefer-dist --optimize-autoloader
 
-      - name: Install Coveralls
-        run: composer require php-coveralls/php-coveralls:^2 --dev
-
       - name: Run tests
         run: vendor/bin/phpunit --coverage-clover build/logs/clover.xml
-
-      - name: Run Coveralls
-        run: vendor/bin/php-coveralls
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
