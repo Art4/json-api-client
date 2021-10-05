@@ -17,33 +17,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient\Tests\Unit\Manager;
+namespace Art4\JsonApiClient\Tests\BC;
 
 use Art4\JsonApiClient\Factory;
-use Art4\JsonApiClient\Manager\ErrorAbortManager;
 use Art4\JsonApiClient\Tests\Fixtures\TestCase;
 
-class ErrorAbortManagerTest extends TestCase
+class FactoryTest extends TestCase
 {
     /**
-     * @test
+     * This test will test a custom implementation of the Factory interface.
+     * DO NOT CHANGE THIS!
+     * Changes are only allowed by increasing the major version number.
      */
-    public function testCreateWithConstructorReturnsSelf()
+    public function testBcForFactoryInterface()
     {
-        $factory = $this->createMock(Factory::class);
-        $manager = new ErrorAbortManager($factory);
+        $class = new class() implements Factory {
+            /**
+             * Create a new instance of a class
+             *
+             * @param string $name
+             * @param array<mixed|Manager|Accessable>  $args
+             *
+             * @return \Art4\JsonApiClient\Accessable
+             */
+            public function make($name, array $args = [])
+            {
+                throw new \Exception('not implemented');
+            }
+        };
 
-        $this->assertSame($factory, $manager->getFactory());
-    }
-
-    /**
-     * @test
-     */
-    public function testGetParamReturnsDefault()
-    {
-        $factory = $this->createMock(Factory::class);
-        $manager = new ErrorAbortManager($factory);
-
-        $this->assertSame('default', $manager->getParam('not-existing-param', 'default'));
+        $this->assertInstanceOf(Factory::class, $class);
     }
 }

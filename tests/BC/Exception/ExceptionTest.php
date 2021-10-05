@@ -17,33 +17,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient\Tests\Unit\Manager;
+namespace Art4\JsonApiClient\Tests\BC\Exception;
 
-use Art4\JsonApiClient\Factory;
-use Art4\JsonApiClient\Manager\ErrorAbortManager;
+use Art4\JsonApiClient\Exception\Exception;
 use Art4\JsonApiClient\Tests\Fixtures\TestCase;
 
-class ErrorAbortManagerTest extends TestCase
+class ExceptionTest extends TestCase
 {
     /**
-     * @test
+     * This test will test a custom implementation of the Exception interface.
+     * DO NOT CHANGE THIS!
+     * Changes are only allowed by increasing the major version number.
      */
-    public function testCreateWithConstructorReturnsSelf()
+    public function testBcForExceptionInterface()
     {
-        $factory = $this->createMock(Factory::class);
-        $manager = new ErrorAbortManager($factory);
+        $class = new class() implements Exception {};
 
-        $this->assertSame($factory, $manager->getFactory());
-    }
-
-    /**
-     * @test
-     */
-    public function testGetParamReturnsDefault()
-    {
-        $factory = $this->createMock(Factory::class);
-        $manager = new ErrorAbortManager($factory);
-
-        $this->assertSame('default', $manager->getParam('not-existing-param', 'default'));
+        $this->assertInstanceOf(Exception::class, $class);
     }
 }

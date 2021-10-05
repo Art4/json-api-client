@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient\Tests\Input;
+namespace Art4\JsonApiClient\Tests\Unit\Input;
 
 use Art4\JsonApiClient\Exception\InputException;
 use Art4\JsonApiClient\Input\ResponseStringInput;
