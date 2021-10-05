@@ -32,7 +32,7 @@ trait AccessableTrait
     /**
      * @var array<mixed>
      */
-    private $data = [];
+    private array $data = [];
 
     /**
      * Set a value
@@ -54,7 +54,7 @@ trait AccessableTrait
      *
      * @return array<string> Keys of all setted values
      */
-    final public function getKeys()
+    final public function getKeys(): array
     {
         return array_keys($this->data);
     }
@@ -63,10 +63,8 @@ trait AccessableTrait
      * Check if a value exists
      *
      * @param mixed $key The key
-     *
-     * @return bool
      */
-    final public function has($key)
+    final public function has($key): bool
     {
         $key = $this->parseKey($key);
 

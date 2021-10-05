@@ -11,16 +11,30 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Added type hints for parameters and return types in internal and final classes
 - New tests for improving backward compatibility in interfaces
+- Support for PHP 8.1 is added in CI tests
 
 ### Changed
 
 - Switched from Travis-CI to Github Actions
 
+### Deprecated
+
+-  `\Art4\JsonApiClient\Accessable::has()` will add `bool` as a native return type declaration in v2.0, do the same in your implementation now to avoid errors.
+- `\Art4\JsonApiClient\Accessable::getKeys()` will add `array` as a native return type declaration in v2.0, do the same in your implementation now to avoid errors.
+- `\Art4\JsonApiClient\Exception\Exception` will extend `\Throwable` in v2.0, do the same in your implementation now to avoid errors.
+- `\Art4\JsonApiClient\Factory::make()` methods first parameter signature will be `string` in v2.0.
+- `\Art4\JsonApiClient\Factory::make()` will add `\Art4\JsonApiClient\Accessable` as a native return type declaration in v2.0, do the same in your implementation now to avoid errors.
+- `\Art4\JsonApiClient\Input\Input::getAsObject()` will add `\stdClass` as a native return type declaration in v2.0, do the same in your implementation now to avoid errors.
+- `\Art4\JsonApiClient\Manager::parse()` will add `\Art4\JsonApiClient\Accessable` as a native return type declaration in v2.0, do the same in your implementation now to avoid errors.
+- `\Art4\JsonApiClient\Manager::getFactory()` will add `\Art4\JsonApiClient\Factory` as a native return type declaration in v2.0, do the same in your implementation now to avoid errors.
+- `\Art4\JsonApiClient\Manager::getParam()` methods first parameter signature will be `string` in v2.0.
+- `\Art4\JsonApiClient\Serializer\Serializer::serialize()` will add `?array` as a native return type declaration in v2.0, do the same in your implementation now to avoid errors.
+
 ## [1.0.0 - 2021-03-05](https://github.com/Art4/json-api-client/compare/0.10.2...1.0.0)
 
 ### Added
 
-- Support for PHP 8 added
+- Support for PHP 8.0 added
 
 ### Changed
 
