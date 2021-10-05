@@ -17,8 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient\Tests\Input;
+namespace Art4\JsonApiClient\Tests\Unit\Input;
 
+use Art4\JsonApiClient\Exception\InputException;
 use Art4\JsonApiClient\Input\RequestStringInput;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 use Art4\JsonApiClient\Tests\Fixtures\TestCase;
@@ -45,10 +46,28 @@ class RequestStringInputTest extends TestCase
      */
     public function testCreateWithoutStringThrowsException($input)
     {
-        $this->expectException(\Exception::class);
+        $this->expectException(InputException::class);
         $this->expectExceptionMessage(
             '$string must be a string, "' . gettype($input) . '" given.'
         );
         new RequestStringInput($input);
+    }
+
+    /**
+     * @dataProvider jsonValuesAsStringProviderWithoutObject
+     * @test
+     *
+     * @param string $input
+     */
+    public function testGetAsObjectWithInvalidStringsThrowsException(string $input)
+    {
+        $input = new RequestStringInput($input);
+
+        $this->expectException(InputException::class);
+        $this->expectExceptionMessage(
+            'JSON must contain an object (e.g. `{}`).'
+        );
+
+        $input->getAsObject();
     }
 }

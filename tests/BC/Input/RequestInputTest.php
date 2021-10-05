@@ -17,17 +17,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Art4\JsonApiClient;
+namespace Art4\JsonApiClient\Tests\BC\Input;
 
-/**
- * Element Interface
- */
-interface Element
+use Art4\JsonApiClient\Input\RequestInput;
+use Art4\JsonApiClient\Tests\Fixtures\TestCase;
+
+class RequestInputTest extends TestCase
 {
     /**
-     * Sets the manager and parent
-     *
-     * @param mixed $data The data for this Element
+     * This test will test a custom implementation of the RequestInput interface.
+     * DO NOT CHANGE THIS!
+     * Changes are only allowed by increasing the major version number.
      */
-    public function __construct($data, Manager $manager, Accessable $parent);
+    public function testBcForRequestInputInterface()
+    {
+        $class = new class() implements RequestInput {};
+
+        $this->assertInstanceOf(RequestInput::class, $class);
+    }
 }

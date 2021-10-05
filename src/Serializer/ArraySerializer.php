@@ -46,11 +46,9 @@ final class ArraySerializer implements Serializer
     /**
      * Convert data in an array
      *
-     * @param \Art4\JsonApiClient\Accessable $data The data for serialization
-     *
      * @return array<string, mixed>|null
      */
-    public function serialize(Accessable $data)
+    public function serialize(Accessable $data): ?array
     {
         $fullArray = (bool) $this->config['recursive'];
 
@@ -88,7 +86,9 @@ final class ArraySerializer implements Serializer
             return $this->serialize($val);
         } else {
             // Fallback for stdClass objects
-            return json_decode(json_encode($val), true);
+            $jsonVal = json_encode($val, JSON_THROW_ON_ERROR);
+
+            return json_decode($jsonVal, true);
         }
     }
 }

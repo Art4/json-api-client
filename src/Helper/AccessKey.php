@@ -35,7 +35,7 @@ final class AccessKey extends SplStack
      *
      * @return AccessKey<string>
      */
-    public static function create($key)
+    public static function create($key): AccessKey
     {
         // Ignore arrays and objects
         if (is_object($key) or is_array($key)) {
@@ -61,14 +61,12 @@ final class AccessKey extends SplStack
     /**
      * @var string Raw key
      */
-    public $raw = '';
+    public string $raw = '';
 
     /**
      * Transforms the Key to a string
-     *
-     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->raw;
     }

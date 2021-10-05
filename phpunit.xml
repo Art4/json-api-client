@@ -9,6 +9,7 @@
     <testsuite name="all">
       <directory suffix="Test.php">tests/Unit/</directory>
       <directory suffix="Test.php">tests/Functional/</directory>
+      <directory suffix="Test.php">tests/BC/</directory>
     </testsuite>
     <testsuite name="unit">
       <directory suffix="Test.php">tests/Unit/</directory>

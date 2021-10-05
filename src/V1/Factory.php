@@ -29,7 +29,7 @@ use Art4\JsonApiClient\Factory as FactoryInterface;
 final class Factory implements FactoryInterface
 {
     /**
-     * @var array<string, string>
+     * @var array<string, class-string>
      */
     private array $classes = [
         'Attributes'                   => Attributes::class,
@@ -68,10 +68,8 @@ final class Factory implements FactoryInterface
      *
      * @param string        $name
      * @param array<mixed>  $args
-     *
-     * @return \Art4\JsonApiClient\Accessable
      */
-    public function make($name, array $args = [])
+    public function make($name, array $args = []): Accessable
     {
         if (! isset($this->classes[$name])) {
             throw new FactoryException('"' . $name . '" is not a registered class');
@@ -79,6 +77,12 @@ final class Factory implements FactoryInterface
 
         $class = new \ReflectionClass($this->classes[$name]);
 
-        return $class->newInstanceArgs($args);
+        $object = $class->newInstanceArgs($args);
+
+        if (! $object instanceof Accessable) {
+            throw new FactoryException($this->classes[$name] . ' must be instance of `Art4\JsonApiClient\Accessable`');
+        }
+
+        return $object;
     }
 }

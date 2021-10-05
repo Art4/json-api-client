@@ -19,6 +19,8 @@
 
 namespace Art4\JsonApiClient\Manager;
 
+use Art4\JsonApiClient\Accessable;
+use Art4\JsonApiClient\Exception\InputException;
 use Art4\JsonApiClient\Exception\ValidationException;
 use Art4\JsonApiClient\Factory;
 use Art4\JsonApiClient\Helper\RootAccessable;
@@ -43,10 +45,6 @@ final class ErrorAbortManager implements Manager
 
     /**
      * Create a Manager
-     *
-     * @param \Art4\JsonApiClient\Factory $factory
-     *
-     * @return object
      */
     public function __construct(Factory $factory)
     {
@@ -56,13 +54,10 @@ final class ErrorAbortManager implements Manager
     /**
      * Parse the input
      *
-     * @param \Art4\JsonApiClient\Input\Input $input
-     *
+     * @throws \Art4\JsonApiClient\Exception\InputException If $input contains invalid JSON API
      * @throws \Art4\JsonApiClient\Exception\ValidationException If $input contains invalid JSON API
-     *
-     * @return \Art4\JsonApiClient\Accessable
      */
-    public function parse(Input $input)
+    public function parse(Input $input): Accessable
     {
         // fill config
         $this->config = $this->default;
@@ -86,10 +81,8 @@ final class ErrorAbortManager implements Manager
 
     /**
      * Get a factory from the manager
-     *
-     * @return \Art4\JsonApiClient\Factory
      */
-    public function getFactory()
+    public function getFactory(): Factory
     {
         return $this->factory;
     }

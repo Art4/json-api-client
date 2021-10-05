@@ -20,9 +20,12 @@
 namespace Art4\JsonApiClient\Input;
 
 use Art4\JsonApiClient\Exception\InputException;
+use JsonException;
 
 /**
  * Contains helper methods for handling string inputs
+ *
+ * @internal
  */
 trait StringInputTrait
 {
@@ -32,10 +35,8 @@ trait StringInputTrait
      * @param string $string
      *
      * @throws InputException if $string is not a string
-     *
-     * @return string
      */
-    public function prepareString($string)
+    final public function prepareString($string): string
     {
         if (! is_string($string)) {
             throw new InputException(sprintf(
@@ -50,13 +51,11 @@ trait StringInputTrait
     /**
      * Decodes a json string
      *
-     * @param string $jsonString
-     *
      * @throws InputException if something went wrong with the input
      *
-     * @return object
+     * @return mixed
      */
-    protected function decodeJson($jsonString)
+    final protected function decodeJson(string $jsonString)
     {
         $jsonErrors = [
             \JSON_ERROR_DEPTH => 'JSON_ERROR_DEPTH - Maximum stack depth exceeded',
@@ -66,12 +65,13 @@ trait StringInputTrait
             \JSON_ERROR_UTF8 => 'JSON_ERROR_UTF8 - Malformed UTF-8 characters, possibly incorrectly encoded'
         ];
 
-        // Can we use JSON_BIGINT_AS_STRING?
-        $options = (version_compare(\PHP_VERSION, '5.4.0', '>=') and ! (defined('JSON_C_VERSION') and \PHP_INT_SIZE > 4)) ? \JSON_BIGINT_AS_STRING : 0;
-        $data = json_decode($jsonString, false, 512, $options);
+        // use JSON_BIGINT_AS_STRING
+        $options = \JSON_BIGINT_AS_STRING | JSON_THROW_ON_ERROR;
 
-        if (json_last_error() !== \JSON_ERROR_NONE) {
-            $last = json_last_error();
+        try {
+            $data = json_decode($jsonString, false, 512, $options);
+        } catch (JsonException $e) {
+            $last = $e->getCode();
 
             $error = 'Unknown error';
 

@@ -32,22 +32,14 @@ abstract class AbstractElement implements Accessable, Element
 {
     use AccessableTrait;
 
-    /**
-     * @var \Art4\JsonApiClient\Manager
-     */
-    private $manager;
+    private Manager $manager;
 
-    /**
-     * @var \Art4\JsonApiClient\Accessable
-     */
-    private $parent;
+    private Accessable $parent;
 
     /**
      * Sets the manager and parent
      *
-     * @param mixed                          $data    The data for this Element
-     * @param \Art4\JsonApiClient\Manager    $manager The manager
-     * @param \Art4\JsonApiClient\Accessable $parent  The parent
+     * @param mixed $data The data for this Element
      */
     public function __construct($data, Manager $manager, Accessable $parent)
     {
@@ -59,20 +51,16 @@ abstract class AbstractElement implements Accessable, Element
 
     /**
      * Returns the Manager
-     *
-     * @return \Art4\JsonApiClient\Manager
      */
-    protected function getManager()
+    protected function getManager(): Manager
     {
         return $this->manager;
     }
 
     /**
      * Get the parent
-     *
-     * @return \Art4\JsonApiClient\Accessable
      */
-    protected function getParent()
+    protected function getParent(): Accessable
     {
         return $this->parent;
     }
@@ -80,12 +68,9 @@ abstract class AbstractElement implements Accessable, Element
     /**
      * Create an element
      *
-     * @param mixed $name
      * @param mixed $data
-     *
-     * @return \Art4\JsonApiClient\Accessable
      */
-    protected function create($name, $data)
+    protected function create(string $name, $data): Accessable
     {
         return $this->getManager()->getFactory()->make(
             $name,
@@ -97,8 +82,6 @@ abstract class AbstractElement implements Accessable, Element
      * Parse the data
      *
      * @param mixed $data
-     *
-     * @return void
      */
-    abstract protected function parse($data);
+    abstract protected function parse($data): void;
 }

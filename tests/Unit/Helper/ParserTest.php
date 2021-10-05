@@ -44,9 +44,9 @@ class ParserTest extends TestCase
     {
         $invalid_jsonapi = '["This is valid JSON", "but invalid JSON API"]';
 
-        $this->expectException(ValidationException::class);
+        $this->expectException(InputException::class);
         $this->expectExceptionMessage(
-            'Document has to be an object, "array" given.'
+            'JSON must contain an object (e.g. `{}`).'
         );
 
         $output = Parser::parseResponseString($invalid_jsonapi);
@@ -114,9 +114,9 @@ class ParserTest extends TestCase
     {
         $invalid_jsonapi = '["This is valid JSON", "but invalid JSON API"]';
 
-        $this->expectException(ValidationException::class);
+        $this->expectException(InputException::class);
         $this->expectExceptionMessage(
-            'Document has to be an object, "array" given.'
+            'JSON must contain an object (e.g. `{}`).'
         );
 
         $output = Parser::parseRequestString($invalid_jsonapi);
