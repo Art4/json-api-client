@@ -19,9 +19,12 @@
 
 namespace Art4\JsonApiClient\Tests\Unit\V1;
 
+use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\Exception\FactoryException;
 use Art4\JsonApiClient\Factory as FactoryInterface;
+use Art4\JsonApiClient\Manager;
 use Art4\JsonApiClient\V1\Factory;
+use Art4\JsonApiClient\V1\ResourceNull;
 
 class FactoryTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
 {
@@ -31,11 +34,17 @@ class FactoryTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
     public function testInjectACustomClass()
     {
         $factory = new Factory([
-            'Default' => 'stdClass',
+            'Default' => ResourceNull::class,
+        ]);
+
+        $resource = $factory->make('Default', [
+            null,
+            $this->createMock(Manager::class),
+            $this->createMock(Accessable::class),
         ]);
 
         $this->assertInstanceOf(FactoryInterface::class, $factory);
-        $this->assertInstanceOf('stdClass', $factory->make('Default'));
+        $this->assertInstanceOf(ResourceNull::class, $resource);
     }
 
     /**
