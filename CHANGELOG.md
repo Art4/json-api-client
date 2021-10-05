@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased](https://github.com/Art4/json-api-client/compare/1.0.0...v1.x)
 
+### Added
+
+- Added type hints for parameters and return types in internal and final classes
+- New tests for improving backward compatibility in interfaces
+
+### Changed
+
+- Switched from Travis-CI to Github Actions
+
 ## [1.0.0 - 2021-03-05](https://github.com/Art4/json-api-client/compare/0.10.2...1.0.0)
 
 ### Added
