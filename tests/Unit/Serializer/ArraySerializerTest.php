@@ -31,7 +31,7 @@ class ArraySerializerTest extends TestCase
     public function testSerialize()
     {
         $object1 = $this->createMock(Accessable::class);
-        $object2 = new \stdClass;
+        $object2 = new \stdClass();
 
         $data = $this->createMock(Accessable::class);
         $data->method('get')->will($this->returnValueMap([
@@ -71,7 +71,7 @@ class ArraySerializerTest extends TestCase
      */
     public function testRecursiveSerialize()
     {
-        $stdObject = new \stdClass;
+        $stdObject = new \stdClass();
         $stdObject->key = 'value';
 
         $object1 = $this->createMock(Accessable::class);

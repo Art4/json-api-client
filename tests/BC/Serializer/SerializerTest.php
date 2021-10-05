@@ -32,7 +32,7 @@ class SerializerTest extends TestCase
      */
     public function testBcForSerializerInterface()
     {
-        $class = new class() implements Serializer {
+        $class = new class () implements Serializer {
             /**
              * Serialize data
              *

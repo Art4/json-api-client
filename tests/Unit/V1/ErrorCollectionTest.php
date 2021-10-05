@@ -58,7 +58,7 @@ class ErrorCollectionTest extends TestCase
 
         $this->assertSame($collection->getKeys(), [0, 1]);
 
-        $this->assertFalse($collection->has(new \stdClass));
+        $this->assertFalse($collection->has(new \stdClass()));
         $this->assertFalse($collection->has([]));
         $this->assertFalse($collection->has('string'));
 

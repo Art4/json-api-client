@@ -157,7 +157,7 @@ class ErrorLinkTest extends TestCase
      */
     public function testAboutWithDataproviderThrowsException($input)
     {
-        $object = new \stdClass;
+        $object = new \stdClass();
         $object->about = $input;
 
         $this->expectException(ValidationException::class);

@@ -73,7 +73,7 @@ class SerializerTest extends TestCase
      */
     public function parseJsonapiDataWithErrorAbortManager($filename, array $meta)
     {
-        $manager = new ErrorAbortManager(new Factory);
+        $manager = new ErrorAbortManager(new Factory());
 
         $string = $this->getJsonString($filename);
 

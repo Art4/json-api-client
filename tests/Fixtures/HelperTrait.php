@@ -145,7 +145,7 @@ trait HelperTrait
     public function buildManagerMock()
     {
         // Mock factory
-        $factory = new FixtureFactory;
+        $factory = new FixtureFactory();
         $factory->testcase = $this;
 
         // Mock Manager

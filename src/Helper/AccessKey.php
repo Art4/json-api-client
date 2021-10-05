@@ -44,7 +44,7 @@ final class AccessKey extends SplStack
 
         $key_string = strval($key);
 
-        $key = new self;
+        $key = new self();
         $key->raw = $key_string;
 
         $keys = explode('.', $key_string);

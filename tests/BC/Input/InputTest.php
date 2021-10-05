@@ -31,7 +31,7 @@ class InputTest extends TestCase
      */
     public function testBcForInputInterface()
     {
-        $class = new class() implements Input {
+        $class = new class () implements Input {
             /**
              * Get the input as simple object
              *

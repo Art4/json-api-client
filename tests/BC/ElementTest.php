@@ -37,7 +37,7 @@ class ElementTest extends TestCase
         $manager = $this->createMock(Manager::class);
         $parent = $this->createMock(Accessable::class);
 
-        $class = new class($data, $manager, $parent) implements Element {
+        $class = new class ($data, $manager, $parent) implements Element {
             /**
              * Sets the manager and parent
              *

@@ -70,7 +70,7 @@ final class ErrorAbortManager implements Manager
 
         $document = $this->getFactory()->make(
             'Document',
-            [$object, $this, new RootAccessable]
+            [$object, $this, new RootAccessable()]
         );
 
         // Clear config

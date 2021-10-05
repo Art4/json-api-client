@@ -31,7 +31,7 @@ class AccessableTest extends TestCase
      */
     public function testBcForAccessableInterface()
     {
-        $class = new class() implements Accessable {
+        $class = new class () implements Accessable {
             /**
              * Get a value by a key
              *

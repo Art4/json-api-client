@@ -35,7 +35,7 @@ class DotNotationTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
      */
     public function testCompleteResourceObjectWithMultipleRelationships()
     {
-        $manager = new ErrorAbortManager(new Factory);
+        $manager = new ErrorAbortManager(new Factory());
 
         $string = $this->getJsonString('04_complete_document_with_multiple_relationships.json');
 
@@ -204,7 +204,7 @@ class DotNotationTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
      */
     public function testGetNotExistentValueThrowsException()
     {
-        $manager = new ErrorAbortManager(new Factory);
+        $manager = new ErrorAbortManager(new Factory());
 
         $string = $this->getJsonString('05_simple_meta_object.json');
 

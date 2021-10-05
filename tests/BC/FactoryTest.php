@@ -31,7 +31,7 @@ class FactoryTest extends TestCase
      */
     public function testBcForFactoryInterface()
     {
-        $class = new class() implements Factory {
+        $class = new class () implements Factory {
             /**
              * Create a new instance of a class
              *

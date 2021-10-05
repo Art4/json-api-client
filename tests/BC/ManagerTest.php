@@ -32,7 +32,7 @@ class ManagerTest extends TestCase
      */
     public function testBcForManagerInterface()
     {
-        $class = new class() implements Manager {
+        $class = new class () implements Manager {
             /**
              * Parse the input
              *
