@@ -19,6 +19,7 @@
 
 namespace Art4\JsonApiClient\V1;
 
+use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\Helper\AbstractElement;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
@@ -37,7 +38,7 @@ final class ResourceCollection extends AbstractElement
      *
      * @throws ValidationException
      */
-    protected function parse($object)
+    protected function parse($object): void
     {
         if (! is_array($object)) {
             throw new ValidationException('Resources for a collection has to be in an array, "' . gettype($object) . '" given.');
@@ -45,6 +46,10 @@ final class ResourceCollection extends AbstractElement
 
         if (count($object) > 0) {
             foreach ($object as $resource) {
+                if (! is_object($resource)) {
+                    throw new ValidationException('Resources inside a collection MUST be objects, "' . gettype($resource) . '" given.');
+                }
+
                 $this->set('', $this->parseResource($resource));
             }
         }
@@ -68,17 +73,9 @@ final class ResourceCollection extends AbstractElement
 
     /**
      * Generate a new resource from an object
-     *
-     * @param object $data The resource data
-     *
-     * @return \Art4\JsonApiClient\Accessable The resource
      */
-    private function parseResource($data)
+    private function parseResource(object $data): Accessable
     {
-        if (! is_object($data)) {
-            throw new ValidationException('Resources inside a collection MUST be objects, "' . gettype($data) . '" given.');
-        }
-
         $object_vars = get_object_vars($data);
 
         // the 2 properties must be type and id

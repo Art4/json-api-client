@@ -68,10 +68,8 @@ final class Factory implements FactoryInterface
      *
      * @param string        $name
      * @param array<mixed>  $args
-     *
-     * @return \Art4\JsonApiClient\Accessable
      */
-    public function make($name, array $args = [])
+    public function make($name, array $args = []): Accessable
     {
         if (! isset($this->classes[$name])) {
             throw new FactoryException('"' . $name . '" is not a registered class');

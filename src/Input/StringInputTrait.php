@@ -35,10 +35,8 @@ trait StringInputTrait
      * @param string $string
      *
      * @throws InputException if $string is not a string
-     *
-     * @return string
      */
-    public function prepareString($string)
+    final public function prepareString($string): string
     {
         if (! is_string($string)) {
             throw new InputException(sprintf(
@@ -53,13 +51,11 @@ trait StringInputTrait
     /**
      * Decodes a json string
      *
-     * @param string $jsonString
-     *
      * @throws InputException if something went wrong with the input
      *
      * @return mixed
      */
-    protected function decodeJson($jsonString)
+    final protected function decodeJson(string $jsonString)
     {
         $jsonErrors = [
             \JSON_ERROR_DEPTH => 'JSON_ERROR_DEPTH - Maximum stack depth exceeded',

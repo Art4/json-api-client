@@ -37,7 +37,7 @@ final class ResourceIdentifier extends AbstractElement
      *
      * @throws ValidationException
      */
-    protected function parse($object)
+    protected function parse($object): void
     {
         if (! is_object($object)) {
             throw new ValidationException('Resource has to be an object, "' . gettype($object) . '" given.');

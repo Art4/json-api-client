@@ -38,7 +38,7 @@ final class Document extends AbstractElement
      *
      * @throws ValidationException
      */
-    protected function parse($object)
+    protected function parse($object): void
     {
         if (! is_object($object)) {
             throw new ValidationException('Document has to be an object, "' . gettype($object) . '" given.');
@@ -103,8 +103,6 @@ final class Document extends AbstractElement
      * @param null|object|array<string, mixed> $data Data value
      *
      * @throws ValidationException If $data isn't null or an object
-     *
-     * @return Accessable The parsed data
      */
     private function parseData($data): Accessable
     {

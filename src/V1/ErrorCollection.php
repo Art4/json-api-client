@@ -37,7 +37,7 @@ final class ErrorCollection extends AbstractElement
      *
      * @throws ValidationException
      */
-    protected function parse($object)
+    protected function parse($object): void
     {
         if (! is_array($object)) {
             throw new ValidationException('Errors for a collection has to be in an array, "' . gettype($object) . '" given.');

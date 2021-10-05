@@ -46,11 +46,9 @@ final class ArraySerializer implements Serializer
     /**
      * Convert data in an array
      *
-     * @param \Art4\JsonApiClient\Accessable $data The data for serialization
-     *
      * @return array<string, mixed>|null
      */
-    public function serialize(Accessable $data)
+    public function serialize(Accessable $data): ?array
     {
         $fullArray = (bool) $this->config['recursive'];
 
