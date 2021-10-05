@@ -66,7 +66,7 @@ trait StringInputTrait
         ];
 
         // use JSON_BIGINT_AS_STRING
-        $options = \JSON_BIGINT_AS_STRING | JSON_THROW_ON_ERROR;
+        $options = \JSON_BIGINT_AS_STRING | \JSON_THROW_ON_ERROR;
 
         try {
             $data = json_decode($jsonString, false, 512, $options);
