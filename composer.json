@@ -31,7 +31,7 @@
         }
     },
     "scripts": {
-        "phpstan": "phpstan analyze src --memory-limit 512M --level 8",
+        "phpstan": "phpstan analyze --memory-limit 512M --configuration .phpstan.neon",
         "phpunit": "phpunit"
     },
     "config": {
