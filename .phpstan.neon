@@ -1,0 +1,29 @@
+parameters:
+	level: 8
+
+	paths:
+		- src/
+
+	scanDirectories:
+		- vendor
+
+	ignoreErrors:
+		-
+			message: "#^Class Art4\\\\JsonApiClient\\\\Helper\\\\AccessKey extends generic class SplStack but does not specify its types\\: TValue$#"
+			count: 1
+			path: src/Helper/AccessKey.php
+
+		-
+			message: "#^Property Art4\\\\JsonApiClient\\\\V1\\\\ResourceNull\\:\\:\\$data is never read, only written\\.$#"
+			count: 1
+			path: src/V1/ResourceNull.php
+
+		-
+			message: "#^Property Art4\\\\JsonApiClient\\\\V1\\\\ResourceNull\\:\\:\\$manager is never read, only written\\.$#"
+			count: 1
+			path: src/V1/ResourceNull.php
+
+		-
+			message: "#^Property Art4\\\\JsonApiClient\\\\V1\\\\ResourceNull\\:\\:\\$parent is never read, only written\\.$#"
+			count: 1
+			path: src/V1/ResourceNull.php

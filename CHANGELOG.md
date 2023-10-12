@@ -7,13 +7,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased](https://github.com/Art4/json-api-client/compare/1.1.0...v1.x)
 
+### Added
+
+- Add support for PHP 8.2
+
 ## [1.1.0 - 2021-10-05](https://github.com/Art4/json-api-client/compare/1.0.0...1.1.0)
 
 ### Added
 
 - Added type hints for parameters and return types in internal and final classes
 - New tests for improving backward compatibility in interfaces
-- Support for PHP 8.1 is added in CI tests
+- Add support for PHP 8.1
 
 ### Changed
 
@@ -21,7 +25,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Deprecated
 
--  `\Art4\JsonApiClient\Accessable::has()` will add `bool` as a native return type declaration in v2.0, do the same in your implementation now to avoid errors.
+- `\Art4\JsonApiClient\Accessable::has()` will add `bool` as a native return type declaration in v2.0, do the same in your implementation now to avoid errors.
 - `\Art4\JsonApiClient\Accessable::getKeys()` will add `array` as a native return type declaration in v2.0, do the same in your implementation now to avoid errors.
 - `\Art4\JsonApiClient\Exception\Exception` will extend `\Throwable` in v2.0, do the same in your implementation now to avoid errors.
 - `\Art4\JsonApiClient\Factory::make()` methods first parameter signature will be `string` in v2.0.
