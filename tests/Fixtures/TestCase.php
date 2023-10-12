@@ -19,6 +19,7 @@
 
 namespace Art4\JsonApiClient\Tests\Fixtures;
 
+#[\AllowDynamicProperties]
 class TestCase extends \PHPUnit\Framework\TestCase
 {
     /**
