@@ -54,7 +54,7 @@ final class Factory implements FactoryInterface
     ];
 
     /**
-     * @param array<string, string> $overload specs to be overloaded with custom classes
+     * @param array<string, class-string> $overload specs to be overloaded with custom classes
      */
     public function __construct(array $overload = [])
     {

@@ -17,7 +17,7 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.2",
-        "phpstan/phpstan": "^0.12.99",
+        "phpstan/phpstan": "^1.10",
         "phpunit/phpunit": "^9"
     },
     "autoload": {
@@ -31,7 +31,7 @@
         }
     },
     "scripts": {
-        "phpstan": "phpstan analyze --memory-limit 512M analyze src --level 8",
+        "phpstan": "phpstan analyze src --memory-limit 512M --level 8",
         "phpunit": "phpunit"
     },
     "config": {
