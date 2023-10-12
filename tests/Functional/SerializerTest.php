@@ -34,7 +34,7 @@ class SerializerTest extends TestCase
     /**
      * Provide JSON API data
      */
-    public function jsonapiDataProvider()
+    public static function jsonapiDataProvider(): array
     {
         $path = str_replace('/', \DIRECTORY_SEPARATOR, __DIR__ . '/../files/');
         $files = [];

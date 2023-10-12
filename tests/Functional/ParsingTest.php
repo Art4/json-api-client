@@ -34,7 +34,7 @@ class ParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
     /**
      * Provide Parser
      */
-    public function createParserProvider()
+    public static function createParserProvider(): array
     {
         $errorAbortManagerParser = function ($string) {
             $manager = new ErrorAbortManager(new Factory());
