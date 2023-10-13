@@ -25,8 +25,9 @@ use Art4\JsonApiClient\Factory as FactoryInterface;
 use Art4\JsonApiClient\Manager;
 use Art4\JsonApiClient\V1\Factory;
 use Art4\JsonApiClient\V1\ResourceNull;
+use PHPUnit\Framework\TestCase;
 
-class FactoryTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
+class FactoryTest extends TestCase
 {
     /**
      * @test

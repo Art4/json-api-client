@@ -20,7 +20,7 @@
 namespace Art4\JsonApiClient\Tests\BC;
 
 use Art4\JsonApiClient\Factory;
-use Art4\JsonApiClient\Tests\Fixtures\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class FactoryTest extends TestCase
 {

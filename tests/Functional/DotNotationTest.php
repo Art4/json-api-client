@@ -25,8 +25,9 @@ use Art4\JsonApiClient\Input\ResponseStringInput;
 use Art4\JsonApiClient\Manager\ErrorAbortManager;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 use Art4\JsonApiClient\V1\Factory;
+use PHPUnit\Framework\TestCase;
 
-class DotNotationTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
+class DotNotationTest extends TestCase
 {
     use HelperTrait;
 

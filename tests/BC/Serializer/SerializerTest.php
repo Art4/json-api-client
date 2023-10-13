@@ -21,7 +21,7 @@ namespace Art4\JsonApiClient\Tests\BC\Serializer;
 
 use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\Serializer\Serializer;
-use Art4\JsonApiClient\Tests\Fixtures\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class SerializerTest extends TestCase
 {

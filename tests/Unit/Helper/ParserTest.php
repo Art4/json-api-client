@@ -20,10 +20,9 @@
 namespace Art4\JsonApiClient\Tests\Unit\Helper;
 
 use Art4\JsonApiClient\Exception\InputException;
-use Art4\JsonApiClient\Exception\ValidationException;
 use Art4\JsonApiClient\Helper\Parser;
-use Art4\JsonApiClient\Tests\Fixtures\TestCase;
 use Art4\JsonApiClient\V1\Document;
+use PHPUnit\Framework\TestCase;
 
 class ParserTest extends TestCase
 {

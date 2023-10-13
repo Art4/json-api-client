@@ -21,7 +21,7 @@ namespace Art4\JsonApiClient\Tests\BC;
 
 use Art4\JsonApiClient\Input\Input;
 use Art4\JsonApiClient\Manager;
-use Art4\JsonApiClient\Tests\Fixtures\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class ManagerTest extends TestCase
 {

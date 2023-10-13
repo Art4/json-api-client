@@ -22,7 +22,7 @@ namespace Art4\JsonApiClient\Tests\Unit\Input;
 use Art4\JsonApiClient\Exception\InputException;
 use Art4\JsonApiClient\Input\ResponseStringInput;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
-use Art4\JsonApiClient\Tests\Fixtures\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class ResponseStringInputTest extends TestCase
 {

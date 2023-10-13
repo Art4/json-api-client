@@ -19,6 +19,7 @@
 
 namespace Art4\JsonApiClient\Tests\Fixtures;
 
+use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\Factory;
 use Art4\JsonApiClient\Manager;
 use Art4\JsonApiClient\Tests\Fixtures\Factory as FixtureFactory;
@@ -28,6 +29,12 @@ use Art4\JsonApiClient\Tests\Fixtures\Factory as FixtureFactory;
  */
 trait HelperTrait
 {
+    protected Manager $manager;
+
+    protected Factory $factory;
+
+    protected Accessable $parent;
+
     /**
      * Json Values Provider
      *
