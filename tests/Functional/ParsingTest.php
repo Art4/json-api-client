@@ -23,18 +23,18 @@ use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\Helper\Parser;
 use Art4\JsonApiClient\Input\ResponseStringInput;
 use Art4\JsonApiClient\Manager\ErrorAbortManager;
-use Art4\JsonApiClient\Serializer\ArraySerializer;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 use Art4\JsonApiClient\V1\Factory;
+use PHPUnit\Framework\TestCase;
 
-class ParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
+class ParsingTest extends TestCase
 {
     use HelperTrait;
 
     /**
      * Provide Parser
      */
-    public function createParserProvider()
+    public static function createParserProvider(): array
     {
         $errorAbortManagerParser = function ($string) {
             $manager = new ErrorAbortManager(new Factory());

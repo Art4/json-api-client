@@ -21,8 +21,9 @@ namespace Art4\JsonApiClient\Tests\Functional;
 
 use Art4\JsonApiClient\Helper\Parser;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
+use PHPUnit\Framework\TestCase;
 
-class ErrorParsingTest extends \Art4\JsonApiClient\Tests\Fixtures\TestCase
+class ErrorParsingTest extends TestCase
 {
     use HelperTrait;
 

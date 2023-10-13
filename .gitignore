@@ -1,6 +1,6 @@
 .idea
 .php-cs-fixer.cache
-.phpunit.result.cache
+.phpunit.cache
 composer.phar
 composer.lock
 php-cs-fixer.phar

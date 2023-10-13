@@ -18,7 +18,7 @@
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.2",
         "phpstan/phpstan": "^1.10",
-        "phpunit/phpunit": "^9"
+        "phpunit/phpunit": "^9 || ^10"
     },
     "autoload": {
         "psr-4": {
@@ -31,6 +31,7 @@
         }
     },
     "scripts": {
+        "coverage": "phpunit --coverage-html=\".phpunit.cache/code-coverage\"",
         "phpstan": "phpstan analyze --memory-limit 512M --configuration .phpstan.neon",
         "phpunit": "phpunit"
     },

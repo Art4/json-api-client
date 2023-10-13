@@ -22,7 +22,7 @@ namespace Art4\JsonApiClient\Tests\BC;
 use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\Element;
 use Art4\JsonApiClient\Manager;
-use Art4\JsonApiClient\Tests\Fixtures\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class ElementTest extends TestCase
 {

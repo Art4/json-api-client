@@ -24,8 +24,8 @@ use Art4\JsonApiClient\Input\ResponseStringInput;
 use Art4\JsonApiClient\Manager\ErrorAbortManager;
 use Art4\JsonApiClient\Serializer\ArraySerializer;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
-use Art4\JsonApiClient\Tests\Fixtures\TestCase;
 use Art4\JsonApiClient\V1\Factory;
+use PHPUnit\Framework\TestCase;
 
 class SerializerTest extends TestCase
 {
@@ -34,7 +34,7 @@ class SerializerTest extends TestCase
     /**
      * Provide JSON API data
      */
-    public function jsonapiDataProvider()
+    public static function jsonapiDataProvider(): array
     {
         $path = str_replace('/', \DIRECTORY_SEPARATOR, __DIR__ . '/../files/');
         $files = [];

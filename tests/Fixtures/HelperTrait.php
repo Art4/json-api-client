@@ -19,6 +19,7 @@
 
 namespace Art4\JsonApiClient\Tests\Fixtures;
 
+use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\Factory;
 use Art4\JsonApiClient\Manager;
 use Art4\JsonApiClient\Tests\Fixtures\Factory as FixtureFactory;
@@ -28,12 +29,18 @@ use Art4\JsonApiClient\Tests\Fixtures\Factory as FixtureFactory;
  */
 trait HelperTrait
 {
+    protected Manager $manager;
+
+    protected Factory $factory;
+
+    protected Accessable $parent;
+
     /**
      * Json Values Provider
      *
      * @see http://json.org/
      */
-    public function jsonValuesProvider()
+    public static function jsonValuesProvider(): array
     {
         return [
             [new \stdClass()],
@@ -53,9 +60,9 @@ trait HelperTrait
      *
      * @see http://json.org/
      */
-    public function jsonValuesProviderWithoutObject()
+    public static function jsonValuesProviderWithoutObject(): array
     {
-        $data = $this->jsonValuesProvider();
+        $data = static::jsonValuesProvider();
 
         unset($data[0]);
 
@@ -67,9 +74,9 @@ trait HelperTrait
      *
      * @see http://json.org/
      */
-    public function jsonValuesProviderWithoutArray()
+    public static function jsonValuesProviderWithoutArray(): array
     {
-        $data = $this->jsonValuesProvider();
+        $data = static::jsonValuesProvider();
 
         unset($data[1]);
 
@@ -81,9 +88,9 @@ trait HelperTrait
      *
      * @see http://json.org/
      */
-    public function jsonValuesProviderWithoutString()
+    public static function jsonValuesProviderWithoutString(): array
     {
-        $data = $this->jsonValuesProvider();
+        $data = static::jsonValuesProvider();
 
         unset($data[2]);
 
@@ -95,9 +102,9 @@ trait HelperTrait
      *
      * @see http://json.org/
      */
-    public function jsonValuesProviderWithoutObjectAndString()
+    public static function jsonValuesProviderWithoutObjectAndString(): array
     {
-        $data = $this->jsonValuesProvider();
+        $data = static::jsonValuesProvider();
 
         unset($data[0]);
         unset($data[2]);
@@ -110,7 +117,7 @@ trait HelperTrait
      *
      * @see http://json.org/
      */
-    public function jsonValuesAsStringProvider()
+    public static function jsonValuesAsStringProvider(): array
     {
         return [
             ['{}'],
@@ -130,9 +137,9 @@ trait HelperTrait
      *
      * @see http://json.org/
      */
-    public function jsonValuesAsStringProviderWithoutObject()
+    public static function jsonValuesAsStringProviderWithoutObject(): array
     {
-        $data = $this->jsonValuesAsStringProvider();
+        $data = static::jsonValuesAsStringProvider();
 
         unset($data[0]);
 

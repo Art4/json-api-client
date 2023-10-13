@@ -23,8 +23,8 @@ use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
-use Art4\JsonApiClient\Tests\Fixtures\TestCase;
 use Art4\JsonApiClient\V1\ResourceCollection;
+use PHPUnit\Framework\TestCase;
 
 class ResourceCollectionTest extends TestCase
 {

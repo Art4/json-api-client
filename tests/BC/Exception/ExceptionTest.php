@@ -20,7 +20,7 @@
 namespace Art4\JsonApiClient\Tests\BC\Exception;
 
 use Art4\JsonApiClient\Exception\Exception;
-use Art4\JsonApiClient\Tests\Fixtures\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class ExceptionTest extends TestCase
 {
