@@ -67,7 +67,11 @@ final class Factory implements FactoryInterface
         $object = $class->newInstanceArgs($args);
 
         if (! $object instanceof Accessable) {
-            throw new FactoryException($this->classes[$name] . ' must be instance of `Art4\JsonApiClient\Accessable`');
+            throw new FactoryException(sprintf(
+                '%s must be instance of `%s`',
+                $this->classes[$name],
+                Accessable::class
+            ));
         }
 
         return $object;
