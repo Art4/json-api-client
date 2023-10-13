@@ -155,7 +155,13 @@ You can find the code coverage report in `.phpunit.cache/code-coverage/index.htm
 
 The [REUSE Helper tool](https://reuse.software/dev/) makes licensing easy for humans and machines alike. It downloads the full license texts, adds copyright and license information to file headers, and contains a linter to identify problems.
 
-Run this command to annotate all files:
+Check all files for REUSE spec compliance:
+
+``` bash
+composer run reuse-lint
+```
+
+Run this command to annotate PHP files in src and tests folders:
 
 ``` bash
 composer run reuse-annotate
