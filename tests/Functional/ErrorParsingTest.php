@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // SPDX-FileCopyrightText: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -17,7 +19,7 @@ class ErrorParsingTest extends TestCase
     /**
      * @test
      */
-    public function testParseErrors()
+    public function testParseErrors(): void
     {
         $string = $this->getJsonString('09_errors.json');
         $document = Parser::parseResponseString($string);
@@ -90,7 +92,7 @@ class ErrorParsingTest extends TestCase
     /**
      * @test
      */
-    public function testParseErrorWithLinks()
+    public function testParseErrorWithLinks(): void
     {
         $string = $this->getJsonString('10_error_with_links.json');
         $document = Parser::parseResponseString($string);

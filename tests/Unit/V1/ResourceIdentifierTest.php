@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // SPDX-FileCopyrightText: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -31,7 +33,7 @@ class ResourceIdentifierTest extends TestCase
     /**
      * @test create with object
      */
-    public function testCreateWithObject()
+    public function testCreateWithObject(): void
     {
         $object = new \stdClass();
         $object->type = 'type';
@@ -51,7 +53,7 @@ class ResourceIdentifierTest extends TestCase
     /**
      * @test create with object and meta
      */
-    public function testCreateWithObjectAndMeta()
+    public function testCreateWithObjectAndMeta(): void
     {
         $object = new \stdClass();
         $object->type = 'types';
@@ -76,7 +78,7 @@ class ResourceIdentifierTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testTypeMustBeAString($input)
+    public function testTypeMustBeAString($input): void
     {
         $object = new \stdClass();
         $object->type = $input;
@@ -99,7 +101,7 @@ class ResourceIdentifierTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testIdMustBeAString($input)
+    public function testIdMustBeAString($input): void
     {
         $object = new \stdClass();
         $object->type = 'posts';
@@ -121,7 +123,7 @@ class ResourceIdentifierTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testCreateWithDataproviderThrowsException($input)
+    public function testCreateWithDataproviderThrowsException($input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(
@@ -134,7 +136,7 @@ class ResourceIdentifierTest extends TestCase
     /**
      * @test A "resource identifier object" MUST contain type and id members.
      */
-    public function testCreateWithObjectWithoutTypeThrowsException()
+    public function testCreateWithObjectWithoutTypeThrowsException(): void
     {
         $object = new \stdClass();
         $object->id = '123';
@@ -150,7 +152,7 @@ class ResourceIdentifierTest extends TestCase
     /**
      * @test A "resource identifier object" MUST contain type and id members.
      */
-    public function testCreateWithObjectWithoutIdThrowsException()
+    public function testCreateWithObjectWithoutIdThrowsException(): void
     {
         $object = new \stdClass();
         $object->type = 'type';
@@ -166,7 +168,7 @@ class ResourceIdentifierTest extends TestCase
     /**
      * @test get() on an undefined value throws Exception
      */
-    public function testGetWithUndefinedValueThrowsException()
+    public function testGetWithUndefinedValueThrowsException(): void
     {
         $object = new \stdClass();
         $object->type = 'posts';

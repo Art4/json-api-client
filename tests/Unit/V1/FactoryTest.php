@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // SPDX-FileCopyrightText: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -20,7 +22,7 @@ class FactoryTest extends TestCase
     /**
      * @test
      */
-    public function testInjectACustomClass()
+    public function testInjectACustomClass(): void
     {
         $factory = new Factory([
             'Default' => ResourceNull::class,
@@ -39,7 +41,7 @@ class FactoryTest extends TestCase
     /**
      * @test parse throw Exception if input is invalid jsonapi
      */
-    public function testMakeAnUndefindedClassThrowsException()
+    public function testMakeAnUndefindedClassThrowsException(): void
     {
         $factory = new Factory();
 
@@ -51,7 +53,7 @@ class FactoryTest extends TestCase
         $class = $factory->make('NotExistent');
     }
 
-    public function testMakeWithClassNotImplementingAccessableThrowsException()
+    public function testMakeWithClassNotImplementingAccessableThrowsException(): void
     {
         $factory = new Factory([
             'Default' => stdClass::class,

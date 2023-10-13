@@ -118,7 +118,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 
 ## :wrench: Contributing
 
-Please feel free to fork and sending Pull Requests. This project follows [Semantic Versioning 2](http://semver.org) and [PSR-2](http://www.php-fig.org/psr/psr-2/).
+Please feel free to fork and sending Pull Requests. This project follows [Semantic Versioning 2](http://semver.org) and [PER-CS2.0](https://www.php-fig.org/per/coding-style/).
 
 This projects comes with a `docker-compose.yml` where all tools for development are available.
 

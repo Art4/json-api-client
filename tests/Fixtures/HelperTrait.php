@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // SPDX-FileCopyrightText: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -160,7 +162,7 @@ trait HelperTrait
     /**
      * Builds a Manager Mock and set it into the TestCase
      */
-    public function setUpManagerMock()
+    public function setUpManagerMock(): void
     {
         // Mock factory
         $factory = new V1Factory($this);

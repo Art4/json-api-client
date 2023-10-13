@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // SPDX-FileCopyrightText: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -35,7 +37,7 @@ class ErrorSourceTest extends TestCase
      * - pointer: a JSON Pointer [RFC6901] to the associated entity in the request document [e.g. "/data" for a primary data object, or "/data/attributes/title" for a specific attribute].
      * - parameter: a string indicating which query parameter caused the error.
      */
-    public function testOnlyPointerParameterPropertiesExists()
+    public function testOnlyPointerParameterPropertiesExists(): void
     {
         $object = new \stdClass();
         $object->pointer = '/pointer';
@@ -72,7 +74,7 @@ class ErrorSourceTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testCreateWithoutObjectThrowsException($input)
+    public function testCreateWithoutObjectThrowsException($input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(
@@ -89,7 +91,7 @@ class ErrorSourceTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testPointerMustBeAString($input)
+    public function testPointerMustBeAString($input): void
     {
         $object = new \stdClass();
         $object->pointer = $input;
@@ -109,7 +111,7 @@ class ErrorSourceTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testParameterMustBeAString($input)
+    public function testParameterMustBeAString($input): void
     {
         $object = new \stdClass();
         $object->parameter = $input;

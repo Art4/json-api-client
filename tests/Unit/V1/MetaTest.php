@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // SPDX-FileCopyrightText: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -31,7 +33,7 @@ class MetaTest extends TestCase
     /**
      * @test create with object
      */
-    public function testCreateWithObject()
+    public function testCreateWithObject(): void
     {
         $object = new \stdClass();
         $object->object = new \stdClass();
@@ -80,7 +82,7 @@ class MetaTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testCreateWithoutObjectThrowsException($input)
+    public function testCreateWithoutObjectThrowsException($input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage('Meta has to be an object, "' . gettype($input) . '" given.');
@@ -91,7 +93,7 @@ class MetaTest extends TestCase
     /**
      * @test get() with not existing key throws an exception
      */
-    public function testGetWithNotExistingKeyThrowsException()
+    public function testGetWithNotExistingKeyThrowsException(): void
     {
         $object = new \stdClass();
 

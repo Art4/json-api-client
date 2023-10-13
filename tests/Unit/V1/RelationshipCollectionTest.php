@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // SPDX-FileCopyrightText: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -31,7 +33,7 @@ class RelationshipCollectionTest extends TestCase
     /**
      * @test create with object
      */
-    public function testCreateWithObject()
+    public function testCreateWithObject(): void
     {
         $object = new \stdClass();
         $object->author = new \stdClass();
@@ -66,7 +68,7 @@ class RelationshipCollectionTest extends TestCase
     /**
      * @test create with empty object
      */
-    public function testCreateWithEmptyObject()
+    public function testCreateWithEmptyObject(): void
     {
         $item = $this->createMock(Accessable::class);
 
@@ -86,7 +88,7 @@ class RelationshipCollectionTest extends TestCase
      *
      * Fields for a resource object MUST share a common namespace with each other and with `type` and `id`.
      */
-    public function testCreateWithTypePropertyThrowsException()
+    public function testCreateWithTypePropertyThrowsException(): void
     {
         $item = $this->createMock(Accessable::class);
 
@@ -111,7 +113,7 @@ class RelationshipCollectionTest extends TestCase
      *
      * Fields for a resource object MUST share a common namespace with each other and with `type` and `id`.
      */
-    public function testCreateWithIdPropertyThrowsException()
+    public function testCreateWithIdPropertyThrowsException(): void
     {
         $item = $this->createMock(Accessable::class);
 
@@ -136,7 +138,7 @@ class RelationshipCollectionTest extends TestCase
      *
      * In other words, a resource can not have an attribute and relationship with the same name,
      */
-    public function testCreateWithAuthorInRelationshipsAndAttributesThrowsException()
+    public function testCreateWithAuthorInRelationshipsAndAttributesThrowsException(): void
     {
         $item = $this->createMock(Accessable::class);
 
@@ -161,7 +163,7 @@ class RelationshipCollectionTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testCreateWithoutObjectThrowsException($input)
+    public function testCreateWithoutObjectThrowsException($input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(

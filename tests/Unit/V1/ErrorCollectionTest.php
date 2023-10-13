@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // SPDX-FileCopyrightText: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -31,7 +33,7 @@ class ErrorCollectionTest extends TestCase
     /**
      * @test create
      */
-    public function testCreate()
+    public function testCreate(): void
     {
         $errors = [
             new \stdClass(),
@@ -65,7 +67,7 @@ class ErrorCollectionTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testCreateWithoutArrayThrowsException($input)
+    public function testCreateWithoutArrayThrowsException($input): void
     {
         // Input must be an array with at least one object
         if (gettype($input) === 'array') {
@@ -86,7 +88,7 @@ class ErrorCollectionTest extends TestCase
     /**
      * @test get('resources') on an empty collection throws an exception
      */
-    public function testGetErrorWithEmptyCollectionThrowsException()
+    public function testGetErrorWithEmptyCollectionThrowsException(): void
     {
         $errors = [
             new \stdClass(),

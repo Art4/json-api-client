@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // SPDX-FileCopyrightText: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -31,7 +33,7 @@ class JsonapiTest extends TestCase
     /**
      * @test create with object
      */
-    public function testCreateWithObject()
+    public function testCreateWithObject(): void
     {
         $object = new \stdClass();
         $object->version = '1.0';
@@ -74,7 +76,7 @@ class JsonapiTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testCreateWithDataprovider($input)
+    public function testCreateWithDataprovider($input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(
@@ -91,7 +93,7 @@ class JsonapiTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testVersionCannotBeAnObjectOrArray($input)
+    public function testVersionCannotBeAnObjectOrArray($input): void
     {
         $object = new \stdClass();
         $object->version = $input;

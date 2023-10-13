@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // SPDX-FileCopyrightText: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -15,7 +17,7 @@ class ErrorAbortManagerTest extends TestCase
     /**
      * @test
      */
-    public function testCreateWithConstructorReturnsSelf()
+    public function testCreateWithConstructorReturnsSelf(): void
     {
         $factory = $this->createMock(Factory::class);
         $manager = new ErrorAbortManager($factory);
@@ -26,7 +28,7 @@ class ErrorAbortManagerTest extends TestCase
     /**
      * @test
      */
-    public function testGetParamReturnsDefault()
+    public function testGetParamReturnsDefault(): void
     {
         $factory = $this->createMock(Factory::class);
         $manager = new ErrorAbortManager($factory);

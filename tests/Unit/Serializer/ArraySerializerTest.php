@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // SPDX-FileCopyrightText: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -15,7 +17,7 @@ class ArraySerializerTest extends TestCase
     /**
      * @test non-recursive serialize()
      */
-    public function testSerialize()
+    public function testSerialize(): void
     {
         $object1 = $this->createMock(Accessable::class);
         $object2 = new \stdClass();
@@ -56,7 +58,7 @@ class ArraySerializerTest extends TestCase
     /**
      * @test recursive serialize()
      */
-    public function testRecursiveSerialize()
+    public function testRecursiveSerialize(): void
     {
         $stdObject = new \stdClass();
         $stdObject->key = 'value';
