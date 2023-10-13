@@ -31,6 +31,8 @@ class RelationshipLinkTest extends TestCase
 {
     use HelperTrait;
 
+    private Accessable $relationship;
+
     /**
      * @setup
      */
