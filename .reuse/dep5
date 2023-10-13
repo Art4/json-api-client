@@ -8,3 +8,11 @@ Source: https://github.com/Art4/json-api-client
 # Files: src/*
 # Copyright: $YEAR $NAME <$CONTACT>
 # License: ...
+
+Files: src/*
+Copyright: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
+License: GPL-3.0-or-later
+
+Files: tests/*
+Copyright: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
+License: GPL-3.0-or-later
