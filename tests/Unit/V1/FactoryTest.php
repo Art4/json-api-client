@@ -13,6 +13,7 @@ use Art4\JsonApiClient\Manager;
 use Art4\JsonApiClient\V1\Factory;
 use Art4\JsonApiClient\V1\ResourceNull;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 class FactoryTest extends TestCase
 {
@@ -48,5 +49,19 @@ class FactoryTest extends TestCase
         );
 
         $class = $factory->make('NotExistent');
+    }
+
+    public function testMakeWithClassNotImplementingAccessableThrowsException()
+    {
+        $factory = new Factory([
+            'Default' => stdClass::class,
+        ]);
+
+        $this->expectException(FactoryException::class);
+        $this->expectExceptionMessage(
+            'stdClass must be instance of `Art4\JsonApiClient\Accessable`'
+        );
+
+        $class = $factory->make('Default');
     }
 }
