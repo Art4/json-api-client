@@ -6,6 +6,4 @@
 
 namespace Art4\JsonApiClient\Exception;
 
-class AccessException extends \RuntimeException implements Exception, \Throwable
-{
-}
+class AccessException extends \RuntimeException implements Exception, \Throwable {}

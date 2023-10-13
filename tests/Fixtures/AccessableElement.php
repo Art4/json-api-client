@@ -12,6 +12,4 @@ use Art4\JsonApiClient\Element;
 /**
  * AccessableElement Interface
  */
-interface AccessableElement extends Accessable, Element
-{
-}
+interface AccessableElement extends Accessable, Element {}

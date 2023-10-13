@@ -16,7 +16,7 @@
         "php": "^7.4 || ~8.0.0 || ~8.1.0 || ~8.2.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.2",
+        "friendsofphp/php-cs-fixer": "^3.35",
         "phpstan/phpstan": "^1.10",
         "phpunit/phpunit": "^9 || ^10"
     },
@@ -31,6 +31,7 @@
         }
     },
     "scripts": {
+        "codestyle": "php-cs-fixer fix --verbose --diff",
         "coverage": "phpunit --coverage-html=\".phpunit.cache/code-coverage\"",
         "phpstan": "phpstan analyze --memory-limit 512M --configuration .phpstan.neon",
         "phpunit": "phpunit",

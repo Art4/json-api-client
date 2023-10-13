@@ -6,6 +6,4 @@
 
 namespace Art4\JsonApiClient\Exception;
 
-class InputException extends \Exception implements Exception, \Throwable
-{
-}
+class InputException extends \Exception implements Exception, \Throwable {}

@@ -18,8 +18,7 @@ class ExceptionTest extends TestCase
      */
     public function testBcForExceptionInterface()
     {
-        $class = new class () implements Exception {
-        };
+        $class = new class () implements Exception {};
 
         $this->assertInstanceOf(Exception::class, $class);
     }

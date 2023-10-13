@@ -6,6 +6,4 @@
 
 namespace Art4\JsonApiClient\Exception;
 
-class FactoryException extends \Exception implements Exception, \Throwable
-{
-}
+class FactoryException extends \Exception implements Exception, \Throwable {}

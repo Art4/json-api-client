@@ -9,6 +9,4 @@ namespace Art4\JsonApiClient\Input;
 /**
  * Request Input Interface
  */
-interface RequestInput
-{
-}
+interface RequestInput {}

@@ -18,8 +18,7 @@ class RequestInputTest extends TestCase
      */
     public function testBcForRequestInputInterface()
     {
-        $class = new class () implements RequestInput {
-        };
+        $class = new class () implements RequestInput {};
 
         $this->assertInstanceOf(RequestInput::class, $class);
     }
