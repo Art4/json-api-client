@@ -33,7 +33,9 @@
     "scripts": {
         "coverage": "phpunit --coverage-html=\".phpunit.cache/code-coverage\"",
         "phpstan": "phpstan analyze --memory-limit 512M --configuration .phpstan.neon",
-        "phpunit": "phpunit"
+        "phpunit": "phpunit",
+        "reuse-annotate": "pipx run reuse annotate src tests --license=\"GPL-3.0-or-later\" --copyright=\"2015-2023 Artur Weigandt https://wlabs.de/kontakt\" --recursive --exclude-year --copyright-style=\"spdx\"",
+        "reuse-lint": "pipx run reuse --suppress-deprecation lint"
     },
     "config": {
         "sort-packages": true

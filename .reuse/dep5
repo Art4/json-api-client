@@ -1,0 +1,65 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: art4/json-api-client
+Upstream-Contact: Artur Weigandt <art4@wlabs.de>
+Source: https://github.com/Art4/json-api-client
+
+# Sample paragraph, commented out:
+#
+# Files: src/*
+# Copyright: $YEAR $NAME <$CONTACT>
+# License: ...
+
+Files: .docker/*
+Copyright: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
+License: GPL-3.0-or-later
+
+Files: .github/*
+Copyright: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
+License: GPL-3.0-or-later
+
+Files: .gitignore
+Copyright: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
+License: GPL-3.0-or-later
+
+Files: CHANGELOG.md
+Copyright: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
+License: GPL-3.0-or-later
+
+Files: composer.json
+Copyright: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
+License: GPL-3.0-or-later
+
+Files: composer.lock
+Copyright: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
+License: GPL-3.0-or-later
+
+Files: docs/*
+Copyright: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
+License: GPL-3.0-or-later
+
+Files: phpunit.xml
+Copyright: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
+License: GPL-3.0-or-later
+
+Files: README.md
+Copyright: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
+License: GPL-3.0-or-later
+
+Files: tests/files/*
+Copyright: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
+License: GPL-3.0-or-later
+
+# Ignore following folders
+# for some reason reuse does not ignore files defined in .gitignore
+
+Files: .phpunit.cache/*
+Copyright: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
+License: GPL-3.0-or-later
+
+Files: .php-cs-fixer.cache
+Copyright: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
+License: GPL-3.0-or-later
+
+Files: vendor/*
+Copyright: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
+License: GPL-3.0-or-later

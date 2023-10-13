@@ -115,15 +115,57 @@ Need more functionality? Want to directly inject your model? Easily extend JsonA
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
 
-## :white_check_mark: Testing
-
-``` bash
-$ phpunit
-```
-
 ## :wrench: Contributing
 
 Please feel free to fork and sending Pull Requests. This project follows [Semantic Versioning 2](http://semver.org) and [PSR-2](http://www.php-fig.org/psr/psr-2/).
+
+This projects comes with a `docker-compose.yml` where all tools for development are available.
+
+Run `docker compose build` to build the image. Once you've build it, run `docker compose up -d` to start the container in the background.
+
+Run `docker compose exec -u 1000 php bash` to use the bash inside the running container. There you can use all tools, e.g. composer with `composer --version`
+
+Use `exit` to logout from the container and `docker compose stop` to stop the running container.
+
+All following commands can be run inside the running docker container.
+
+### :white_check_mark: Testing
+
+Run PHPUnit for all tests:
+
+``` bash
+$ composer run phpunit
+```
+
+Run PHPStan for static code analysis:
+
+``` bash
+$ composer run phpstan
+```
+
+Let PHPUnit generate a HTLM code coverage report:
+
+``` bash
+$ composer run coverage
+```
+
+You can find the code coverage report in `.phpunit.cache/code-coverage/index.html`.
+
+### :white_check_mark: REUSE
+
+The [REUSE Helper tool](https://reuse.software/dev/) makes licensing easy for humans and machines alike. It downloads the full license texts, adds copyright and license information to file headers, and contains a linter to identify problems.
+
+Check all files for REUSE spec compliance:
+
+``` bash
+composer run reuse-lint
+```
+
+Run this command to annotate PHP files in src and tests folders:
+
+``` bash
+composer run reuse-annotate
+```
 
 ## :heart: Credits
 
