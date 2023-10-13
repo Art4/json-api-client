@@ -8,6 +8,7 @@ RUN apt-get --yes --no-install-recommends install \
     vim \
     curl \
     build-essential \
+    reuse \
     locales \
     zip unzip \
     libfreetype6-dev \

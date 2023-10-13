@@ -1,0 +1,10 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: art4/json-api-client
+Upstream-Contact: Artur Weigandt <art4@wlabs.de>
+Source: https://github.com/Art4/json-api-client
+
+# Sample paragraph, commented out:
+#
+# Files: src/*
+# Copyright: $YEAR $NAME <$CONTACT>
+# License: ...
