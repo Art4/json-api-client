@@ -79,7 +79,7 @@ class LinkTest extends TestCase
             $link = new Link($object, $this->manager, $this->parent);
 
             $this->assertTrue($link->has('href'));
-            $this->assertTrue(is_string($link->get('href')));
+            $this->assertIsString($link->get('href'));
 
             return;
         }

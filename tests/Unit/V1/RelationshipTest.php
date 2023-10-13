@@ -153,7 +153,7 @@ class RelationshipTest extends TestCase
         $this->assertSame($relationship->getKeys(), ['data']);
         $this->assertTrue($relationship->has('data'));
 
-        $this->assertTrue(is_null($relationship->get('data')));
+        $this->assertNull($relationship->get('data'));
     }
 
     /**

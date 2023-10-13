@@ -53,15 +53,15 @@ class AttributesTest extends TestCase
 
         $this->assertInstanceOf(Accessable::class, $attributes);
         $this->assertTrue($attributes->has('object'));
-        $this->assertTrue(is_object($attributes->get('object')));
+        $this->assertIsObject($attributes->get('object'));
         $this->assertTrue($attributes->has('array'));
-        $this->assertTrue(is_array($attributes->get('array')));
+        $this->assertIsArray($attributes->get('array'));
         $this->assertTrue($attributes->has('string'));
-        $this->assertTrue(is_string($attributes->get('string')));
+        $this->assertIsString($attributes->get('string'));
         $this->assertTrue($attributes->has('number_int'));
-        $this->assertTrue(is_int($attributes->get('number_int')));
+        $this->assertIsInt($attributes->get('number_int'));
         $this->assertTrue($attributes->has('number_float'));
-        $this->assertTrue(is_float($attributes->get('number_float')));
+        $this->assertIsFloat($attributes->get('number_float'));
         $this->assertTrue($attributes->has('true'));
         $this->assertTrue($attributes->get('true'));
         $this->assertTrue($attributes->has('false'));

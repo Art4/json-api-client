@@ -15,6 +15,8 @@ return (new PhpCsFixer\Config())
         '@PER-CS2.0:risky' => true,
         '@PHP74Migration' => true,
         '@PHP74Migration:risky' => true,
+        '@PHPUnit84Migration:risky' => true,
+        'no_alias_functions' => true,
     ])
     ->setFinder($finder)
     ->setRiskyAllowed(true)

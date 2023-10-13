@@ -91,7 +91,7 @@ class ResourceIdentifierTest extends TestCase
 
         $identifier = new ResourceIdentifier($object, $this->manager, $this->parent);
 
-        $this->assertTrue(is_string($identifier->get('type')));
+        $this->assertIsString($identifier->get('type'));
     }
 
     /**

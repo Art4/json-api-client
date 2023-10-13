@@ -116,6 +116,6 @@ class JsonapiTest extends TestCase
 
         // other input must be transformed to string
         $this->assertTrue($jsonapi->has('version'));
-        $this->assertTrue(is_string($jsonapi->get('version')));
+        $this->assertIsString($jsonapi->get('version'));
     }
 }
