@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // SPDX-FileCopyrightText: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -40,7 +42,7 @@ class ParsingTest extends TestCase
      *
      * @param mixed $parser
      */
-    public function testParseSimpleResourceWithDifferentParser($parser)
+    public function testParseSimpleResourceWithDifferentParser($parser): void
     {
         $string = $this->getJsonString('01_simple_resource.json');
         $document = $parser($string);
@@ -69,7 +71,7 @@ class ParsingTest extends TestCase
     /**
      * @test
      */
-    public function testParseSimpleResourceIdentifier()
+    public function testParseSimpleResourceIdentifier(): void
     {
         $string = $this->getJsonString('02_simple_resource_identifier.json');
         $document = Parser::parseResponseString($string);
@@ -93,7 +95,7 @@ class ParsingTest extends TestCase
     /**
      * @test
      */
-    public function testParseResourceObject()
+    public function testParseResourceObject(): void
     {
         $string = $this->getJsonString('03_resource_object.json');
         $document = Parser::parseResponseString($string);
@@ -161,7 +163,7 @@ class ParsingTest extends TestCase
     /**
      * @test
      */
-    public function testParseCompleteResourceObjectWithMultipleRelationships()
+    public function testParseCompleteResourceObjectWithMultipleRelationships(): void
     {
         $string = $this->getJsonString('04_complete_document_with_multiple_relationships.json');
         $document = Parser::parseResponseString($string);
@@ -336,7 +338,7 @@ class ParsingTest extends TestCase
     /**
      * @test
      */
-    public function testParsePaginationExample()
+    public function testParsePaginationExample(): void
     {
         $string = $this->getJsonString('06_pagination_example.json');
         $document = Parser::parseResponseString($string);
@@ -390,7 +392,7 @@ class ParsingTest extends TestCase
     /**
      * @test
      */
-    public function testParseRelationshipExample()
+    public function testParseRelationshipExample(): void
     {
         $string = $this->getJsonString('07_relationship_example_without_data.json');
         $document = Parser::parseResponseString($string);
@@ -456,7 +458,7 @@ class ParsingTest extends TestCase
     /**
      * @test
      */
-    public function testParseObjectLinksExample()
+    public function testParseObjectLinksExample(): void
     {
         $string = $this->getJsonString('08_object_links.json');
         $document = Parser::parseResponseString($string);
@@ -499,7 +501,7 @@ class ParsingTest extends TestCase
     /**
      * @test
      */
-    public function testParseResourceIdentifierWithMeta()
+    public function testParseResourceIdentifierWithMeta(): void
     {
         $string = $this->getJsonString('11_resource_identifier_with_meta.json');
         $document = Parser::parseResponseString($string);
@@ -525,7 +527,7 @@ class ParsingTest extends TestCase
     /**
      * @test
      */
-    public function testParseNullResource()
+    public function testParseNullResource(): void
     {
         $string = $this->getJsonString('12_null_resource.json');
         $document = Parser::parseResponseString($string);
@@ -546,7 +548,7 @@ class ParsingTest extends TestCase
     /**
      * @test
      */
-    public function testParseResourceIdentifierCollectionWithMeta()
+    public function testParseResourceIdentifierCollectionWithMeta(): void
     {
         $string = $this->getJsonString('13_collection_with_resource_identifier_with_meta.json');
         $document = Parser::parseResponseString($string);
@@ -583,7 +585,7 @@ class ParsingTest extends TestCase
     /**
      * @test
      */
-    public function testParseCreateResourceWithoutId()
+    public function testParseCreateResourceWithoutId(): void
     {
         $string = $this->getJsonString('14_create_resource_without_id.json');
         $document = Parser::parseRequestString($string);
@@ -595,7 +597,7 @@ class ParsingTest extends TestCase
     /**
      * @test
      */
-    public function testParseCreateShortResourceWithoutId()
+    public function testParseCreateShortResourceWithoutId(): void
     {
         $string = $this->getJsonString('15_create_resource_without_id.json');
         $document = Parser::parseRequestString($string);
@@ -607,7 +609,7 @@ class ParsingTest extends TestCase
     /**
      * @test
      */
-    public function testExceptionIfIdIsNotString()
+    public function testExceptionIfIdIsNotString(): void
     {
         $this->expectException(\Art4\JsonApiClient\Exception\ValidationException::class);
         $string = $this->getJsonString('16_type_and_id_as_integer.json');
@@ -617,7 +619,7 @@ class ParsingTest extends TestCase
     /**
      * @test
      */
-    public function testParseLinksInRelationshipsCorrectly()
+    public function testParseLinksInRelationshipsCorrectly(): void
     {
         $string = $this->getJsonString('17_relationship_links.json');
         $document = Parser::parseResponseString($string);

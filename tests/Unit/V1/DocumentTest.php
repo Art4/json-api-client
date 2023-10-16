@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // SPDX-FileCopyrightText: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -31,7 +33,7 @@ class DocumentTest extends TestCase
     /**
      * @test create with object returns self
      */
-    public function testCreateWithObjectReturnsSelf()
+    public function testCreateWithObjectReturnsSelf(): void
     {
         $object = new \stdClass();
         $object->meta = new \stdClass();
@@ -54,7 +56,7 @@ class DocumentTest extends TestCase
     /**
      * @test create with all possible values
      */
-    public function testCreateWithAllPossibleValues()
+    public function testCreateWithAllPossibleValues(): void
     {
         $object = new \stdClass();
         $object->data = new \stdClass();
@@ -89,7 +91,7 @@ class DocumentTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testCreateWithDataproviderThrowsException($input)
+    public function testCreateWithDataproviderThrowsException($input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(
@@ -104,7 +106,7 @@ class DocumentTest extends TestCase
      *
      * A document MUST contain at least one of the following top-level members: data, errors, meta
      */
-    public function testCreateWithoutAnyToplevelMemberThrowsException()
+    public function testCreateWithoutAnyToplevelMemberThrowsException(): void
     {
         $object = new \stdClass();
 
@@ -124,7 +126,7 @@ class DocumentTest extends TestCase
      * - a single resource object, a single resource identifier object, or null, for requests that target single resources
      * - an array of resource objects, an array of resource identifier objects, or an empty array ([]), for requests that target resource collections
      */
-    public function testCreateDataWithResourceIdentifier()
+    public function testCreateDataWithResourceIdentifier(): void
     {
         $data = new \stdClass();
         $data->type = 'posts';
@@ -144,7 +146,7 @@ class DocumentTest extends TestCase
     /**
      * @test create with data resource identifier and meta
      */
-    public function testCreateDataWithResourceIdentifierAndMeta()
+    public function testCreateDataWithResourceIdentifierAndMeta(): void
     {
         $data = new \stdClass();
         $data->type = 'posts';
@@ -165,7 +167,7 @@ class DocumentTest extends TestCase
     /**
      * @test create with data resource item
      */
-    public function testCreateDataWithResourceItem()
+    public function testCreateDataWithResourceItem(): void
     {
         $data = new \stdClass();
         $data->type = 'posts';
@@ -187,7 +189,7 @@ class DocumentTest extends TestCase
     /**
      * @test create with data object array
      */
-    public function testCreateDataWithResourceCollectionIdentifiers()
+    public function testCreateDataWithResourceCollectionIdentifiers(): void
     {
         $data_obj = new \stdClass();
         $data_obj->type = 'types';
@@ -207,7 +209,7 @@ class DocumentTest extends TestCase
     /**
      * @test create with data object array advanced
      */
-    public function testCreateDataWithResourceCollectionResources()
+    public function testCreateDataWithResourceCollectionResources(): void
     {
         $data_obj = new \stdClass();
         $data_obj->type = 'types';
@@ -233,7 +235,7 @@ class DocumentTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testCreateWithDataproviderInValue($input)
+    public function testCreateWithDataproviderInValue($input): void
     {
 
         // Test with empty array in data
@@ -282,7 +284,7 @@ class DocumentTest extends TestCase
     /**
      * @test create with an errors array
      */
-    public function testCreateWithErrorsArray()
+    public function testCreateWithErrorsArray(): void
     {
         $object = new \stdClass();
         $object->errors = [
@@ -302,7 +304,7 @@ class DocumentTest extends TestCase
     /**
      * @test The members `data` and `errors` MUST NOT coexist in the same document.
      */
-    public function testCreateWithDataAndErrorsThrowsException()
+    public function testCreateWithDataAndErrorsThrowsException(): void
     {
         $object = new \stdClass();
         $object->data = new \stdClass();
@@ -319,7 +321,7 @@ class DocumentTest extends TestCase
     /**
      * @test create with meta object
      */
-    public function testCreateWithMetaObject()
+    public function testCreateWithMetaObject(): void
     {
         $object = new \stdClass();
         $object->meta = new \stdClass();
@@ -335,7 +337,7 @@ class DocumentTest extends TestCase
     /**
      * @test create with Jsonapi object
      */
-    public function testCreateWithJsonapiObject()
+    public function testCreateWithJsonapiObject(): void
     {
         $object = new \stdClass();
 
@@ -353,7 +355,7 @@ class DocumentTest extends TestCase
     /**
      * @test create with link object
      */
-    public function testCreateWithLinkObject()
+    public function testCreateWithLinkObject(): void
     {
         $object = new \stdClass();
 
@@ -371,7 +373,7 @@ class DocumentTest extends TestCase
     /**
      * @test create with included objects
      */
-    public function testCreateWithIncludedObjects()
+    public function testCreateWithIncludedObjects(): void
     {
         $data = new \stdClass();
         $data->type = 'posts';
@@ -397,7 +399,7 @@ class DocumentTest extends TestCase
     /**
      * @test If a document does not contain a top-level `data` key, the `included` member MUST NOT be present either.
      */
-    public function testCreateIncludedWithoutDataThrowsException()
+    public function testCreateIncludedWithoutDataThrowsException(): void
     {
         $object = new \stdClass();
         $object->included = new \stdClass();
@@ -414,7 +416,7 @@ class DocumentTest extends TestCase
     /**
      * @test
      */
-    public function testGetOnANonExistingKeyThrowsException()
+    public function testGetOnANonExistingKeyThrowsException(): void
     {
         $object = new \stdClass();
         $object->meta = new \stdClass();

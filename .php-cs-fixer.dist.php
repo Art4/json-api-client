@@ -11,7 +11,13 @@ $finder = (new PhpCsFixer\Finder())
 
 return (new PhpCsFixer\Config())
     ->setRules([
-        '@PSR12' => true,
+        '@PER-CS2.0' => true,
+        '@PER-CS2.0:risky' => true,
+        '@PHP74Migration' => true,
+        '@PHP74Migration:risky' => true,
+        '@PHPUnit84Migration:risky' => true,
+        'no_alias_functions' => true,
     ])
     ->setFinder($finder)
+    ->setRiskyAllowed(true)
 ;

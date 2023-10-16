@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // SPDX-FileCopyrightText: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -62,7 +64,7 @@ final class ResourceNull implements Accessable, Element
      *
      * @param string $key The key of the value
      */
-    public function get($key)
+    public function get($key): void
     {
         throw new AccessException('A ResourceNull has no values.');
     }

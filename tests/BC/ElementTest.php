@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // SPDX-FileCopyrightText: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -18,7 +20,7 @@ class ElementTest extends TestCase
      * DO NOT CHANGE THIS!
      * Changes are only allowed by increasing the major version number.
      */
-    public function testBcForElementInterface()
+    public function testBcForElementInterface(): void
     {
         $data = null;
         $manager = $this->createMock(Manager::class);
@@ -30,9 +32,7 @@ class ElementTest extends TestCase
              *
              * @param mixed $data The data for this Element
              */
-            public function __construct($data, Manager $manager, Accessable $parent)
-            {
-            }
+            public function __construct($data, Manager $manager, Accessable $parent) {}
         };
 
         $this->assertInstanceOf(Element::class, $class);

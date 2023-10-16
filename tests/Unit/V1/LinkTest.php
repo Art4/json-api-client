@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // SPDX-FileCopyrightText: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -31,7 +33,7 @@ class LinkTest extends TestCase
     /**
      * @test create with object
      */
-    public function testCreateWithObject()
+    public function testCreateWithObject(): void
     {
         $object = new \stdClass();
         $object->meta = new \stdClass();
@@ -68,7 +70,7 @@ class LinkTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testHrefHasToBeAString($input)
+    public function testHrefHasToBeAString($input): void
     {
         $object = new \stdClass();
         $object->href = $input;
@@ -77,7 +79,7 @@ class LinkTest extends TestCase
             $link = new Link($object, $this->manager, $this->parent);
 
             $this->assertTrue($link->has('href'));
-            $this->assertTrue(is_string($link->get('href')));
+            $this->assertIsString($link->get('href'));
 
             return;
         }
@@ -96,7 +98,7 @@ class LinkTest extends TestCase
      * - an object ("link object") which can contain the following members:
      *   - href: a string containing the link's URL.
      */
-    public function testHrefAttributeMustBeSet()
+    public function testHrefAttributeMustBeSet(): void
     {
         $object = new \stdClass();
         $object->related = 'http://example.org/related';
@@ -112,7 +114,7 @@ class LinkTest extends TestCase
     /**
      * @test meta attribute will be parsed as Meta object inside Link
      */
-    public function testMetaIsParsedAsObject()
+    public function testMetaIsParsedAsObject(): void
     {
         $object = new \stdClass();
         $object->meta = new \stdClass();
@@ -131,7 +133,7 @@ class LinkTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testCreateWithDataprovider($input)
+    public function testCreateWithDataprovider($input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(

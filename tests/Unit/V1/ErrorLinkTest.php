@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // SPDX-FileCopyrightText: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -35,7 +37,7 @@ class ErrorLinkTest extends TestCase
      * - links: a links object containing the following members:
      *   - about: a link that leads to further details about this particular occurrence of the problem.
      */
-    public function testAllPropertiesExists()
+    public function testAllPropertiesExists(): void
     {
         $object = new \stdClass();
         $object->meta = new \stdClass();
@@ -63,7 +65,7 @@ class ErrorLinkTest extends TestCase
      * - links: a links object containing the following members:
      *   - about: a link that leads to further details about this particular occurrence of the problem.
      */
-    public function testAboutMustBeSet()
+    public function testAboutMustBeSet(): void
     {
         $object = new \stdClass();
         $object->foobar = new \stdClass();
@@ -83,7 +85,7 @@ class ErrorLinkTest extends TestCase
      * - links: a links object containing the following members:
      *   - about: a link that leads to further details about this particular occurrence of the problem.
      */
-    public function testAboutCanBeAnObject()
+    public function testAboutCanBeAnObject(): void
     {
         $object = new \stdClass();
         $object->about = new \stdClass();
@@ -104,7 +106,7 @@ class ErrorLinkTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testCreateWithDataprovider($input)
+    public function testCreateWithDataprovider($input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(
@@ -121,7 +123,7 @@ class ErrorLinkTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testCreateWithoutObjectOrStringAttributeThrowsException($input)
+    public function testCreateWithoutObjectOrStringAttributeThrowsException($input): void
     {
         $object = new \stdClass();
         $object->about = 'http://example.org/about';
@@ -142,7 +144,7 @@ class ErrorLinkTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testAboutWithDataproviderThrowsException($input)
+    public function testAboutWithDataproviderThrowsException($input): void
     {
         $object = new \stdClass();
         $object->about = $input;
@@ -158,7 +160,7 @@ class ErrorLinkTest extends TestCase
     /**
      * @test
      */
-    public function testGetOnANonExistingKeyThrowsException()
+    public function testGetOnANonExistingKeyThrowsException(): void
     {
         $object = new \stdClass();
         $object->about = 'http://example.org/about';

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // SPDX-FileCopyrightText: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -59,7 +61,7 @@ class RelationshipLinkTest extends TestCase
      * A relationship object that represents a to-many relationship MAY also contain pagination
      * links under the links member, as described below.
      */
-    public function testOnlySelfRelatedPaginationPropertiesExists()
+    public function testOnlySelfRelatedPaginationPropertiesExists(): void
     {
         $object = new \stdClass();
         $object->self = 'http://example.org/self';
@@ -98,7 +100,7 @@ class RelationshipLinkTest extends TestCase
     /**
      * @test pagination links are parsed, if data in parent relationship object exists
      */
-    public function testPaginationParsedIfRelationshipDataExists()
+    public function testPaginationParsedIfRelationshipDataExists(): void
     {
         $object = new \stdClass();
         $object->self = 'http://example.org/self';
@@ -118,7 +120,7 @@ class RelationshipLinkTest extends TestCase
     /**
      * @test pagination links are not parsed, if data in parent relationship object doesnt exist
      */
-    public function testPaginationNotParsedIfRelationshipDataNotExists()
+    public function testPaginationNotParsedIfRelationshipDataNotExists(): void
     {
         $object = new \stdClass();
         $object->self = 'http://example.org/self';
@@ -155,7 +157,7 @@ class RelationshipLinkTest extends TestCase
     /**
      * @test pagination links are not parsed, if data in parent relationship object is not IdentifierCollection
      */
-    public function testPaginationNotParsedIfRelationshipIdentifierCollectionNotExists()
+    public function testPaginationNotParsedIfRelationshipIdentifierCollectionNotExists(): void
     {
         $object = new \stdClass();
         $object->self = 'http://example.org/self';
@@ -204,7 +206,7 @@ class RelationshipLinkTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testCreateWithoutObjectThrowsException($input)
+    public function testCreateWithoutObjectThrowsException($input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(
@@ -221,7 +223,7 @@ class RelationshipLinkTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testCreateWithoutObjectOrStringAttributeThrowsException($input)
+    public function testCreateWithoutObjectOrStringAttributeThrowsException($input): void
     {
         $object = new \stdClass();
         $object->self = 'http://example.org/self';
@@ -238,7 +240,7 @@ class RelationshipLinkTest extends TestCase
     /**
      * @test object contains at least one of the following: self, related
      */
-    public function testCreateWithoutSelfAndRelatedPropertiesThrowsException()
+    public function testCreateWithoutSelfAndRelatedPropertiesThrowsException(): void
     {
         $object = new \stdClass();
         $object->first = 'http://example.org/first';
@@ -259,7 +261,7 @@ class RelationshipLinkTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testSelfMustBeAStringOrObject($input)
+    public function testSelfMustBeAStringOrObject($input): void
     {
         $object = new \stdClass();
         $object->self = $input;
@@ -280,7 +282,7 @@ class RelationshipLinkTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testRelatedMustBeAStringOrObject($input)
+    public function testRelatedMustBeAStringOrObject($input): void
     {
         $object = new \stdClass();
         $object->related = $input;
@@ -300,7 +302,7 @@ class RelationshipLinkTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testFirstCanBeAStringOrNull($input)
+    public function testFirstCanBeAStringOrNull($input): void
     {
         $object = new \stdClass();
         $object->self = 'https://example.org/self';
@@ -341,7 +343,7 @@ class RelationshipLinkTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testLastCanBeAStringOrNull($input)
+    public function testLastCanBeAStringOrNull($input): void
     {
         $object = new \stdClass();
         $object->self = 'https://example.org/self';
@@ -382,7 +384,7 @@ class RelationshipLinkTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testPrevCanBeAStringOrNull($input)
+    public function testPrevCanBeAStringOrNull($input): void
     {
         $object = new \stdClass();
         $object->self = 'https://example.org/self';
@@ -423,7 +425,7 @@ class RelationshipLinkTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testNextCanBeAStringOrNull($input)
+    public function testNextCanBeAStringOrNull($input): void
     {
         $object = new \stdClass();
         $object->self = 'https://example.org/self';
@@ -460,7 +462,7 @@ class RelationshipLinkTest extends TestCase
     /**
      * @test
      */
-    public function testGetOnANonExistingKeyThrowsException()
+    public function testGetOnANonExistingKeyThrowsException(): void
     {
         $object = new \stdClass();
         $object->self = 'http://example.org/self';

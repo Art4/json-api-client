@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // SPDX-FileCopyrightText: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -18,7 +20,7 @@ class ResponseStringInputTest extends TestCase
     /**
      * @test
      */
-    public function testGetAsObjectFromStringReturnsObject()
+    public function testGetAsObjectFromStringReturnsObject(): void
     {
         $input = new ResponseStringInput('{}');
 
@@ -31,7 +33,7 @@ class ResponseStringInputTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testCreateWithoutStringThrowsException($input)
+    public function testCreateWithoutStringThrowsException($input): void
     {
         $this->expectException(InputException::class);
         $this->expectExceptionMessage(
@@ -46,7 +48,7 @@ class ResponseStringInputTest extends TestCase
      *
      * @param string $input
      */
-    public function testGetAsObjectWithInvalidStringsThrowsException(string $input)
+    public function testGetAsObjectWithInvalidStringsThrowsException(string $input): void
     {
         $input = new ResponseStringInput($input);
 

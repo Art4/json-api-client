@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // SPDX-FileCopyrightText: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -31,7 +33,7 @@ class ResourceCollectionTest extends TestCase
     /**
      * @test create with empty array
      */
-    public function testCreateWithEmptyArray()
+    public function testCreateWithEmptyArray(): void
     {
         $collection = new ResourceCollection([], $this->manager, $this->parent);
 
@@ -50,7 +52,7 @@ class ResourceCollectionTest extends TestCase
     /**
      * @test create with identifier object
      */
-    public function testCreateWithIdentifier()
+    public function testCreateWithIdentifier(): void
     {
         $object = new \stdClass();
         $object->type = 'type';
@@ -71,7 +73,7 @@ class ResourceCollectionTest extends TestCase
     /**
      * @test create with identifier object and meta
      */
-    public function testCreateWithIdentifierAndMeta()
+    public function testCreateWithIdentifierAndMeta(): void
     {
         $object = new \stdClass();
         $object->type = 'type';
@@ -107,7 +109,7 @@ class ResourceCollectionTest extends TestCase
     /**
      * @test create with item object
      */
-    public function testCreateWithItem()
+    public function testCreateWithItem(): void
     {
         $object = new \stdClass();
         $object->type = 'type';
@@ -133,7 +135,7 @@ class ResourceCollectionTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testCreateWithoutArrayThrowsException($input)
+    public function testCreateWithoutArrayThrowsException($input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(
@@ -148,7 +150,7 @@ class ResourceCollectionTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testCreateWithoutObjectInArrayThrowsException($input)
+    public function testCreateWithoutObjectInArrayThrowsException($input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(
@@ -161,7 +163,7 @@ class ResourceCollectionTest extends TestCase
     /**
      * @test get('resources') on an empty collection throws an exception
      */
-    public function testGetResourcesWithEmptyCollectionThrowsException()
+    public function testGetResourcesWithEmptyCollectionThrowsException(): void
     {
         $collection = new ResourceCollection([], $this->manager, $this->createMock(Accessable::class));
 

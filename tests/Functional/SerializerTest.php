@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // SPDX-FileCopyrightText: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -36,7 +38,7 @@ class SerializerTest extends TestCase
 
             // Ignore files with errors
             if (in_array($filename, [
-                '16_type_and_id_as_integer.json'
+                '16_type_and_id_as_integer.json',
             ])) {
                 continue;
             }
@@ -44,7 +46,7 @@ class SerializerTest extends TestCase
             $files[] = [
                 $filename,
                 [
-                    'is_request' => in_array($filename, $requestFiles)
+                    'is_request' => in_array($filename, $requestFiles),
                 ],
             ];
         }
@@ -58,7 +60,7 @@ class SerializerTest extends TestCase
      *
      * @param mixed $filename
      */
-    public function parseJsonapiDataWithErrorAbortManager($filename, array $meta)
+    public function parseJsonapiDataWithErrorAbortManager($filename, array $meta): void
     {
         $manager = new ErrorAbortManager(new Factory());
 

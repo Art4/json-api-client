@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // SPDX-FileCopyrightText: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -31,7 +33,7 @@ class AttributesTest extends TestCase
     /**
      * @test create with object
      */
-    public function testCreateWithObject()
+    public function testCreateWithObject(): void
     {
         $object = new \stdClass();
         $object->object = new \stdClass();
@@ -51,15 +53,15 @@ class AttributesTest extends TestCase
 
         $this->assertInstanceOf(Accessable::class, $attributes);
         $this->assertTrue($attributes->has('object'));
-        $this->assertTrue(is_object($attributes->get('object')));
+        $this->assertIsObject($attributes->get('object'));
         $this->assertTrue($attributes->has('array'));
-        $this->assertTrue(is_array($attributes->get('array')));
+        $this->assertIsArray($attributes->get('array'));
         $this->assertTrue($attributes->has('string'));
-        $this->assertTrue(is_string($attributes->get('string')));
+        $this->assertIsString($attributes->get('string'));
         $this->assertTrue($attributes->has('number_int'));
-        $this->assertTrue(is_int($attributes->get('number_int')));
+        $this->assertIsInt($attributes->get('number_int'));
         $this->assertTrue($attributes->has('number_float'));
-        $this->assertTrue(is_float($attributes->get('number_float')));
+        $this->assertIsFloat($attributes->get('number_float'));
         $this->assertTrue($attributes->has('true'));
         $this->assertTrue($attributes->get('true'));
         $this->assertTrue($attributes->has('false'));
@@ -74,7 +76,7 @@ class AttributesTest extends TestCase
             'number_float',
             'true',
             'false',
-            'null'
+            'null',
         ], $attributes->getKeys());
     }
 
@@ -83,7 +85,7 @@ class AttributesTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testCreateWithDataProvider($input)
+    public function testCreateWithDataProvider($input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(
@@ -102,7 +104,7 @@ class AttributesTest extends TestCase
      *
      * These properties are not allowed in attributes: `type`, `id`, `relationships`, `links`
      */
-    public function testCreateWithTypePropertyThrowsException()
+    public function testCreateWithTypePropertyThrowsException(): void
     {
         $object = new \stdClass();
         $object->type = 'posts';
@@ -124,7 +126,7 @@ class AttributesTest extends TestCase
      *
      * These properties are not allowed in attributes: `type`, `id`, `relationships`, `links`
      */
-    public function testCreateWithIdPropertyThrowsException()
+    public function testCreateWithIdPropertyThrowsException(): void
     {
         $object = new \stdClass();
         $object->id = '5';
@@ -146,7 +148,7 @@ class AttributesTest extends TestCase
      *
      * These properties are not allowed in attributes: `type`, `id`, `relationships`, `links`
      */
-    public function testCreateWithRelationshipsPropertyThrowsException()
+    public function testCreateWithRelationshipsPropertyThrowsException(): void
     {
         $object = new \stdClass();
         $object->relationships = new \stdClass();
@@ -168,7 +170,7 @@ class AttributesTest extends TestCase
      *
      * These properties are not allowed in attributes: `type`, `id`, `relationships`, `links`
      */
-    public function testCreateWithLinksPropertyThrowsException()
+    public function testCreateWithLinksPropertyThrowsException(): void
     {
         $object = new \stdClass();
         $object->links = new \stdClass();
@@ -189,7 +191,7 @@ class AttributesTest extends TestCase
     /**
      * @test
      */
-    public function testGetOnANonExistingKeyThrowsException()
+    public function testGetOnANonExistingKeyThrowsException(): void
     {
         $object = new \stdClass();
         $object->pages = '1126';

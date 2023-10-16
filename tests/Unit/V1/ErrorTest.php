@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // SPDX-FileCopyrightText: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -31,7 +33,7 @@ class ErrorTest extends TestCase
     /**
      * @test create with object returns self
      */
-    public function testCreateWithObjectReturnsSelf()
+    public function testCreateWithObjectReturnsSelf(): void
     {
         $object = new \stdClass();
         $object->id = 'id';
@@ -83,7 +85,7 @@ class ErrorTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testCreateWithoutObjectThrowsException($input)
+    public function testCreateWithoutObjectThrowsException($input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(
@@ -98,7 +100,7 @@ class ErrorTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testCreateIdWithoutStringThrowsException($input)
+    public function testCreateIdWithoutStringThrowsException($input): void
     {
         $object = new \stdClass();
         $object->id = $input;
@@ -116,7 +118,7 @@ class ErrorTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testCreateStatusWithoutStringThrowsException($input)
+    public function testCreateStatusWithoutStringThrowsException($input): void
     {
         $object = new \stdClass();
         $object->status = $input;
@@ -134,7 +136,7 @@ class ErrorTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testCreateCodeWithoutStringThrowsException($input)
+    public function testCreateCodeWithoutStringThrowsException($input): void
     {
         $object = new \stdClass();
         $object->code = $input;
@@ -152,7 +154,7 @@ class ErrorTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testCreateTitleWithoutStringThrowsException($input)
+    public function testCreateTitleWithoutStringThrowsException($input): void
     {
         $object = new \stdClass();
         $object->title = $input;
@@ -170,7 +172,7 @@ class ErrorTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testCreateDetailWithoutStringThrowsException($input)
+    public function testCreateDetailWithoutStringThrowsException($input): void
     {
         $object = new \stdClass();
         $object->detail = $input;

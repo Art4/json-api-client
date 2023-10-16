@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // SPDX-FileCopyrightText: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -31,7 +33,7 @@ class RelationshipTest extends TestCase
     /**
      * @test create with object returns self
      */
-    public function testCreateWithObjectReturnsSelf()
+    public function testCreateWithObjectReturnsSelf(): void
     {
         $object = new \stdClass();
         $object->meta = new \stdClass();
@@ -63,7 +65,7 @@ class RelationshipTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testCreateWithoutObjectThrowsException($input)
+    public function testCreateWithoutObjectThrowsException($input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(
@@ -78,7 +80,7 @@ class RelationshipTest extends TestCase
      *
      * A "relationship object" MUST contain at least one of the following: links, data, meta
      */
-    public function testCreateWithoutLinksDataMetaPropertiesThrowsException()
+    public function testCreateWithoutLinksDataMetaPropertiesThrowsException(): void
     {
         $object = new \stdClass();
         $object->foo = 'bar';
@@ -94,7 +96,7 @@ class RelationshipTest extends TestCase
     /**
      * @test create with link object
      */
-    public function testCreateWithLinksObject()
+    public function testCreateWithLinksObject(): void
     {
         $object = new \stdClass();
         $object->links = new \stdClass();
@@ -117,7 +119,7 @@ class RelationshipTest extends TestCase
      *
      * data: resource linkage, see http://jsonapi.org/format/#document-resource-object-linkage
      */
-    public function testCreateWithDataObject()
+    public function testCreateWithDataObject(): void
     {
         $data = new \stdClass();
         $data->type = 'posts';
@@ -139,7 +141,7 @@ class RelationshipTest extends TestCase
     /**
      * @test create with data null
      */
-    public function testCreateWithDataNull()
+    public function testCreateWithDataNull(): void
     {
         $object = new \stdClass();
         $object->data = null;
@@ -151,13 +153,13 @@ class RelationshipTest extends TestCase
         $this->assertSame($relationship->getKeys(), ['data']);
         $this->assertTrue($relationship->has('data'));
 
-        $this->assertTrue(is_null($relationship->get('data')));
+        $this->assertNull($relationship->get('data'));
     }
 
     /**
      * @test create with data object array
      */
-    public function testCreateWithDataObjectArray()
+    public function testCreateWithDataObjectArray(): void
     {
         $data_obj = new \stdClass();
         $data_obj->type = 'types';
@@ -181,7 +183,7 @@ class RelationshipTest extends TestCase
     /**
      * @test create with data empty array
      */
-    public function testCreateWithDataEmptyArray()
+    public function testCreateWithDataEmptyArray(): void
     {
         $object = new \stdClass();
         $object->data = [];
@@ -201,7 +203,7 @@ class RelationshipTest extends TestCase
     /**
      * @test create with meta object
      */
-    public function testCreateWithMetaObject()
+    public function testCreateWithMetaObject(): void
     {
         $object = new \stdClass();
         $object->meta = new \stdClass();

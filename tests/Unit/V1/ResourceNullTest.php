@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // SPDX-FileCopyrightText: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -32,7 +34,7 @@ class ResourceNullTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testCreateWithDataProvider($input)
+    public function testCreateWithDataProvider($input): void
     {
         $resource = new ResourceNull(
             $input,
@@ -49,7 +51,7 @@ class ResourceNullTest extends TestCase
     /**
      * @test get throws Exception
      */
-    public function testGetThrowsException()
+    public function testGetThrowsException(): void
     {
         $resource = new ResourceNull(
             null,

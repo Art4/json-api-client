@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // SPDX-FileCopyrightText: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -41,7 +43,7 @@ class DocumentLinkTest extends TestCase
      * - related: a related resource link when the primary data represents a resource relationship.
      * - pagination links for the primary data.
      */
-    public function testOnlySelfRelatedPaginationPropertiesExists()
+    public function testOnlySelfRelatedPaginationPropertiesExists(): void
     {
         $object = new \stdClass();
         $object->self = 'http://example.org/self';
@@ -65,7 +67,7 @@ class DocumentLinkTest extends TestCase
             'prev',
             'next',
             'custom',
-            'meta'
+            'meta',
         ], $link->getKeys());
 
         $this->assertTrue($link->has('custom'));
@@ -93,7 +95,7 @@ class DocumentLinkTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testCreateWithoutObjectThrowsException($input)
+    public function testCreateWithoutObjectThrowsException($input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(
@@ -110,7 +112,7 @@ class DocumentLinkTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testCreateWithoutObjectOrStringAttributeThrowsException($input)
+    public function testCreateWithoutObjectOrStringAttributeThrowsException($input): void
     {
         $object = new \stdClass();
         $object->self = 'http://example.org/self';
@@ -131,7 +133,7 @@ class DocumentLinkTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testSelfMustBeAStringOrObject($input)
+    public function testSelfMustBeAStringOrObject($input): void
     {
         $object = new \stdClass();
         $object->self = $input;
@@ -163,7 +165,7 @@ class DocumentLinkTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testRelatedMustBeAStringOrObject($input)
+    public function testRelatedMustBeAStringOrObject($input): void
     {
         $object = new \stdClass();
         $object->related = $input;
@@ -183,7 +185,7 @@ class DocumentLinkTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testFirstCanBeAnObjectOrStringOrNull($input)
+    public function testFirstCanBeAnObjectOrStringOrNull($input): void
     {
         $object = new \stdClass();
         $object->self = 'https://example.org/self';
@@ -233,7 +235,7 @@ class DocumentLinkTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testLastCanBeAStringOrNull($input)
+    public function testLastCanBeAStringOrNull($input): void
     {
         $object = new \stdClass();
         $object->self = 'https://example.org/self';
@@ -283,7 +285,7 @@ class DocumentLinkTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testPrevCanBeAStringOrNull($input)
+    public function testPrevCanBeAStringOrNull($input): void
     {
         $object = new \stdClass();
         $object->self = 'https://example.org/self';
@@ -333,7 +335,7 @@ class DocumentLinkTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testNextCanBeAStringOrNull($input)
+    public function testNextCanBeAStringOrNull($input): void
     {
         $object = new \stdClass();
         $object->self = 'https://example.org/self';
@@ -379,7 +381,7 @@ class DocumentLinkTest extends TestCase
     /**
      * @test
      */
-    public function testGetOnANonExistingKeyThrowsException()
+    public function testGetOnANonExistingKeyThrowsException(): void
     {
         $object = new \stdClass();
         $object->self = 'http://example.org/self';

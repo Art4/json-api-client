@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // SPDX-FileCopyrightText: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -16,7 +18,7 @@ class ParserTest extends TestCase
     /**
      * @test parseResponseBody() with valid JSON API returns Document Object
      */
-    public function testParseResponseBodyWithValidJsonapiReturnsDocument()
+    public function testParseResponseBodyWithValidJsonapiReturnsDocument(): void
     {
         $jsonapi = '{"meta":{}}';
 
@@ -26,7 +28,7 @@ class ParserTest extends TestCase
     /**
      * @test parseResponseBody throw Exception if input is invalid jsonapi
      */
-    public function testParseResponseBodyWithInvalidJsonapiThrowsException()
+    public function testParseResponseBodyWithInvalidJsonapiThrowsException(): void
     {
         $invalid_jsonapi = '["This is valid JSON", "but invalid JSON API"]';
 
@@ -41,7 +43,7 @@ class ParserTest extends TestCase
     /**
      * JSON API documents are defined in JavaScript Object Notation (JSON) [RFC4627].
      */
-    public function testParseResponseBodyWithInvalidJsonThrowsException()
+    public function testParseResponseBodyWithInvalidJsonThrowsException(): void
     {
         $invalid_json = 'invalid_json_string';
 
@@ -56,7 +58,7 @@ class ParserTest extends TestCase
     /**
      * @test isValidResponseBody() with valid JSON API returns true
      */
-    public function testIsValidResponseBodyWithValidJsonapi()
+    public function testIsValidResponseBodyWithValidJsonapi(): void
     {
         $jsonapi = '{"meta":{}}';
 
@@ -66,7 +68,7 @@ class ParserTest extends TestCase
     /**
      * @test isValidResponseBody() with invalid jsonapi
      */
-    public function testIsValidResponseBodyWithInvalidJsonapi()
+    public function testIsValidResponseBodyWithInvalidJsonapi(): void
     {
         $invalid_jsonapi = '["This is valid JSON", "but invalid JSON API"]';
 
@@ -76,7 +78,7 @@ class ParserTest extends TestCase
     /**
      * @test isValidResponseBody() with invalid json
      */
-    public function testIsValidResponseBodyWithInvalidJson()
+    public function testIsValidResponseBodyWithInvalidJson(): void
     {
         $invalid_json = 'invalid_json_string';
 
@@ -86,7 +88,7 @@ class ParserTest extends TestCase
     /**
      * @test parseRequestBody() with valid JSON API returns Document Object
      */
-    public function testParseRequestBodyWithValidJsonapiReturnsDocument()
+    public function testParseRequestBodyWithValidJsonapiReturnsDocument(): void
     {
         $jsonapi = '{"meta":{}}';
 
@@ -96,7 +98,7 @@ class ParserTest extends TestCase
     /**
      * @test parseRequestBody() throw Exception if input is invalid jsonapi
      */
-    public function testParseRequestBodyWithInvalidJsonapiThrowsException()
+    public function testParseRequestBodyWithInvalidJsonapiThrowsException(): void
     {
         $invalid_jsonapi = '["This is valid JSON", "but invalid JSON API"]';
 
@@ -111,7 +113,7 @@ class ParserTest extends TestCase
     /**
      * JSON API documents are defined in JavaScript Object Notation (JSON) [RFC4627].
      */
-    public function testParseRequestBodyWithInvalidJsonThrowsException()
+    public function testParseRequestBodyWithInvalidJsonThrowsException(): void
     {
         $invalid_json = 'invalid_json_string';
 
@@ -126,7 +128,7 @@ class ParserTest extends TestCase
     /**
      * @test isValidRequestBody() with valid JSON API returns true
      */
-    public function testIsValidRequestBodyWithValidJsonapi()
+    public function testIsValidRequestBodyWithValidJsonapi(): void
     {
         $jsonapi = '{"meta":{}}';
 
@@ -136,7 +138,7 @@ class ParserTest extends TestCase
     /**
      * @test isValidRequestBody() with invalid jsonapi
      */
-    public function testIsValidRequestBodyWithInvalidJsonapi()
+    public function testIsValidRequestBodyWithInvalidJsonapi(): void
     {
         $invalid_jsonapi = '["This is valid JSON", "but invalid JSON API"]';
 
@@ -146,7 +148,7 @@ class ParserTest extends TestCase
     /**
      * @test isValidRequestBody() with invalid json
      */
-    public function testIsValidRequestBodyWithInvalidJson()
+    public function testIsValidRequestBodyWithInvalidJson(): void
     {
         $invalid_json = 'invalid_json_string';
 

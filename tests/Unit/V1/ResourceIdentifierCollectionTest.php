@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // SPDX-FileCopyrightText: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -31,7 +33,7 @@ class ResourceIdentifierCollectionTest extends TestCase
     /**
      * @test create with empty array
      */
-    public function testCreateWithEmptyArray()
+    public function testCreateWithEmptyArray(): void
     {
         $collection = new ResourceIdentifierCollection([], $this->manager, $this->parent);
 
@@ -45,7 +47,7 @@ class ResourceIdentifierCollectionTest extends TestCase
     /**
      * @test create with identifier object
      */
-    public function testCreateWithIdentifier()
+    public function testCreateWithIdentifier(): void
     {
         $object = new \stdClass();
         $object->type = 'type';
@@ -71,7 +73,7 @@ class ResourceIdentifierCollectionTest extends TestCase
     /**
      * @test create with item object
      */
-    public function testCreateWithItem()
+    public function testCreateWithItem(): void
     {
         $object = new \stdClass();
         $object->type = 'type';
@@ -98,7 +100,7 @@ class ResourceIdentifierCollectionTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testCreateWithoutArrayThrowsException($input)
+    public function testCreateWithoutArrayThrowsException($input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(
@@ -111,7 +113,7 @@ class ResourceIdentifierCollectionTest extends TestCase
     /**
      * @test get('resources') on an empty identifier collection throws an exception
      */
-    public function testGetResourcesWithEmptyCollectionThrowsException()
+    public function testGetResourcesWithEmptyCollectionThrowsException(): void
     {
         $collection = new ResourceIdentifierCollection([], $this->manager, $this->parent);
 

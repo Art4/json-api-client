@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // SPDX-FileCopyrightText: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -31,7 +33,7 @@ class ResourceItemTest extends TestCase
     /**
      * @test create with object
      */
-    public function testCreateWithObject()
+    public function testCreateWithObject(): void
     {
         $object = new \stdClass();
         $object->type = 'type';
@@ -66,7 +68,7 @@ class ResourceItemTest extends TestCase
     /**
      * @test create with full object
      */
-    public function testCreateWithFullObject()
+    public function testCreateWithFullObject(): void
     {
         $object = new \stdClass();
         $object->type = 'type';
@@ -100,7 +102,7 @@ class ResourceItemTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testTypeMustBeAString($input)
+    public function testTypeMustBeAString($input): void
     {
         $object = new \stdClass();
         $object->type = $input;
@@ -121,7 +123,7 @@ class ResourceItemTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testIdMustBeAString($input)
+    public function testIdMustBeAString($input): void
     {
         $object = new \stdClass();
         $object->type = 'posts';
@@ -143,7 +145,7 @@ class ResourceItemTest extends TestCase
      *
      * @param mixed $input
      */
-    public function testCreateWithDataproviderThrowsException($input)
+    public function testCreateWithDataproviderThrowsException($input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(
@@ -156,7 +158,7 @@ class ResourceItemTest extends TestCase
     /**
      * @test A "resource object" MUST contain type and id members.
      */
-    public function testCreateWithObjectWithoutTypeThrowsException()
+    public function testCreateWithObjectWithoutTypeThrowsException(): void
     {
         $object = new \stdClass();
         $object->id = 123;
@@ -172,7 +174,7 @@ class ResourceItemTest extends TestCase
     /**
      * @test A "resource object" MUST contain type and id members.
      */
-    public function testCreateWithObjectWithoutIdThrowsException()
+    public function testCreateWithObjectWithoutIdThrowsException(): void
     {
         $object = new \stdClass();
         $object->type = 'type';
