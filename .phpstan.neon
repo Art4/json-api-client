@@ -1,11 +1,15 @@
 # SPDX-FileCopyrightText: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
 # SPDX-License-Identifier: GPL-3.0-or-later
 
+includes:
+	- vendor/phpstan/phpstan-phpunit/extension.neon
+
 parameters:
 	level: 8
 
 	paths:
 		- src/
+		- tests/
 
 	scanDirectories:
 		- vendor

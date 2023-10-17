@@ -12,22 +12,26 @@ use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\Factory;
 use Art4\JsonApiClient\Manager;
 use Art4\JsonApiClient\Tests\Fixtures\Factory as FixtureFactory;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * Helper Trait
  */
 trait HelperTrait
 {
+    /** @var Manager&MockObject */
     protected Manager $manager;
 
+    /** @var Factory&MockObject */
     protected Factory $factory;
 
+    /** @var Accessable&MockObject */
     protected Accessable $parent;
 
     /**
      * Json Values Provider
      *
-     * @see http://json.org/
+     * @return array<array<mixed>>
      */
     public static function jsonValuesProvider(): array
     {
@@ -47,7 +51,7 @@ trait HelperTrait
     /**
      * Json Values Provider but without the object
      *
-     * @see http://json.org/
+     * @return array<array<mixed>>
      */
     public static function jsonValuesProviderWithoutObject(): array
     {
@@ -61,7 +65,7 @@ trait HelperTrait
     /**
      * Json Values Provider but without the array
      *
-     * @see http://json.org/
+     * @return array<array<mixed>>
      */
     public static function jsonValuesProviderWithoutArray(): array
     {
@@ -75,7 +79,7 @@ trait HelperTrait
     /**
      * Json Values Provider but without the string
      *
-     * @see http://json.org/
+     * @return array<array<mixed>>
      */
     public static function jsonValuesProviderWithoutString(): array
     {
@@ -89,7 +93,7 @@ trait HelperTrait
     /**
      * Json Values Provider but without the object and string
      *
-     * @see http://json.org/
+     * @return array<array<mixed>>
      */
     public static function jsonValuesProviderWithoutObjectAndString(): array
     {
@@ -104,7 +108,7 @@ trait HelperTrait
     /**
      * Json Values as string Provider
      *
-     * @see http://json.org/
+     * @return array<array<string>>
      */
     public static function jsonValuesAsStringProvider(): array
     {
@@ -124,7 +128,7 @@ trait HelperTrait
     /**
      * Json Values as string Provider but without the object
      *
-     * @see http://json.org/
+     * @return array<array<string>>
      */
     public static function jsonValuesAsStringProviderWithoutObject(): array
     {
@@ -145,7 +149,7 @@ trait HelperTrait
         $factory->testcase = $this;
 
         // Mock Manager
-        $manager = $this->createMock('Art4\JsonApiClient\Utils\FactoryManagerInterface');
+        $manager = $this->createMock(Manager::class);
 
         $manager->expects($this->any())
             ->method('getFactory')

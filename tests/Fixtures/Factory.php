@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Art4\JsonApiClient\Tests\Fixtures;
 
-use Art4\JsonApiClient\Utils\FactoryInterface;
+use Art4\JsonApiClient\Factory as FactoryInterface;
 
 final class Factory implements FactoryInterface
 {
