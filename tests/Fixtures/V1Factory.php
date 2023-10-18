@@ -8,31 +8,26 @@ declare(strict_types=1);
 
 namespace Art4\JsonApiClient\Tests\Fixtures;
 
-use Art4\JsonApiClient\Element;
 use Art4\JsonApiClient\Factory as FactoryInterface;
+use PHPUnit\Framework\TestCase;
 
 final class V1Factory implements FactoryInterface
 {
-    public $testcase;
+    public TestCase $testcase;
 
     /**
      * Create a factory
-     *
-     * @param object $testcase
-     * @param array  $args
-     *
-     * @return object
      */
-    public function __construct($testcase)
+    public function __construct(TestCase $testcase)
     {
-        return $this->testcase = $testcase;
+        $this->testcase = $testcase;
     }
 
     /**
      * Create a new instance of a class
      *
      * @param string $name
-     * @param array  $args
+     * @param array<mixed> $args
      *
      * @return object
      */

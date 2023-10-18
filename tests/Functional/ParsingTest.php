@@ -22,6 +22,8 @@ class ParsingTest extends TestCase
 
     /**
      * Provide Parser
+     *
+     * @return array<array<\Closure>>
      */
     public static function createParserProvider(): array
     {

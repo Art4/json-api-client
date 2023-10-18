@@ -35,7 +35,7 @@ final class ArraySerializer implements Serializer
     /**
      * Convert data in an array
      *
-     * @return array<string, mixed>|null
+     * @return array<int|string, mixed>|null
      */
     public function serialize(Accessable $data): ?array
     {

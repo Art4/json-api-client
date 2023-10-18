@@ -14,6 +14,7 @@ use Art4\JsonApiClient\Manager\ErrorAbortManager;
 use Art4\JsonApiClient\Serializer\ArraySerializer;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 use Art4\JsonApiClient\V1\Factory;
+use Exception;
 use PHPUnit\Framework\TestCase;
 
 class SerializerTest extends TestCase
@@ -22,6 +23,8 @@ class SerializerTest extends TestCase
 
     /**
      * Provide JSON API data
+     *
+     * @return array<array<string|bool>>
      */
     public static function jsonapiDataProvider(): array
     {
@@ -33,7 +36,13 @@ class SerializerTest extends TestCase
             '15_create_resource_without_id.json',
         ];
 
-        foreach (glob($path . '*.json') as $file) {
+        $filenames = glob($path . '*.json');
+
+        if ($filenames === false) {
+            throw new Exception('Error while getting all json files.');
+        }
+
+        foreach ($filenames as $file) {
             $filename = str_replace($path, '', $file);
 
             // Ignore files with errors
@@ -45,9 +54,7 @@ class SerializerTest extends TestCase
 
             $files[] = [
                 $filename,
-                [
-                    'is_request' => in_array($filename, $requestFiles),
-                ],
+                in_array($filename, $requestFiles),
             ];
         }
 
@@ -55,18 +62,15 @@ class SerializerTest extends TestCase
     }
 
     /**
-     * @test
      * @dataProvider jsonapiDataProvider
-     *
-     * @param mixed $filename
      */
-    public function parseJsonapiDataWithErrorAbortManager($filename, array $meta): void
+    public function testParseJsonapiDataWithErrorAbortManager(string $filename, bool $isRequest): void
     {
         $manager = new ErrorAbortManager(new Factory());
 
         $string = $this->getJsonString($filename);
 
-        if ($meta['is_request']) {
+        if ($isRequest) {
             $input = new RequestStringInput($string);
         } else {
             $input = new ResponseStringInput($string);

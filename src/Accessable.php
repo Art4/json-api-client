@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace Art4\JsonApiClient;
 
+use Art4\JsonApiClient\Helper\AccessKey;
+
 /**
  * Accessable Interface
  */
@@ -16,7 +18,7 @@ interface Accessable
     /**
      * Get a value by a key
      *
-     * @param mixed $key The key
+     * @param int|string|AccessKey<string> $key The key
      *
      * @return mixed
      */
@@ -27,7 +29,7 @@ interface Accessable
      *
      * @deprecated `\Art4\JsonApiClient\Accessable::has()` will add `bool` as a native return type declaration in v2.0. Do the same in your implementation now to avoid errors.
      *
-     * @param mixed $key The key
+     * @param int|string|AccessKey<string> $key The key
      *
      * @return bool
      */
@@ -39,7 +41,7 @@ interface Accessable
      *
      * @deprecated `\Art4\JsonApiClient\Accessable::getKeys()` will add `array` as a native return type declaration in v2.0. Do the same in your implementation now to avoid errors.
      *
-     * @return array<string> Keys of all setted values
+     * @return array<string|int> Keys of all setted values
      */
     public function getKeys();
     // public function getKeys(): array;

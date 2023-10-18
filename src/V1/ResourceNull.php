@@ -12,6 +12,7 @@ use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\Element;
 use Art4\JsonApiClient\Manager;
 use Art4\JsonApiClient\Exception\AccessException;
+use Art4\JsonApiClient\Helper\AccessKey;
 
 /**
  * Null Resource
@@ -40,7 +41,7 @@ final class ResourceNull implements Accessable, Element
     /**
      * Check if a value exists in this resource
      *
-     * @param string $key The key of the value
+     * @param int|string|AccessKey<string> $key The key of the value
      *
      * @return bool false
      */
@@ -62,7 +63,7 @@ final class ResourceNull implements Accessable, Element
     /**
      * Get a value by the key of this identifier
      *
-     * @param string $key The key of the value
+     * @param int|string|AccessKey<string> $key The key of the value
      */
     public function get($key): void
     {

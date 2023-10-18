@@ -41,7 +41,7 @@ trait AccessableTrait
     /**
      * Returns the keys of all setted values
      *
-     * @return array<string> Keys of all setted values
+     * @return array<int|string> Keys of all setted values
      */
     final public function getKeys(): array
     {
@@ -51,7 +51,7 @@ trait AccessableTrait
     /**
      * Check if a value exists
      *
-     * @param mixed $key The key
+     * @param int|string|AccessKey<string> $key The key
      */
     final public function has($key): bool
     {
@@ -82,7 +82,7 @@ trait AccessableTrait
     /**
      * Get a value by a key
      *
-     * @param mixed $key The key
+     * @param int|string|AccessKey<string> $key The key
      *
      * @return mixed
      */
@@ -126,7 +126,7 @@ trait AccessableTrait
     /**
      * Parse a dot.notated.key to an object
      *
-     * @param string|AccessKey<string> $key The key
+     * @param int|string|AccessKey<string> $key The key
      *
      * @return AccessKey<string> The parsed key
      */
