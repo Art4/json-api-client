@@ -11,7 +11,6 @@ namespace Art4\JsonApiClient\Tests\Fixtures;
 use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\Factory;
 use Art4\JsonApiClient\Manager;
-use Art4\JsonApiClient\Tests\Fixtures\Factory as FixtureFactory;
 use PHPUnit\Framework\MockObject\MockObject;
 
 /**
@@ -137,30 +136,6 @@ trait HelperTrait
         unset($data[0]);
 
         return array_values($data);
-    }
-
-    /**
-     * Builds a Manager Mock
-     */
-    public function buildManagerMock()
-    {
-        // Mock factory
-        $factory = new FixtureFactory();
-        $factory->testcase = $this;
-
-        // Mock Manager
-        $manager = $this->createMock(Manager::class);
-
-        $manager->expects($this->any())
-            ->method('getFactory')
-            ->will($this->returnValue($factory));
-
-        $manager->expects($this->any())
-            ->method('getConfig')
-            ->with('optional_item_id')
-            ->willReturn(false);
-
-        return $manager;
     }
 
     /**
