@@ -13,6 +13,8 @@ use SplStack;
 /**
  * AccessKey
  *
+ * @extends SplStack<string>
+ *
  * @internal
  */
 final class AccessKey extends SplStack
