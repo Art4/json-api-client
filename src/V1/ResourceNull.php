@@ -19,11 +19,6 @@ use Art4\JsonApiClient\Helper\AccessKey;
  */
 final class ResourceNull implements Accessable, Element
 {
-    /** @var mixed */
-    private $data;
-    private Manager $manager;
-    private Accessable $parent;
-
     /**
      * Constructor
      *
@@ -33,9 +28,6 @@ final class ResourceNull implements Accessable, Element
      */
     public function __construct($data, Manager $manager, Accessable $parent)
     {
-        $this->data = $data;
-        $this->manager = $manager;
-        $this->parent = $parent;
     }
 
     /**

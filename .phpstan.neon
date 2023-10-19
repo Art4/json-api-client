@@ -14,33 +14,53 @@ parameters:
 	scanDirectories:
 		- vendor
 
+	treatPhpDocTypesAsCertain: false
+
 	ignoreErrors:
 		-
-			message: "#^Property Art4\\\\JsonApiClient\\\\V1\\\\ResourceNull\\:\\:\\$data is never read, only written\\.$#"
+			message: "#^Constructor of class Art4\\\\JsonApiClient\\\\V1\\\\ResourceNull has an unused parameter \\$data\\.$#"
 			count: 1
 			path: src/V1/ResourceNull.php
+			# parameter is required by Art4\JsonApiClient\Element
 
 		-
-			message: "#^Property Art4\\\\JsonApiClient\\\\V1\\\\ResourceNull\\:\\:\\$manager is never read, only written\\.$#"
+			message: "#^Constructor of class Art4\\\\JsonApiClient\\\\V1\\\\ResourceNull has an unused parameter \\$manager\\.$#"
 			count: 1
 			path: src/V1/ResourceNull.php
+			# parameter is required by Art4\JsonApiClient\Element
 
 		-
-			message: "#^Property Art4\\\\JsonApiClient\\\\V1\\\\ResourceNull\\:\\:\\$parent is never read, only written\\.$#"
+			message: "#^Constructor of class Art4\\\\JsonApiClient\\\\V1\\\\ResourceNull has an unused parameter \\$parent\\.$#"
 			count: 1
 			path: src/V1/ResourceNull.php
+			# parameter is required by Art4\JsonApiClient\Element
 
 		-
 			message: "#^Constructor of an anonymous class has an unused parameter \\$data\\.$#"
 			count: 1
 			path: tests/BC/ElementTest.php
+			# parameter is required by Art4\JsonApiClient\Element
 
 		-
 			message: "#^Constructor of an anonymous class has an unused parameter \\$manager\\.$#"
 			count: 1
 			path: tests/BC/ElementTest.php
+			# parameter is required by Art4\JsonApiClient\Element
 
 		-
 			message: "#^Constructor of an anonymous class has an unused parameter \\$parent\\.$#"
 			count: 1
 			path: tests/BC/ElementTest.php
+			# parameter is required by Art4\JsonApiClient\Element
+
+		-
+			message: "#^Parameter \\#1 \\$key of method Art4\\\\JsonApiClient\\\\V1\\\\ResourceNull\\:\\:has\\(\\) expects Art4\\\\JsonApiClient\\\\Helper\\\\AccessKey\\|int\\|string, array given\\.$#"
+			count: 1
+			path: tests/Unit/V1/ResourceNullTest.php
+			# We are providing an invalid parameter to test the deprecation message
+
+		-
+			message: "#^Parameter \\#1 \\$key of method Art4\\\\JsonApiClient\\\\V1\\\\ResourceNull\\:\\:has\\(\\) expects Art4\\\\JsonApiClient\\\\Helper\\\\AccessKey\\|int\\|string, stdClass given\\.$#"
+			count: 1
+			path: tests/Unit/V1/ResourceNullTest.php
+			# We are providing an invalid parameter to test the deprecation message

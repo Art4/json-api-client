@@ -9,12 +9,14 @@ declare(strict_types=1);
 namespace Art4\JsonApiClient\Tests\Unit\Helper;
 
 use Art4\JsonApiClient\Helper\AccessableTrait;
+use Art4\JsonApiClient\Accessable;
 use PHPUnit\Framework\TestCase;
 
 class AccessableTraitTest extends TestCase
 {
     public function testHasWithObjectAsKeyTriggersException(): void
     {
+        /** @var Accessable */
         $resource = $this->getMockForTrait(AccessableTrait::class);
 
         // PHPUnit 10 compatible way to test trigger_error().
@@ -36,6 +38,7 @@ class AccessableTraitTest extends TestCase
 
     public function testHasWithArrayAsKeyTriggersException(): void
     {
+        /** @var Accessable */
         $resource = $this->getMockForTrait(AccessableTrait::class);
 
         // PHPUnit 10 compatible way to test trigger_error().
