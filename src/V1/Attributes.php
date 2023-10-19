@@ -13,7 +13,6 @@ use Art4\JsonApiClient\Exception\ValidationException;
 use Art4\JsonApiClient\Helper\AbstractElement;
 use Art4\JsonApiClient\Helper\AccessKey;
 
-
 /**
  * Attributes Object
  *
