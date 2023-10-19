@@ -11,6 +11,7 @@ namespace Art4\JsonApiClient\Tests\Unit\V1;
 use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
+use Art4\JsonApiClient\Helper\AccessKey;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 use Art4\JsonApiClient\V1\ResourceCollection;
 use PHPUnit\Framework\TestCase;
@@ -41,11 +42,10 @@ class ResourceCollectionTest extends TestCase
         $this->assertInstanceOf(Accessable::class, $collection);
 
         $this->assertSame($collection->getKeys(), []);
-        $this->assertFalse($collection->has(0));
 
         // Test get() with various key types
-        $this->assertFalse($collection->has(new \stdClass()));
-        $this->assertFalse($collection->has([]));
+        $this->assertFalse($collection->has(0));
+        $this->assertFalse($collection->has(AccessKey::create(0)));
         $this->assertFalse($collection->has('string'));
     }
 

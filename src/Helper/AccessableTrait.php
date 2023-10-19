@@ -55,6 +55,15 @@ trait AccessableTrait
      */
     final public function has($key): bool
     {
+        if (! is_int($key) && ! is_string($key) && (! is_object($key) || ! $key instanceof AccessKey)) {
+            trigger_error(sprintf(
+                '%s::has(): Providing Argument #1 ($key) as %s is deprecated since 1.2.0, please provide as int|string|%s instead.',
+                get_class($this),
+                gettype($key),
+                AccessKey::class
+            ), \E_USER_DEPRECATED);
+        }
+
         $key = $this->parseKey($key);
 
         $string = $key->shift();

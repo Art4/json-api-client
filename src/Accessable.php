@@ -18,7 +18,7 @@ interface Accessable
     /**
      * Get a value by a key
      *
-     * @param int|string|AccessKey<string> $key The key
+     * @param mixed $key The key
      *
      * @return mixed
      */
@@ -29,7 +29,7 @@ interface Accessable
      *
      * @deprecated `\Art4\JsonApiClient\Accessable::has()` will add `bool` as a native return type declaration in v2.0. Do the same in your implementation now to avoid errors.
      *
-     * @param int|string|AccessKey<string> $key The key
+     * @param mixed $key The key
      *
      * @return bool
      */
