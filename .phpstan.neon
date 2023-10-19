@@ -34,3 +34,18 @@ parameters:
 			message: "#^Property Art4\\\\JsonApiClient\\\\V1\\\\ResourceNull\\:\\:\\$parent is never read, only written\\.$#"
 			count: 1
 			path: src/V1/ResourceNull.php
+
+		-
+			message: "#^Constructor of an anonymous class has an unused parameter \\$data\\.$#"
+			count: 1
+			path: tests/BC/ElementTest.php
+
+		-
+			message: "#^Constructor of an anonymous class has an unused parameter \\$manager\\.$#"
+			count: 1
+			path: tests/BC/ElementTest.php
+
+		-
+			message: "#^Constructor of an anonymous class has an unused parameter \\$parent\\.$#"
+			count: 1
+			path: tests/BC/ElementTest.php
