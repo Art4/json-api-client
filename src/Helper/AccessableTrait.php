@@ -41,7 +41,7 @@ trait AccessableTrait
     /**
      * Returns the keys of all setted values
      *
-     * @return array<string> Keys of all setted values
+     * @return array<int|string> Keys of all setted values
      */
     final public function getKeys(): array
     {
@@ -51,10 +51,19 @@ trait AccessableTrait
     /**
      * Check if a value exists
      *
-     * @param mixed $key The key
+     * @param int|string|AccessKey<string> $key The key
      */
     final public function has($key): bool
     {
+        if (! is_int($key) && ! is_string($key) && (! is_object($key) || ! $key instanceof AccessKey)) {
+            trigger_error(sprintf(
+                '%s::has(): Providing Argument #1 ($key) as %s is deprecated since 1.2.0, please provide as int|string|%s instead.',
+                get_class($this),
+                gettype($key),
+                AccessKey::class
+            ), \E_USER_DEPRECATED);
+        }
+
         $key = $this->parseKey($key);
 
         $string = $key->shift();
@@ -82,7 +91,7 @@ trait AccessableTrait
     /**
      * Get a value by a key
      *
-     * @param mixed $key The key
+     * @param int|string|AccessKey<string> $key The key
      *
      * @return mixed
      */
@@ -126,7 +135,7 @@ trait AccessableTrait
     /**
      * Parse a dot.notated.key to an object
      *
-     * @param string|AccessKey<string> $key The key
+     * @param int|string|AccessKey<string> $key The key
      *
      * @return AccessKey<string> The parsed key
      */

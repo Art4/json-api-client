@@ -9,9 +9,10 @@ declare(strict_types=1);
 namespace Art4\JsonApiClient\V1;
 
 use Art4\JsonApiClient\Accessable;
-use Art4\JsonApiClient\Helper\AbstractElement;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
+use Art4\JsonApiClient\Helper\AbstractElement;
+use Art4\JsonApiClient\Helper\AccessKey;
 
 /**
  * Document Top Level Object
@@ -73,7 +74,7 @@ final class Document extends AbstractElement
     /**
      * Get a value by the key of this object
      *
-     * @param string $key The key of the value
+     * @param int|string|AccessKey<string> $key The key of the value
      *
      * @return mixed The value
      */

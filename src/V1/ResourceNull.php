@@ -12,17 +12,13 @@ use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\Element;
 use Art4\JsonApiClient\Manager;
 use Art4\JsonApiClient\Exception\AccessException;
+use Art4\JsonApiClient\Helper\AccessKey;
 
 /**
  * Null Resource
  */
 final class ResourceNull implements Accessable, Element
 {
-    /** @var mixed */
-    private $data;
-    private Manager $manager;
-    private Accessable $parent;
-
     /**
      * Constructor
      *
@@ -30,22 +26,26 @@ final class ResourceNull implements Accessable, Element
      * @param \Art4\JsonApiClient\Manager    $manager The manager
      * @param \Art4\JsonApiClient\Accessable $parent  The parent
      */
-    public function __construct($data, Manager $manager, Accessable $parent)
-    {
-        $this->data = $data;
-        $this->manager = $manager;
-        $this->parent = $parent;
-    }
+    public function __construct($data, Manager $manager, Accessable $parent) {}
 
     /**
      * Check if a value exists in this resource
      *
-     * @param string $key The key of the value
+     * @param int|string|AccessKey<string> $key The key of the value
      *
      * @return bool false
      */
     public function has($key)
     {
+        if (! is_int($key) && ! is_string($key) && (! is_object($key) || ! $key instanceof AccessKey)) {
+            trigger_error(sprintf(
+                '%s::has(): Providing Argument #1 ($key) as %s is deprecated since 1.2.0, please provide as int|string|%s instead.',
+                get_class($this),
+                gettype($key),
+                AccessKey::class
+            ), \E_USER_DEPRECATED);
+        }
+
         return false;
     }
 
@@ -62,7 +62,7 @@ final class ResourceNull implements Accessable, Element
     /**
      * Get a value by the key of this identifier
      *
-     * @param string $key The key of the value
+     * @param int|string|AccessKey<string> $key The key of the value
      */
     public function get($key): void
     {

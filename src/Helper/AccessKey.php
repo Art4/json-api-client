@@ -13,6 +13,8 @@ use SplStack;
 /**
  * AccessKey
  *
+ * @extends SplStack<string>
+ *
  * @internal
  */
 final class AccessKey extends SplStack
@@ -20,7 +22,7 @@ final class AccessKey extends SplStack
     /**
      * Transforms the Key to a string
      *
-     * @param mixed $key
+     * @param int|string $key
      *
      * @return AccessKey<string>
      */

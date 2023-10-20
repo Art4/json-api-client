@@ -11,6 +11,7 @@ namespace Art4\JsonApiClient\Tests\Unit\V1;
 use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
+use Art4\JsonApiClient\Helper\AccessKey;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 use Art4\JsonApiClient\V1\ErrorCollection;
 use PHPUnit\Framework\TestCase;
@@ -47,9 +48,9 @@ class ErrorCollectionTest extends TestCase
 
         $this->assertSame($collection->getKeys(), [0, 1]);
 
-        $this->assertFalse($collection->has(new \stdClass()));
-        $this->assertFalse($collection->has([]));
         $this->assertFalse($collection->has('string'));
+
+        $this->assertTrue($collection->has(AccessKey::create(0)));
 
         $this->assertTrue($collection->has(0));
         $error = $collection->get(0);

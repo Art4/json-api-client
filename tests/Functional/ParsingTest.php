@@ -22,6 +22,8 @@ class ParsingTest extends TestCase
 
     /**
      * Provide Parser
+     *
+     * @return array<array<\Closure>>
      */
     public static function createParserProvider(): array
     {
@@ -37,12 +39,9 @@ class ParsingTest extends TestCase
     }
 
     /**
-     * @test
      * @dataProvider createParserProvider
-     *
-     * @param mixed $parser
      */
-    public function testParseSimpleResourceWithDifferentParser($parser): void
+    public function testParseSimpleResourceWithDifferentParser(callable $parser): void
     {
         $string = $this->getJsonString('01_simple_resource.json');
         $document = $parser($string);
@@ -176,6 +175,7 @@ class ParsingTest extends TestCase
         $this->assertTrue($document->has('included'));
         $this->assertTrue($document->has('data'));
 
+        /** @var Accessable */
         $resources = $document->get('data');
 
         $this->assertInstanceOf('Art4\JsonApiClient\V1\ResourceCollection', $resources);
@@ -184,6 +184,8 @@ class ParsingTest extends TestCase
         $this->assertSame($resources->getKeys(), [0]);
 
         $this->assertTrue($resources->has(0));
+
+        /** @var Accessable */
         $resource = $resources->get(0);
 
         $this->assertFalse($resource->has('meta'));
@@ -193,24 +195,28 @@ class ParsingTest extends TestCase
         $this->assertTrue($resource->has('relationships'));
         $this->assertTrue($resource->has('links'));
 
+        /** @var Accessable */
         $attributes = $resource->get('attributes');
 
         $this->assertInstanceOf('Art4\JsonApiClient\V1\Attributes', $attributes);
         $this->assertTrue($attributes->has('title'));
         $this->assertSame($attributes->get('title'), 'JSON API paints my bikeshed!');
 
+        /** @var Accessable */
         $collection = $resource->get('relationships');
 
         $this->assertInstanceOf('Art4\JsonApiClient\V1\RelationshipCollection', $collection);
         $this->assertTrue($collection->has('author'));
         $this->assertTrue($collection->has('comments'));
 
+        /** @var Accessable */
         $author = $collection->get('author');
 
         $this->assertInstanceOf('Art4\JsonApiClient\V1\Relationship', $author);
         $this->assertTrue($author->has('links'));
         $this->assertTrue($author->has('data'));
 
+        /** @var Accessable */
         $links = $author->get('links');
 
         $this->assertInstanceOf('Art4\JsonApiClient\V1\RelationshipLink', $links);
@@ -219,18 +225,21 @@ class ParsingTest extends TestCase
         $this->assertTrue($links->has('related'));
         $this->assertSame($links->get('related'), 'http://example.com/articles/1/author');
 
+        /** @var Accessable */
         $data = $author->get('data');
 
         $this->assertInstanceOf('Art4\JsonApiClient\V1\ResourceIdentifier', $data);
         $this->assertSame($data->get('type'), 'people');
         $this->assertSame($data->get('id'), '9');
 
+        /** @var Accessable */
         $comments = $collection->get('comments');
 
         $this->assertInstanceOf('Art4\JsonApiClient\V1\Relationship', $comments);
         $this->assertTrue($comments->has('links'));
         $this->assertTrue($comments->has('data'));
 
+        /** @var Accessable */
         $links = $comments->get('links');
 
         $this->assertInstanceOf('Art4\JsonApiClient\V1\RelationshipLink', $links);
@@ -239,35 +248,42 @@ class ParsingTest extends TestCase
         $this->assertTrue($links->has('related'));
         $this->assertSame($links->get('related'), 'http://example.com/articles/1/comments');
 
+        /** @var Accessable */
         $data_array = $comments->get('data');
 
         $this->assertInstanceOf('Art4\JsonApiClient\V1\ResourceIdentifierCollection', $data_array);
         $this->assertCount(2, $data_array->getKeys());
 
+        /** @var Accessable */
         $identifier = $data_array->get(0);
 
         $this->assertInstanceOf('Art4\JsonApiClient\V1\ResourceIdentifier', $identifier);
         $this->assertSame($identifier->get('type'), 'comments');
         $this->assertSame($identifier->get('id'), '5');
 
+        /** @var Accessable */
         $identifier = $data_array->get(1);
 
         $this->assertInstanceOf('Art4\JsonApiClient\V1\ResourceIdentifier', $identifier);
         $this->assertSame($identifier->get('type'), 'comments');
         $this->assertSame($identifier->get('id'), '12');
 
+        /** @var Accessable */
         $links = $resource->get('links');
 
         $this->assertInstanceOf('Art4\JsonApiClient\V1\ResourceItemLink', $links);
         $this->assertTrue($links->has('self'));
         $this->assertSame($links->get('self'), 'http://example.com/articles/1');
 
+        /** @var Accessable */
         $includes = $document->get('included');
 
         $this->assertInstanceOf('Art4\JsonApiClient\V1\ResourceCollection', $includes);
         $this->assertSame($includes->getKeys(), [0, 1, 2]);
 
         $this->assertTrue($includes->has(0));
+
+        /** @var Accessable */
         $include = $includes->get(0);
 
         $this->assertInstanceOf('Art4\JsonApiClient\V1\ResourceItem', $include);
@@ -276,6 +292,7 @@ class ParsingTest extends TestCase
         $this->assertTrue($include->has('attributes'));
         $this->assertTrue($include->has('links'));
 
+        /** @var Accessable */
         $attributes = $include->get('attributes');
 
         $this->assertInstanceOf('Art4\JsonApiClient\V1\Attributes', $attributes);
@@ -286,6 +303,7 @@ class ParsingTest extends TestCase
         $this->assertTrue($attributes->has('twitter'));
         $this->assertSame($attributes->get('twitter'), 'dgeb');
 
+        /** @var Accessable */
         $links = $include->get('links');
 
         $this->assertInstanceOf('Art4\JsonApiClient\V1\ResourceItemLink', $links);
@@ -293,6 +311,8 @@ class ParsingTest extends TestCase
         $this->assertSame($links->get('self'), 'http://example.com/people/9');
 
         $this->assertTrue($includes->has(1));
+
+        /** @var Accessable */
         $include = $includes->get(1);
 
         $this->assertInstanceOf('Art4\JsonApiClient\V1\ResourceItem', $include);

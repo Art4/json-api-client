@@ -17,9 +17,6 @@ class RequestStringInputTest extends TestCase
 {
     use HelperTrait;
 
-    /**
-     * @test
-     */
     public function testGetAsObjectFromStringReturnsObject(): void
     {
         $input = new RequestStringInput('{}');
@@ -29,7 +26,6 @@ class RequestStringInputTest extends TestCase
 
     /**
      * @dataProvider jsonValuesProviderWithoutString
-     * @test
      *
      * @param mixed $input
      */
@@ -44,9 +40,6 @@ class RequestStringInputTest extends TestCase
 
     /**
      * @dataProvider jsonValuesAsStringProviderWithoutObject
-     * @test
-     *
-     * @param string $input
      */
     public function testGetAsObjectWithInvalidStringsThrowsException(string $input): void
     {

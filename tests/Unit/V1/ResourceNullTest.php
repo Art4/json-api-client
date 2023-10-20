@@ -64,4 +64,54 @@ class ResourceNullTest extends TestCase
 
         $resource->get('something');
     }
+
+    public function testHasWithObjectAsKeyTriggersException(): void
+    {
+        $resource = new ResourceNull(
+            null,
+            $this->manager,
+            $this->parent
+        );
+
+        // PHPUnit 10 compatible way to test trigger_error().
+        set_error_handler(
+            function ($errno, $errstr): bool {
+                $this->assertSame(
+                    'Art4\JsonApiClient\V1\ResourceNull::has(): Providing Argument #1 ($key) as object is deprecated since 1.2.0, please provide as int|string|Art4\JsonApiClient\Helper\AccessKey instead.',
+                    $errstr
+                );
+
+                restore_error_handler();
+                return true;
+            },
+            E_USER_DEPRECATED
+        );
+
+        $resource->has(new \stdClass());
+    }
+
+    public function testHasWithArrayAsKeyTriggersException(): void
+    {
+        $resource = new ResourceNull(
+            null,
+            $this->manager,
+            $this->parent
+        );
+
+        // PHPUnit 10 compatible way to test trigger_error().
+        set_error_handler(
+            function ($errno, $errstr): bool {
+                $this->assertSame(
+                    'Art4\JsonApiClient\V1\ResourceNull::has(): Providing Argument #1 ($key) as array is deprecated since 1.2.0, please provide as int|string|Art4\JsonApiClient\Helper\AccessKey instead.',
+                    $errstr
+                );
+
+                restore_error_handler();
+                return true;
+            },
+            E_USER_DEPRECATED
+        );
+
+        $resource->has([]);
+    }
 }
