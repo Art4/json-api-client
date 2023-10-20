@@ -26,9 +26,7 @@ final class ResourceNull implements Accessable, Element
      * @param \Art4\JsonApiClient\Manager    $manager The manager
      * @param \Art4\JsonApiClient\Accessable $parent  The parent
      */
-    public function __construct($data, Manager $manager, Accessable $parent)
-    {
-    }
+    public function __construct($data, Manager $manager, Accessable $parent) {}
 
     /**
      * Check if a value exists in this resource
