@@ -5,7 +5,7 @@ includes:
 	- vendor/phpstan/phpstan-phpunit/extension.neon
 
 parameters:
-	level: 8
+	level: 9
 
 	paths:
 		- src/
@@ -52,6 +52,18 @@ parameters:
 			count: 1
 			path: tests/BC/ElementTest.php
 			# parameter is required by Art4\JsonApiClient\Element
+
+		-
+			message: "#^Parameter \\#1 \\$string of class Art4\\\\JsonApiClient\\\\Input\\\\RequestStringInput constructor expects string, mixed given\\.$#"
+			count: 1
+			path: tests/Unit/Input/RequestStringInputTest.php
+			# We are providing an invalid parameter to test the exception message
+
+		-
+			message: "#^Parameter \\#1 \\$string of class Art4\\\\JsonApiClient\\\\Input\\\\ResponseStringInput constructor expects string, mixed given\\.$#"
+			count: 1
+			path: tests/Unit/Input/ResponseStringInputTest.php
+			# We are providing an invalid parameter to test the exception message
 
 		-
 			message: "#^Parameter \\#1 \\$key of method Art4\\\\JsonApiClient\\\\V1\\\\ResourceNull\\:\\:has\\(\\) expects Art4\\\\JsonApiClient\\\\Helper\\\\AccessKey\\|int\\|string, array given\\.$#"

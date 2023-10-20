@@ -61,8 +61,7 @@ final class Link extends AbstractElement
     /**
      * Set a link
      *
-     * @param string        $name The Name
-     * @param string|object $link The Link
+     * @param mixed $link The Link
      */
     private function setAsLink(string $name, $link): void
     {

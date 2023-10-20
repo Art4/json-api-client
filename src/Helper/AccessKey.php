@@ -22,7 +22,7 @@ final class AccessKey extends SplStack
     /**
      * Transforms the Key to a string
      *
-     * @param mixed $key
+     * @param int|string $key
      *
      * @return AccessKey<string>
      */
