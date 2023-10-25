@@ -45,7 +45,7 @@ class ResourceCollectionTest extends TestCase
 
         // Test get() with various key types
         $this->assertFalse($collection->has(0));
-        $this->assertFalse($collection->has(AccessKey::create(0)));
+        $this->assertFalse($collection->has(AccessKey::create('0')));
         $this->assertFalse($collection->has('string'));
     }
 
@@ -94,6 +94,9 @@ class ResourceCollectionTest extends TestCase
         $resource = $collection->get(0);
 
         $this->assertInstanceOf(Accessable::class, $resource);
+
+        $this->assertSame($resource, $collection->get('0'));
+        $this->assertSame($resource, $collection->get(AccessKey::create('0')));
 
         $this->assertTrue($collection->has(1));
         $resource = $collection->get(1);
