@@ -27,22 +27,20 @@ interface Accessable
     /**
      * Check if a value exists
      *
-     * @deprecated `\Art4\JsonApiClient\Accessable::has()` will add `bool` as a native return type declaration in v2.0. Do the same in your implementation now to avoid errors.
+     * @return-type-will-change bool `\Art4\JsonApiClient\Accessable::has()` will add `bool` as a native return type declaration in v2.0. Do the same in your implementation now to avoid errors.
      *
      * @param mixed $key The key
      *
      * @return bool
      */
-    public function has($key);
-    // public function has($key): bool;
+    public function has($key)/*: bool */;
 
     /**
      * Returns the keys of all setted values
      *
-     * @deprecated `\Art4\JsonApiClient\Accessable::getKeys()` will add `array` as a native return type declaration in v2.0. Do the same in your implementation now to avoid errors.
+     * @return-type-will-change array `\Art4\JsonApiClient\Accessable::getKeys()` will add `array` as a native return type declaration in v2.0. Do the same in your implementation now to avoid errors.
      *
      * @return array<string|int> Keys of all setted values
      */
-    public function getKeys();
-    // public function getKeys(): array;
+    public function getKeys()/*: array */;
 }

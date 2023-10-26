@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Art4\JsonApiClient\Exception;
 
 /**
- * @deprecated `\Art4\JsonApiClient\Exception\Exception` will extend `\Throwable` in v2.0. Do the same in your implementation now to avoid errors.
+ * Please note: `\Art4\JsonApiClient\Exception\Exception` will extend `\Throwable` in v2.0. Do the same in your implementation now to avoid errors.
  */
-// interface Exception extends \Throwable
-interface Exception {}
+interface Exception /*extends \Throwable */
+{}
