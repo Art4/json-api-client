@@ -49,15 +49,15 @@ class ErrorCollectionTest extends TestCase
         $this->assertSame($collection->getKeys(), [0, 1]);
 
         $this->assertFalse($collection->has('string'));
-
-        $this->assertTrue($collection->has(AccessKey::create(0)));
-
+        $this->assertTrue($collection->has(AccessKey::create('0')));
         $this->assertTrue($collection->has(0));
+
         $error = $collection->get(0);
 
         $this->assertInstanceOf(Accessable::class, $error);
 
         $this->assertTrue($collection->has(1));
+
         $error = $collection->get(1);
 
         $this->assertInstanceOf(Accessable::class, $error);

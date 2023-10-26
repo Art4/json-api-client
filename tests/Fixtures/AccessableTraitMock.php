@@ -6,16 +6,12 @@ declare(strict_types=1);
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-namespace Art4\JsonApiClient\Helper;
+namespace Art4\JsonApiClient\Tests\Fixtures;
 
 use Art4\JsonApiClient\Accessable;
+use Art4\JsonApiClient\Helper\AccessableTrait;
 
-/**
- * RootAccessable
- *
- * @internal
- */
-final class RootAccessable implements Accessable
+class AccessableTraitMock implements Accessable
 {
     use AccessableTrait;
 }

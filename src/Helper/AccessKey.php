@@ -22,31 +22,20 @@ final class AccessKey extends SplStack
     /**
      * Transforms the Key to a string
      *
-     * @param int|string $key
-     *
      * @return AccessKey<string>
      */
-    public static function create($key): AccessKey
+    public static function create(string $key): AccessKey
     {
-        // Ignore arrays and objects
-        if (is_object($key) or is_array($key)) {
-            $key = '';
+        $accessKey = new self();
+        $accessKey->raw = $key;
+
+        foreach (explode('.', $key) as $value) {
+            $accessKey->push($value);
         }
 
-        $key_string = strval($key);
+        $accessKey->rewind();
 
-        $key = new self();
-        $key->raw = $key_string;
-
-        $keys = explode('.', $key_string);
-
-        foreach ($keys as $value) {
-            $key->push($value);
-        }
-
-        $key->rewind();
-
-        return $key;
+        return $accessKey;
     }
 
     /**

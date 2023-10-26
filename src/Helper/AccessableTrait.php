@@ -57,11 +57,12 @@ trait AccessableTrait
     {
         if (! is_int($key) && ! is_string($key) && (! is_object($key) || ! $key instanceof AccessKey)) {
             trigger_error(sprintf(
-                '%s::has(): Providing Argument #1 ($key) as %s is deprecated since 1.2.0, please provide as int|string|%s instead.',
+                '%s::has(): Providing Argument #1 ($key) as `%s` is deprecated since 1.2.0, please provide as `int|string` instead.',
                 get_class($this),
-                gettype($key),
-                AccessKey::class
+                gettype($key)
             ), \E_USER_DEPRECATED);
+
+            $key = '';
         }
 
         $key = $this->parseKey($key);
@@ -97,6 +98,16 @@ trait AccessableTrait
      */
     public function get($key)
     {
+        if (! is_int($key) && ! is_string($key) && (! is_object($key) || ! $key instanceof AccessKey)) {
+            trigger_error(sprintf(
+                '%s::get(): Providing Argument #1 ($key) as `%s` is deprecated since 1.2.0, please provide as `int|string` instead.',
+                get_class($this),
+                gettype($key)
+            ), \E_USER_DEPRECATED);
+
+            $key = '';
+        }
+
         $key = $this->parseKey($key);
 
         $string = $key->shift();
@@ -136,8 +147,6 @@ trait AccessableTrait
      * Parse a dot.notated.key to an object
      *
      * @param int|string|AccessKey<string> $key The key
-     *
-     * @return AccessKey<string> The parsed key
      */
     private function parseKey($key): AccessKey
     {
@@ -145,8 +154,6 @@ trait AccessableTrait
             return $key;
         }
 
-        $key = AccessKey::create($key);
-
-        return $key;
+        return AccessKey::create(strval($key));
     }
 }

@@ -105,6 +105,21 @@ trait HelperTrait
     }
 
     /**
+     * Json Values Provider but without the string and int
+     *
+     * @return array<array<mixed>>
+     */
+    public static function jsonValuesProviderWithoutStringAndInt(): array
+    {
+        $data = static::jsonValuesProvider();
+
+        unset($data[2]);
+        unset($data[3]);
+
+        return array_values($data);
+    }
+
+    /**
      * Json Values as string Provider
      *
      * @return array<array<string>>

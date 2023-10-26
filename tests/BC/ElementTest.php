@@ -17,8 +17,6 @@ class ElementTest extends TestCase
 {
     /**
      * This test will test a custom implementation of the Element interface.
-     * DO NOT CHANGE THIS!
-     * Changes are only allowed by increasing the major version number.
      */
     public function testBcForElementInterface(): void
     {
@@ -26,6 +24,11 @@ class ElementTest extends TestCase
         $manager = $this->createMock(Manager::class);
         $parent = $this->createMock(Accessable::class);
 
+        /**
+         * DO NOT CHANGE THIS CLASS!
+         *
+         * This anonymous class represents an implementation in user code
+         */
         $class = new class ($data, $manager, $parent) implements Element {
             /**
              * Sets the manager and parent

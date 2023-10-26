@@ -55,10 +55,9 @@ final class Factory implements FactoryInterface
     /**
      * Create a new instance of a class
      *
-     * @param string        $name
-     * @param array<mixed>  $args
+     * @param array<mixed> $args
      */
-    public function make($name, array $args = []): Accessable
+    public function make(string $name, array $args = []): Accessable
     {
         if (! isset($this->classes[$name])) {
             throw new FactoryException('"' . $name . '" is not a registered class');

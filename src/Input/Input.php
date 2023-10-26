@@ -16,7 +16,7 @@ interface Input
     /**
      * Get the input as simple object
      *
-     * @deprecated `\Art4\JsonApiClient\Input\Input::getAsObject()` will add `\stdClass` as a native return type declaration in v2.0. Do the same in your implementation now to avoid errors.
+     * @return-type-will-change \stdClass `\Art4\JsonApiClient\Input\Input::getAsObject()` will add `\stdClass` as a native return type declaration in 2.0.0, do the same in your implementation now to avoid errors.
      *
      * This should be a native PHP stdClass object, so Manager could
      * iterate over all public attributes
@@ -25,6 +25,5 @@ interface Input
      *
      * @return \stdClass
      */
-    public function getAsObject();
-    // public function getAsObject(): \stdClass;
+    public function getAsObject()/*: \stdClass */;
 }

@@ -8,22 +8,29 @@ declare(strict_types=1);
 
 namespace Art4\JsonApiClient\Tests\Unit\Helper;
 
-use Art4\JsonApiClient\Helper\AccessableTrait;
-use Art4\JsonApiClient\Accessable;
+use Art4\JsonApiClient\Exception\AccessException;
+use Art4\JsonApiClient\Tests\Fixtures\AccessableTraitMock;
+use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 use PHPUnit\Framework\TestCase;
 
 class AccessableTraitTest extends TestCase
 {
-    public function testHasWithObjectAsKeyTriggersException(): void
+    use HelperTrait;
+
+    /**
+     * @dataProvider jsonValuesProviderWithoutStringAndInt
+     *
+     * @param mixed $key
+     */
+    public function testHasWithInvalidKeyTypeTriggersDeprecationError($key): void
     {
-        /** @var Accessable */
-        $resource = $this->getMockForTrait(AccessableTrait::class);
+        $resource = new AccessableTraitMock();
 
         // PHPUnit 10 compatible way to test trigger_error().
         set_error_handler(
-            function ($errno, $errstr): bool {
-                $this->assertStringEndsWith(
-                    '::has(): Providing Argument #1 ($key) as object is deprecated since 1.2.0, please provide as int|string|Art4\JsonApiClient\Helper\AccessKey instead.',
+            function ($errno, $errstr) use ($key): bool {
+                $this->assertSame(
+                    'Art4\JsonApiClient\Tests\Fixtures\AccessableTraitMock::has(): Providing Argument #1 ($key) as `' . gettype($key) . '` is deprecated since 1.2.0, please provide as `int|string` instead.',
                     $errstr
                 );
 
@@ -33,19 +40,23 @@ class AccessableTraitTest extends TestCase
             E_USER_DEPRECATED
         );
 
-        $resource->has(new \stdClass());
+        $resource->has($key);
     }
 
-    public function testHasWithArrayAsKeyTriggersException(): void
+    /**
+     * @dataProvider jsonValuesProviderWithoutStringAndInt
+     *
+     * @param mixed $key
+     */
+    public function testGetWithInvalidKeyTypeTriggersDeprecationError($key): void
     {
-        /** @var Accessable */
-        $resource = $this->getMockForTrait(AccessableTrait::class);
+        $resource = new AccessableTraitMock();
 
         // PHPUnit 10 compatible way to test trigger_error().
         set_error_handler(
-            function ($errno, $errstr): bool {
-                $this->assertStringEndsWith(
-                    '::has(): Providing Argument #1 ($key) as array is deprecated since 1.2.0, please provide as int|string|Art4\JsonApiClient\Helper\AccessKey instead.',
+            function ($errno, $errstr) use ($key): bool {
+                $this->assertSame(
+                    'Art4\JsonApiClient\Tests\Fixtures\AccessableTraitMock::get(): Providing Argument #1 ($key) as `' . gettype($key) . '` is deprecated since 1.2.0, please provide as `int|string` instead.',
                     $errstr
                 );
 
@@ -55,6 +66,10 @@ class AccessableTraitTest extends TestCase
             E_USER_DEPRECATED
         );
 
-        $resource->has([]);
+        try {
+            $resource->get($key);
+        } catch (AccessException $th) {
+            // ignore AccessException
+        }
     }
 }

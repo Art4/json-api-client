@@ -79,12 +79,11 @@ final class ErrorAbortManager implements Manager
     /**
      * Get a param by key
      *
-     * @param string $key
-     * @param mixed  $default
+     * @param mixed $default
      *
      * @return mixed
      */
-    public function getParam($key, $default)
+    public function getParam(string $key, $default)
     {
         if (array_key_exists($key, $this->config)) {
             return $this->config[$key];
