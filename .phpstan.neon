@@ -76,3 +76,15 @@ parameters:
 			count: 1
 			path: tests/Unit/V1/ResourceNullTest.php
 			# We are providing an invalid parameter to test the deprecation message
+
+		-
+			message: "#^Parameter \\#1 \\$key of method Art4\\\\JsonApiClient\\\\Tests\\\\Fixtures\\\\AccessableTraitMock\\:\\:get\\(\\) expects Art4\\\\JsonApiClient\\\\Helper\\\\AccessKey\\|int\\|string, mixed given\\.$#"
+			count: 1
+			path: tests/Unit/Helper/AccessableTraitTest.php
+			# We are providing an invalid parameter to test the deprecation message
+
+		-
+			message: "#^Parameter \\#1 \\$key of method Art4\\\\JsonApiClient\\\\Tests\\\\Fixtures\\\\AccessableTraitMock\\:\\:has\\(\\) expects Art4\\\\JsonApiClient\\\\Helper\\\\AccessKey\\|int\\|string, mixed given\\.$#"
+			count: 1
+			path: tests/Unit/Helper/AccessableTraitTest.php
+			# We are providing an invalid parameter to test the deprecation message
