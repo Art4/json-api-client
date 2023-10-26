@@ -9,8 +9,6 @@ declare(strict_types=1);
 namespace Art4\JsonApiClient\Helper;
 
 use Art4\JsonApiClient\Accessable;
-use Art4\JsonApiClient\Element;
-use Art4\JsonApiClient\Manager;
 
 /**
  * RootAccessable

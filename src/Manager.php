@@ -41,13 +41,10 @@ interface Manager
     /**
      * Get a param by key
      *
-     * @deprecated The `\Art4\JsonApiClient\Manager::getParam()` methods first parameter signature will be `string` in v2.0.
-     *
-     * @param string $key
-     * @param mixed  $default
+     * @param mixed $default
      *
      * @return mixed
      */
-    public function getParam($key, $default);
+    public function getParam(string $key, $default);
     // public function getParam(string $key, $default);
 }

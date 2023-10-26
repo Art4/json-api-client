@@ -35,7 +35,7 @@ final class ResourceNull implements Accessable, Element
      *
      * @return bool false
      */
-    public function has($key)
+    public function has($key): bool
     {
         if (! is_int($key) && ! is_string($key) && (! is_object($key) || ! $key instanceof AccessKey)) {
             trigger_error(sprintf(
@@ -54,7 +54,7 @@ final class ResourceNull implements Accessable, Element
      *
      * @return array<string> Keys of all setted values
      */
-    public function getKeys()
+    public function getKeys(): array
     {
         return [];
     }
