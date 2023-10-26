@@ -1,4 +1,4 @@
-# Utils\Factory
+# Factory
 [Back to Navigation](README.md)
 
 The `Art4\JsonApiClient\V1\Factory` provides a simple way to override [all objects](objects-introduction.md#all-objects) by injecting your own classes.

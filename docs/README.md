@@ -7,7 +7,7 @@ Take a look at the [Parser](helper-parser.md) to quickstart with JsonApiClient.
 ### Helper Tools:
 * [Parser](helper-parser.md)
 * [Manager](manager.md)
-* [Factory](utils-factory.md)
+* [Factory](factory.md)
 * [Exceptions](exception-introduction.md)
 
 ### Objects:
@@ -30,7 +30,3 @@ Take a look at the [Parser](helper-parser.md) to quickstart with JsonApiClient.
 * [Error Link object](objects-error-link.md)
 * [Jsonapi object](objects-jsonapi.md)
 * [Meta object](objects-meta.md)
-
-### Deprecated Utils:
-* [Manager](utils-manager.md)
-* [Helper](utils-helper.md)
