@@ -39,10 +39,9 @@ final class ResourceNull implements Accessable, Element
     {
         if (! is_int($key) && ! is_string($key) && (! is_object($key) || ! $key instanceof AccessKey)) {
             trigger_error(sprintf(
-                '%s::has(): Providing Argument #1 ($key) as %s is deprecated since 1.2.0, please provide as int|string|%s instead.',
+                '%s::has(): Providing Argument #1 ($key) as `%s` is deprecated since 1.2.0, please provide as `int|string` instead.',
                 get_class($this),
-                gettype($key),
-                AccessKey::class
+                gettype($key)
             ), \E_USER_DEPRECATED);
         }
 

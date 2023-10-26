@@ -15,7 +15,7 @@ interface Serializer
     /**
      * Serialize data
      *
-     * @return-type-will-change ?array `\Art4\JsonApiClient\Serializer\Serializer::serialize()` will add `?array` as a native return type declaration in v2.0. Do the same in your implementation now to avoid errors.
+     * @return-type-will-change ?array `\Art4\JsonApiClient\Serializer\Serializer::serialize()` will add `?array` as a native return type declaration in 2.0.0, do the same in your implementation now to avoid errors.
      *
      * @return array<string, mixed>|null
      */

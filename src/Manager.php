@@ -18,7 +18,7 @@ interface Manager
     /**
      * Parse the input
      *
-     * @return-type-will-change Accessable `\Art4\JsonApiClient\Manager::parse()` will add `\Art4\JsonApiClient\Accessable` as a native return type declaration in v2.0. Do the same in your implementation now to avoid errors.
+     * @return-type-will-change Accessable `\Art4\JsonApiClient\Manager::parse()` will add `\Art4\JsonApiClient\Accessable` as a native return type declaration in 2.0.0, do the same in your implementation now to avoid errors.
      *
      * @throws \Art4\JsonApiClient\Exception\InputException If $input contains invalid JSON API
      * @throws \Art4\JsonApiClient\Exception\ValidationException If $input contains invalid JSON API
@@ -30,7 +30,7 @@ interface Manager
     /**
      * Get a factory from the manager
      *
-     * @return-type-will-change Factory `\Art4\JsonApiClient\Manager::getFactory()` will add `\Art4\JsonApiClient\Factory` as a native return type declaration in v2.0. Do the same in your implementation now to avoid errors.
+     * @return-type-will-change Factory `\Art4\JsonApiClient\Manager::getFactory()` will add `\Art4\JsonApiClient\Factory` as a native return type declaration in 2.0.0, do the same in your implementation now to avoid errors.
      *
      * @return \Art4\JsonApiClient\Factory
      */

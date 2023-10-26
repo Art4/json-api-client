@@ -16,7 +16,7 @@ interface Factory
     /**
      * Create a new instance of a class
      *
-     * @return-type-will-change Accessable `\Art4\JsonApiClient\Factory::make()` will add `\Art4\JsonApiClient\Accessable` as a native return type declaration in v2.0. Do the same in your implementation now to avoid errors.
+     * @return-type-will-change Accessable `\Art4\JsonApiClient\Factory::make()` will add `\Art4\JsonApiClient\Accessable` as a native return type declaration in 2.0.0, do the same in your implementation now to avoid errors.
      *
      * @param array<mixed|Manager|Accessable> $args
      *

@@ -77,7 +77,7 @@ class ResourceNullTest extends TestCase
         set_error_handler(
             function ($errno, $errstr): bool {
                 $this->assertSame(
-                    'Art4\JsonApiClient\V1\ResourceNull::has(): Providing Argument #1 ($key) as object is deprecated since 1.2.0, please provide as int|string|Art4\JsonApiClient\Helper\AccessKey instead.',
+                    'Art4\JsonApiClient\V1\ResourceNull::has(): Providing Argument #1 ($key) as `object` is deprecated since 1.2.0, please provide as `int|string` instead.',
                     $errstr
                 );
 
@@ -102,7 +102,7 @@ class ResourceNullTest extends TestCase
         set_error_handler(
             function ($errno, $errstr): bool {
                 $this->assertSame(
-                    'Art4\JsonApiClient\V1\ResourceNull::has(): Providing Argument #1 ($key) as array is deprecated since 1.2.0, please provide as int|string|Art4\JsonApiClient\Helper\AccessKey instead.',
+                    'Art4\JsonApiClient\V1\ResourceNull::has(): Providing Argument #1 ($key) as `array` is deprecated since 1.2.0, please provide as `int|string` instead.',
                     $errstr
                 );
 

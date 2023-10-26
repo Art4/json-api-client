@@ -30,7 +30,7 @@ class AccessableTraitTest extends TestCase
         set_error_handler(
             function ($errno, $errstr) use ($key): bool {
                 $this->assertSame(
-                    'Art4\JsonApiClient\Tests\Fixtures\AccessableTraitMock::has(): Providing Argument #1 ($key) as ' . gettype($key) . ' is deprecated since 1.2.0, please provide as int|string|Art4\JsonApiClient\Helper\AccessKey instead.',
+                    'Art4\JsonApiClient\Tests\Fixtures\AccessableTraitMock::has(): Providing Argument #1 ($key) as `' . gettype($key) . '` is deprecated since 1.2.0, please provide as `int|string` instead.',
                     $errstr
                 );
 
@@ -56,7 +56,7 @@ class AccessableTraitTest extends TestCase
         set_error_handler(
             function ($errno, $errstr) use ($key): bool {
                 $this->assertSame(
-                    'Art4\JsonApiClient\Tests\Fixtures\AccessableTraitMock::get(): Providing Argument #1 ($key) as ' . gettype($key) . ' is deprecated since 1.2.0, please provide as int|string|Art4\JsonApiClient\Helper\AccessKey instead.',
+                    'Art4\JsonApiClient\Tests\Fixtures\AccessableTraitMock::get(): Providing Argument #1 ($key) as `' . gettype($key) . '` is deprecated since 1.2.0, please provide as `int|string` instead.',
                     $errstr
                 );
 
