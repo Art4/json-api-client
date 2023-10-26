@@ -135,4 +135,4 @@ You can get all data as an array using the [ArraySerializer](serializer.md#array
 
 ### Need more?
 
-If you need more opportunities to get the values take a look at the [Factory](utils-factory.md) to inject more functionality.
+If you need more opportunities to get the values take a look at the [Factory](factory.md) to inject more functionality.

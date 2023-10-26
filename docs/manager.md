@@ -1,7 +1,7 @@
 # Manager
 [Back to Navigation](README.md)
 
-The `Art4\JsonApiClient\Manager` can be used to parse a JSON API input and to inject a [Factory](utils-factory.md) for overriding classes.
+The `Art4\JsonApiClient\Manager` can be used to parse a JSON API input and to inject a [Factory](factory.md) for overriding classes.
 
 The `Art4\JsonApiClient\Manager` needs a `Art4\JsonApiClient\Input\Input` instance for parsing. The Input instance is a normalizer that provides the JSON API as a simple object with public attributes like `\stdClass`.
 
@@ -67,7 +67,7 @@ This returns a [Document](objects-document.md) object which provided all content
 
 ### Working with a factory
 
-You can set a custom [Factory](utils-factory.md) to the manager through the constructor.
+You can set a custom [Factory](factory.md) to the manager through the constructor.
 
 ```php
 use Art4\JsonApiClient\Manager\ErrorAbortManager;
@@ -83,4 +83,4 @@ You can call `getFactory()` to get the setted factory.
 $factory = $manager->getFactory();
 ```
 
-Learn more about the [Factory](utils-factory.md).
+Learn more about the [Factory](factory.md).
