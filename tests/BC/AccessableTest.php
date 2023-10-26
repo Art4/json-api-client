@@ -15,11 +15,14 @@ class AccessableTest extends TestCase
 {
     /**
      * This test will test a custom implementation of the Accessable interface.
-     * DO NOT CHANGE THIS!
-     * Changes are only allowed by increasing the major version number.
      */
     public function testBcForAccessableInterface(): void
     {
+        /**
+         * DO NOT CHANGE THIS CLASS!
+         *
+         * This anonymous class represents an implementation in user code
+         */
         $class = new class () implements Accessable {
             /**
              * Get a value by a key
