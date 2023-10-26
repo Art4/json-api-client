@@ -11,6 +11,7 @@ namespace Art4\JsonApiClient\Tests\Fixtures;
 use Art4\JsonApiClient\Accessable;
 use Art4\JsonApiClient\Helper\AccessableTrait;
 
-class AccessableTraitMock implements Accessable {
+class AccessableTraitMock implements Accessable
+{
     use AccessableTrait;
 }
