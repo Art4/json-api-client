@@ -671,4 +671,17 @@ class ParsingTest extends TestCase
         $this->assertCount(6, $document->get('data')->getKeys());
         $this->assertCount(188, $document->get('included')->getKeys());
     }
+
+    public function testParseJsonApiObjectWithVersion11Correctly(): void
+    {
+        $string = $this->getJsonString('18_jsonapi_object_with_ext_profile.json');
+        $document = Parser::parseResponseString($string);
+
+        $this->assertInstanceOf('Art4\JsonApiClient\V1\Document', $document);
+        $this->assertSame(['meta', 'jsonapi'], $document->getKeys());
+        $this->assertSame(['version'], $document->get('jsonapi')->getKeys());
+        // TODO: Add support for unknown properties
+        // $this->assertSame(['version', 'ext', 'profile'], $document->get('jsonapi')->getKeys());
+        $this->assertSame('1.1', $document->get('jsonapi.version'));
+    }
 }
