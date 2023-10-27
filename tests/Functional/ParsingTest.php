@@ -659,4 +659,16 @@ class ParsingTest extends TestCase
         $this->assertCount(6, $document->get('data')->getKeys());
         $this->assertCount(184, $document->get('included')->getKeys());
     }
+
+    public function testParseNormativeStatementsForVersion11Correctly(): void
+    {
+        $string = $this->getJsonString('format_1.1/normative-statements.json');
+        $document = Parser::parseResponseString($string);
+
+        $this->assertInstanceOf('Art4\JsonApiClient\V1\Document', $document);
+        $this->assertSame(['data', 'included', 'jsonapi'], $document->getKeys());
+        $this->assertSame('1.1', $document->get('jsonapi.version'));
+        $this->assertCount(6, $document->get('data')->getKeys());
+        $this->assertCount(188, $document->get('included')->getKeys());
+    }
 }
