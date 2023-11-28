@@ -10,7 +10,7 @@ services:
             # Specify where the Dockerfile is located (e.g. in the root directory of the project)
             context: .docker
             # Specify the name of the Dockerfile for changing the PHP version
-            dockerfile: Dockerfile-php82
+            dockerfile: PHP83-Dockerfile
         # Modifiy Ports for every project: <outside>:<inside>
         ports:
             - 8200:80
