@@ -18,5 +18,5 @@ interface Element
      *
      * @param mixed $data The data for this Element
      */
-    public function __construct($data, Manager $manager, Accessable $parent);
+    public function __construct(mixed $data, Manager $manager, Accessable $parent);
 }

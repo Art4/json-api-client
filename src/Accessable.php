@@ -18,22 +18,20 @@ interface Accessable
     /**
      * Get a value by a key
      *
-     * @param mixed $key The key
+     * @return-type-will-change mixed `\Art4\JsonApiClient\Accessable::get()` will add `mixed` as a native return type declaration in 2.0.0, do the same in your implementation now to avoid errors.
      *
      * @return mixed
      */
-    public function get($key);
+    public function get(mixed $key)/*: mixed */;
 
     /**
      * Check if a value exists
      *
      * @return-type-will-change bool `\Art4\JsonApiClient\Accessable::has()` will add `bool` as a native return type declaration in 2.0.0, do the same in your implementation now to avoid errors.
      *
-     * @param mixed $key The key
-     *
      * @return bool
      */
-    public function has($key)/*: bool */;
+    public function has(mixed $key)/*: bool */;
 
     /**
      * Returns the keys of all setted values

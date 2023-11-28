@@ -19,10 +19,8 @@ class AccessableTraitTest extends TestCase
 
     /**
      * @dataProvider jsonValuesProviderWithoutStringAndInt
-     *
-     * @param mixed $key
      */
-    public function testHasWithInvalidKeyTypeTriggersDeprecationError($key): void
+    public function testHasWithInvalidKeyTypeTriggersDeprecationError(mixed $key): void
     {
         $resource = new AccessableTraitMock();
 
@@ -45,10 +43,8 @@ class AccessableTraitTest extends TestCase
 
     /**
      * @dataProvider jsonValuesProviderWithoutStringAndInt
-     *
-     * @param mixed $key
      */
-    public function testGetWithInvalidKeyTypeTriggersDeprecationError($key): void
+    public function testGetWithInvalidKeyTypeTriggersDeprecationError(mixed $key): void
     {
         $resource = new AccessableTraitMock();
 
