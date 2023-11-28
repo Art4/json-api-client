@@ -80,7 +80,9 @@ class SerializerTest extends TestCase
 
         $expected = json_decode($string, true);
         // TODO #90: Add support for unknown properties
+        //** @phpstan-ignore-next-line */
         unset($expected['jsonapi']['ext']);
+        //** @phpstan-ignore-next-line */
         unset($expected['jsonapi']['profile']);
 
         // Test full array
