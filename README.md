@@ -12,8 +12,8 @@ Format: [JSON API 1.0](http://jsonapi.org/format/1.0/)
 
 ## :checkered_flag: Goals
 
-* ✅ Be 100% JSON API spec conform
-* ⬜ Be open for new spec versions (see [#83](https://github.com/Art4/json-api-client/issues/83))
+* ✅ Be 100% JSON API 1.0 spec conform
+* ⬜ Be open for new spec minor versions (see [#90](https://github.com/Art4/json-api-client/issues/90))
 * ✅ Handle/validate a server response body
 * ✅ Handle/validate a client request body
 * ✅ Offer an easy way to retrieve the data
@@ -170,7 +170,7 @@ composer run reuse-annotate
 
 ## :heart: Credits
 
-- [Artur Weigandt](https://github.com/Art4) [![Twitter](http://img.shields.io/badge/Twitter-@weigandtlabs-blue.svg)](https://twitter.com/weigandtlabs)
+- [Artur Weigandt](https://github.com/Art4)
 - [All Contributors](../../contributors)
 
 ## :page_facing_up: License
