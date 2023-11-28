@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased](https://github.com/Art4/json-api-client/compare/1.2.0...v1.x)
 
+### Changed
+
+- Dropped support for PHP 7.4 and PHP 8.0
+
 ## [1.2.0 - 2023-11-28](https://github.com/Art4/json-api-client/compare/1.1.0...1.2.0)
 
 ### Added
