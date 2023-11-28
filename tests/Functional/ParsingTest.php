@@ -14,6 +14,7 @@ use Art4\JsonApiClient\Input\ResponseStringInput;
 use Art4\JsonApiClient\Manager\ErrorAbortManager;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 use Art4\JsonApiClient\V1\Factory;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ParsingTest extends TestCase
@@ -38,9 +39,7 @@ class ParsingTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider createParserProvider
-     */
+    #[DataProvider('createParserProvider')]
     public function testParseSimpleResourceWithDifferentParser(callable $parser): void
     {
         $string = $this->getJsonString('01_simple_resource.json');
@@ -67,9 +66,6 @@ class ParsingTest extends TestCase
         $this->assertInstanceOf('Art4\JsonApiClient\V1\RelationshipCollection', $resource->get('relationships'));
     }
 
-    /**
-     * @test
-     */
     public function testParseSimpleResourceIdentifier(): void
     {
         $string = $this->getJsonString('02_simple_resource_identifier.json');
@@ -91,9 +87,6 @@ class ParsingTest extends TestCase
         $this->assertSame($resource->get('id'), '1');
     }
 
-    /**
-     * @test
-     */
     public function testParseResourceObject(): void
     {
         $string = $this->getJsonString('03_resource_object.json');
@@ -159,9 +152,6 @@ class ParsingTest extends TestCase
         $this->assertSame($data->get('id'), '9');
     }
 
-    /**
-     * @test
-     */
     public function testParseCompleteResourceObjectWithMultipleRelationships(): void
     {
         $string = $this->getJsonString('04_complete_document_with_multiple_relationships.json');
@@ -355,9 +345,6 @@ class ParsingTest extends TestCase
         $this->assertSame($links->get('self'), 'http://example.com/comments/12');
     }
 
-    /**
-     * @test
-     */
     public function testParsePaginationExample(): void
     {
         $string = $this->getJsonString('06_pagination_example.json');
@@ -409,9 +396,6 @@ class ParsingTest extends TestCase
         $this->assertSame($links->get('last'), 'http://example.com/articles?page[number]=13&page[size]=1');
     }
 
-    /**
-     * @test
-     */
     public function testParseRelationshipExample(): void
     {
         $string = $this->getJsonString('07_relationship_example_without_data.json');
@@ -475,9 +459,6 @@ class ParsingTest extends TestCase
         $this->assertSame($document->get('data.0.relationships.comments.links.related.meta.count'), 10);
     }
 
-    /**
-     * @test
-     */
     public function testParseObjectLinksExample(): void
     {
         $string = $this->getJsonString('08_object_links.json');
@@ -518,9 +499,6 @@ class ParsingTest extends TestCase
         $this->assertSame('bar', $document->get('jsonapi.meta.foo'));
     }
 
-    /**
-     * @test
-     */
     public function testParseResourceIdentifierWithMeta(): void
     {
         $string = $this->getJsonString('11_resource_identifier_with_meta.json');
@@ -544,9 +522,6 @@ class ParsingTest extends TestCase
         $this->assertSame($resource->get('id'), '2');
     }
 
-    /**
-     * @test
-     */
     public function testParseNullResource(): void
     {
         $string = $this->getJsonString('12_null_resource.json');
@@ -565,9 +540,6 @@ class ParsingTest extends TestCase
         $this->assertInstanceOf('Art4\JsonApiClient\V1\ResourceNull', $resource);
     }
 
-    /**
-     * @test
-     */
     public function testParseResourceIdentifierCollectionWithMeta(): void
     {
         $string = $this->getJsonString('13_collection_with_resource_identifier_with_meta.json');
@@ -602,9 +574,6 @@ class ParsingTest extends TestCase
         $this->assertSame($resource1->get('id'), '2');
     }
 
-    /**
-     * @test
-     */
     public function testParseCreateResourceWithoutId(): void
     {
         $string = $this->getJsonString('14_create_resource_without_id.json');
@@ -614,9 +583,6 @@ class ParsingTest extends TestCase
         $this->assertSame(['data'], $document->getKeys());
     }
 
-    /**
-     * @test
-     */
     public function testParseCreateShortResourceWithoutId(): void
     {
         $string = $this->getJsonString('15_create_resource_without_id.json');
@@ -626,9 +592,6 @@ class ParsingTest extends TestCase
         $this->assertSame(['data'], $document->getKeys());
     }
 
-    /**
-     * @test
-     */
     public function testExceptionIfIdIsNotString(): void
     {
         $this->expectException(\Art4\JsonApiClient\Exception\ValidationException::class);
@@ -636,9 +599,6 @@ class ParsingTest extends TestCase
         $document = Parser::parseResponseString($string);
     }
 
-    /**
-     * @test
-     */
     public function testParseLinksInRelationshipsCorrectly(): void
     {
         $string = $this->getJsonString('17_relationship_links.json');

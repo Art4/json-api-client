@@ -13,8 +13,8 @@ return (new PhpCsFixer\Config())
     ->setRules([
         '@PER-CS2.0' => true,
         '@PER-CS2.0:risky' => true,
-        '@PHP74Migration' => true,
-        '@PHP74Migration:risky' => true,
+        '@PHP81Migration' => true,
+        '@PHP80Migration:risky' => true,
         '@PHPUnit84Migration:risky' => true,
         'no_alias_functions' => true,
     ])

@@ -39,9 +39,9 @@ interface Manager
     /**
      * Get a param by key
      *
-     * @param mixed $default
+     * @return-type-will-change mixed `\Art4\JsonApiClient\Manager::getParam()` will add `mixed` as a native return type declaration in 2.0.0, do the same in your implementation now to avoid errors.
      *
      * @return mixed
      */
-    public function getParam(string $key, $default);
+    public function getParam(string $key, mixed $default)/*: mixed*/;
 }

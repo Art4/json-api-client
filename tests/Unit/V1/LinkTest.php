@@ -13,6 +13,7 @@ use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 use Art4\JsonApiClient\V1\Link;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class LinkTest extends TestCase
@@ -63,14 +64,11 @@ class LinkTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProvider
-     *
      * - an object ("link object") which can contain the following members:
      *   - href: a string containing the link's URL.
-     *
-     * @param mixed $input
      */
-    public function testHrefHasToBeAString($input): void
+    #[DataProvider('jsonValuesProvider')]
+    public function testHrefHasToBeAString(mixed $input): void
     {
         $object = new \stdClass();
         $object->href = $input;
@@ -127,13 +125,10 @@ class LinkTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProviderWithoutObject
-     *
      * The value of each links member MUST be an object (a "links object").
-     *
-     * @param mixed $input
      */
-    public function testCreateWithDataprovider($input): void
+    #[DataProvider('jsonValuesProviderWithoutObject')]
+    public function testCreateWithDataprovider(mixed $input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(

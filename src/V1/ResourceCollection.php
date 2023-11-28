@@ -24,11 +24,9 @@ final class ResourceCollection extends AbstractElement
     /**
      * Parses the data for this element
      *
-     * @param mixed $object The data
-     *
      * @throws ValidationException
      */
-    protected function parse($object): void
+    protected function parse(mixed $object): void
     {
         if (!is_array($object)) {
             throw new ValidationException('Resources for a collection has to be in an array, "' . gettype($object) . '" given.');
@@ -49,10 +47,8 @@ final class ResourceCollection extends AbstractElement
      * Get a value by the key of this object
      *
      * @param int|string|AccessKey<string> $key The key of the value
-     *
-     * @return mixed The value
      */
-    public function get($key)
+    public function get($key): mixed
     {
         try {
             return parent::get($key);

@@ -23,11 +23,9 @@ final class Error extends AbstractElement
     /**
      * Parses the data for this element
      *
-     * @param mixed $object The data
-     *
      * @throws ValidationException
      */
-    protected function parse($object): void
+    protected function parse(mixed $object): void
     {
         if (!is_object($object)) {
             throw new ValidationException(
@@ -107,10 +105,8 @@ final class Error extends AbstractElement
      * Get a value by the key of this object
      *
      * @param int|string|AccessKey<string> $key The key of the value
-     *
-     * @return mixed The value
      */
-    public function get($key)
+    public function get($key): mixed
     {
         try {
             return parent::get($key);

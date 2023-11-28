@@ -23,11 +23,9 @@ final class Link extends AbstractElement
     /**
      * Parses the data for this element
      *
-     * @param mixed $object The data
-     *
      * @throws ValidationException
      */
-    protected function parse($object): void
+    protected function parse(mixed $object): void
     {
         if (!is_object($object)) {
             throw new ValidationException('Link has to be an object or string, "' . gettype($object) . '" given.');
@@ -46,10 +44,8 @@ final class Link extends AbstractElement
      * Get a value by the key of this object
      *
      * @param int|string|AccessKey<string> $key The key of the value
-     *
-     * @return mixed The value
      */
-    public function get($key)
+    public function get($key): mixed
     {
         try {
             return parent::get($key);
@@ -60,10 +56,8 @@ final class Link extends AbstractElement
 
     /**
      * Set a link
-     *
-     * @param mixed $link The Link
      */
-    private function setAsLink(string $name, $link): void
+    private function setAsLink(string $name, mixed $link): void
     {
         if ($name === 'meta') {
             $this->set($name, $this->create('Meta', $link));

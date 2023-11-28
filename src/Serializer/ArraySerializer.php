@@ -62,12 +62,8 @@ final class ArraySerializer implements Serializer
 
     /**
      * Transforms objects to arrays
-     *
-     * @param mixed $val
-     *
-     * @return mixed
      */
-    private function objectTransform($val)
+    private function objectTransform(mixed $val): mixed
     {
         if (!is_object($val)) {
             return $val;

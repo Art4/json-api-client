@@ -14,6 +14,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
 use Art4\JsonApiClient\Helper\AccessKey;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 use Art4\JsonApiClient\V1\ResourceCollection;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ResourceCollectionTest extends TestCase
@@ -133,12 +134,8 @@ class ResourceCollectionTest extends TestCase
         $this->assertInstanceOf(Accessable::class, $resource);
     }
 
-    /**
-     * @dataProvider jsonValuesProviderWithoutArray
-     *
-     * @param mixed $input
-     */
-    public function testCreateWithoutArrayThrowsException($input): void
+    #[DataProvider('jsonValuesProviderWithoutArray')]
+    public function testCreateWithoutArrayThrowsException(mixed $input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(
@@ -148,12 +145,8 @@ class ResourceCollectionTest extends TestCase
         $collection = new ResourceCollection($input, $this->manager, $this->parent);
     }
 
-    /**
-     * @dataProvider jsonValuesProviderWithoutObject
-     *
-     * @param mixed $input
-     */
-    public function testCreateWithoutObjectInArrayThrowsException($input): void
+    #[DataProvider('jsonValuesProviderWithoutObject')]
+    public function testCreateWithoutObjectInArrayThrowsException(mixed $input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(

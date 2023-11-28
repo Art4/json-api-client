@@ -30,7 +30,7 @@ abstract class AbstractElement implements Accessable, Element
      *
      * @param mixed $data The data for this Element
      */
-    public function __construct($data, Manager $manager, Accessable $parent)
+    public function __construct(mixed $data, Manager $manager, Accessable $parent)
     {
         $this->manager = $manager;
         $this->parent = $parent;
@@ -56,10 +56,8 @@ abstract class AbstractElement implements Accessable, Element
 
     /**
      * Create an element
-     *
-     * @param mixed $data
      */
-    protected function create(string $name, $data): Accessable
+    protected function create(string $name, mixed $data): Accessable
     {
         return $this->getManager()->getFactory()->make(
             $name,
@@ -69,8 +67,6 @@ abstract class AbstractElement implements Accessable, Element
 
     /**
      * Parse the data
-     *
-     * @param mixed $data
      */
-    abstract protected function parse($data): void;
+    abstract protected function parse(mixed $data): void;
 }

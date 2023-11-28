@@ -13,6 +13,7 @@ use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 use Art4\JsonApiClient\V1\Error;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ErrorTest extends TestCase
@@ -80,12 +81,8 @@ class ErrorTest extends TestCase
         $error->get('something');
     }
 
-    /**
-     * @dataProvider jsonValuesProviderWithoutObject
-     *
-     * @param mixed $input
-     */
-    public function testCreateWithoutObjectThrowsException($input): void
+    #[DataProvider('jsonValuesProviderWithoutObject')]
+    public function testCreateWithoutObjectThrowsException(mixed $input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(
@@ -95,12 +92,8 @@ class ErrorTest extends TestCase
         $error = new Error($input, $this->manager, $this->parent);
     }
 
-    /**
-     * @dataProvider jsonValuesProviderWithoutString
-     *
-     * @param mixed $input
-     */
-    public function testCreateIdWithoutStringThrowsException($input): void
+    #[DataProvider('jsonValuesProviderWithoutString')]
+    public function testCreateIdWithoutStringThrowsException(mixed $input): void
     {
         $object = new \stdClass();
         $object->id = $input;
@@ -113,12 +106,8 @@ class ErrorTest extends TestCase
         $error = new Error($object, $this->manager, $this->parent);
     }
 
-    /**
-     * @dataProvider jsonValuesProviderWithoutString
-     *
-     * @param mixed $input
-     */
-    public function testCreateStatusWithoutStringThrowsException($input): void
+    #[DataProvider('jsonValuesProviderWithoutString')]
+    public function testCreateStatusWithoutStringThrowsException(mixed $input): void
     {
         $object = new \stdClass();
         $object->status = $input;
@@ -131,12 +120,8 @@ class ErrorTest extends TestCase
         $error = new Error($object, $this->manager, $this->parent);
     }
 
-    /**
-     * @dataProvider jsonValuesProviderWithoutString
-     *
-     * @param mixed $input
-     */
-    public function testCreateCodeWithoutStringThrowsException($input): void
+    #[DataProvider('jsonValuesProviderWithoutString')]
+    public function testCreateCodeWithoutStringThrowsException(mixed $input): void
     {
         $object = new \stdClass();
         $object->code = $input;
@@ -149,12 +134,8 @@ class ErrorTest extends TestCase
         $error = new Error($object, $this->manager, $this->parent);
     }
 
-    /**
-     * @dataProvider jsonValuesProviderWithoutString
-     *
-     * @param mixed $input
-     */
-    public function testCreateTitleWithoutStringThrowsException($input): void
+    #[DataProvider('jsonValuesProviderWithoutString')]
+    public function testCreateTitleWithoutStringThrowsException(mixed $input): void
     {
         $object = new \stdClass();
         $object->title = $input;
@@ -167,12 +148,8 @@ class ErrorTest extends TestCase
         $error = new Error($object, $this->manager, $this->parent);
     }
 
-    /**
-     * @dataProvider jsonValuesProviderWithoutString
-     *
-     * @param mixed $input
-     */
-    public function testCreateDetailWithoutStringThrowsException($input): void
+    #[DataProvider('jsonValuesProviderWithoutString')]
+    public function testCreateDetailWithoutStringThrowsException(mixed $input): void
     {
         $object = new \stdClass();
         $object->detail = $input;

@@ -11,6 +11,7 @@ namespace Art4\JsonApiClient\Tests\Unit\Input;
 use Art4\JsonApiClient\Exception\InputException;
 use Art4\JsonApiClient\Input\RequestStringInput;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class RequestStringInputTest extends TestCase
@@ -24,12 +25,8 @@ class RequestStringInputTest extends TestCase
         $this->assertInstanceOf(\stdClass::class, $input->getAsObject());
     }
 
-    /**
-     * @dataProvider jsonValuesProviderWithoutString
-     *
-     * @param mixed $input
-     */
-    public function testCreateWithoutStringThrowsException($input): void
+    #[DataProvider('jsonValuesProviderWithoutString')]
+    public function testCreateWithoutStringThrowsException(mixed $input): void
     {
         $this->expectException(InputException::class);
         $this->expectExceptionMessage(
@@ -38,9 +35,7 @@ class RequestStringInputTest extends TestCase
         new RequestStringInput($input);
     }
 
-    /**
-     * @dataProvider jsonValuesAsStringProviderWithoutObject
-     */
+    #[DataProvider('jsonValuesAsStringProviderWithoutObject')]
     public function testGetAsObjectWithInvalidStringsThrowsException(string $input): void
     {
         $input = new RequestStringInput($input);
