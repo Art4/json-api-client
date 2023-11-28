@@ -14,6 +14,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 use Art4\JsonApiClient\V1\ResourceIdentifierCollection;
 use Art4\JsonApiClient\V1\RelationshipLink;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class RelationshipLinkTest extends TestCase
@@ -200,10 +201,9 @@ class RelationshipLinkTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProviderWithoutObject
-     *
      * links: a links object containing at least one of the following:
      */
+    #[DataProvider('jsonValuesProviderWithoutObject')]
     public function testCreateWithoutObjectThrowsException(mixed $input): void
     {
         $this->expectException(ValidationException::class);
@@ -215,10 +215,9 @@ class RelationshipLinkTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProviderWithoutObjectAndString
-     *
      * test create without object or string attribute throws exception
      */
+    #[DataProvider('jsonValuesProviderWithoutObjectAndString')]
     public function testCreateWithoutObjectOrStringAttributeThrowsException(mixed $input): void
     {
         $object = new \stdClass();
@@ -251,10 +250,9 @@ class RelationshipLinkTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProviderWithoutObjectAndString
-     *
      * self: a link for the relationship itself (a "relationship link").
      */
+    #[DataProvider('jsonValuesProviderWithoutObjectAndString')]
     public function testSelfMustBeAStringOrObject(mixed $input): void
     {
         $object = new \stdClass();
@@ -269,11 +267,10 @@ class RelationshipLinkTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProviderWithoutObjectAndString
-     *
      * related: a related resource link when the primary data represents a resource relationship.
      * If present, a related resource link MUST reference a valid URL
      */
+    #[DataProvider('jsonValuesProviderWithoutObjectAndString')]
     public function testRelatedMustBeAStringOrObject(mixed $input): void
     {
         $object = new \stdClass();
@@ -288,10 +285,9 @@ class RelationshipLinkTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProvider
-     *
      * Keys MUST either be omitted or have a null value to indicate that a particular link is unavailable.
      */
+    #[DataProvider('jsonValuesProvider')]
     public function testFirstCanBeAStringOrNull(mixed $input): void
     {
         $object = new \stdClass();
@@ -327,10 +323,9 @@ class RelationshipLinkTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProvider
-     *
      * Keys MUST either be omitted or have a null value to indicate that a particular link is unavailable.
      */
+    #[DataProvider('jsonValuesProvider')]
     public function testLastCanBeAStringOrNull(mixed $input): void
     {
         $object = new \stdClass();
@@ -366,10 +361,9 @@ class RelationshipLinkTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProvider
-     *
      * Keys MUST either be omitted or have a null value to indicate that a particular link is unavailable.
      */
+    #[DataProvider('jsonValuesProvider')]
     public function testPrevCanBeAStringOrNull(mixed $input): void
     {
         $object = new \stdClass();
@@ -405,10 +399,9 @@ class RelationshipLinkTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProvider
-     *
      * Keys MUST either be omitted or have a null value to indicate that a particular link is unavailable.
      */
+    #[DataProvider('jsonValuesProvider')]
     public function testNextCanBeAStringOrNull(mixed $input): void
     {
         $object = new \stdClass();
@@ -443,9 +436,6 @@ class RelationshipLinkTest extends TestCase
         $link = new RelationshipLink($object, $this->manager, $this->relationship);
     }
 
-    /**
-     * @test
-     */
     public function testGetOnANonExistingKeyThrowsException(): void
     {
         $object = new \stdClass();

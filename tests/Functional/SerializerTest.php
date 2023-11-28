@@ -15,6 +15,7 @@ use Art4\JsonApiClient\Serializer\ArraySerializer;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 use Art4\JsonApiClient\V1\Factory;
 use Exception;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class SerializerTest extends TestCase
@@ -61,9 +62,7 @@ class SerializerTest extends TestCase
         return $files;
     }
 
-    /**
-     * @dataProvider jsonapiDataProvider
-     */
+    #[DataProvider('jsonapiDataProvider')]
     public function testParseJsonapiDataWithErrorAbortManager(string $filename, bool $isRequest): void
     {
         $manager = new ErrorAbortManager(new Factory());

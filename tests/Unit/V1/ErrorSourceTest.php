@@ -13,6 +13,7 @@ use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 use Art4\JsonApiClient\V1\ErrorSource;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ErrorSourceTest extends TestCase
@@ -68,10 +69,9 @@ class ErrorSourceTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProviderWithoutObject
-     *
      * source: an object containing references to ...
      */
+    #[DataProvider('jsonValuesProviderWithoutObject')]
     public function testCreateWithoutObjectThrowsException(mixed $input): void
     {
         $this->expectException(ValidationException::class);
@@ -83,10 +83,9 @@ class ErrorSourceTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProviderWithoutString
-     *
      * pointer: a JSON Pointer [RFC6901] to the associated entity in the request document [e.g. "/data" for a primary data object, or "/data/attributes/title" for a specific attribute].
      */
+    #[DataProvider('jsonValuesProviderWithoutString')]
     public function testPointerMustBeAString(mixed $input): void
     {
         $object = new \stdClass();
@@ -101,10 +100,9 @@ class ErrorSourceTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProviderWithoutString
-     *
      * parameter: a string indicating which query parameter caused the error.
      */
+    #[DataProvider('jsonValuesProviderWithoutString')]
     public function testParameterMustBeAString(mixed $input): void
     {
         $object = new \stdClass();

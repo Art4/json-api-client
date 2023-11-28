@@ -13,6 +13,7 @@ use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 use Art4\JsonApiClient\V1\Jsonapi;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class JsonapiTest extends TestCase
@@ -70,10 +71,9 @@ class JsonapiTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProviderWithoutObject
-     *
      * If present, the value of the jsonapi member MUST be an object (a "jsonapi object").
      */
+    #[DataProvider('jsonValuesProviderWithoutObject')]
     public function testCreateWithDataprovider(mixed $input): void
     {
         $this->expectException(ValidationException::class);
@@ -85,10 +85,9 @@ class JsonapiTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProvider
-     *
      * The jsonapi object MAY contain a version member whose value is a string
      */
+    #[DataProvider('jsonValuesProvider')]
     public function testVersionCannotBeAnObjectOrArray(mixed $input): void
     {
         $object = new \stdClass();

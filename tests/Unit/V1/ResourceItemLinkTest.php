@@ -13,6 +13,7 @@ use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 use Art4\JsonApiClient\V1\ResourceItemLink;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ResourceItemLinkTest extends TestCase
@@ -55,10 +56,9 @@ class ResourceItemLinkTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProviderWithoutObject
-     *
      * links: a links object related to the primary data.
      */
+    #[DataProvider('jsonValuesProviderWithoutObject')]
     public function testCreateWithoutObjectThrowsException(mixed $input): void
     {
         $this->expectException(ValidationException::class);
@@ -70,10 +70,9 @@ class ResourceItemLinkTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProviderWithoutObjectAndString
-     *
      * test create without object or string attribute throws exception
      */
+    #[DataProvider('jsonValuesProviderWithoutObjectAndString')]
     public function testCreateWithoutObjectOrStringAttributeThrowsException(mixed $input): void
     {
         $object = new \stdClass();
@@ -87,9 +86,6 @@ class ResourceItemLinkTest extends TestCase
         $link = new ResourceItemLink($object, $this->manager, $this->parent);
     }
 
-    /**
-     * @test
-     */
     public function testGetOnANonExistingKeyThrowsException(): void
     {
         $object = new \stdClass();

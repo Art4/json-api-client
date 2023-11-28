@@ -13,6 +13,7 @@ use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 use Art4\JsonApiClient\V1\ErrorLink;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ErrorLinkTest extends TestCase
@@ -100,10 +101,9 @@ class ErrorLinkTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProviderWithoutObject
-     *
      * The value of each links member MUST be an object (a "links object").
      */
+    #[DataProvider('jsonValuesProviderWithoutObject')]
     public function testCreateWithDataprovider(mixed $input): void
     {
         $this->expectException(ValidationException::class);
@@ -115,10 +115,9 @@ class ErrorLinkTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProviderWithoutObjectAndString
-     *
      * test create without object or string attribute throws exception
      */
+    #[DataProvider('jsonValuesProviderWithoutObjectAndString')]
     public function testCreateWithoutObjectOrStringAttributeThrowsException(mixed $input): void
     {
         $object = new \stdClass();
@@ -134,10 +133,9 @@ class ErrorLinkTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProviderWithoutObjectAndString
-     *
      * The value of the about member MUST be an object (a "links object") or a string.
      */
+    #[DataProvider('jsonValuesProviderWithoutObjectAndString')]
     public function testAboutWithDataproviderThrowsException(mixed $input): void
     {
         $object = new \stdClass();
@@ -151,9 +149,6 @@ class ErrorLinkTest extends TestCase
         $link = new ErrorLink($object, $this->manager, $this->parent);
     }
 
-    /**
-     * @test
-     */
     public function testGetOnANonExistingKeyThrowsException(): void
     {
         $object = new \stdClass();

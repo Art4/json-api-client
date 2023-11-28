@@ -14,9 +14,6 @@ use PHPUnit\Framework\TestCase;
 
 class ErrorAbortManagerTest extends TestCase
 {
-    /**
-     * @test
-     */
     public function testCreateWithConstructorReturnsSelf(): void
     {
         $factory = $this->createMock(Factory::class);
@@ -25,9 +22,6 @@ class ErrorAbortManagerTest extends TestCase
         $this->assertSame($factory, $manager->getFactory());
     }
 
-    /**
-     * @test
-     */
     public function testGetParamReturnsDefault(): void
     {
         $factory = $this->createMock(Factory::class);

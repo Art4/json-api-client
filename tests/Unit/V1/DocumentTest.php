@@ -13,6 +13,7 @@ use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 use Art4\JsonApiClient\V1\Document;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class DocumentTest extends TestCase
@@ -85,10 +86,9 @@ class DocumentTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProviderWithoutObject
-     *
      * A JSON object MUST be at the root of every JSON API request and response containing data.
      */
+    #[DataProvider('jsonValuesProviderWithoutObject')]
     public function testCreateWithDataproviderThrowsException(mixed $input): void
     {
         $this->expectException(ValidationException::class);
@@ -227,10 +227,9 @@ class DocumentTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProviderWithoutObject
-     *
      * Test create with any value in data
      */
+    #[DataProvider('jsonValuesProviderWithoutObject')]
     public function testCreateWithDataproviderInValue(mixed $input): void
     {
 
@@ -409,9 +408,6 @@ class DocumentTest extends TestCase
         $document = new Document($object, $this->manager, $this->parent);
     }
 
-    /**
-     * @test
-     */
     public function testGetOnANonExistingKeyThrowsException(): void
     {
         $object = new \stdClass();

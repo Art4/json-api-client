@@ -19,9 +19,6 @@ use stdClass;
 
 class FactoryTest extends TestCase
 {
-    /**
-     * @test
-     */
     public function testInjectACustomClass(): void
     {
         $factory = new Factory([

@@ -13,6 +13,7 @@ use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 use Art4\JsonApiClient\V1\ResourceIdentifier;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ResourceIdentifierTest extends TestCase
@@ -72,10 +73,9 @@ class ResourceIdentifierTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProviderWithoutString
-     *
      * The values of the id and type members MUST be strings.
      */
+    #[DataProvider('jsonValuesProviderWithoutString')]
     public function testTypeMustBeAString(mixed $input): void
     {
         $object = new \stdClass();
@@ -93,10 +93,9 @@ class ResourceIdentifierTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProviderWithoutString
-     *
      * The values of the id and type members MUST be strings.
      */
+    #[DataProvider('jsonValuesProviderWithoutString')]
     public function testIdMustBeAString(mixed $input): void
     {
         $object = new \stdClass();
@@ -112,11 +111,10 @@ class ResourceIdentifierTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProviderWithoutObject
-     *
      * A "resource identifier object" is an object that identifies an individual resource.
      * A "resource identifier object" MUST contain type and id members.
      */
+    #[DataProvider('jsonValuesProviderWithoutObject')]
     public function testCreateWithDataproviderThrowsException(mixed $input): void
     {
         $this->expectException(ValidationException::class);

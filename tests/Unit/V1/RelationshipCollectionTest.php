@@ -13,6 +13,7 @@ use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 use Art4\JsonApiClient\V1\RelationshipCollection;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class RelationshipCollectionTest extends TestCase
@@ -158,9 +159,7 @@ class RelationshipCollectionTest extends TestCase
         $collection = new RelationshipCollection($object, $this->manager, $item);
     }
 
-    /**
-     * @dataProvider jsonValuesProviderWithoutObject
-     */
+    #[DataProvider('jsonValuesProviderWithoutObject')]
     public function testCreateWithoutObjectThrowsException(mixed $input): void
     {
         $this->expectException(ValidationException::class);

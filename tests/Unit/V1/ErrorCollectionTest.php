@@ -14,6 +14,7 @@ use Art4\JsonApiClient\Exception\ValidationException;
 use Art4\JsonApiClient\Helper\AccessKey;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 use Art4\JsonApiClient\V1\ErrorCollection;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ErrorCollectionTest extends TestCase
@@ -63,9 +64,7 @@ class ErrorCollectionTest extends TestCase
         $this->assertInstanceOf(Accessable::class, $error);
     }
 
-    /**
-     * @dataProvider jsonValuesProvider
-     */
+    #[DataProvider('jsonValuesProvider')]
     public function testCreateWithoutArrayThrowsException(mixed $input): void
     {
         // Input must be an array with at least one object
