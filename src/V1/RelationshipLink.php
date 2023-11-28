@@ -38,18 +38,18 @@ final class RelationshipLink extends AbstractElement
      */
     protected function parse($object): void
     {
-        if (! is_object($object)) {
+        if (!is_object($object)) {
             throw new ValidationException('RelationshipLink has to be an object, "' . gettype($object) . '" given.');
         }
 
-        if (! property_exists($object, 'self') and ! property_exists($object, 'related')) {
+        if (!property_exists($object, 'self') and !property_exists($object, 'related')) {
             throw new ValidationException('RelationshipLink has to be at least a "self" or "related" link');
         }
 
         $links = get_object_vars($object);
 
         if (array_key_exists('self', $links)) {
-            if (! is_string($links['self']) and ! is_object($links['self'])) {
+            if (!is_string($links['self']) and !is_object($links['self'])) {
                 throw new ValidationException('property "self" has to be a string or object, "' . gettype($links['self']) . '" given.');
             }
 
@@ -59,7 +59,7 @@ final class RelationshipLink extends AbstractElement
         }
 
         if (array_key_exists('related', $links)) {
-            if (! is_string($links['related']) and ! is_object($links['related'])) {
+            if (!is_string($links['related']) and !is_object($links['related'])) {
                 throw new ValidationException('property "related" has to be a string or object, "' . gettype($links['related']) . '" given.');
             }
 
@@ -127,12 +127,12 @@ final class RelationshipLink extends AbstractElement
      */
     private function setPaginationLink(string $name, $value): void
     {
-        if (! is_string($value) and ! is_null($value)) {
+        if (!is_string($value) and !is_null($value)) {
             throw new ValidationException('property "' . $name . '" has to be a string or null, "' . gettype($value) . '" given.');
         }
 
         // null is ignored
-        if (! is_null($value)) {
+        if (!is_null($value)) {
             $this->set($name, strval($value));
         }
     }
@@ -145,7 +145,7 @@ final class RelationshipLink extends AbstractElement
      */
     private function setLink(string $name, $link): void
     {
-        if (! is_string($link) and ! is_object($link)) {
+        if (!is_string($link) and !is_object($link)) {
             throw new ValidationException('Link attribute has to be an object or string, "' . gettype($link) . '" given.');
         }
 

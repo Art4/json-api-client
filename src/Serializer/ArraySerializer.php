@@ -69,7 +69,7 @@ final class ArraySerializer implements Serializer
      */
     private function objectTransform($val)
     {
-        if (! is_object($val)) {
+        if (!is_object($val)) {
             return $val;
         } elseif ($val instanceof Accessable) {
             return $this->serialize($val);

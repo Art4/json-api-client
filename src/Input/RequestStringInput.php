@@ -43,7 +43,7 @@ final class RequestStringInput implements Input, RequestInput
     {
         $data = $this->decodeJson($this->rawString);
 
-        if (! $data instanceof \stdClass) {
+        if (!$data instanceof \stdClass) {
             throw new InputException('JSON must contain an object (e.g. `{}`).');
         }
 

@@ -29,12 +29,12 @@ final class ErrorSource extends AbstractElement
      */
     protected function parse($object): void
     {
-        if (! is_object($object)) {
+        if (!is_object($object)) {
             throw new ValidationException('ErrorSource has to be an object, "' . gettype($object) . '" given.');
         }
 
         if (property_exists($object, 'pointer')) {
-            if (! is_string($object->pointer)) {
+            if (!is_string($object->pointer)) {
                 throw new ValidationException('property "pointer" has to be a string, "' . gettype($object->pointer) . '" given.');
             }
 
@@ -42,7 +42,7 @@ final class ErrorSource extends AbstractElement
         }
 
         if (property_exists($object, 'parameter')) {
-            if (! is_string($object->parameter)) {
+            if (!is_string($object->parameter)) {
                 throw new ValidationException('property "parameter" has to be a string, "' . gettype($object->parameter) . '" given.');
             }
 

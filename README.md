@@ -12,12 +12,12 @@ Format: [JSON API 1.0](http://jsonapi.org/format/1.0/)
 
 ## :checkered_flag: Goals
 
-* :heavy_check_mark: Be 100% JSON API spec conform
-* :heavy_check_mark: Be open for new spec versions
-* :heavy_check_mark: Handle/validate a server response body
-* :heavy_check_mark: Handle/validate a client request body
-* :heavy_check_mark: Offer an easy way to retrieve the data
-* :heavy_check_mark: Allow extendability and injection of classes/models
+* ✅ Be 100% JSON API 1.0 spec conform
+* ⬜ Be open for new spec minor versions (see [#90](https://github.com/Art4/json-api-client/issues/90))
+* ✅ Handle/validate a server response body
+* ✅ Handle/validate a client request body
+* ✅ Offer an easy way to retrieve the data
+* ✅ Allow extendability and injection of classes/models
 
 ## :package: Install
 
@@ -170,7 +170,7 @@ composer run reuse-annotate
 
 ## :heart: Credits
 
-- [Artur Weigandt](https://github.com/Art4) [![Twitter](http://img.shields.io/badge/Twitter-@weigandtlabs-blue.svg)](https://twitter.com/weigandtlabs)
+- [Artur Weigandt](https://github.com/Art4)
 - [All Contributors](../../contributors)
 
 ## :page_facing_up: License

@@ -33,17 +33,17 @@ final class ErrorLink extends AbstractElement
      */
     protected function parse($object): void
     {
-        if (! is_object($object)) {
+        if (!is_object($object)) {
             throw new ValidationException('Link has to be an object, "' . gettype($object) . '" given.');
         }
 
         $links = get_object_vars($object);
 
-        if (! array_key_exists('about', $links)) {
+        if (!array_key_exists('about', $links)) {
             throw new ValidationException('ErrorLink MUST contain these properties: about');
         }
 
-        if (! is_string($links['about']) and ! is_object($links['about'])) {
+        if (!is_string($links['about']) and !is_object($links['about'])) {
             throw new ValidationException('Link has to be an object or string, "' . gettype($links['about']) . '" given.');
         }
 
@@ -85,7 +85,7 @@ final class ErrorLink extends AbstractElement
      */
     private function setLink(string $name, $link): void
     {
-        if (! is_string($link) and ! is_object($link)) {
+        if (!is_string($link) and !is_object($link)) {
             throw new ValidationException('Link attribute has to be an object or string, "' . gettype($link) . '" given.');
         }
 

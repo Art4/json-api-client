@@ -29,7 +29,7 @@ final class Jsonapi extends AbstractElement
      */
     protected function parse($object): void
     {
-        if (! is_object($object)) {
+        if (!is_object($object)) {
             throw new ValidationException('Jsonapi has to be an object, "' . gettype($object) . '" given.');
         }
 

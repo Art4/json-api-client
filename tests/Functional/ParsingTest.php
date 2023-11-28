@@ -647,4 +647,46 @@ class ParsingTest extends TestCase
         $this->assertInstanceOf('Art4\JsonApiClient\V1\Document', $document);
         $this->assertSame(['data'], $document->getKeys());
     }
+
+    public function testParseNormativeStatementsForVersion10Correctly(): void
+    {
+        $string = $this->getJsonString('format_1.0/normative-statements.json');
+        $document = Parser::parseResponseString($string);
+
+        $this->assertInstanceOf('Art4\JsonApiClient\V1\Document', $document);
+        $this->assertSame(['data', 'included', 'jsonapi'], $document->getKeys());
+        $this->assertSame('1.0', $document->get('jsonapi.version'));
+        $this->assertInstanceOf(Accessable::class, $document->get('data'));
+        $this->assertCount(6, $document->get('data')->getKeys());
+        $this->assertInstanceOf(Accessable::class, $document->get('included'));
+        $this->assertCount(184, $document->get('included')->getKeys());
+    }
+
+    public function testParseNormativeStatementsForVersion11Correctly(): void
+    {
+        $string = $this->getJsonString('format_1.1/normative-statements.json');
+        $document = Parser::parseResponseString($string);
+
+        $this->assertInstanceOf('Art4\JsonApiClient\V1\Document', $document);
+        $this->assertSame(['data', 'included', 'jsonapi'], $document->getKeys());
+        $this->assertSame('1.1', $document->get('jsonapi.version'));
+        $this->assertInstanceOf(Accessable::class, $document->get('data'));
+        $this->assertCount(6, $document->get('data')->getKeys());
+        $this->assertInstanceOf(Accessable::class, $document->get('included'));
+        $this->assertCount(188, $document->get('included')->getKeys());
+    }
+
+    public function testParseJsonApiObjectWithVersion11Correctly(): void
+    {
+        $string = $this->getJsonString('18_jsonapi_object_with_ext_profile.json');
+        $document = Parser::parseResponseString($string);
+
+        $this->assertInstanceOf('Art4\JsonApiClient\V1\Document', $document);
+        $this->assertSame(['meta', 'jsonapi'], $document->getKeys());
+        $this->assertInstanceOf(Accessable::class, $document->get('jsonapi'));
+        $this->assertSame(['version'], $document->get('jsonapi')->getKeys());
+        // TODO #90: Add support for unknown properties
+        // $this->assertSame(['version', 'ext', 'profile'], $document->get('jsonapi')->getKeys());
+        $this->assertSame('1.1', $document->get('jsonapi.version'));
+    }
 }
