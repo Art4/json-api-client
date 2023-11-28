@@ -29,15 +29,15 @@ final class ResourceItem extends AbstractElement
      */
     protected function parse($object): void
     {
-        if (! is_object($object)) {
+        if (!is_object($object)) {
             throw new ValidationException('Resource has to be an object, "' . gettype($object) . '" given.');
         }
 
-        if (! property_exists($object, 'type')) {
+        if (!property_exists($object, 'type')) {
             throw new ValidationException('A resource object MUST contain a type');
         }
 
-        if (! is_string($object->type)) {
+        if (!is_string($object->type)) {
             throw new ValidationException('A resource type MUST be a string');
         }
 
@@ -45,13 +45,13 @@ final class ResourceItem extends AbstractElement
 
         if (
             $this->getManager()->getParam('optional_item_id', false) === false
-            or ! $this->getParent()->has('data') // If parent has no `data` than parent is a ResourceCollection
+            or !$this->getParent()->has('data') // If parent has no `data` than parent is a ResourceCollection
         ) {
-            if (! property_exists($object, 'id')) {
+            if (!property_exists($object, 'id')) {
                 throw new ValidationException('A resource object MUST contain an id');
             }
 
-            if (! is_string($object->id)) {
+            if (!is_string($object->id)) {
                 throw new ValidationException('A resource id MUST be a string');
             }
 

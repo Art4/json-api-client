@@ -59,7 +59,7 @@ final class Factory implements FactoryInterface
      */
     public function make(string $name, array $args = []): Accessable
     {
-        if (! isset($this->classes[$name])) {
+        if (!isset($this->classes[$name])) {
             throw new FactoryException('"' . $name . '" is not a registered class');
         }
 
@@ -67,7 +67,7 @@ final class Factory implements FactoryInterface
 
         $object = $class->newInstanceArgs($args);
 
-        if (! $object instanceof Accessable) {
+        if (!$object instanceof Accessable) {
             throw new FactoryException(sprintf(
                 '%s must be instance of `%s`',
                 $this->classes[$name],

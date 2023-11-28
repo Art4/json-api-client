@@ -55,7 +55,7 @@ trait AccessableTrait
      */
     final public function has($key): bool
     {
-        if (! is_int($key) && ! is_string($key) && (! is_object($key) || ! $key instanceof AccessKey)) {
+        if (!is_int($key) && !is_string($key) && (!is_object($key) || !$key instanceof AccessKey)) {
             trigger_error(sprintf(
                 '%s::has(): Providing Argument #1 ($key) as `%s` is deprecated since 1.2.0, please provide as `int|string` instead.',
                 get_class($this),
@@ -74,14 +74,14 @@ trait AccessableTrait
             return array_key_exists($string, $this->data);
         }
 
-        if (! array_key_exists($string, $this->data)) {
+        if (!array_key_exists($string, $this->data)) {
             return false;
         }
 
         $value = $this->getValue($string);
 
         // #TODO Handle other objects and arrays
-        if (! $value instanceof Accessable) {
+        if (!$value instanceof Accessable) {
             // throw new AccessException('The existance for the key "' . $key->raw . '" could\'nt be checked.');
             return false;
         }
@@ -98,7 +98,7 @@ trait AccessableTrait
      */
     public function get($key)
     {
-        if (! is_int($key) && ! is_string($key) && (! is_object($key) || ! $key instanceof AccessKey)) {
+        if (!is_int($key) && !is_string($key) && (!is_object($key) || !$key instanceof AccessKey)) {
             trigger_error(sprintf(
                 '%s::get(): Providing Argument #1 ($key) as `%s` is deprecated since 1.2.0, please provide as `int|string` instead.',
                 get_class($this),
@@ -120,7 +120,7 @@ trait AccessableTrait
         }
 
         // #TODO Handle other objects and arrays
-        if (! $value instanceof Accessable) {
+        if (!$value instanceof Accessable) {
             throw new AccessException('Could not get the value for the key "' . $key->raw . '".');
         }
 

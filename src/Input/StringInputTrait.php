@@ -27,7 +27,7 @@ trait StringInputTrait
      */
     final public function prepareString($string): string
     {
-        if (! is_string($string)) {
+        if (!is_string($string)) {
             throw new InputException(sprintf(
                 '$string must be a string, "%s" given.',
                 gettype($string)

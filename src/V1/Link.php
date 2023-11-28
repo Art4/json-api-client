@@ -29,11 +29,11 @@ final class Link extends AbstractElement
      */
     protected function parse($object): void
     {
-        if (! is_object($object)) {
+        if (!is_object($object)) {
             throw new ValidationException('Link has to be an object or string, "' . gettype($object) . '" given.');
         }
 
-        if (! property_exists($object, 'href')) {
+        if (!property_exists($object, 'href')) {
             throw new ValidationException('Link must have a "href" attribute.');
         }
 
@@ -72,7 +72,7 @@ final class Link extends AbstractElement
         }
 
         // every link must be an URL
-        if (! is_string($link)) {
+        if (!is_string($link)) {
             throw new ValidationException('Every link attribute has to be a string, "' . gettype($link) . '" given.');
         }
 

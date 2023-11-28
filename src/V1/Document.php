@@ -30,11 +30,11 @@ final class Document extends AbstractElement
      */
     protected function parse($object): void
     {
-        if (! is_object($object)) {
+        if (!is_object($object)) {
             throw new ValidationException('Document has to be an object, "' . gettype($object) . '" given.');
         }
 
-        if (! property_exists($object, 'data') and ! property_exists($object, 'meta') and ! property_exists($object, 'errors')) {
+        if (!property_exists($object, 'data') and !property_exists($object, 'meta') and !property_exists($object, 'errors')) {
             throw new ValidationException('Document MUST contain at least one of the following properties: data, errors, meta');
         }
 
@@ -55,7 +55,7 @@ final class Document extends AbstractElement
         }
 
         if (property_exists($object, 'included')) {
-            if (! property_exists($object, 'data')) {
+            if (!property_exists($object, 'data')) {
                 throw new ValidationException('If Document does not contain a `data` property, the `included` property MUST NOT be present either.');
             }
 
@@ -104,7 +104,7 @@ final class Document extends AbstractElement
             return $this->create('ResourceCollection', $data);
         }
 
-        if (! is_object($data)) {
+        if (!is_object($data)) {
             throw new ValidationException('Data value has to be null or an object, "' . gettype($data) . '" given.');
         }
 

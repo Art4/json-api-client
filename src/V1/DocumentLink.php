@@ -34,7 +34,7 @@ final class DocumentLink extends AbstractElement
      */
     protected function parse($object): void
     {
-        if (! is_object($object)) {
+        if (!is_object($object)) {
             throw new ValidationException(
                 'DocumentLink has to be an object, "' . gettype($object) . '" given.'
             );
@@ -43,7 +43,7 @@ final class DocumentLink extends AbstractElement
         $links = get_object_vars($object);
 
         if (array_key_exists('self', $links)) {
-            if (! is_string($links['self']) and ! is_object($links['self'])) {
+            if (!is_string($links['self']) and !is_object($links['self'])) {
                 throw new ValidationException(
                     'property "self" has to be a string or object, "' .
                     gettype($links['self']) . '" given.'
@@ -56,7 +56,7 @@ final class DocumentLink extends AbstractElement
         }
 
         if (array_key_exists('related', $links)) {
-            if (! is_string($links['related']) and ! is_object($links['related'])) {
+            if (!is_string($links['related']) and !is_object($links['related'])) {
                 throw new ValidationException(
                     'property "related" has to be a string or object, "' .
                     gettype($links['related']) . '" given.'
@@ -125,7 +125,7 @@ final class DocumentLink extends AbstractElement
      */
     private function setPaginationLink(string $name, $value): void
     {
-        if (! is_object($value) and ! is_string($value) and ! is_null($value)) {
+        if (!is_object($value) and !is_string($value) and !is_null($value)) {
             throw new ValidationException(
                 'property "' . $name . '" has to be an object, a string or null, "' .
                 gettype($value) . '" given.'
@@ -147,7 +147,7 @@ final class DocumentLink extends AbstractElement
      */
     private function setLink(string $name, $link): void
     {
-        if (! is_string($link) and ! is_object($link)) {
+        if (!is_string($link) and !is_object($link)) {
             throw new ValidationException(
                 'Link attribute has to be an object or string, "' .
                 gettype($link) . '" given.'

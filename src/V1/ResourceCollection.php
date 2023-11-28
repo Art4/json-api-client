@@ -30,13 +30,13 @@ final class ResourceCollection extends AbstractElement
      */
     protected function parse($object): void
     {
-        if (! is_array($object)) {
+        if (!is_array($object)) {
             throw new ValidationException('Resources for a collection has to be in an array, "' . gettype($object) . '" given.');
         }
 
         if (count($object) > 0) {
             foreach ($object as $resource) {
-                if (! is_object($resource)) {
+                if (!is_object($resource)) {
                     throw new ValidationException('Resources inside a collection MUST be objects, "' . gettype($resource) . '" given.');
                 }
 

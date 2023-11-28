@@ -29,7 +29,7 @@ final class ResourceItemLink extends AbstractElement
      */
     protected function parse($object): void
     {
-        if (! is_object($object)) {
+        if (!is_object($object)) {
             throw new ValidationException('ItemLink has to be an object, "' . gettype($object) . '" given.');
         }
 
@@ -64,7 +64,7 @@ final class ResourceItemLink extends AbstractElement
         // from spec: aA link MUST be represented as either:
         // - a string containing the link's URL.
         // - an object ("link object") which can contain the following members:
-        if (! is_object($link) and ! is_string($link)) {
+        if (!is_object($link) and !is_string($link)) {
             throw new ValidationException('Link attribute has to be an object or string, "' . gettype($link) . '" given.');
         }
 
