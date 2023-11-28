@@ -58,10 +58,8 @@ class ResourceItemLinkTest extends TestCase
      * @dataProvider jsonValuesProviderWithoutObject
      *
      * links: a links object related to the primary data.
-     *
-     * @param mixed $input
      */
-    public function testCreateWithoutObjectThrowsException($input): void
+    public function testCreateWithoutObjectThrowsException(mixed $input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(
@@ -75,10 +73,8 @@ class ResourceItemLinkTest extends TestCase
      * @dataProvider jsonValuesProviderWithoutObjectAndString
      *
      * test create without object or string attribute throws exception
-     *
-     * @param mixed $input
      */
-    public function testCreateWithoutObjectOrStringAttributeThrowsException($input): void
+    public function testCreateWithoutObjectOrStringAttributeThrowsException(mixed $input): void
     {
         $object = new \stdClass();
         $object->input = $input;

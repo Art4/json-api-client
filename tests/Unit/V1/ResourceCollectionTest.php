@@ -135,10 +135,8 @@ class ResourceCollectionTest extends TestCase
 
     /**
      * @dataProvider jsonValuesProviderWithoutArray
-     *
-     * @param mixed $input
      */
-    public function testCreateWithoutArrayThrowsException($input): void
+    public function testCreateWithoutArrayThrowsException(mixed $input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(
@@ -150,10 +148,8 @@ class ResourceCollectionTest extends TestCase
 
     /**
      * @dataProvider jsonValuesProviderWithoutObject
-     *
-     * @param mixed $input
      */
-    public function testCreateWithoutObjectInArrayThrowsException($input): void
+    public function testCreateWithoutObjectInArrayThrowsException(mixed $input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(

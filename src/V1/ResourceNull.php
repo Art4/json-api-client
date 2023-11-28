@@ -20,13 +20,11 @@ use Art4\JsonApiClient\Helper\AccessKey;
 final class ResourceNull implements Accessable, Element
 {
     /**
-     * Constructor
+     * Sets the manager and parent
      *
-     * @param mixed                          $data    The data for this Element
-     * @param \Art4\JsonApiClient\Manager    $manager The manager
-     * @param \Art4\JsonApiClient\Accessable $parent  The parent
+     * @param mixed $data The data for this Element
      */
-    public function __construct($data, Manager $manager, Accessable $parent) {}
+    public function __construct(mixed $data, Manager $manager, Accessable $parent) {}
 
     /**
      * Check if a value exists in this resource

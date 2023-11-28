@@ -82,10 +82,8 @@ class AttributesTest extends TestCase
 
     /**
      * @dataProvider jsonValuesProviderWithoutObject
-     *
-     * @param mixed $input
      */
-    public function testCreateWithDataProvider($input): void
+    public function testCreateWithDataProvider(mixed $input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(

@@ -203,10 +203,8 @@ class RelationshipLinkTest extends TestCase
      * @dataProvider jsonValuesProviderWithoutObject
      *
      * links: a links object containing at least one of the following:
-     *
-     * @param mixed $input
      */
-    public function testCreateWithoutObjectThrowsException($input): void
+    public function testCreateWithoutObjectThrowsException(mixed $input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(
@@ -220,10 +218,8 @@ class RelationshipLinkTest extends TestCase
      * @dataProvider jsonValuesProviderWithoutObjectAndString
      *
      * test create without object or string attribute throws exception
-     *
-     * @param mixed $input
      */
-    public function testCreateWithoutObjectOrStringAttributeThrowsException($input): void
+    public function testCreateWithoutObjectOrStringAttributeThrowsException(mixed $input): void
     {
         $object = new \stdClass();
         $object->self = 'http://example.org/self';
@@ -258,10 +254,8 @@ class RelationshipLinkTest extends TestCase
      * @dataProvider jsonValuesProviderWithoutObjectAndString
      *
      * self: a link for the relationship itself (a "relationship link").
-     *
-     * @param mixed $input
      */
-    public function testSelfMustBeAStringOrObject($input): void
+    public function testSelfMustBeAStringOrObject(mixed $input): void
     {
         $object = new \stdClass();
         $object->self = $input;
@@ -279,10 +273,8 @@ class RelationshipLinkTest extends TestCase
      *
      * related: a related resource link when the primary data represents a resource relationship.
      * If present, a related resource link MUST reference a valid URL
-     *
-     * @param mixed $input
      */
-    public function testRelatedMustBeAStringOrObject($input): void
+    public function testRelatedMustBeAStringOrObject(mixed $input): void
     {
         $object = new \stdClass();
         $object->related = $input;
@@ -299,10 +291,8 @@ class RelationshipLinkTest extends TestCase
      * @dataProvider jsonValuesProvider
      *
      * Keys MUST either be omitted or have a null value to indicate that a particular link is unavailable.
-     *
-     * @param mixed $input
      */
-    public function testFirstCanBeAStringOrNull($input): void
+    public function testFirstCanBeAStringOrNull(mixed $input): void
     {
         $object = new \stdClass();
         $object->self = 'https://example.org/self';
@@ -340,10 +330,8 @@ class RelationshipLinkTest extends TestCase
      * @dataProvider jsonValuesProvider
      *
      * Keys MUST either be omitted or have a null value to indicate that a particular link is unavailable.
-     *
-     * @param mixed $input
      */
-    public function testLastCanBeAStringOrNull($input): void
+    public function testLastCanBeAStringOrNull(mixed $input): void
     {
         $object = new \stdClass();
         $object->self = 'https://example.org/self';
@@ -381,10 +369,8 @@ class RelationshipLinkTest extends TestCase
      * @dataProvider jsonValuesProvider
      *
      * Keys MUST either be omitted or have a null value to indicate that a particular link is unavailable.
-     *
-     * @param mixed $input
      */
-    public function testPrevCanBeAStringOrNull($input): void
+    public function testPrevCanBeAStringOrNull(mixed $input): void
     {
         $object = new \stdClass();
         $object->self = 'https://example.org/self';
@@ -422,10 +408,8 @@ class RelationshipLinkTest extends TestCase
      * @dataProvider jsonValuesProvider
      *
      * Keys MUST either be omitted or have a null value to indicate that a particular link is unavailable.
-     *
-     * @param mixed $input
      */
-    public function testNextCanBeAStringOrNull($input): void
+    public function testNextCanBeAStringOrNull(mixed $input): void
     {
         $object = new \stdClass();
         $object->self = 'https://example.org/self';

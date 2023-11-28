@@ -73,10 +73,8 @@ class JsonapiTest extends TestCase
      * @dataProvider jsonValuesProviderWithoutObject
      *
      * If present, the value of the jsonapi member MUST be an object (a "jsonapi object").
-     *
-     * @param mixed $input
      */
-    public function testCreateWithDataprovider($input): void
+    public function testCreateWithDataprovider(mixed $input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(
@@ -90,10 +88,8 @@ class JsonapiTest extends TestCase
      * @dataProvider jsonValuesProvider
      *
      * The jsonapi object MAY contain a version member whose value is a string
-     *
-     * @param mixed $input
      */
-    public function testVersionCannotBeAnObjectOrArray($input): void
+    public function testVersionCannotBeAnObjectOrArray(mixed $input): void
     {
         $object = new \stdClass();
         $object->version = $input;

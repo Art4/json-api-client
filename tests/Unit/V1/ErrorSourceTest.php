@@ -71,10 +71,8 @@ class ErrorSourceTest extends TestCase
      * @dataProvider jsonValuesProviderWithoutObject
      *
      * source: an object containing references to ...
-     *
-     * @param mixed $input
      */
-    public function testCreateWithoutObjectThrowsException($input): void
+    public function testCreateWithoutObjectThrowsException(mixed $input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(
@@ -88,10 +86,8 @@ class ErrorSourceTest extends TestCase
      * @dataProvider jsonValuesProviderWithoutString
      *
      * pointer: a JSON Pointer [RFC6901] to the associated entity in the request document [e.g. "/data" for a primary data object, or "/data/attributes/title" for a specific attribute].
-     *
-     * @param mixed $input
      */
-    public function testPointerMustBeAString($input): void
+    public function testPointerMustBeAString(mixed $input): void
     {
         $object = new \stdClass();
         $object->pointer = $input;
@@ -108,10 +104,8 @@ class ErrorSourceTest extends TestCase
      * @dataProvider jsonValuesProviderWithoutString
      *
      * parameter: a string indicating which query parameter caused the error.
-     *
-     * @param mixed $input
      */
-    public function testParameterMustBeAString($input): void
+    public function testParameterMustBeAString(mixed $input): void
     {
         $object = new \stdClass();
         $object->parameter = $input;

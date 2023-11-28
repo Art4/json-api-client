@@ -79,10 +79,8 @@ class MetaTest extends TestCase
      * @dataProvider jsonValuesProviderWithoutObject
      *
      * The value of each meta member MUST be an object (a "meta object").
-     *
-     * @param mixed $input
      */
-    public function testCreateWithoutObjectThrowsException($input): void
+    public function testCreateWithoutObjectThrowsException(mixed $input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage('Meta has to be an object, "' . gettype($input) . '" given.');

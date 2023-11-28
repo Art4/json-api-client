@@ -67,10 +67,8 @@ class LinkTest extends TestCase
      *
      * - an object ("link object") which can contain the following members:
      *   - href: a string containing the link's URL.
-     *
-     * @param mixed $input
      */
-    public function testHrefHasToBeAString($input): void
+    public function testHrefHasToBeAString(mixed $input): void
     {
         $object = new \stdClass();
         $object->href = $input;
@@ -130,10 +128,8 @@ class LinkTest extends TestCase
      * @dataProvider jsonValuesProviderWithoutObject
      *
      * The value of each links member MUST be an object (a "links object").
-     *
-     * @param mixed $input
      */
-    public function testCreateWithDataprovider($input): void
+    public function testCreateWithDataprovider(mixed $input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(

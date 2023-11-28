@@ -97,10 +97,8 @@ class ResourceIdentifierCollectionTest extends TestCase
 
     /**
      * @dataProvider jsonValuesProviderWithoutArray
-     *
-     * @param mixed $input
      */
-    public function testCreateWithoutArrayThrowsException($input): void
+    public function testCreateWithoutArrayThrowsException(mixed $input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(

@@ -92,10 +92,8 @@ class DocumentLinkTest extends TestCase
      * @dataProvider jsonValuesProviderWithoutObject
      *
      * links: a links object related to the primary data.
-     *
-     * @param mixed $input
      */
-    public function testCreateWithoutObjectThrowsException($input): void
+    public function testCreateWithoutObjectThrowsException(mixed $input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(
@@ -109,10 +107,8 @@ class DocumentLinkTest extends TestCase
      * @dataProvider jsonValuesProviderWithoutObjectAndString
      *
      * test create without object or string attribute throws exception
-     *
-     * @param mixed $input
      */
-    public function testCreateWithoutObjectOrStringAttributeThrowsException($input): void
+    public function testCreateWithoutObjectOrStringAttributeThrowsException(mixed $input): void
     {
         $object = new \stdClass();
         $object->self = 'http://example.org/self';
@@ -130,10 +126,8 @@ class DocumentLinkTest extends TestCase
      * @dataProvider jsonValuesProviderWithoutObjectAndString
      *
      * self: the link that generated the current response document.
-     *
-     * @param mixed $input
      */
-    public function testSelfMustBeAStringOrObject($input): void
+    public function testSelfMustBeAStringOrObject(mixed $input): void
     {
         $object = new \stdClass();
         $object->self = $input;
@@ -162,10 +156,8 @@ class DocumentLinkTest extends TestCase
      *     }
      *   }
      * }
-     *
-     * @param mixed $input
      */
-    public function testRelatedMustBeAStringOrObject($input): void
+    public function testRelatedMustBeAStringOrObject(mixed $input): void
     {
         $object = new \stdClass();
         $object->related = $input;
@@ -182,10 +174,8 @@ class DocumentLinkTest extends TestCase
      * @dataProvider jsonValuesProvider
      *
      * Keys MUST either be omitted or have a null value to indicate that a particular link is unavailable.
-     *
-     * @param mixed $input
      */
-    public function testFirstCanBeAnObjectOrStringOrNull($input): void
+    public function testFirstCanBeAnObjectOrStringOrNull(mixed $input): void
     {
         $object = new \stdClass();
         $object->self = 'https://example.org/self';
@@ -232,10 +222,8 @@ class DocumentLinkTest extends TestCase
      * @dataProvider jsonValuesProvider
      *
      * Keys MUST either be omitted or have a null value to indicate that a particular link is unavailable.
-     *
-     * @param mixed $input
      */
-    public function testLastCanBeAStringOrNull($input): void
+    public function testLastCanBeAStringOrNull(mixed $input): void
     {
         $object = new \stdClass();
         $object->self = 'https://example.org/self';
@@ -282,10 +270,8 @@ class DocumentLinkTest extends TestCase
      * @dataProvider jsonValuesProvider
      *
      * Keys MUST either be omitted or have a null value to indicate that a particular link is unavailable.
-     *
-     * @param mixed $input
      */
-    public function testPrevCanBeAStringOrNull($input): void
+    public function testPrevCanBeAStringOrNull(mixed $input): void
     {
         $object = new \stdClass();
         $object->self = 'https://example.org/self';
@@ -332,10 +318,8 @@ class DocumentLinkTest extends TestCase
      * @dataProvider jsonValuesProvider
      *
      * Keys MUST either be omitted or have a null value to indicate that a particular link is unavailable.
-     *
-     * @param mixed $input
      */
-    public function testNextCanBeAStringOrNull($input): void
+    public function testNextCanBeAStringOrNull(mixed $input): void
     {
         $object = new \stdClass();
         $object->self = 'https://example.org/self';
@@ -378,9 +362,6 @@ class DocumentLinkTest extends TestCase
         $link = new DocumentLink($object, $this->manager, $this->parent);
     }
 
-    /**
-     * @test
-     */
     public function testGetOnANonExistingKeyThrowsException(): void
     {
         $object = new \stdClass();

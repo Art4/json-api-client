@@ -26,10 +26,8 @@ class ResponseStringInputTest extends TestCase
 
     /**
      * @dataProvider jsonValuesProviderWithoutString
-     *
-     * @param mixed $input
      */
-    public function testCreateWithoutStringThrowsException($input): void
+    public function testCreateWithoutStringThrowsException(mixed $input): void
     {
         $this->expectException(InputException::class);
         $this->expectExceptionMessage(

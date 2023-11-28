@@ -160,10 +160,8 @@ class RelationshipCollectionTest extends TestCase
 
     /**
      * @dataProvider jsonValuesProviderWithoutObject
-     *
-     * @param mixed $input
      */
-    public function testCreateWithoutObjectThrowsException($input): void
+    public function testCreateWithoutObjectThrowsException(mixed $input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(

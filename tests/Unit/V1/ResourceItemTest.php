@@ -99,10 +99,8 @@ class ResourceItemTest extends TestCase
      * @dataProvider jsonValuesProviderWithoutString
      *
      * The values of the id and type members MUST be strings.
-     *
-     * @param mixed $input
      */
-    public function testTypeMustBeAString($input): void
+    public function testTypeMustBeAString(mixed $input): void
     {
         $object = new \stdClass();
         $object->type = $input;
@@ -120,10 +118,8 @@ class ResourceItemTest extends TestCase
      * @dataProvider jsonValuesProviderWithoutString
      *
      * The values of the id and type members MUST be strings.
-     *
-     * @param mixed $input
      */
-    public function testIdMustBeAString($input): void
+    public function testIdMustBeAString(mixed $input): void
     {
         $object = new \stdClass();
         $object->type = 'posts';
@@ -142,10 +138,8 @@ class ResourceItemTest extends TestCase
      *
      * A "resource object" is an object that identifies an individual resource.
      * A "resource object" MUST contain type and id members.
-     *
-     * @param mixed $input
      */
-    public function testCreateWithDataproviderThrowsException($input): void
+    public function testCreateWithDataproviderThrowsException(mixed $input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(

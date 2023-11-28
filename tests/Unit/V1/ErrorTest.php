@@ -82,10 +82,8 @@ class ErrorTest extends TestCase
 
     /**
      * @dataProvider jsonValuesProviderWithoutObject
-     *
-     * @param mixed $input
      */
-    public function testCreateWithoutObjectThrowsException($input): void
+    public function testCreateWithoutObjectThrowsException(mixed $input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(
@@ -97,10 +95,8 @@ class ErrorTest extends TestCase
 
     /**
      * @dataProvider jsonValuesProviderWithoutString
-     *
-     * @param mixed $input
      */
-    public function testCreateIdWithoutStringThrowsException($input): void
+    public function testCreateIdWithoutStringThrowsException(mixed $input): void
     {
         $object = new \stdClass();
         $object->id = $input;
@@ -115,10 +111,8 @@ class ErrorTest extends TestCase
 
     /**
      * @dataProvider jsonValuesProviderWithoutString
-     *
-     * @param mixed $input
      */
-    public function testCreateStatusWithoutStringThrowsException($input): void
+    public function testCreateStatusWithoutStringThrowsException(mixed $input): void
     {
         $object = new \stdClass();
         $object->status = $input;
@@ -133,10 +127,8 @@ class ErrorTest extends TestCase
 
     /**
      * @dataProvider jsonValuesProviderWithoutString
-     *
-     * @param mixed $input
      */
-    public function testCreateCodeWithoutStringThrowsException($input): void
+    public function testCreateCodeWithoutStringThrowsException(mixed $input): void
     {
         $object = new \stdClass();
         $object->code = $input;
@@ -151,10 +143,8 @@ class ErrorTest extends TestCase
 
     /**
      * @dataProvider jsonValuesProviderWithoutString
-     *
-     * @param mixed $input
      */
-    public function testCreateTitleWithoutStringThrowsException($input): void
+    public function testCreateTitleWithoutStringThrowsException(mixed $input): void
     {
         $object = new \stdClass();
         $object->title = $input;
@@ -169,10 +159,8 @@ class ErrorTest extends TestCase
 
     /**
      * @dataProvider jsonValuesProviderWithoutString
-     *
-     * @param mixed $input
      */
-    public function testCreateDetailWithoutStringThrowsException($input): void
+    public function testCreateDetailWithoutStringThrowsException(mixed $input): void
     {
         $object = new \stdClass();
         $object->detail = $input;

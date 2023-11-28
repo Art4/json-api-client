@@ -65,10 +65,8 @@ class ErrorCollectionTest extends TestCase
 
     /**
      * @dataProvider jsonValuesProvider
-     *
-     * @param mixed $input
      */
-    public function testCreateWithoutArrayThrowsException($input): void
+    public function testCreateWithoutArrayThrowsException(mixed $input): void
     {
         // Input must be an array with at least one object
         if (gettype($input) === 'array') {

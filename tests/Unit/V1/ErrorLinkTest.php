@@ -103,10 +103,8 @@ class ErrorLinkTest extends TestCase
      * @dataProvider jsonValuesProviderWithoutObject
      *
      * The value of each links member MUST be an object (a "links object").
-     *
-     * @param mixed $input
      */
-    public function testCreateWithDataprovider($input): void
+    public function testCreateWithDataprovider(mixed $input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(
@@ -120,10 +118,8 @@ class ErrorLinkTest extends TestCase
      * @dataProvider jsonValuesProviderWithoutObjectAndString
      *
      * test create without object or string attribute throws exception
-     *
-     * @param mixed $input
      */
-    public function testCreateWithoutObjectOrStringAttributeThrowsException($input): void
+    public function testCreateWithoutObjectOrStringAttributeThrowsException(mixed $input): void
     {
         $object = new \stdClass();
         $object->about = 'http://example.org/about';
@@ -141,10 +137,8 @@ class ErrorLinkTest extends TestCase
      * @dataProvider jsonValuesProviderWithoutObjectAndString
      *
      * The value of the about member MUST be an object (a "links object") or a string.
-     *
-     * @param mixed $input
      */
-    public function testAboutWithDataproviderThrowsException($input): void
+    public function testAboutWithDataproviderThrowsException(mixed $input): void
     {
         $object = new \stdClass();
         $object->about = $input;

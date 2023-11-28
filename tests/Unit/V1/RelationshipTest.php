@@ -62,10 +62,8 @@ class RelationshipTest extends TestCase
      * @dataProvider jsonValuesProviderWithoutObject
      *
      * The value of the relationships key MUST be an object (a "relationships object").
-     *
-     * @param mixed $input
      */
-    public function testCreateWithoutObjectThrowsException($input): void
+    public function testCreateWithoutObjectThrowsException(mixed $input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(

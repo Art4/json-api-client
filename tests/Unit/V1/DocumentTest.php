@@ -88,10 +88,8 @@ class DocumentTest extends TestCase
      * @dataProvider jsonValuesProviderWithoutObject
      *
      * A JSON object MUST be at the root of every JSON API request and response containing data.
-     *
-     * @param mixed $input
      */
-    public function testCreateWithDataproviderThrowsException($input): void
+    public function testCreateWithDataproviderThrowsException(mixed $input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(
@@ -232,10 +230,8 @@ class DocumentTest extends TestCase
      * @dataProvider jsonValuesProviderWithoutObject
      *
      * Test create with any value in data
-     *
-     * @param mixed $input
      */
-    public function testCreateWithDataproviderInValue($input): void
+    public function testCreateWithDataproviderInValue(mixed $input): void
     {
 
         // Test with empty array in data

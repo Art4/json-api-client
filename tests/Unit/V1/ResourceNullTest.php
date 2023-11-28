@@ -31,10 +31,8 @@ class ResourceNullTest extends TestCase
 
     /**
      * @dataProvider jsonValuesProvider
-     *
-     * @param mixed $input
      */
-    public function testCreateWithDataProvider($input): void
+    public function testCreateWithDataProvider(mixed $input): void
     {
         $resource = new ResourceNull(
             $input,
