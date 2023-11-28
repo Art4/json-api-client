@@ -23,23 +23,14 @@ jobs:
           fetch-depth: 2
 
       - name: Setup PHP with composer and extensions
-        if: ${{ matrix.php =< '8.3' }}
         uses: shivammathur/setup-php@v2 #https://github.com/shivammathur/setup-php
         with:
           php-version: ${{ matrix.php }}
           coverage: xdebug
           tools: none
 
-      - name: Setup PHP with composer and extensions (PHP 8.4)
-        if: ${{ matrix.php >= '8.4' }}
-        uses: shivammathur/setup-php@v2 #https://github.com/shivammathur/setup-php
-        with:
-          php-version: ${{ matrix.php }}
-          coverage: none
-          tools: none
-
       - name: "Install Composer dependencies"
-        if: ${{ matrix.php =< '8.3' }}
+        if: ${{ matrix.php <= '8.3' }}
         uses: "ramsey/composer-install@v2"
 
       - name: "Install Composer dependencies (PHP 8.4)"
