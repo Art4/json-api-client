@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-- Add support for PHP 8.2
+- Add support for PHP 8.2 and PHP 8.3
 
 ### Deprecated
 
