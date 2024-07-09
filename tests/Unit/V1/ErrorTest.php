@@ -49,7 +49,7 @@ class ErrorTest extends TestCase
 
         $error = new Error($object, $this->manager, $this->parent);
 
-        $this->assertInstanceOf('Art4\JsonApiClient\V1\Error', $error);
+        $this->assertInstanceOf(Error::class, $error);
         $this->assertInstanceOf(Accessable::class, $error);
         $this->assertSame($error->getKeys(), ['id', 'links', 'status', 'code', 'title', 'detail', 'source', 'meta']);
 
