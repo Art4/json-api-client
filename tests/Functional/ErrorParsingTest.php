@@ -16,9 +16,6 @@ class ErrorParsingTest extends TestCase
 {
     use HelperTrait;
 
-    /**
-     * @test
-     */
     public function testParseErrors(): void
     {
         $string = $this->getJsonString('09_errors.json');
@@ -89,9 +86,6 @@ class ErrorParsingTest extends TestCase
         $this->assertFalse($errors->has('3'));
     }
 
-    /**
-     * @test
-     */
     public function testParseErrorWithLinks(): void
     {
         $string = $this->getJsonString('10_error_with_links.json');

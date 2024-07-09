@@ -20,9 +20,6 @@ class DotNotationTest extends TestCase
 {
     use HelperTrait;
 
-    /**
-     * @test
-     */
     public function testCompleteResourceObjectWithMultipleRelationships(): void
     {
         $manager = new ErrorAbortManager(new Factory());
@@ -189,9 +186,6 @@ class DotNotationTest extends TestCase
         $this->assertSame('http://example.com/comments/12', $document->get('included.2.links.self'));
     }
 
-    /**
-     * @test
-     */
     public function testGetNotExistentValueThrowsException(): void
     {
         $manager = new ErrorAbortManager(new Factory());

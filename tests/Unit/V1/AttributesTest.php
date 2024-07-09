@@ -13,6 +13,7 @@ use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 use Art4\JsonApiClient\V1\Attributes;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class AttributesTest extends TestCase
@@ -80,12 +81,8 @@ class AttributesTest extends TestCase
         ], $attributes->getKeys());
     }
 
-    /**
-     * @dataProvider jsonValuesProviderWithoutObject
-     *
-     * @param mixed $input
-     */
-    public function testCreateWithDataProvider($input): void
+    #[DataProvider('jsonValuesProviderWithoutObject')]
+    public function testCreateWithDataProvider(mixed $input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(
@@ -188,9 +185,6 @@ class AttributesTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
     public function testGetOnANonExistingKeyThrowsException(): void
     {
         $object = new \stdClass();

@@ -11,18 +11,15 @@ namespace Art4\JsonApiClient\Tests\Unit\Helper;
 use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Tests\Fixtures\AccessableTraitMock;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class AccessableTraitTest extends TestCase
 {
     use HelperTrait;
 
-    /**
-     * @dataProvider jsonValuesProviderWithoutStringAndInt
-     *
-     * @param mixed $key
-     */
-    public function testHasWithInvalidKeyTypeTriggersDeprecationError($key): void
+    #[DataProvider('jsonValuesProviderWithoutStringAndInt')]
+    public function testHasWithInvalidKeyTypeTriggersDeprecationError(mixed $key): void
     {
         $resource = new AccessableTraitMock();
 
@@ -43,12 +40,8 @@ class AccessableTraitTest extends TestCase
         $resource->has($key);
     }
 
-    /**
-     * @dataProvider jsonValuesProviderWithoutStringAndInt
-     *
-     * @param mixed $key
-     */
-    public function testGetWithInvalidKeyTypeTriggersDeprecationError($key): void
+    #[DataProvider('jsonValuesProviderWithoutStringAndInt')]
+    public function testGetWithInvalidKeyTypeTriggersDeprecationError(mixed $key): void
     {
         $resource = new AccessableTraitMock();
 

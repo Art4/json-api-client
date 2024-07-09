@@ -25,10 +25,8 @@ trait AccessableTrait
 
     /**
      * Set a value
-     *
-     * @param mixed  $value The Value
      */
-    final protected function set(string $key, $value): void
+    final protected function set(string $key, mixed $value): void
     {
         // Allow non-associative array for collections
         if ($key === '') {
@@ -93,10 +91,8 @@ trait AccessableTrait
      * Get a value by a key
      *
      * @param int|string|AccessKey<string> $key The key
-     *
-     * @return mixed
      */
-    public function get($key)
+    public function get($key): mixed
     {
         if (!is_int($key) && !is_string($key) && (!is_object($key) || !$key instanceof AccessKey)) {
             trigger_error(sprintf(
@@ -131,10 +127,8 @@ trait AccessableTrait
      * Get a value by the key
      *
      * @throws AccessException
-     *
-     * @return mixed The value
      */
-    private function getValue(string $key)
+    private function getValue(string $key): mixed
     {
         if (array_key_exists($key, $this->data)) {
             return $this->data[$key];

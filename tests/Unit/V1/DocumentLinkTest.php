@@ -13,6 +13,7 @@ use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 use Art4\JsonApiClient\V1\DocumentLink;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class DocumentLinkTest extends TestCase
@@ -89,13 +90,10 @@ class DocumentLinkTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProviderWithoutObject
-     *
      * links: a links object related to the primary data.
-     *
-     * @param mixed $input
      */
-    public function testCreateWithoutObjectThrowsException($input): void
+    #[DataProvider('jsonValuesProviderWithoutObject')]
+    public function testCreateWithoutObjectThrowsException(mixed $input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(
@@ -106,13 +104,10 @@ class DocumentLinkTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProviderWithoutObjectAndString
-     *
      * test create without object or string attribute throws exception
-     *
-     * @param mixed $input
      */
-    public function testCreateWithoutObjectOrStringAttributeThrowsException($input): void
+    #[DataProvider('jsonValuesProviderWithoutObjectAndString')]
+    public function testCreateWithoutObjectOrStringAttributeThrowsException(mixed $input): void
     {
         $object = new \stdClass();
         $object->self = 'http://example.org/self';
@@ -127,13 +122,10 @@ class DocumentLinkTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProviderWithoutObjectAndString
-     *
      * self: the link that generated the current response document.
-     *
-     * @param mixed $input
      */
-    public function testSelfMustBeAStringOrObject($input): void
+    #[DataProvider('jsonValuesProviderWithoutObjectAndString')]
+    public function testSelfMustBeAStringOrObject(mixed $input): void
     {
         $object = new \stdClass();
         $object->self = $input;
@@ -147,8 +139,6 @@ class DocumentLinkTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProviderWithoutObjectAndString
-     *
      * related: a related resource link when the primary data represents a resource relationship.
      * If present, a related resource link MUST reference a valid URL
      *
@@ -162,10 +152,9 @@ class DocumentLinkTest extends TestCase
      *     }
      *   }
      * }
-     *
-     * @param mixed $input
      */
-    public function testRelatedMustBeAStringOrObject($input): void
+    #[DataProvider('jsonValuesProviderWithoutObjectAndString')]
+    public function testRelatedMustBeAStringOrObject(mixed $input): void
     {
         $object = new \stdClass();
         $object->related = $input;
@@ -179,13 +168,10 @@ class DocumentLinkTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProvider
-     *
      * Keys MUST either be omitted or have a null value to indicate that a particular link is unavailable.
-     *
-     * @param mixed $input
      */
-    public function testFirstCanBeAnObjectOrStringOrNull($input): void
+    #[DataProvider('jsonValuesProvider')]
+    public function testFirstCanBeAnObjectOrStringOrNull(mixed $input): void
     {
         $object = new \stdClass();
         $object->self = 'https://example.org/self';
@@ -229,13 +215,10 @@ class DocumentLinkTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProvider
-     *
      * Keys MUST either be omitted or have a null value to indicate that a particular link is unavailable.
-     *
-     * @param mixed $input
      */
-    public function testLastCanBeAStringOrNull($input): void
+    #[DataProvider('jsonValuesProvider')]
+    public function testLastCanBeAStringOrNull(mixed $input): void
     {
         $object = new \stdClass();
         $object->self = 'https://example.org/self';
@@ -279,13 +262,10 @@ class DocumentLinkTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProvider
-     *
      * Keys MUST either be omitted or have a null value to indicate that a particular link is unavailable.
-     *
-     * @param mixed $input
      */
-    public function testPrevCanBeAStringOrNull($input): void
+    #[DataProvider('jsonValuesProvider')]
+    public function testPrevCanBeAStringOrNull(mixed $input): void
     {
         $object = new \stdClass();
         $object->self = 'https://example.org/self';
@@ -329,13 +309,10 @@ class DocumentLinkTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProvider
-     *
      * Keys MUST either be omitted or have a null value to indicate that a particular link is unavailable.
-     *
-     * @param mixed $input
      */
-    public function testNextCanBeAStringOrNull($input): void
+    #[DataProvider('jsonValuesProvider')]
+    public function testNextCanBeAStringOrNull(mixed $input): void
     {
         $object = new \stdClass();
         $object->self = 'https://example.org/self';
@@ -378,9 +355,6 @@ class DocumentLinkTest extends TestCase
         $link = new DocumentLink($object, $this->manager, $this->parent);
     }
 
-    /**
-     * @test
-     */
     public function testGetOnANonExistingKeyThrowsException(): void
     {
         $object = new \stdClass();

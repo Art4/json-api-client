@@ -176,10 +176,8 @@ trait HelperTrait
 
     /**
      * returns a json string from a file
-     *
-     * @param mixed $filename
      */
-    protected function getJsonString($filename): string
+    protected function getJsonString(mixed $filename): string
     {
         return strval(file_get_contents(__DIR__ . '/../files/' . $filename));
     }

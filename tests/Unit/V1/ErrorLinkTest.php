@@ -13,6 +13,7 @@ use Art4\JsonApiClient\Exception\AccessException;
 use Art4\JsonApiClient\Exception\ValidationException;
 use Art4\JsonApiClient\Tests\Fixtures\HelperTrait;
 use Art4\JsonApiClient\V1\ErrorLink;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ErrorLinkTest extends TestCase
@@ -100,13 +101,10 @@ class ErrorLinkTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProviderWithoutObject
-     *
      * The value of each links member MUST be an object (a "links object").
-     *
-     * @param mixed $input
      */
-    public function testCreateWithDataprovider($input): void
+    #[DataProvider('jsonValuesProviderWithoutObject')]
+    public function testCreateWithDataprovider(mixed $input): void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(
@@ -117,13 +115,10 @@ class ErrorLinkTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProviderWithoutObjectAndString
-     *
      * test create without object or string attribute throws exception
-     *
-     * @param mixed $input
      */
-    public function testCreateWithoutObjectOrStringAttributeThrowsException($input): void
+    #[DataProvider('jsonValuesProviderWithoutObjectAndString')]
+    public function testCreateWithoutObjectOrStringAttributeThrowsException(mixed $input): void
     {
         $object = new \stdClass();
         $object->about = 'http://example.org/about';
@@ -138,13 +133,10 @@ class ErrorLinkTest extends TestCase
     }
 
     /**
-     * @dataProvider jsonValuesProviderWithoutObjectAndString
-     *
      * The value of the about member MUST be an object (a "links object") or a string.
-     *
-     * @param mixed $input
      */
-    public function testAboutWithDataproviderThrowsException($input): void
+    #[DataProvider('jsonValuesProviderWithoutObjectAndString')]
+    public function testAboutWithDataproviderThrowsException(mixed $input): void
     {
         $object = new \stdClass();
         $object->about = $input;
@@ -157,9 +149,6 @@ class ErrorLinkTest extends TestCase
         $link = new ErrorLink($object, $this->manager, $this->parent);
     }
 
-    /**
-     * @test
-     */
     public function testGetOnANonExistingKeyThrowsException(): void
     {
         $object = new \stdClass();

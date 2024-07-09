@@ -41,10 +41,8 @@ trait StringInputTrait
      * Decodes a json string
      *
      * @throws InputException if something went wrong with the input
-     *
-     * @return mixed
      */
-    final protected function decodeJson(string $jsonString)
+    final protected function decodeJson(string $jsonString): mixed
     {
         $jsonErrors = [
             \JSON_ERROR_DEPTH => 'JSON_ERROR_DEPTH - Maximum stack depth exceeded',
