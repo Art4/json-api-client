@@ -40,26 +40,22 @@ final class Document extends AbstractElement
             throw new ValidationException('The properties `data` and `errors` MUST NOT coexist in Document.');
         }
 
-        foreach ($object as $key => $value) {
-            if ($key === 'data') {
-                $this->set('data', $this->parseData($value));
-            } else if ($key === 'meta') {
-                $this->set('meta', $this->create('Meta', $value));
-            } else if ($key === 'errors') {
-                $this->set('errors', $this->create('ErrorCollection', $value));
-            } else if ($key === 'included') {
-                if (!property_exists($object, 'data')) {
-                    throw new ValidationException('If Document does not contain a `data` property, the `included` property MUST NOT be present either.');
-                }
+        if (property_exists($object, 'included') and !property_exists($object, 'data')) {
+            throw new ValidationException('If Document does not contain a `data` property, the `included` property MUST NOT be present either.');
+        }
 
-                $this->set('included', $this->create('ResourceCollection', $object->included));
-            } else if ($key === 'jsonapi') {
-                $this->set('jsonapi', $this->create('Jsonapi', $value));
-            } else if ($key === 'links') {
-                $this->set('links', $this->create('DocumentLink', $value));
-            } else {
-                $this->set($key, $value);
-            }
+        foreach (get_object_vars($object) as $key => $value) {
+            $value = match ($key) {
+                'data' => $this->parseData($value),
+                'meta' => $this->create('Meta', $value),
+                'errors' => $this->create('ErrorCollection', $value),
+                'included' => $this->create('ResourceCollection', $value),
+                'jsonapi' => $this->create('Jsonapi', $value),
+                'links' => $this->create('DocumentLink', $value),
+                default => $value,
+            };
+
+            $this->set($key, $value);
         }
     }
 
@@ -80,11 +76,9 @@ final class Document extends AbstractElement
     /**
      * Parse the data value
      *
-     * @param null|object|array<string, mixed> $data Data value
-     *
      * @throws ValidationException If $data isn't null or an object
      */
-    private function parseData($data): Accessable
+    private function parseData(mixed $data): Accessable
     {
         if ($data === null) {
             return $this->create('ResourceNull', $data);
