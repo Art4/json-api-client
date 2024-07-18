@@ -38,14 +38,15 @@ class DocumentTest extends TestCase
     {
         $object = new \stdClass();
         $object->meta = new \stdClass();
-        $object->ignore = 'this property must be ignored';
+        $object->fc = 'test property for forward compatability';
 
         $document = new Document($object, $this->manager, $this->parent);
 
         $this->assertInstanceOf(Document::class, $document);
         $this->assertInstanceOf(Accessable::class, $document);
-        $this->assertSame($document->getKeys(), ['meta']);
+        $this->assertSame($document->getKeys(), ['meta', 'fc']);
         $this->assertTrue($document->has('meta'));
+        $this->assertTrue($document->has('fc'));
         $this->assertInstanceOf(Accessable::class, $document->get('meta'));
         $this->assertFalse($document->has('data'));
         $this->assertFalse($document->has('errors'));
@@ -63,26 +64,26 @@ class DocumentTest extends TestCase
         $object->data = new \stdClass();
         $object->data->type = 'types';
         $object->data->id = 'id';
+        $object->meta = new \stdClass();
         $object->included = [];
         $object->included[0] = new \stdClass();
         $object->included[0]->type = 'types';
         $object->included[0]->id = 'id';
-        $object->links = new \stdClass();
         $object->jsonapi = new \stdClass();
-        $object->meta = new \stdClass();
-        $object->ignore = 'this property must be ignored';
+        $object->links = new \stdClass();
+        $object->fc = 'test property for forward compatability';
 
         $document = new Document($object, $this->manager, $this->parent);
 
         $this->assertInstanceOf(Document::class, $document);
-        $this->assertSame($document->getKeys(), ['data', 'meta', 'included', 'jsonapi', 'links']);
+        $this->assertSame($document->getKeys(), ['data', 'meta', 'included', 'jsonapi', 'links', 'fc']);
         $this->assertTrue($document->has('data'));
         $this->assertTrue($document->has('meta'));
         $this->assertFalse($document->has('errors'));
         $this->assertTrue($document->has('jsonapi'));
         $this->assertTrue($document->has('links'));
         $this->assertTrue($document->has('included'));
-        $this->assertFalse($document->has('ignore'));
+        $this->assertTrue($document->has('fc'));
     }
 
     /**

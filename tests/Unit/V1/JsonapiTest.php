@@ -42,18 +42,18 @@ class JsonapiTest extends TestCase
         // This object MAY also contain a meta member, whose value is a meta object
         $object->meta = new \stdClass();
 
-        // these properties must be ignored
-        $object->testobj = new \stdClass();
-        $object->teststring = 'http://example.org/link';
+        // test properties for forward compatability
+        $object->fcobj = new \stdClass();
+        $object->fcstring = 'http://example.org/link';
 
         $jsonapi = new Jsonapi($object, $this->manager, $this->parent);
 
         $this->assertInstanceOf(Jsonapi::class, $jsonapi);
         $this->assertInstanceOf(Accessable::class, $jsonapi);
-        $this->assertSame($jsonapi->getKeys(), ['version', 'meta']);
+        $this->assertSame($jsonapi->getKeys(), ['version', 'meta', 'fcobj', 'fcstring']);
 
-        $this->assertFalse($jsonapi->has('testobj'));
-        $this->assertFalse($jsonapi->has('teststring'));
+        $this->assertTrue($jsonapi->has('fcobj'));
+        $this->assertTrue($jsonapi->has('fcstring'));
         $this->assertTrue($jsonapi->has('version'));
         $this->assertSame($jsonapi->get('version'), '1.0');
         $this->assertTrue($jsonapi->has('meta'));
