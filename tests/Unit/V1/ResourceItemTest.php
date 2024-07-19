@@ -78,13 +78,17 @@ class ResourceItemTest extends TestCase
         $object->attributes = new \stdClass();
         $object->relationships = new \stdClass();
         $object->links = new \stdClass();
+        $object->fc = 'test property for forward compatability';
 
         $item = new ResourceItem($object, $this->manager, $this->parent);
 
         $this->assertInstanceOf(ResourceItem::class, $item);
 
-        $this->assertSame($item->get('type'), 'type');
-        $this->assertSame($item->get('id'), '789');
+        $this->assertSame(['type', 'id', 'meta', 'attributes', 'relationships', 'links', 'fc'], $item->getKeys());
+        $this->assertTrue($item->has('type'));
+        $this->assertSame('type', $item->get('type'));
+        $this->assertTrue($item->has('id'));
+        $this->assertSame('789', $item->get('id'));
         $this->assertTrue($item->has('meta'));
         $this->assertInstanceOf(Accessable::class, $item->get('meta'));
         $this->assertTrue($item->has('attributes'));
@@ -93,7 +97,8 @@ class ResourceItemTest extends TestCase
         $this->assertInstanceOf(Accessable::class, $item->get('relationships'));
         $this->assertTrue($item->has('links'));
         $this->assertInstanceOf(Accessable::class, $item->get('links'));
-        $this->assertSame($item->getKeys(), ['type', 'id', 'meta', 'attributes', 'relationships', 'links']);
+        $this->assertTrue($item->has('fc'));
+        $this->assertSame('test property for forward compatability', $item->get('fc'));
     }
 
     /**
