@@ -1,0 +1,10 @@
+{
+  "errors": [
+    {
+      "description": "some description about the error"
+    }
+  ],
+  "jsonapi": {
+    "version": "1.0"
+  }
+}

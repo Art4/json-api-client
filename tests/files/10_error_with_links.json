@@ -1,15 +1,17 @@
 {
   "errors": [
     {
-      "code":   "123",
-      "source": { "pointer": "/data/attributes/first-name" },
-      "title":  "Value is too short",
+      "code": "123",
+      "source": {
+        "pointer": "/data/attributes/first-name"
+      },
+      "title": "Value is too short",
       "links": {
         "about": "http://example.org/errors/123"
       }
-  },
+    },
     {
-      "code":   "124",
+      "code": "124",
       "links": {
         "about": {
           "href": "http://example.org/errors/124"
