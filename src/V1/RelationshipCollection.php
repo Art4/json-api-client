@@ -35,13 +35,7 @@ final class RelationshipCollection extends AbstractElement
             throw new ValidationException('These properties are not allowed in attributes: `type`, `id`');
         }
 
-        $object_vars = get_object_vars($object);
-
-        if (count($object_vars) === 0) {
-            return;
-        }
-
-        foreach ($object_vars as $name => $value) {
+        foreach (get_object_vars($object) as $name => $value) {
             if ($this->getParent()->has('attributes.' . $name)) {
                 throw new ValidationException('"' . $name . '" property cannot be set because it exists already in parents Resource object.');
             }

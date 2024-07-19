@@ -35,13 +35,7 @@ final class Attributes extends AbstractElement
             throw new ValidationException('These properties are not allowed in attributes: `type`, `id`, `relationships`, `links`');
         }
 
-        $object_vars = get_object_vars($object);
-
-        if (count($object_vars) === 0) {
-            return;
-        }
-
-        foreach ($object_vars as $name => $value) {
+        foreach (get_object_vars($object) as $name => $value) {
             $this->set($name, $value);
         }
     }
