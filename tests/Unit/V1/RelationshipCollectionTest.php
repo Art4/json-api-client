@@ -121,7 +121,7 @@ class RelationshipCollectionTest extends TestCase
         $item->expects($this->any())
             ->method('has')
             ->with($this->equalTo('attributes'))
-            ->will($this->returnValue(false));
+            ->willReturn(false);
 
         $object = new \stdClass();
         $object->id = '5';

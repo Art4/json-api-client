@@ -166,7 +166,7 @@ trait HelperTrait
 
         $this->manager->expects($this->any())
             ->method('getFactory')
-            ->will($this->returnValue($factory));
+            ->willReturn($factory);
 
         $this->manager->expects($this->any())
             ->method('getParam')
