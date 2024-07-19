@@ -33,6 +33,10 @@ final class Error extends AbstractElement
             );
         }
 
+        if (!property_exists($object, 'id') and !property_exists($object, 'links') and !property_exists($object, 'status') and !property_exists($object, 'code') and !property_exists($object, 'title') and !property_exists($object, 'detail') and !property_exists($object, 'source') and !property_exists($object, 'meta')) {
+            throw new ValidationException('An error object MUST contain at least one of: `id`, `links`, `status`, `code`, `title`, `detail`, `source` or `meta`.');
+        }
+
         if (property_exists($object, 'id')) {
             if (!is_string($object->id)) {
                 throw new ValidationException(

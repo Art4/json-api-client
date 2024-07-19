@@ -161,4 +161,28 @@ class ErrorTest extends TestCase
 
         $error = new Error($object, $this->manager, $this->parent);
     }
+
+    /**
+     * An error object MAY have the following members, and MUST contain at least one of:
+     * - id
+     * - links
+     * - status
+     * - code
+     * - title
+     * - details
+     * - source
+     * - meta
+     */
+    public function testCreateWithoutRequiredPropertiesThrowsException(): void
+    {
+        $object = new \stdClass();
+        $object->description = 'error description';
+
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage(
+            'An error object MUST contain at least one of: `id`, `links`, `status`, `code`, `title`, `detail`, `source` or `meta`.'
+        );
+
+        $error = new Error($object, $this->manager, $this->parent);
+    }
 }

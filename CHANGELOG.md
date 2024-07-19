@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Dropped support for PHP 7.4 and PHP 8.0
 
+### Fixed
+
+- Add check that an error object contains at least one of `id`, `links`, `status`, `code`, `title`, `detail`, `source` or `meta`.
+
 ### Deprecated
 
 - `\Art4\Accessable::get()` will add `mixed` as a native return type declaration in 2.0.0, do the same in your implementation now to avoid errors.
