@@ -35,56 +35,56 @@ final class Error extends AbstractElement
 
         foreach (get_object_vars($object) as $key => $value) {
             if ($key === 'id') {
-                if (!is_string($object->id)) {
+                if (!is_string($value)) {
                     throw new ValidationException(
                         'property "id" has to be a string, "' .
-                        gettype($object->id) . '" given.'
+                        gettype($value) . '" given.'
                     );
                 }
 
-                $this->set('id', strval($object->id));
+                $this->set('id', strval($value));
             } elseif ($key === 'links') {
-                $this->set('links', $this->create('ErrorLink', $object->links));
+                $this->set('links', $this->create('ErrorLink', $value));
             } elseif ($key === 'status') {
-                if (!is_string($object->status)) {
+                if (!is_string($value)) {
                     throw new ValidationException(
                         'property "status" has to be a string, "' .
-                        gettype($object->status) . '" given.'
+                        gettype($value) . '" given.'
                     );
                 }
 
-                $this->set('status', strval($object->status));
+                $this->set('status', strval($value));
             } elseif ($key === 'code') {
-                if (!is_string($object->code)) {
+                if (!is_string($value)) {
                     throw new ValidationException(
                         'property "code" has to be a string, "' .
-                        gettype($object->code) . '" given.'
+                        gettype($value) . '" given.'
                     );
                 }
 
-                $this->set('code', strval($object->code));
+                $this->set('code', strval($value));
             } elseif ($key === 'title') {
-                if (!is_string($object->title)) {
+                if (!is_string($value)) {
                     throw new ValidationException(
                         'property "title" has to be a string, "' .
-                        gettype($object->title) . '" given.'
+                        gettype($value) . '" given.'
                     );
                 }
 
-                $this->set('title', strval($object->title));
+                $this->set('title', strval($value));
             } elseif ($key === 'detail') {
-                if (!is_string($object->detail)) {
+                if (!is_string($value)) {
                     throw new ValidationException(
                         'property "detail" has to be a string, "' .
-                        gettype($object->detail) . '" given.'
+                        gettype($value) . '" given.'
                     );
                 }
 
-                $this->set('detail', strval($object->detail));
+                $this->set('detail', strval($value));
             } elseif ($key === 'source') {
-                $this->set('source', $this->create('ErrorSource', $object->source));
+                $this->set('source', $this->create('ErrorSource', $value));
             } elseif ($key === 'meta') {
-                $this->set('meta', $this->create('Meta', $object->meta));
+                $this->set('meta', $this->create('Meta', $value));
             } else {
                 $this->set($key, $value);
             }
