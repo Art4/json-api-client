@@ -31,13 +31,7 @@ final class Meta extends AbstractElement
             throw new ValidationException('Meta has to be an object, "' . gettype($object) . '" given.');
         }
 
-        $object_vars = get_object_vars($object);
-
-        if (count($object_vars) === 0) {
-            return;
-        }
-
-        foreach ($object_vars as $name => $value) {
+        foreach (get_object_vars($object) as $name => $value) {
             $this->set($name, $value);
         }
     }
