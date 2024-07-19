@@ -35,23 +35,22 @@ final class Relationship extends AbstractElement
             throw new ValidationException('A Relationship object MUST contain at least one of the following properties: links, data, meta');
         }
 
-        if (property_exists($object, 'data')) {
-            if ($object->data === null) {
-                $this->set('data', $object->data);
-            } elseif (is_array($object->data)) {
-                $this->set('data', $this->create('ResourceIdentifierCollection', $object->data));
+        foreach (get_object_vars($object) as $key => $value) {
+            if ($key === 'data') {
+                if ($value === null) {
+                    $this->set('data', $value);
+                } elseif (is_array($value)) {
+                    $this->set('data', $this->create('ResourceIdentifierCollection', $value));
+                } else {
+                    $this->set('data', $this->create('ResourceIdentifier', $value));
+                }
+            } elseif ($key === 'meta') {
+                $this->set('meta', $this->create('Meta', $value));
+            } elseif ($key === 'links') {
+                $this->set('links', $this->create('RelationshipLink', $value));
             } else {
-                $this->set('data', $this->create('ResourceIdentifier', $object->data));
+                $this->set($key, $value);
             }
-        }
-
-        if (property_exists($object, 'meta')) {
-            $this->set('meta', $this->create('Meta', $object->meta));
-        }
-
-        // Parse 'links' after 'data'
-        if (property_exists($object, 'links')) {
-            $this->set('links', $this->create('RelationshipLink', $object->links));
         }
     }
 
