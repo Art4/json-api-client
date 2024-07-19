@@ -43,19 +43,21 @@ class ErrorSourceTest extends TestCase
         $object = new \stdClass();
         $object->pointer = '/pointer';
         $object->parameter = 'parameter';
-        $object->ignore = 'must be ignored';
+        $object->fc = 'test property for forward compatability';
 
         $source = new ErrorSource($object, $this->manager, $this->parent);
 
         $this->assertInstanceOf(ErrorSource::class, $source);
         $this->assertInstanceOf(Accessable::class, $source);
-        $this->assertSame($source->getKeys(), ['pointer', 'parameter']);
+        $this->assertSame(['pointer', 'parameter', 'fc'], $source->getKeys());
 
         $this->assertFalse($source->has('ignore'));
         $this->assertTrue($source->has('pointer'));
-        $this->assertSame($source->get('pointer'), '/pointer');
+        $this->assertSame('/pointer', $source->get('pointer'));
         $this->assertTrue($source->has('parameter'));
-        $this->assertSame($source->get('parameter'), 'parameter');
+        $this->assertSame('parameter', $source->get('parameter'));
+        $this->assertTrue($source->has('fc'));
+        $this->assertSame('test property for forward compatability', $source->get('fc'));
 
         // test get() with not existing key throws an exception
         $this->assertFalse($source->has('something'));

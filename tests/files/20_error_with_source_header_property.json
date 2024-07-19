@@ -1,0 +1,12 @@
+{
+  "errors": [
+    {
+      "source": {
+        "header": "Content-Type"
+      }
+    }
+  ],
+  "jsonapi": {
+    "version": "1.1"
+  }
+}
