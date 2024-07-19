@@ -47,11 +47,12 @@ final class ResourceIdentifier extends AbstractElement
             throw new ValidationException('A resource id MUST be a string');
         }
 
-        $this->set('type', $object->type);
-        $this->set('id', $object->id);
-
-        if (property_exists($object, 'meta')) {
-            $this->set('meta', $this->create('Meta', $object->meta));
+        foreach (get_object_vars($object) as $key => $value) {
+            if ($key === 'meta') {
+                $this->set('meta', $this->create('Meta', $value));
+            } else {
+                $this->set($key, $value);
+            }
         }
     }
 

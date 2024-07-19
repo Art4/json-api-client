@@ -60,16 +60,21 @@ class ResourceIdentifierTest extends TestCase
         $object->type = 'types';
         $object->id = '159';
         $object->meta = new \stdClass();
+        $object->fc = 'test property for forward compatability';
 
         $identifier = new ResourceIdentifier($object, $this->manager, $this->parent);
 
         $this->assertInstanceOf(ResourceIdentifier::class, $identifier);
 
-        $this->assertSame($identifier->get('type'), 'types');
-        $this->assertSame($identifier->get('id'), '159');
+        $this->assertSame(['type', 'id', 'meta', 'fc'], $identifier->getKeys());
+        $this->assertTrue($identifier->has('type'));
+        $this->assertSame('types', $identifier->get('type'));
+        $this->assertTrue($identifier->has('id'));
+        $this->assertSame('159', $identifier->get('id'));
         $this->assertTrue($identifier->has('meta'));
         $this->assertInstanceOf(Accessable::class, $identifier->get('meta'));
-        $this->assertSame($identifier->getKeys(), ['type', 'id', 'meta']);
+        $this->assertTrue($identifier->has('fc'));
+        $this->assertSame('test property for forward compatability', $identifier->get('fc'));
     }
 
     /**
