@@ -46,29 +46,35 @@ class ErrorTest extends TestCase
         $object->detail = 'detail';
         $object->source = new \stdClass();
         $object->meta = new \stdClass();
+        $object->fc = 'test property for forward compatability';
 
         $error = new Error($object, $this->manager, $this->parent);
 
         $this->assertInstanceOf(Error::class, $error);
         $this->assertInstanceOf(Accessable::class, $error);
-        $this->assertSame($error->getKeys(), ['id', 'links', 'status', 'code', 'title', 'detail', 'source', 'meta']);
+        $this->assertSame(
+            ['id', 'links', 'status', 'code', 'title', 'detail', 'source', 'meta', 'fc'],
+            $error->getKeys(),
+        );
 
         $this->assertTrue($error->has('id'));
-        $this->assertSame($error->get('id'), 'id');
+        $this->assertSame('id', $error->get('id'));
         $this->assertTrue($error->has('links'));
         $this->assertInstanceOf(Accessable::class, $error->get('links'));
         $this->assertTrue($error->has('status'));
-        $this->assertSame($error->get('status'), 'status');
+        $this->assertSame('status', $error->get('status'));
         $this->assertTrue($error->has('code'));
-        $this->assertSame($error->get('code'), 'code');
+        $this->assertSame('code', $error->get('code'));
         $this->assertTrue($error->has('title'));
-        $this->assertSame($error->get('title'), 'title');
+        $this->assertSame('title', $error->get('title'));
         $this->assertTrue($error->has('detail'));
-        $this->assertSame($error->get('detail'), 'detail');
+        $this->assertSame('detail', $error->get('detail'));
         $this->assertTrue($error->has('source'));
         $this->assertInstanceOf(Accessable::class, $error->get('source'));
         $this->assertTrue($error->has('meta'));
         $this->assertInstanceOf(Accessable::class, $error->get('meta'));
+        $this->assertTrue($error->has('fc'));
+        $this->assertSame('test property for forward compatability', $error->get('fc'));
 
         // test get() with not existing key throws an exception
         $this->assertFalse($error->has('something'));
