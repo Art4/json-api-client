@@ -14,13 +14,16 @@
       },
       "links": {
         "self": {
-          "href": "http://parties.api/v1/parties/1"
+          "href": "https://parties.api/v1/parties/1"
         }
       }
     }
   ],
   "included": [],
   "links": {
+    "describedby": {
+      "href": "http://example.com/schemas/parties"
+    },
     "self": {
       "href": "?page[number]=1&page[size]=10"
     },
