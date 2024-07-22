@@ -35,6 +35,7 @@ class SerializerTest extends TestCase
         $requestFiles = [
             '14_create_resource_without_id.json',
             '15_create_resource_without_id.json',
+            '16_create_resource_with_lid.json',
         ];
 
         $filenames = glob($path . '*.json');

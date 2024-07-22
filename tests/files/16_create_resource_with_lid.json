@@ -1,0 +1,18 @@
+{
+  "data": {
+    "type": "photos",
+    "lid": "2d81d40d-fa78-4d34-acd1-b66a39a343d5",
+    "attributes": {
+      "title": "Ember Hamster",
+      "src": "http://example.com/images/productivity.png"
+    },
+    "relationships": {
+      "photographer": {
+        "data": {
+          "type": "people",
+          "id": "2d81d40d-fa78-4d34-acd1-b66a39a343d5"
+        }
+      }
+    }
+  }
+}
