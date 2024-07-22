@@ -46,13 +46,6 @@ class SerializerTest extends TestCase
         foreach ($filenames as $file) {
             $filename = str_replace($path, '', $file);
 
-            // Ignore files with errors
-            if (in_array($filename, [
-                '16_type_and_id_as_integer.json',
-            ])) {
-                continue;
-            }
-
             $files[] = [
                 $filename,
                 in_array($filename, $requestFiles),

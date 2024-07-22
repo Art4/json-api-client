@@ -610,7 +610,9 @@ class ParsingTest extends TestCase
     public function testExceptionIfIdIsNotString(): void
     {
         $this->expectException(\Art4\JsonApiClient\Exception\ValidationException::class);
-        $string = $this->getJsonString('16_type_and_id_as_integer.json');
+        $this->expectExceptionMessage('A resource id MUST be a string');
+
+        $string = $this->getJsonString('invalid/resource_id_must_be_a_string.json');
         $document = Parser::parseResponseString($string);
     }
 
