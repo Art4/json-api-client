@@ -1,13 +1,15 @@
 {
-    "meta": {},
-    "jsonapi": {
-      "version": "1.1",
-      "ext": [
-        "https://jsonapi.org/ext/atomic"
-      ],
-      "profile": [
-        "http://example.com/profiles/flexible-pagination",
-        "http://example.com/profiles/resource-versioning"
-      ]
-    }
+  "meta": {
+    "note": "BC 1.0: A document MUST contain at least one of the following top-level members: data, errors, meta"
+  },
+  "jsonapi": {
+    "version": "1.1",
+    "ext": [
+      "https://jsonapi.org/ext/atomic"
+    ],
+    "profile": [
+      "http://example.com/profiles/flexible-pagination",
+      "http://example.com/profiles/resource-versioning"
+    ]
   }
+}

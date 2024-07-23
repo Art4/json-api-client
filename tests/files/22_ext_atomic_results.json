@@ -1,0 +1,19 @@
+{
+  "atomic:results": [
+    {
+      "data": {
+        "links": {
+          "self": "http://example.com/blogPosts/13"
+        },
+        "type": "articles",
+        "id": "13",
+        "attributes": {
+          "title": "JSON API paints my bikeshed!"
+        }
+      }
+    }
+  ],
+  "meta": {
+    "note": "BC 1.0: A document MUST contain at least one of the following top-level members: data, errors, meta"
+  }
+}

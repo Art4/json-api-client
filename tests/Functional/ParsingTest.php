@@ -65,6 +65,7 @@ class ParsingTest extends TestCase
         $this->assertFalse($document->has('meta'));
         $this->assertFalse($document->has('jsonapi'));
         $this->assertFalse($document->has('links'));
+        $this->assertFalse($document->has('relationships'));
         $this->assertFalse($document->has('included'));
         $this->assertTrue($document->has('data'));
 
@@ -76,9 +77,12 @@ class ParsingTest extends TestCase
         $this->assertTrue($resource->has('id'));
         $this->assertSame($resource->get('id'), '1');
         $this->assertTrue($resource->has('attributes'));
-        $this->assertInstanceOf(Attributes::class, $resource->get('attributes'));
-        $this->assertTrue($resource->has('relationships'));
-        $this->assertInstanceOf(RelationshipCollection::class, $resource->get('relationships'));
+
+        $attributes = $resource->get('attributes');
+
+        $this->assertInstanceOf(Attributes::class, $attributes);
+        $this->assertTrue($attributes->has('title'));
+        $this->assertSame($attributes->get('title'), 'JSON API paints my bikeshed!');
     }
 
     public function testParseSimpleResourceIdentifier(): void

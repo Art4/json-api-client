@@ -3,8 +3,7 @@
     "type": "articles",
     "id": "1",
     "attributes": {
-    },
-    "relationships": {
+      "title": "JSON API paints my bikeshed!"
     }
   }
 }

@@ -47,7 +47,7 @@ class SerializerTest extends TestCase
         foreach ($filenames as $file) {
             $filename = str_replace($path, '', $file);
 
-            $files[] = [
+            $files[$filename] = [
                 $filename,
                 in_array($filename, $requestFiles),
             ];
@@ -71,12 +71,10 @@ class SerializerTest extends TestCase
 
         $document = $manager->parse($input);
 
-        $expected = json_decode($string, true);
-
         // Test full array
-        $this->assertEquals(
-            $expected,
-            (new ArraySerializer(['recursive' => true]))->serialize($document),
+        $this->assertJsonStringEqualsJsonString(
+            $string,
+            json_encode((new ArraySerializer(['recursive' => true]))->serialize($document), JSON_PRETTY_PRINT),
             $filename
         );
     }
