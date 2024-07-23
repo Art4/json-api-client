@@ -35,6 +35,7 @@ class SerializerTest extends TestCase
         $requestFiles = [
             '14_create_resource_without_id.json',
             '15_create_resource_without_id.json',
+            '16_create_resource_with_lid.json',
         ];
 
         $filenames = glob($path . '*.json');
@@ -46,14 +47,7 @@ class SerializerTest extends TestCase
         foreach ($filenames as $file) {
             $filename = str_replace($path, '', $file);
 
-            // Ignore files with errors
-            if (in_array($filename, [
-                '16_type_and_id_as_integer.json',
-            ])) {
-                continue;
-            }
-
-            $files[] = [
+            $files[$filename] = [
                 $filename,
                 in_array($filename, $requestFiles),
             ];
@@ -77,17 +71,10 @@ class SerializerTest extends TestCase
 
         $document = $manager->parse($input);
 
-        $expected = json_decode($string, true);
-        // TODO #90: Add support for unknown properties
-        //** @phpstan-ignore-next-line */
-        unset($expected['jsonapi']['ext']);
-        //** @phpstan-ignore-next-line */
-        unset($expected['jsonapi']['profile']);
-
         // Test full array
-        $this->assertEquals(
-            $expected,
-            (new ArraySerializer(['recursive' => true]))->serialize($document),
+        $this->assertJsonStringEqualsJsonString(
+            $string,
+            json_encode((new ArraySerializer(['recursive' => true]))->serialize($document), JSON_PRETTY_PRINT),
             $filename
         );
     }

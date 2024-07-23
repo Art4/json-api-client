@@ -42,12 +42,12 @@ class RelationshipLinkTest extends TestCase
         $this->relationship->expects($this->any())
             ->method('has')
             ->with($this->equalTo('data'))
-            ->will($this->returnValue(true));
+            ->willReturn(true);
 
         $this->relationship->expects($this->any())
             ->method('get')
             ->with($this->equalTo('data'))
-            ->will($this->returnValue($collection));
+            ->willReturn($collection);
     }
 
     /**
@@ -136,7 +136,7 @@ class RelationshipLinkTest extends TestCase
         $relationship->expects($this->any())
             ->method('has')
             ->with($this->equalTo('data'))
-            ->will($this->returnValue(false));
+            ->willReturn(false);
 
         $link = new RelationshipLink($object, $this->manager, $relationship);
 
@@ -173,7 +173,7 @@ class RelationshipLinkTest extends TestCase
         $relationship->expects($this->any())
             ->method('has')
             ->with($this->equalTo('data'))
-            ->will($this->returnValue(true));
+            ->willReturn(true);
 
         // Mock identifier item
         $data = $this->createMock(Accessable::class);
@@ -181,7 +181,7 @@ class RelationshipLinkTest extends TestCase
         $relationship->expects($this->any())
             ->method('get')
             ->with($this->equalTo('data'))
-            ->will($this->returnValue($data));
+            ->willReturn($data);
 
         $link = new RelationshipLink($object, $this->manager, $relationship);
 

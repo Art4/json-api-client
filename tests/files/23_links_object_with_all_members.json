@@ -1,0 +1,26 @@
+{
+  "links": {
+    "self": {
+      "href": "http://example.com/schemas/parties",
+      "rel": "http://example.com/schemas/parties",
+      "describedby": "http://example.com/schemas/parties",
+      "title": "Parties",
+      "type": "party",
+      "hreflang": "en-GB",
+      "fc": "test property for forward compatability",
+      "@member": "@-Members MUST be ignored",
+      "meta": {
+        "count": 10
+      }
+    },
+    "related": {
+      "href": "http://example.com/schemas/parties"
+    },
+    "describedby": {
+      "href": "http://example.com/schemas/parties"
+    }
+  },
+  "meta": {
+    "note": "BC 1.0: A document MUST contain at least one of the following top-level members: data, errors, meta"
+  }
+}

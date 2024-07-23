@@ -33,7 +33,7 @@ class DocumentLinkTest extends TestCase
         $this->parent->expects($this->any())
             ->method('has')
             ->with('data')
-            ->will($this->returnValue(true));
+            ->willReturn(true);
     }
 
     /**

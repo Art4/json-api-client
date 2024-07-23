@@ -31,20 +31,22 @@ final class ErrorSource extends AbstractElement
             throw new ValidationException('ErrorSource has to be an object, "' . gettype($object) . '" given.');
         }
 
-        if (property_exists($object, 'pointer')) {
-            if (!is_string($object->pointer)) {
-                throw new ValidationException('property "pointer" has to be a string, "' . gettype($object->pointer) . '" given.');
+        foreach (get_object_vars($object) as $key => $value) {
+            if ($key === 'pointer') {
+                if (!is_string($value)) {
+                    throw new ValidationException('property "pointer" has to be a string, "' . gettype($value) . '" given.');
+                }
+
+                $this->set('pointer', strval($value));
+            } elseif ($key === 'parameter') {
+                if (!is_string($value)) {
+                    throw new ValidationException('property "parameter" has to be a string, "' . gettype($value) . '" given.');
+                }
+
+                $this->set('parameter', strval($value));
+            } else {
+                $this->set($key, $value);
             }
-
-            $this->set('pointer', strval($object->pointer));
-        }
-
-        if (property_exists($object, 'parameter')) {
-            if (!is_string($object->parameter)) {
-                throw new ValidationException('property "parameter" has to be a string, "' . gettype($object->parameter) . '" given.');
-            }
-
-            $this->set('parameter', strval($object->parameter));
         }
     }
 

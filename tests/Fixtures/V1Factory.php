@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Art4\JsonApiClient\Tests\Fixtures;
 
 use Art4\JsonApiClient\Factory as FactoryInterface;
+use PHPUnit\Framework\MockObject\MockBuilder;
 use PHPUnit\Framework\TestCase;
 
 final class V1Factory implements FactoryInterface
@@ -33,11 +34,10 @@ final class V1Factory implements FactoryInterface
      */
     public function make($name, array $args = [])
     {
-        return $this->testcase->getMockBuilder(AccessableElement::class)
+        return (new MockBuilder($this->testcase, AccessableElement::class))
             ->disableOriginalConstructor()
             ->disableOriginalClone()
-            ->disableArgumentCloning()
-            ->disallowMockingUnknownTypes()
-            ->getMock();
+            ->getMock()
+        ;
     }
 }

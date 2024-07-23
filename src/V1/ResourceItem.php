@@ -39,8 +39,6 @@ final class ResourceItem extends AbstractElement
             throw new ValidationException('A resource type MUST be a string');
         }
 
-        $this->set('type', $object->type);
-
         if (
             $this->getManager()->getParam('optional_item_id', false) === false
             or !$this->getParent()->has('data') // If parent has no `data` than parent is a ResourceCollection
@@ -52,24 +50,18 @@ final class ResourceItem extends AbstractElement
             if (!is_string($object->id)) {
                 throw new ValidationException('A resource id MUST be a string');
             }
-
-            $this->set('id', $object->id);
         }
 
-        if (property_exists($object, 'meta')) {
-            $this->set('meta', $this->create('Meta', $object->meta));
-        }
+        foreach (get_object_vars($object) as $key => $value) {
+            $value = match ($key) {
+                'meta' => $this->create('Meta', $value),
+                'attributes' => $this->create('Attributes', $value),
+                'relationships' => $this->create('RelationshipCollection', $value),
+                'links' => $this->create('ResourceItemLink', $value),
+                default => $value,
+            };
 
-        if (property_exists($object, 'attributes')) {
-            $this->set('attributes', $this->create('Attributes', $object->attributes));
-        }
-
-        if (property_exists($object, 'relationships')) {
-            $this->set('relationships', $this->create('RelationshipCollection', $object->relationships));
-        }
-
-        if (property_exists($object, 'links')) {
-            $this->set('links', $this->create('ResourceItemLink', $object->links));
+            $this->set($key, $value);
         }
     }
 

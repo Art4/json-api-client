@@ -38,15 +38,18 @@ class RelationshipTest extends TestCase
     {
         $object = new \stdClass();
         $object->meta = new \stdClass();
+        $object->fc = 'test property for forward compatability';
 
         $relationship = new Relationship($object, $this->manager, $this->parent);
 
         $this->assertInstanceOf(Relationship::class, $relationship);
         $this->assertInstanceOf(Accessable::class, $relationship);
 
+        $this->assertSame(['meta', 'fc'], $relationship->getKeys());
         $this->assertTrue($relationship->has('meta'));
-
-        $meta = $relationship->get('meta');
+        $this->assertInstanceOf(Accessable::class, $relationship->get('meta'));
+        $this->assertTrue($relationship->has('fc'));
+        $this->assertSame('test property for forward compatability', $relationship->get('fc'));
 
         // test get() with not existing key throws an exception
         $this->assertFalse($relationship->has('something'));

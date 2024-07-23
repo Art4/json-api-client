@@ -31,16 +31,19 @@ final class Jsonapi extends AbstractElement
             throw new ValidationException('Jsonapi has to be an object, "' . gettype($object) . '" given.');
         }
 
-        if (property_exists($object, 'version')) {
-            if (is_object($object->version) or is_array($object->version)) {
-                throw new ValidationException('property "version" cannot be an object or array, "' . gettype($object->version) . '" given.');
-            }
-
-            $this->set('version', strval($object->version));
+        if (property_exists($object, 'version') and (is_object($object->version) or is_array($object->version))) {
+            throw new ValidationException('property "version" cannot be an object or array, "' . gettype($object->version) . '" given.');
         }
 
-        if (property_exists($object, 'meta')) {
-            $this->set('meta', $this->create('Meta', $object->meta));
+        foreach (get_object_vars($object) as $key => $value) {
+            $value = match ($key) {
+                /** @phpstan-ignore-next-line */
+                'version' => strval($value),
+                'meta' => $this->create('Meta', $value),
+                default => $value,
+            };
+
+            $this->set($key, $value);
         }
     }
 
