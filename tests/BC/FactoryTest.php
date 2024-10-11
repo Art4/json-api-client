@@ -23,7 +23,7 @@ class FactoryTest extends TestCase
          *
          * This anonymous class represents an implementation in user code
          */
-        $class = new class () implements Factory {
+        $class = new class implements Factory {
             /**
              * Create a new instance of a class
              *

@@ -23,7 +23,7 @@ class RequestInputTest extends TestCase
          *
          * This anonymous class represents an implementation in user code
          */
-        $class = new class () implements RequestInput {};
+        $class = new class implements RequestInput {};
 
         $this->assertInstanceOf(RequestInput::class, $class);
     }

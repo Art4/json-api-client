@@ -13,7 +13,7 @@
         }
     ],
     "require": {
-        "php": "~8.1.0 || ~8.2.0 || ~8.3.0"
+        "php": "~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.40",
@@ -32,12 +32,17 @@
         }
     },
     "scripts": {
-        "codestyle": "php-cs-fixer fix --verbose --diff",
+        "codestyle": "php-cs-fixer fix",
         "coverage": "phpunit --coverage-html=\".phpunit.cache/code-coverage\"",
         "phpstan": "phpstan analyze --memory-limit 512M --configuration .phpstan.neon",
         "phpunit": "phpunit",
         "reuse-annotate": "pipx run reuse annotate src tests --license=\"GPL-3.0-or-later\" --copyright=\"2015-2023 Artur Weigandt https://wlabs.de/kontakt\" --recursive --exclude-year --copyright-style=\"spdx\"",
-        "reuse-lint": "pipx run reuse --suppress-deprecation lint"
+        "reuse-lint": "pipx run reuse --suppress-deprecation lint",
+        "test": [
+            "@phpstan",
+            "@phpunit",
+            "@codestyle --dry-run --diff"
+        ]
     },
     "config": {
         "sort-packages": true

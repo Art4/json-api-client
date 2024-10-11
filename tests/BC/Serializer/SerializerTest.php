@@ -24,7 +24,7 @@ class SerializerTest extends TestCase
          *
          * This anonymous class represents an implementation in user code
          */
-        $class = new class () implements Serializer {
+        $class = new class implements Serializer {
             /**
              * Serialize data
              *
