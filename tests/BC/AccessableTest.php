@@ -23,7 +23,7 @@ class AccessableTest extends TestCase
          *
          * This anonymous class represents an implementation in user code
          */
-        $class = new class () implements Accessable {
+        $class = new class implements Accessable {
             /**
              * Get a value by a key
              *

@@ -24,7 +24,7 @@ class ManagerTest extends TestCase
          *
          * This anonymous class represents an implementation in user code
          */
-        $class = new class () implements Manager {
+        $class = new class implements Manager {
             /**
              * Parse the input
              *

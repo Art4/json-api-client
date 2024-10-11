@@ -23,7 +23,7 @@ class ExceptionTest extends TestCase
          *
          * This anonymous class represents an implementation in user code
          */
-        $class = new class () implements Exception {};
+        $class = new class implements Exception {};
 
         $this->assertInstanceOf(Exception::class, $class);
     }

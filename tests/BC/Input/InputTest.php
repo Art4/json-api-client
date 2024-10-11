@@ -23,7 +23,7 @@ class InputTest extends TestCase
          *
          * This anonymous class represents an implementation in user code
          */
-        $class = new class () implements Input {
+        $class = new class implements Input {
             /**
              * Get the input as simple object
              *
