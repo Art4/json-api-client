@@ -1,8 +1,6 @@
 # SPDX-FileCopyrightText: 2015-2023 Artur Weigandt https://wlabs.de/kontakt
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-version: "3.7"
-
 services:
     php:
         # Info to build the Docker image
@@ -10,7 +8,7 @@ services:
             # Specify where the Dockerfile is located (e.g. in the root directory of the project)
             context: .docker
             # Specify the name of the Dockerfile for changing the PHP version
-            dockerfile: PHP83-Dockerfile
+            dockerfile: PHP84-Dockerfile
         # Modifiy Ports for every project: <outside>:<inside>
         ports:
             - 8200:80
