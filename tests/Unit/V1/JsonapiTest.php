@@ -48,7 +48,9 @@ class JsonapiTest extends TestCase
 
         $jsonapi = new Jsonapi($object, $this->manager, $this->parent);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Jsonapi::class, $jsonapi);
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Accessable::class, $jsonapi);
         $this->assertSame($jsonapi->getKeys(), ['version', 'meta']);
 
@@ -106,6 +108,7 @@ class JsonapiTest extends TestCase
 
         $jsonapi = new Jsonapi($object, $this->manager, $this->parent);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Jsonapi::class, $jsonapi);
         $this->assertSame($jsonapi->getKeys(), ['version']);
 

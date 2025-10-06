@@ -44,7 +44,9 @@ class ErrorCollectionTest extends TestCase
 
         $collection = new ErrorCollection($errors, $this->manager, $this->parent);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(ErrorCollection::class, $collection);
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Accessable::class, $collection);
 
         $this->assertSame($collection->getKeys(), [0, 1]);
@@ -94,6 +96,7 @@ class ErrorCollectionTest extends TestCase
 
         $collection = new ErrorCollection($errors, $this->manager, $this->parent);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(ErrorCollection::class, $collection);
 
         $this->assertFalse($collection->has(1));

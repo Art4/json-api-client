@@ -33,7 +33,7 @@ class DocumentLinkTest extends TestCase
         $this->parent->expects($this->any())
             ->method('has')
             ->with('data')
-            ->will($this->returnValue(true));
+            ->willReturn(true);
     }
 
     /**
@@ -59,6 +59,7 @@ class DocumentLinkTest extends TestCase
 
         $link = new DocumentLink($object, $this->manager, $this->parent);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Accessable::class, $link);
         $this->assertSame([
             'self',

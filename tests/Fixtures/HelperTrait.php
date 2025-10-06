@@ -166,7 +166,7 @@ trait HelperTrait
 
         $this->manager->expects($this->any())
             ->method('getFactory')
-            ->will($this->returnValue($factory));
+            ->willReturn($factory);
 
         $this->manager->expects($this->any())
             ->method('getParam')
@@ -177,7 +177,7 @@ trait HelperTrait
     /**
      * returns a json string from a file
      */
-    protected function getJsonString(mixed $filename): string
+    protected function getJsonString(string $filename): string
     {
         return strval(file_get_contents(__DIR__ . '/../files/' . $filename));
     }

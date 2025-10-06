@@ -38,6 +38,7 @@ class ElementTest extends TestCase
             public function __construct($data, Manager $manager, Accessable $parent) {}
         };
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Element::class, $class);
     }
 }

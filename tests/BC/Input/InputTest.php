@@ -30,8 +30,6 @@ class InputTest extends TestCase
              * This should be a native PH stdClass object, so Manager could
              * iterate over all public attributes
              *
-             * @throws \Art4\JsonApiClient\Exception\InputException if something went wrong with the input
-             *
              * @return \stdClass
              */
             public function getAsObject()
@@ -40,6 +38,7 @@ class InputTest extends TestCase
             }
         };
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Input::class, $class);
     }
 }

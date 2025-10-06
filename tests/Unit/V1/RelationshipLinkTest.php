@@ -42,12 +42,12 @@ class RelationshipLinkTest extends TestCase
         $this->relationship->expects($this->any())
             ->method('has')
             ->with($this->equalTo('data'))
-            ->will($this->returnValue(true));
+            ->willReturn(true);
 
         $this->relationship->expects($this->any())
             ->method('get')
             ->with($this->equalTo('data'))
-            ->will($this->returnValue($collection));
+            ->willReturn($collection);
     }
 
     /**
@@ -76,7 +76,9 @@ class RelationshipLinkTest extends TestCase
 
         $link = new RelationshipLink($object, $this->manager, $this->relationship);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(RelationshipLink::class, $link);
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Accessable::class, $link);
         $this->assertSame($link->getKeys(), ['self', 'related', 'first', 'last', 'prev', 'next', 'custom', 'meta']);
 
@@ -136,10 +138,11 @@ class RelationshipLinkTest extends TestCase
         $relationship->expects($this->any())
             ->method('has')
             ->with($this->equalTo('data'))
-            ->will($this->returnValue(false));
+            ->willReturn(false);
 
         $link = new RelationshipLink($object, $this->manager, $relationship);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(RelationshipLink::class, $link);
         $this->assertSame($link->getKeys(), ['self', 'first', 'last', 'prev', 'next']);
 
@@ -173,7 +176,7 @@ class RelationshipLinkTest extends TestCase
         $relationship->expects($this->any())
             ->method('has')
             ->with($this->equalTo('data'))
-            ->will($this->returnValue(true));
+            ->willReturn(true);
 
         // Mock identifier item
         $data = $this->createMock(Accessable::class);
@@ -181,10 +184,11 @@ class RelationshipLinkTest extends TestCase
         $relationship->expects($this->any())
             ->method('get')
             ->with($this->equalTo('data'))
-            ->will($this->returnValue($data));
+            ->willReturn($data);
 
         $link = new RelationshipLink($object, $this->manager, $relationship);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(RelationshipLink::class, $link);
         $this->assertSame($link->getKeys(), ['self', 'first', 'last', 'prev', 'next']);
 

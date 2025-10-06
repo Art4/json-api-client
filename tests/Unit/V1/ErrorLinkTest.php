@@ -47,7 +47,9 @@ class ErrorLinkTest extends TestCase
 
         $link = new ErrorLink($object, $this->manager, $this->parent);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(ErrorLink::class, $link);
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Accessable::class, $link);
         $this->assertSame($link->getKeys(), ['about', 'meta', 'href']);
 
@@ -93,6 +95,7 @@ class ErrorLinkTest extends TestCase
 
         $link = new ErrorLink($object, $this->manager, $this->parent);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(ErrorLink::class, $link);
         $this->assertSame($link->getKeys(), ['about']);
 

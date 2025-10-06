@@ -44,7 +44,9 @@ class ResourceItemTest extends TestCase
 
         $item = new ResourceItem($object, $this->manager, $this->parent);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(ResourceItem::class, $item);
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Accessable::class, $item);
         $this->assertSame($item->getKeys(), ['type', 'id']);
 
@@ -81,6 +83,7 @@ class ResourceItemTest extends TestCase
 
         $item = new ResourceItem($object, $this->manager, $this->parent);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(ResourceItem::class, $item);
 
         $this->assertSame($item->get('type'), 'type');

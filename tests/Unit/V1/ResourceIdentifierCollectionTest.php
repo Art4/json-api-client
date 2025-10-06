@@ -38,7 +38,9 @@ class ResourceIdentifierCollectionTest extends TestCase
     {
         $collection = new ResourceIdentifierCollection([], $this->manager, $this->parent);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(ResourceIdentifierCollection::class, $collection);
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Accessable::class, $collection);
 
         $this->assertSame($collection->getKeys(), []);
@@ -61,7 +63,9 @@ class ResourceIdentifierCollectionTest extends TestCase
             $this->parent
         );
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(ResourceIdentifierCollection::class, $collection);
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Accessable::class, $collection);
 
         $this->assertSame($collection->getKeys(), [0, 1, 2]);
@@ -85,7 +89,9 @@ class ResourceIdentifierCollectionTest extends TestCase
 
         $collection = new ResourceIdentifierCollection([$object], $this->manager, $this->parent);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(ResourceIdentifierCollection::class, $collection);
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Accessable::class, $collection);
 
         $this->assertSame($collection->getKeys(), [0]);
@@ -114,6 +120,7 @@ class ResourceIdentifierCollectionTest extends TestCase
     {
         $collection = new ResourceIdentifierCollection([], $this->manager, $this->parent);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(ResourceIdentifierCollection::class, $collection);
 
         $this->assertFalse($collection->has(0));

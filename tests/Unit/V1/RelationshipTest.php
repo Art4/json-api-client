@@ -41,7 +41,9 @@ class RelationshipTest extends TestCase
 
         $relationship = new Relationship($object, $this->manager, $this->parent);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Relationship::class, $relationship);
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Accessable::class, $relationship);
 
         $this->assertTrue($relationship->has('meta'));
@@ -101,8 +103,8 @@ class RelationshipTest extends TestCase
         $object->links->self = 'http://example.org/self';
 
         $relationship = $relationship = new Relationship($object, $this->manager, $this->parent);
-        ;
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Relationship::class, $relationship);
         $this->assertSame($relationship->getKeys(), ['links']);
         $this->assertTrue($relationship->has('links'));
@@ -127,8 +129,8 @@ class RelationshipTest extends TestCase
         $object->data = $data;
 
         $relationship = $relationship = new Relationship($object, $this->manager, $this->parent);
-        ;
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Relationship::class, $relationship);
         $this->assertSame($relationship->getKeys(), ['data']);
         $this->assertTrue($relationship->has('data'));
@@ -145,8 +147,8 @@ class RelationshipTest extends TestCase
         $object->data = null;
 
         $relationship = $relationship = new Relationship($object, $this->manager, $this->parent);
-        ;
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Relationship::class, $relationship);
         $this->assertSame($relationship->getKeys(), ['data']);
         $this->assertTrue($relationship->has('data'));
@@ -167,8 +169,8 @@ class RelationshipTest extends TestCase
         $object->data = [$data_obj];
 
         $relationship = $relationship = new Relationship($object, $this->manager, $this->parent);
-        ;
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Relationship::class, $relationship);
         $this->assertSame($relationship->getKeys(), ['data']);
         $this->assertTrue($relationship->has('data'));
@@ -187,8 +189,8 @@ class RelationshipTest extends TestCase
         $object->data = [];
 
         $relationship = $relationship = new Relationship($object, $this->manager, $this->parent);
-        ;
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Relationship::class, $relationship);
         $this->assertSame($relationship->getKeys(), ['data']);
         $this->assertTrue($relationship->has('data'));
@@ -207,8 +209,8 @@ class RelationshipTest extends TestCase
         $object->meta = new \stdClass();
 
         $relationship = $relationship = new Relationship($object, $this->manager, $this->parent);
-        ;
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Relationship::class, $relationship);
         $this->assertSame($relationship->getKeys(), ['meta']);
         $this->assertTrue($relationship->has('meta'));

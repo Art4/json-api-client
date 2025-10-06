@@ -38,6 +38,7 @@ class FactoryTest extends TestCase
             }
         };
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Factory::class, $class);
     }
 }

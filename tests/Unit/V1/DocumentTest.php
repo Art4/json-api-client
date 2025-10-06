@@ -42,7 +42,9 @@ class DocumentTest extends TestCase
 
         $document = new Document($object, $this->manager, $this->parent);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Document::class, $document);
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Accessable::class, $document);
         $this->assertSame($document->getKeys(), ['meta']);
         $this->assertTrue($document->has('meta'));
@@ -74,6 +76,7 @@ class DocumentTest extends TestCase
 
         $document = new Document($object, $this->manager, $this->parent);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Document::class, $document);
         $this->assertSame($document->getKeys(), ['data', 'meta', 'included', 'jsonapi', 'links']);
         $this->assertTrue($document->has('data'));
@@ -135,6 +138,7 @@ class DocumentTest extends TestCase
 
         $document = new Document($object, $this->manager, $this->parent);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Document::class, $document);
         $this->assertTrue($document->has('data'));
 
@@ -156,6 +160,7 @@ class DocumentTest extends TestCase
 
         $document = new Document($object, $this->manager, $this->parent);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Document::class, $document);
 
         $this->assertTrue($document->has('data'));
@@ -178,6 +183,7 @@ class DocumentTest extends TestCase
 
         $document = new Document($object, $this->manager, $this->parent);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Document::class, $document);
         $this->assertTrue($document->has('data'));
 
@@ -198,6 +204,7 @@ class DocumentTest extends TestCase
 
         $document = new Document($object, $this->manager, $this->parent);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Document::class, $document);
         $this->assertTrue($document->has('data'));
 
@@ -220,6 +227,7 @@ class DocumentTest extends TestCase
 
         $document = new Document($object, $this->manager, $this->parent);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Document::class, $document);
         $this->assertTrue($document->has('data'));
 
@@ -240,6 +248,7 @@ class DocumentTest extends TestCase
 
             $document = new Document($object, $this->manager, $this->parent);
 
+            /** @phpstan-ignore-next-line */
             $this->assertInstanceOf(Document::class, $document);
             $this->assertTrue($document->has('data'));
 
@@ -257,6 +266,7 @@ class DocumentTest extends TestCase
 
             $document = new Document($object, $this->manager, $this->parent);
 
+            /** @phpstan-ignore-next-line */
             $this->assertInstanceOf(Document::class, $document);
             $this->assertTrue($document->has('data'));
 
@@ -289,6 +299,7 @@ class DocumentTest extends TestCase
 
         $document = new Document($object, $this->manager, $this->parent);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Document::class, $document);
         $this->assertSame($document->getKeys(), ['errors']);
         $this->assertTrue($document->has('errors'));
@@ -323,6 +334,7 @@ class DocumentTest extends TestCase
 
         $document = new Document($object, $this->manager, $this->parent);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Document::class, $document);
         $this->assertTrue($document->has('meta'));
 
@@ -341,6 +353,7 @@ class DocumentTest extends TestCase
 
         $document = new Document($object, $this->manager, $this->parent);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Document::class, $document);
         $this->assertTrue($document->has('jsonapi'));
 
@@ -359,6 +372,7 @@ class DocumentTest extends TestCase
 
         $document = new Document($object, $this->manager, $this->parent);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Document::class, $document);
         $this->assertTrue($document->has('links'));
 
@@ -383,6 +397,7 @@ class DocumentTest extends TestCase
 
         $document = new Document($object, $this->manager, $this->parent);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Document::class, $document);
         $this->assertTrue($document->has('included'));
 
