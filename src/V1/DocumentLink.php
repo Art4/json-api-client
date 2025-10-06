@@ -43,8 +43,8 @@ final class DocumentLink extends AbstractElement
         if (array_key_exists('self', $links)) {
             if (!is_string($links['self']) and !is_object($links['self'])) {
                 throw new ValidationException(
-                    'property "self" has to be a string or object, "' .
-                    gettype($links['self']) . '" given.'
+                    'property "self" has to be a string or object, "'
+                    . gettype($links['self']) . '" given.'
                 );
             }
 
@@ -56,8 +56,8 @@ final class DocumentLink extends AbstractElement
         if (array_key_exists('related', $links)) {
             if (!is_string($links['related']) and !is_object($links['related'])) {
                 throw new ValidationException(
-                    'property "related" has to be a string or object, "' .
-                    gettype($links['related']) . '" given.'
+                    'property "related" has to be a string or object, "'
+                    . gettype($links['related']) . '" given.'
                 );
             }
 
@@ -123,8 +123,8 @@ final class DocumentLink extends AbstractElement
     {
         if (!is_object($value) and !is_string($value) and !is_null($value)) {
             throw new ValidationException(
-                'property "' . $name . '" has to be an object, a string or null, "' .
-                gettype($value) . '" given.'
+                'property "' . $name . '" has to be an object, a string or null, "'
+                . gettype($value) . '" given.'
             );
         }
 
@@ -145,8 +145,8 @@ final class DocumentLink extends AbstractElement
     {
         if (!is_string($link) and !is_object($link)) {
             throw new ValidationException(
-                'Link attribute has to be an object or string, "' .
-                gettype($link) . '" given.'
+                'Link attribute has to be an object or string, "'
+                . gettype($link) . '" given.'
             );
         }
 

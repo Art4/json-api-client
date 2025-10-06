@@ -175,8 +175,8 @@ class AttributesTest extends TestCase
 
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage(
-            'These properties are not allowed in attributes: ' .
-            '`type`, `id`, `relationships`, `links`'
+            'These properties are not allowed in attributes: '
+            . '`type`, `id`, `relationships`, `links`'
         );
 
         $attributes = new Attributes(
