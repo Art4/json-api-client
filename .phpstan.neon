@@ -18,42 +18,6 @@ parameters:
 
 	ignoreErrors:
 		-
-			message: "#^Constructor of class Art4\\\\JsonApiClient\\\\V1\\\\ResourceNull has an unused parameter \\$data\\.$#"
-			count: 1
-			path: src/V1/ResourceNull.php
-			# parameter is required by Art4\JsonApiClient\Element
-
-		-
-			message: "#^Constructor of class Art4\\\\JsonApiClient\\\\V1\\\\ResourceNull has an unused parameter \\$manager\\.$#"
-			count: 1
-			path: src/V1/ResourceNull.php
-			# parameter is required by Art4\JsonApiClient\Element
-
-		-
-			message: "#^Constructor of class Art4\\\\JsonApiClient\\\\V1\\\\ResourceNull has an unused parameter \\$parent\\.$#"
-			count: 1
-			path: src/V1/ResourceNull.php
-			# parameter is required by Art4\JsonApiClient\Element
-
-		-
-			message: "#^Constructor of an anonymous class has an unused parameter \\$data\\.$#"
-			count: 1
-			path: tests/BC/ElementTest.php
-			# parameter is required by Art4\JsonApiClient\Element
-
-		-
-			message: "#^Constructor of an anonymous class has an unused parameter \\$manager\\.$#"
-			count: 1
-			path: tests/BC/ElementTest.php
-			# parameter is required by Art4\JsonApiClient\Element
-
-		-
-			message: "#^Constructor of an anonymous class has an unused parameter \\$parent\\.$#"
-			count: 1
-			path: tests/BC/ElementTest.php
-			# parameter is required by Art4\JsonApiClient\Element
-
-		-
 			message: "#^Parameter \\#1 \\$string of class Art4\\\\JsonApiClient\\\\Input\\\\RequestStringInput constructor expects string, mixed given\\.$#"
 			count: 1
 			path: tests/Unit/Input/RequestStringInputTest.php

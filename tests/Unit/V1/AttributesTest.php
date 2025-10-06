@@ -52,6 +52,7 @@ class AttributesTest extends TestCase
             $this->parent
         );
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Accessable::class, $attributes);
         $this->assertTrue($attributes->has('object'));
         $this->assertIsObject($attributes->get('object'));

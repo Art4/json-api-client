@@ -22,6 +22,7 @@ class RequestStringInputTest extends TestCase
     {
         $input = new RequestStringInput('{}');
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(\stdClass::class, $input->getAsObject());
     }
 

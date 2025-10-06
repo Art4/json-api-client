@@ -30,9 +30,6 @@ class ManagerTest extends TestCase
              *
              * @param \Art4\JsonApiClient\Input\Input $input
              *
-             * @throws \Art4\JsonApiClient\Exception\InputException If $input contains invalid JSON API
-             * @throws \Art4\JsonApiClient\Exception\ValidationException If $input contains invalid JSON API
-             *
              * @return \Art4\JsonApiClient\Accessable
              */
             public function parse(Input $input)
@@ -64,6 +61,7 @@ class ManagerTest extends TestCase
             }
         };
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Manager::class, $class);
     }
 }

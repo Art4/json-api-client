@@ -42,7 +42,9 @@ class ResourceIdentifierTest extends TestCase
 
         $identifier = new ResourceIdentifier($object, $this->manager, $this->parent);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(ResourceIdentifier::class, $identifier);
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Accessable::class, $identifier);
         $this->assertSame($identifier->getKeys(), ['type', 'id']);
 
@@ -63,6 +65,7 @@ class ResourceIdentifierTest extends TestCase
 
         $identifier = new ResourceIdentifier($object, $this->manager, $this->parent);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(ResourceIdentifier::class, $identifier);
 
         $this->assertSame($identifier->get('type'), 'types');

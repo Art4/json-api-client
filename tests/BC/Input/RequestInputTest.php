@@ -25,6 +25,7 @@ class RequestInputTest extends TestCase
          */
         $class = new class implements RequestInput {};
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(RequestInput::class, $class);
     }
 }

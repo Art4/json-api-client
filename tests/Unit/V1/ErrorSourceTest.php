@@ -47,7 +47,9 @@ class ErrorSourceTest extends TestCase
 
         $source = new ErrorSource($object, $this->manager, $this->parent);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(ErrorSource::class, $source);
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Accessable::class, $source);
         $this->assertSame($source->getKeys(), ['pointer', 'parameter']);
 

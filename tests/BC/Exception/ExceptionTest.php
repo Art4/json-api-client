@@ -25,6 +25,7 @@ class ExceptionTest extends TestCase
          */
         $class = new class implements Exception {};
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Exception::class, $class);
     }
 }

@@ -48,7 +48,9 @@ class RelationshipCollectionTest extends TestCase
 
         $collection = new RelationshipCollection($object, $this->manager, $item);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(RelationshipCollection::class, $collection);
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Accessable::class, $collection);
         $this->assertSame($collection->getKeys(), ['author']);
 
@@ -81,6 +83,7 @@ class RelationshipCollectionTest extends TestCase
 
         $collection = new RelationshipCollection($object, $this->manager, $item);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(RelationshipCollection::class, $collection);
     }
 
@@ -121,7 +124,7 @@ class RelationshipCollectionTest extends TestCase
         $item->expects($this->any())
             ->method('has')
             ->with($this->equalTo('attributes'))
-            ->will($this->returnValue(false));
+            ->willReturn(false);
 
         $object = new \stdClass();
         $object->id = '5';

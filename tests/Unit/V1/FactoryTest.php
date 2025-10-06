@@ -31,6 +31,7 @@ class FactoryTest extends TestCase
             $this->createMock(Accessable::class),
         ]);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(FactoryInterface::class, $factory);
         $this->assertInstanceOf(ResourceNull::class, $resource);
     }

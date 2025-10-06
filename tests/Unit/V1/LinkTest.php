@@ -43,6 +43,7 @@ class LinkTest extends TestCase
 
         $link = new Link($object, $this->manager, $this->parent);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Accessable::class, $link);
 
         $this->assertTrue($link->has('href'));

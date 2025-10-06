@@ -38,6 +38,7 @@ class SerializerTest extends TestCase
             }
         };
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Serializer::class, $class);
     }
 }

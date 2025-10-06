@@ -43,7 +43,9 @@ class ResourceItemLinkTest extends TestCase
 
         $link = new ResourceItemLink($object, $this->manager, $this->parent);
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(ResourceItemLink::class, $link);
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Accessable::class, $link);
         $this->assertSame($link->getKeys(), ['self', 'custom', 'related']);
 

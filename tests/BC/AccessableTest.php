@@ -59,6 +59,7 @@ class AccessableTest extends TestCase
             }
         };
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(Accessable::class, $class);
     }
 }

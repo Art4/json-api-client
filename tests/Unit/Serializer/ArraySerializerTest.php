@@ -23,7 +23,7 @@ class ArraySerializerTest extends TestCase
         $object2 = new \stdClass();
 
         $data = $this->createMock(Accessable::class);
-        $data->method('get')->will($this->returnValueMap([
+        $data->method('get')->willReturnMap([
             ['AccessObject', $object1],
             ['object', $object2],
             ['array', []],
@@ -31,7 +31,7 @@ class ArraySerializerTest extends TestCase
             ['integer', 1],
             ['boolean', true],
             ['null', null],
-        ]));
+        ]);
         $data->method('getKeys')->willReturn([
             'AccessObject',
             'object',
@@ -64,14 +64,14 @@ class ArraySerializerTest extends TestCase
         $stdObject->key = 'value';
 
         $object1 = $this->createMock(Accessable::class);
-        $object1->method('get')->will($this->returnValueMap([
+        $object1->method('get')->willReturnMap([
             ['object', $stdObject],
             ['array', []],
             ['string', 'string'],
             ['integer', 1],
             ['boolean', true],
             ['null', null],
-        ]));
+        ]);
         $object1->method('getKeys')->willReturn([
             'object',
             'array',
@@ -82,9 +82,9 @@ class ArraySerializerTest extends TestCase
         ]);
 
         $data = $this->createMock(Accessable::class);
-        $data->method('get')->will($this->returnValueMap([
+        $data->method('get')->willReturnMap([
             ['AccessObject', $object1],
-        ]));
+        ]);
         $data->method('getKeys')->willReturn([
             'AccessObject',
         ]);
