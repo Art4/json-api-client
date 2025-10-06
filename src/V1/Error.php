@@ -36,8 +36,8 @@ final class Error extends AbstractElement
         if (property_exists($object, 'id')) {
             if (!is_string($object->id)) {
                 throw new ValidationException(
-                    'property "id" has to be a string, "' .
-                    gettype($object->id) . '" given.'
+                    'property "id" has to be a string, "'
+                    . gettype($object->id) . '" given.'
                 );
             }
 
@@ -51,8 +51,8 @@ final class Error extends AbstractElement
         if (property_exists($object, 'status')) {
             if (!is_string($object->status)) {
                 throw new ValidationException(
-                    'property "status" has to be a string, "' .
-                    gettype($object->status) . '" given.'
+                    'property "status" has to be a string, "'
+                    . gettype($object->status) . '" given.'
                 );
             }
 
@@ -62,8 +62,8 @@ final class Error extends AbstractElement
         if (property_exists($object, 'code')) {
             if (!is_string($object->code)) {
                 throw new ValidationException(
-                    'property "code" has to be a string, "' .
-                    gettype($object->code) . '" given.'
+                    'property "code" has to be a string, "'
+                    . gettype($object->code) . '" given.'
                 );
             }
 
@@ -73,8 +73,8 @@ final class Error extends AbstractElement
         if (property_exists($object, 'title')) {
             if (!is_string($object->title)) {
                 throw new ValidationException(
-                    'property "title" has to be a string, "' .
-                    gettype($object->title) . '" given.'
+                    'property "title" has to be a string, "'
+                    . gettype($object->title) . '" given.'
                 );
             }
 
@@ -84,8 +84,8 @@ final class Error extends AbstractElement
         if (property_exists($object, 'detail')) {
             if (!is_string($object->detail)) {
                 throw new ValidationException(
-                    'property "detail" has to be a string, "' .
-                    gettype($object->detail) . '" given.'
+                    'property "detail" has to be a string, "'
+                    . gettype($object->detail) . '" given.'
                 );
             }
 
