@@ -67,8 +67,8 @@ final class RelationshipLink extends AbstractElement
         }
 
         // Pagination links
-        if ($this->getParent()->has('data') and
-            $this->getParent()->get('data') instanceof ResourceIdentifierCollection
+        if ($this->getParent()->has('data')
+            and $this->getParent()->get('data') instanceof ResourceIdentifierCollection
         ) {
             if (array_key_exists('first', $links)) {
                 $this->setPaginationLink('first', $links['first']);
